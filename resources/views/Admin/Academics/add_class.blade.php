@@ -62,6 +62,12 @@
                </div>
             </div>
       </div>
+<<<<<<< HEAD
+   </div>
+</section>
+</div>
+
+=======
       <!-- end row -->
 
       <div class="page-content-wrapper">
@@ -75,6 +81,7 @@
                                  <div class="box box-primary">
                                     <div class="box-header with-border">
                                        <h3 class="box-title">Add class</h3>
+>>>>>>> 14eb97018145a904f59c43d7ec7eea2fbed856f8
                                     </div>
                                     <form action="{{route('addclass')}}" id="addclass" name="classform" method="post" accept-charset="utf-8">
                                     
@@ -139,6 +146,45 @@
 
 
 
+<<<<<<< HEAD
+ <!-- Edit class using modal -->
+ <div class="form-feed modal fade" id="classEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="color:rgb(255, 255, 255); background-color: rgb(13, 189, 13);">
+                <h5 class="modal-title" id="exampleModalLabel">Edit class </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:rgb(255, 255, 255);">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+         <form action="{{route('updateclass')}}" id="editclass" name="classform" method="post" accept-charset="utf-8">
+            
+            <div class="box-body">
+             
+                  <div class="form-group" style="margin:10px">
+                     <input  id="classid"type="hidden" name="classid" value="">
+                     <label for="exampleInputclass1">class Name </label><small class="req"> *</small>
+                     <input autofocus="" id="classname" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
+                     <span class="text-danger"></span>
+                  </div>
+            </div>
+               <div class="box-footer">
+                  <button type="submit" class="btn btn-info pull-right">Save</button>
+              </div>
+               @csrf
+         </form>
+ </div>
+            </div>
+ </div>
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+=======
+>>>>>>> 14eb97018145a904f59c43d7ec7eea2fbed856f8
 <script>
 $(document).ready(function() {
     $('#claases_table').DataTable();

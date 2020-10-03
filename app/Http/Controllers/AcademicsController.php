@@ -14,19 +14,32 @@ class AcademicsController extends Controller
     //section controller function
     public function index_section(Request $request)
     {
-        $getsections = Kelex_class::all();
+        $data = DB::table('kelex_sections')
+        ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
+        ->select('kelex_sections.*', 'kelex_classes.Class_name')
+        ->orderBy('kelex_sections.section_id', 'asc')
+        ->get();
+
         $class= Kelex_class::all(); 
 
-        return view('admin.Academics.add_section')->with(['gsection'=>$getsections,'classes'=>$class]);
+        return view('admin.Academics.add_section')->with(['gsection'=>$data,'classes'=>$class]);
       
     }
     public function add_section(Request $request)
     {
            $section= new Kelex_section();
            $section->Section_name=$request->input('Section_name');
-           if ($section->save()) {
-                 return response()->json($section);
-            }
+           $section->Class_id=$request->input('Classes_id');
+           $section->save();
+           $data = DB::table('kelex_sections')
+            ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
+            ->where('kelex_sections.section_id', '=',$section->id )
+            ->select('kelex_sections.*', 'kelex_classes.Class_name')
+            ->orderBy('kelex_sections.section_id', 'asc')
+            ->get();
+           
+                 return response()->json($data);
+            
       
     }
     public function edit_section(Request $request)
@@ -41,12 +54,15 @@ class AcademicsController extends Controller
     {
          DB::table('kelex_sections')
         ->where('Section_id', $request->input('sectionid'))
-        ->update(['Section_Name' => $request->input('Section_name')]);
-
-        $sectionhthis= DB::table('kelex_sections')->where(['Section_id' => $request->sectionid])
+        ->update(['Section_Name' => $request->input('Section_name'),'Class_id' => $request->input('editClass_id')]);
+        $data = DB::table('kelex_sections')
+        ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
+        ->where('kelex_sections.section_id', '=',$request->sectionid)
+        ->select('kelex_sections.*', 'kelex_classes.Class_name')
+        ->orderBy('kelex_sections.section_id', 'asc')
         ->get();
          
-        return response()->json($sectionhthis);
+        return response()->json($data);
     }
     public function delete_section(Request $request)
     {
