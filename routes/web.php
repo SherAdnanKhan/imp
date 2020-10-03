@@ -13,7 +13,7 @@ use App\Http\Controllers\AcademicsController;
 |
 */
 Route::get('/a', function () {
-    return view('add_section_group');
+    return view('admin.academics.add_section_group');
 });
 Route::get('/', function () {
     return view('welcome');

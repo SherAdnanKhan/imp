@@ -101,6 +101,7 @@
    </div>
 </section>
 </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +113,7 @@
                 </div> <!-- content -->
 
  <!-- Edit class using modal -->
- <div class="modal fade" id="classEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="form-feed modal fade" id="classEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="color:rgb(255, 255, 255); background-color: rgb(13, 189, 13);">
