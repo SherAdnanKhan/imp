@@ -1,4 +1,4 @@
-@extends('Admin.AdminLayout.combinelayout')
+@extends('Admin.layout.master')
 @section('content')
 <div class="content-page">
                 <!-- Start content -->
@@ -75,10 +75,8 @@
             <div class="box-body ">
             
                <div class="table-responsive mailbox-messages">
-                  <div class="download_label">Section List</div>
+                
                   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-                     <div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div>
-                     <div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div>
                      <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                            <thead>
                               <tr role="row">
@@ -106,8 +104,6 @@
                                  @endforeach
                                        </tbody>
                             </table>
-                     <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 1 to 3 of 3</div>
-                     <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a></div>
                   </div>
                </div>
             </div>
@@ -160,6 +156,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
 <script>
+    $(document).ready( function () {
+            $('#DataTables_Table_0').DataTable();
+        } );
+     </script>
+<Script>
     $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -185,7 +186,7 @@ $('body').on('submit','#addsection',function(e){
                         <div>` + data[i].Class_name + ` </div>
                          </td>
                               <td class="mailbox-date pull-right">
-                              <button value="`+data[i].id+`" class="btn btn-default btn-xs editbtn"> edit </button>
+                              <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs editbtn"> edit </button>
                               <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs deletebtn"> delete </button>
                                  
                               </td>
@@ -197,7 +198,7 @@ $('body').on('submit','#addsection',function(e){
               }
       });
     });
-    $('body').on('click', '.editbtn',function () {
+    $(document).on('click', '.editbtn',function () {
         var sectionid = $(this).val();
         $.ajax({
             url: '{{url("editsection")}}',

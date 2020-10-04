@@ -11,15 +11,6 @@
         <meta content="Themesbrand" name="author" />
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
         <link rel="shortcut icon" href="{{asset('admin_assets/dist/img/ico/favicon.png')}}" type="image/x-icon">
-     <script
-    src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-    crossorigin="anonymous"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
-   
-     
-     
       <!-- Start Global Mandatory Style
          =====================================================================-->
       <!-- jquery-ui css -->
@@ -34,8 +25,6 @@
       <link href="{{asset('admin_assets/plugins/pace/flash.css')}}" rel="stylesheet" type="text/css"/>
       <!-- Font Awesome -->
       <link href="{{asset('admin_assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css"/>
-
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
       <!-- Pe-icon -->
       <link href="{{asset('admin_assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css')}}" rel="stylesheet" type="text/css"/>
       <!-- Themify icons -->
@@ -44,14 +33,63 @@
          =====================================================================-->
       <!-- Start page Label Plugins 
          =====================================================================-->
-      <!-- Emojionearea -->
-      <link href="{{asset('admin_assets/plugins/emojionearea/emojionearea.min.css')}}" rel="stylesheet" type="text/css"/>
-      <!-- Monthly css -->
-      <link href="{{asset('admin_assets/plugins/monthly/monthly.css')}}" rel="stylesheet" type="text/css"/>
+      @yield('page-css')
+      <!-- End page Label Plugins 
+         =====================================================================-->
+      <!-- Start Theme Layout Style
+         =====================================================================-->
+      <!-- Theme style -->
+      
+     
+      
       <link href="{{asset('admin_assets/dist/css/stylecrm.css')}}" rel="stylesheet" type="text/css"/>
+      <!-- Theme style rtl -->
+      <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
+      <!-- End Theme Layout Style
+         =====================================================================-->
 
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
     </head>
+<body >
+ 
+
+    <div class="wrapper">
+<!-- header below -->
+@include('Admin.layout.header')
+<!-- leftsidebar below -->
+@include('Admin.layout.sidebar')
+<!-- footer below -->
+@yield('content')
+@include('Admin.layout.footer')
+</div>
+
+
+<!-- ============================================================== -->
+<!-- End Right content here -->
+<!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+
+<!-- jQuery  -->
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/js/metisMenu.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
+<script src="{{asset('assets/js/waves.min.js')}}"></script>
+<!-- Required datatable js -->
+
+<script src="{{asset('assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
+ <!-- App js -->
+ <script src="{{asset('assets/js/app.js')}}"></script>
+
+@yield('customscript')
+</body>
+
+</html>
+
