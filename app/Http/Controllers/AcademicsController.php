@@ -91,7 +91,7 @@ class AcademicsController extends Controller
     }
     public function edit_class(Request $request)
     {
-
+        
         $currentclass= DB::table('kelex_classes')->where(['class_id' => $request->classid])
         ->get();
        echo json_encode($currentclass);
@@ -99,6 +99,7 @@ class AcademicsController extends Controller
     }
     public function update_class(Request $request)
     {
+      
          DB::table('kelex_classes')
         ->where('class_id', $request->input('classid'))
         ->update(['class_Name' => $request->input('class_name')]);

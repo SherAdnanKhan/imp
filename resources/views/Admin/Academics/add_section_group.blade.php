@@ -1,4 +1,5 @@
-@extends('Admin.AdminLayout.combinelayout')
+@extends('Admin.layout.master')
+
 @section("content")
 <div class="content-page">
                 <!-- Start content -->
