@@ -21,8 +21,8 @@
                   </div>
                </div>
             <div class="modal-footer">
-               <button type="submit" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
+               <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
             </div>
                @csrf
          </form>
@@ -42,13 +42,13 @@
       <div class="row">
             <div class="col-sm-12">
                <div class="page-title-box">
-                  <h4 class="page-title">Blank page</h4>
+                  <!-- <h4 class="page-title">Blank page</h4>
                   <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
                         <li class="breadcrumb-item active">Blank page</li>
-                  </ol>
-
+                  </ol> -->
+<!-- 
                   <div class="state-information d-none d-sm-block">
                         <div class="state-graph">
                            <div id="header-chart-1"></div>
@@ -58,21 +58,15 @@
                            <div id="header-chart-2"></div>
                            <div class="info">Item Sold 1230</div>
                         </div>
-                  </div>
+                  </div> -->
                </div>
             </div>
       </div>
-<<<<<<< HEAD
-   </div>
-</section>
-</div>
-
-=======
       <!-- end row -->
 
       <div class="page-content-wrapper">
             <div class="row">
-               <div class="col-9">
+               <div class="col-12">
                
                   <div class="card">
                         <div class="card-body">
@@ -81,7 +75,6 @@
                                  <div class="box box-primary">
                                     <div class="box-header with-border">
                                        <h3 class="box-title">Add class</h3>
->>>>>>> 14eb97018145a904f59c43d7ec7eea2fbed856f8
                                     </div>
                                     <form action="{{route('addclass')}}" id="addclass" name="classform" method="post" accept-charset="utf-8">
                                     
@@ -144,36 +137,6 @@
 </div> <!-- content -->
 
 
-
-
-<<<<<<< HEAD
- <!-- Edit class using modal -->
- <div class="form-feed modal fade" id="classEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="color:rgb(255, 255, 255); background-color: rgb(13, 189, 13);">
-                <h5 class="modal-title" id="exampleModalLabel">Edit class </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:rgb(255, 255, 255);">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-         <form action="{{route('updateclass')}}" id="editclass" name="classform" method="post" accept-charset="utf-8">
-            
-            <div class="box-body">
-             
-                  <div class="form-group" style="margin:10px">
-                     <input  id="classid"type="hidden" name="classid" value="">
-                     <label for="exampleInputclass1">class Name </label><small class="req"> *</small>
-                     <input autofocus="" id="classname" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
-                     <span class="text-danger"></span>
-                  </div>
-            </div>
-               <div class="box-footer">
-                  <button type="submit" class="btn btn-info pull-right">Save</button>
-              </div>
-               @csrf
-         </form>
- </div>
             </div>
  </div>
 <script
@@ -183,11 +146,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
-=======
->>>>>>> 14eb97018145a904f59c43d7ec7eea2fbed856f8
 <script>
-$(document).ready(function() {
-    $('#claases_table').DataTable();
+////////// Data tables /////////////////////////////////////////////
+$(document).ready(function() {                                    //
+    $('#claases_table').DataTable();                              //
 
     //Buttons examples
     var table = $('#datatable-buttons').DataTable({
@@ -198,14 +160,13 @@ $(document).ready(function() {
     table.buttons().container()
         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 } );
+////////////////////////////////////////////////////////////////////
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$(document).ready(function(){
-   $("body").children().first().before($(".modal"));
-});
+////////////////// Add Classs ////////////////////////////////////////
 $('body').on('submit','#addclass',function(e){
       e.preventDefault();
       var fdata = new FormData(this);
@@ -227,12 +188,14 @@ $('body').on('submit','#addclass',function(e){
                               </td>
                       </tr>`)
                       $("#addclass").get(0).reset();
+                       toastr.success('Record Added..','Notice');
               },
               error: function(error){
                 console.log(error);
               }
       });
     });
+    ////////////////////// EDit class /////////////////////////////////////////
     $('body').on('click', '.editbtn',function () {
         var classid = $(this).val();
         $.ajax({
@@ -255,6 +218,7 @@ $('body').on('submit','#addclass',function(e){
       $('.classEditModal').modal('show');
       
    });
+//////////////////////////// UPdate Class /////////////////////////////////
   $('body').on('submit','#editclass',function(e){
       e.preventDefault();
       var fdata = new FormData(this);
@@ -275,15 +239,19 @@ $('body').on('submit','#addclass',function(e){
                               <button value="`+data[i].Class_id+`" class="btn btn-warning  waves-effect waves-light  btn-sm deletebtn"> delete </button>
                                  
                               </td>
-                      </tr>`)
-                      $("#editclass").get(0).reset();
-                $('#classEditModal').modal('hide');
-             } },
+                      </tr>`);
+            
+               } 
+               $("#editclass").get(0).reset();
+                $('.classEditModal').modal('hide');
+                toastr.warning('Record Saved..','Notice');
+             },
               error: function(error){
                 console.log(error);
               }
       });
     });
+    ///////////////////////////// Delete classs /////////////////////
     $('body').on('click', '.deletebtn',function () {
         var classid = $(this).val();
         $.ajax({
@@ -297,6 +265,7 @@ $('body').on('submit','#addclass',function(e){
                alert("deleted");
                $('#row' + data).remove();
                 $('#studentdeleteModel').modal('hide');
+                 toastr.danger('Record Deleted..','Notice');
               
             }
         });

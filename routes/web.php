@@ -16,7 +16,7 @@ Route::get('/a', function () {
     return view('admin.academics.add_section_group');
 });
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
