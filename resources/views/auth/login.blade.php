@@ -20,10 +20,10 @@
                     <label for="username">Username</label>
                     <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" placeholder="Enter username">
                     @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                     @csrf
               
@@ -31,10 +31,10 @@
                     <label for="userpassword">Password</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter password">
                     @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group row m-t-20">
