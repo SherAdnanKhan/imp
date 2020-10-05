@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcademicsController;
 /*
@@ -16,12 +17,10 @@ Route::get('/a', function () {
     return view('admin.academics.add_section_group');
 });
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
  // Academics Route
 
     //section route

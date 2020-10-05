@@ -1,43 +1,23 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Agroxa - Responsive Bootstrap 4 Admin Dashboard</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Themesbrand" name="author" />
+        <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
+    </head>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+    <body>
+    <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -49,12 +29,8 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    {{ Auth::user()->name }}                       
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -64,17 +40,27 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                </div>
-                            </li>
                         @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                </ul>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-</body>
-</html>
+        <!-- Background -->
+<div class="account-pages"></div>
+
+  @yield('content')
+
+        <!-- jQuery  -->
+        <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('assets/js/metisMenu.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
+        <script src="{{asset('assets/js/waves.min.js')}}"></script>
+
+        <script src="{{asset('assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
+
+        <!-- App js -->
+        <script src="{{asset('assets/js/app.js')}}"></script>
+
+    </body>
+
+</html>       
+

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class AcademicsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //section controller function
     public function index_section(Request $request)
     {
