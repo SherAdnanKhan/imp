@@ -17,13 +17,22 @@ class CampusController extends Controller
      */
     public function index()
     {
-        return view("Admin.Campuses.add_campus");
+        $api_url = 'http://collabs.pk/api/api/Website/get_cities/get_cities';
+        $ch = curl_init();  
+        curl_setopt($ch,CURLOPT_URL,$api_url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        $cities=curl_exec($ch);
+        curl_close($ch);
+        $cities =  json_decode($cities);
+      //  dd($cities);
+        return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
 
     public function showcampus()
     {
       
     $campus= Kelex_campus::all();
+    
 
     return view('Admin.Campuses.view_campuses')->with('campuses',$campus);
     }
@@ -48,7 +57,7 @@ class CampusController extends Controller
         $kelexcampus->SCHOOL_WEBSITE=   $request->input("schoolwebsite");
         $kelexcampus->CONTROLLLER=  "abc";
         $kelexcampus->USER_ID= Auth::user()->id;
-        $kelexcampus->CITY_ID=  $request->input("cityid");
+        $kelexcampus->CITY_ID=  $request->input("city");
         $kelexcampus->TYPE= $request->input("instuition");
         $kelexcampus->BILLING_CHARGE= $request->input("billingcharges") ;
         $kelexcampus->BILLING_DISCOUNT=	   $request->input("discount");
@@ -62,8 +71,10 @@ class CampusController extends Controller
         }
     }
     public function getcampusdata(Request $request){
-        $currentcampus = DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->campusid])
+        $currentcampus = (array) DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->campusid])
         ->get();
+
+
        echo json_encode($currentcampus);
     }
     public function updatecampusdata(Request $request)
@@ -85,7 +96,7 @@ class CampusController extends Controller
               "SCHOOL_WEBSITE"=>   $request->input("schoolwebsite"),
               "CONTROLLLER"=>  "abc",
               "USER_ID"=> Auth::user()->id,
-              "CITY_ID"=>  $request->input("cityid"),
+              "CITY_ID"=>  $request->input("city"),
               "TYPE"=> $request->input("instuition"),
               "BILLING_CHARGE"=> $request->input("billingcharges") ,
               "BILLING_DISCOUNT"=>	   $request->input("discount"),

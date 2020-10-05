@@ -1,4 +1,8 @@
 @extends('Admin.layout.master')
+@section("page-css")
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+@endsection
 @section("content")
 <div class="content-page">
                 <!-- Start content -->
@@ -52,45 +56,56 @@
                                     <div class="col-md-6">
                                        
                                         <div class="form-group">
+                                        <label for="Sname">School Name:</label> 
                                             <input type="text" class="form-control" name="schoolname" placeholder="Enter School name *" value="" />
                                         </div>
                                         <div class="form-group">
+                                        <label for="Saddress">School Address:</label> 
                                             <input type="text" class="form-control" name="schooladdress" placeholder="Enter School Address *" value="" />
                                         </div>
                                         <div class="form-group">
+                                        <label for="pno">Phone No:</label> 
                                             <input type="text" class="form-control"  name="phoneno" placeholder="Enter Phone No *" value="" />
                                         </div>
                                         <div class="form-group">
+                                        <label for="Sname">Mobile No:</label> 
                                             <input type="text" class="form-control"  name="mobileno" placeholder="Enter Mobile No *" value="" />
                                         </div>
                                         <div class="form-group">
+                                        <label for="Sreg">School Reg:</label> 
                                             <input type="text" class="form-control"  name="schoolregistration" placeholder="Enter School Registration *" value="" />
                                         </div>
                                         <div class="form-group">
+                                        <label for="Sweb">School Website:</label> 
                                             <input type="text" class="form-control"  name="schoolwebsite" placeholder="Enter School Website *" value="" />
                                         </div>
                                         <div class="form-group">
-                                        <label for="myfile">Upload School Logo:</label>
-                                        <input type="file" id="myfile" name="schoollogo"><br><br>
+                                        <label for="myfile">Upload School Logo:</label><br>
+                                        <input type="file" id="myfile" name="schoollogo">
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control"  name="cityid" placeholder="Enter CITY ID *" value="" />
+                                        <label for="Cid">City id:</label> 
+                                      
+                                        <select name="city" id="city">
+                                        @foreach($cities as $city)
+                                        <option value="{{$city->city_id}}">{{$city->city_name}}</option>
+                                        @endforeach
+                                        </select>
                                         </div>
                                         <div class="form-group">
-                                       
-                                         <p>Please Select Instuition Type:</p>
+                                        <label for="Sins">Please Select Instuition type:</label><br> 
                                          <label class="radio-inline">
-                                          <input type="radio" name="instuition" value="school" > School
-                                          <input type="radio" name="instuition" value="L_instuition"> Learning Instution
+                                          <input type="radio" name="instuition" value="school" style=" margin: 10px;" > School
+                                          <input type="radio" name="instuition" value="L_instuition" style=" margin: 10px;"> Learning Instution
                                          </label>
                                     </div>
                                     </div>
                                   <div class="col-md-6">
                                         <div class="form-group">
-                                        <p>Please Select If you accept Agreement:</p>
+                                        <label for="Agt">Please Select If you accept Agreement:</label><br> 
                                             <label class="radio-inline">
-                                              <input type="radio" name="Aggreement" value="1"> Yes
-                                              <input type="radio" name="Aggreement" value="0"> No
+                                              <input type="radio" name="Aggreement" value="1"style=" margin: 10px;"> Yes
+                                              <input type="radio" name="Aggreement" value="0"style=" margin: 10px;"> No
                                             </label>
                                         </div>
                                         <div class="form-group">
@@ -98,17 +113,18 @@
                                        <input type="date" class="form-control" name="agreementdate" value="" />
                                         </div>
                                         <div class="form-group">
-                                        <p>Please Enter Status:</p>
+                                        <label for=agreement> Please Enter Status:</label><br>
                                          <label class="radio-inline">
-                                          <input type="radio" name="status" value="1"> Active
-                                          <input type="radio" name="status" value="0"> Not Active
+                                          <input type="radio" name="status" value="1" style=" margin: 10px;"> Active 
+                                          <input type="radio" name="status" value="0" style=" margin: 10px;"> Not Active
                                          </label>
                                         </div>
                                          <div class="form-group">
-                                        <p>Please Select Sms Allowed or not Allowed:</p>
+                                         <label for=agreement> Please Select Sms Allowed or not Allowed:</label><br>
+                                        
                                          <label class="radio-inline">
-                                          <input type="radio" name="smsstatus" value="1"> Allowed
-                                          <input type="radio" name="smsstatus" value="0"> Not Allowed
+                                          <input type="radio" name="smsstatus" value="1"style=" margin: 10px;"> Allowed
+                                          <input type="radio" name="smsstatus" value="0"style=" margin: 10px;"> Not Allowed
                                          </label>
                                          </div>
                                          @csrf
@@ -156,8 +172,10 @@
 @endSection
 
 @section("customscript")
-
 <script>
+    $(document).ready(function(){
+        $("#city").select2();
+    });
     $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -174,7 +192,7 @@ $('body').on('submit','#insertcampus',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-                // alert("submit sucessfully");
+                 alert("submit sucessfully");
                 console.log(data);
               },
               error: function(error){
