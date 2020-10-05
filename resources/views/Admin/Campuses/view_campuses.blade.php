@@ -66,6 +66,7 @@
                       </tr>
                     </thead>
                     <tbody id="displaydata">
+                        
                       @foreach ($campuses as $campus)
                       <tr id="row{{$campus->CAMPUS_ID}}">
                         <td>{{$campus->CAMPUS_ID}}</td>
@@ -107,6 +108,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            
                                             <input type="hidden" id="cid" class="form-control" name="campusid" placeholder="Enter Campus id *" value="" />
                                         </div>
                                         <div class="form-group">
@@ -130,7 +132,7 @@
                                         <div class="form-group">
                                         <label for="myfile">Upload School Logo:</label>
                                         <input type="file" id="myfile" name="schoollogo">
-                                        <img src="{{ asset('upload') }}" alt="" style="width: 50px;height:50px;">
+                                        <img src="" alt="" style="width: 50px;height:50px;">
                                         <br><br>
                                         </div>
                                         <div class="form-group">
@@ -241,6 +243,7 @@
             $('#saddress').val(data[i].SCHOOL_ADDRESS);
             $('#pno').val(data[i].PHONE_NO);
             $('#mno').val(data[i].MOBILE_NO);
+            document.getElementById("myImg").src= "http://127.0.0.1:8000/upload/"+data[i].LOGO_IMAGE;
             $('#mno').val(data[i].LOGO_IMAGE);
             $('#sreg').val(data[i].SCHOOL_REG);
             $('#sweb').val(data[i].SCHOOL_WEBSITE);

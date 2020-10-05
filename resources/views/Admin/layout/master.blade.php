@@ -55,6 +55,11 @@
         <link href="{{asset('assets/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
+        <style>
+        table td{
+  color:#FFFFFF;
+}
+         </style>
     </head>
 <body >
  
@@ -63,8 +68,13 @@
 <!-- header below -->
 @include('Admin.layout.header')
 <!-- leftsidebar below -->
+@if(Auth::user()->CAMPUS_ID==1)
 @include('Admin.layout.sidebar')
 <!-- footer below -->
+@else
+@include('Admin.layout.superadminsidebar')
+
+@endif
 @yield('content')
 @include('Admin.layout.footer')
 </div>
@@ -80,6 +90,7 @@
 
 
 <!-- jQuery  -->
+
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/js/metisMenu.min.js')}}"></script>
@@ -90,6 +101,7 @@
 <script src="{{asset('assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
  <!-- App js -->
  <script src="{{asset('assets/js/app.js')}}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 @yield('customscript')
 </body>
