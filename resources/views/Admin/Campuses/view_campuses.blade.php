@@ -3,98 +3,101 @@
 @section("content")
 <div class="content-page">
                 <!-- Start content -->
-                <div class="content">
-                    <div class="container-fluid">
+    <div class="content">
+        <div class="container-fluid">
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="page-title-box">
-                                    <h4 class="page-title">Blank page</h4>
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
-                                        <li class="breadcrumb-item active">Blank page</li>
-                                    </ol>
-            
-                                    <div class="state-information d-none d-sm-block">
-                                        <div class="state-graph">
-                                            <div id="header-chart-1"></div>
-                                            <div class="info">Balance $ 2,317</div>
-                                        </div>
-                                        <div class="state-graph">
-                                            <div id="header-chart-2"></div>
-                                            <div class="info">Item Sold 1230</div>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title">Blank page</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                            <li class="breadcrumb-item active">Blank page</li>
+                        </ol>
+
+                        <div class="state-information d-none d-sm-block">
+                            <div class="state-graph">
+                                <div id="header-chart-1"></div>
+                                <div class="info">Balance $ 2,317</div>
+                            </div>
+                            <div class="state-graph">
+                                <div id="header-chart-2"></div>
+                                <div class="info">Item Sold 1230</div>
                             </div>
                         </div>
-                        <!-- end row -->
-
-                        <div class="page-content-wrapper">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                        <div class="container">
-            <div class="pt-5">
-                <div class="row d-flex justify-content-center align-items-center">
-                    <h1>Campus Details</h1>
+                    </div>
                 </div>
-                    
-           {{--Table data display--}}         
-           
+            </div>
+            <!-- end row -->
+
+            <div class="page-content-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                             <a href="{{route('campus')}}" class="btn btn-primary">Add New Campus</a>
+                           
+                            <h3>Campus List</h3>
+        
+                                {{--Table data display--}}         
+                                    <div class="table-responsive mailbox-messages">
+                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+                                            <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Campus ID</th>
+                                                    <th scope="col">School Name</th>
+                                                    <th scope="col">School Adresss</th>
+                                                    <th scope="col">School Contact</th>
+                                                    <th scope="col">School Website</th>
+                                                    <th scope="col">School Status</th>
+                                                    <th scope="col">City</th>
+                                                    <th scope="col">Agreement</th>
+                                                    <th scope="col">Agreement Date</th>
+                                                    <th scope="col">School Logo</th>
+
+                                                    <th scope="col">Edit</th>
+                                                    <th scope="col">Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="displaydata">
+                                                    
+                                                @foreach ($campuses as $campus)
+                                                <tr id="row{{$campus->CAMPUS_ID}}">
+                                                    <td>{{$campus->CAMPUS_ID}}</td>
+                                                    <td>{{$campus->SCHOOL_NAME}}</td>
+                                                    <td>{{$campus->SCHOOL_ADDRESS}}</td>
+                                                    <td>{{$campus->PHONE_NO}}</td>
+                                                    <td>{{$campus->SCHOOL_WEBSITE}}</td>
+                                                    <td>{{$campus->STATUS==1?'Yes':'No'}}</td>
+                                                    <td>{{$campus->CITY_ID}}</td>
+                                                    <td>{{$campus->AGREEMENT==1?'Yes':'No'}}</td>
+                                                    <td>{{$campus->AGREEMENT_DATE}}</td>
+                                                    <td><img src="{{ asset('upload') }}/{{$campus->LOGO_IMAGE}}" alt="" style="width: 50px;height:50px;"></td>
+                                                    <td>
+                                                        <button class="btn btn-success editbtn" value="{{$campus->CAMPUS_ID}}">Edit</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-danger deletebtn" value="{{$campus->CAMPUS_ID}}">Delete</button>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>    
+
+                             </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <br>
-                <table class="table table-dark">
-                    <thead>
-                      <tr>
-                        <th scope="col">Campus ID</th>
-                        <th scope="col">School Name</th>
-                        <th scope="col">School Adresss</th>
-                        <th scope="col">School Contact</th>
-                        <th scope="col">School Website</th>
-                        <th scope="col">School Status</th>
-                        <th scope="col">City</th>
-                        <th scope="col">Agreement</th>
-                        <th scope="col">Agreement Date</th>
-                        <th scope="col">School Logo</th>
-
-                        <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody id="displaydata">
-                        
-                      @foreach ($campuses as $campus)
-                      <tr id="row{{$campus->CAMPUS_ID}}">
-                        <td>{{$campus->CAMPUS_ID}}</td>
-                        <td>{{$campus->SCHOOL_NAME}}</td>
-                        <td>{{$campus->SCHOOL_ADDRESS}}</td>
-                        <td>{{$campus->PHONE_NO}}</td>
-                        <td>{{$campus->SCHOOL_WEBSITE}}</td>
-                        <td>{{$campus->STATUS==1?'Yes':'No'}}</td>
-                        <td>{{$campus->CITY_ID}}</td>
-                        <td>{{$campus->AGREEMENT==1?'Yes':'No'}}</td>
-                        <td>{{$campus->AGREEMENT_DATE}}</td>
-                        <td><img src="{{ asset('upload') }}/{{$campus->LOGO_IMAGE}}" alt="" style="width: 50px;height:50px;"></td>
-                        <td>
-                            <button class="btn btn-success editbtn" value="{{$campus->CAMPUS_ID}}">Edit</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger deletebtn" value="{{$campus->CAMPUS_ID}}">Delete</button>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-
-                  <a href="{{route('campus')}}" class="btn btn-primary">Add New Campus</a>
             </div>
         </div>
-        
-    <div class="modal fade" id="campusEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+  <div class="modal fade" id="campusEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content"  style="width:1000px">
                        
@@ -202,26 +205,26 @@
                 </div>
 
     </div>
-            </div>
-            </div>
-        </div>
-        {{--End of User edit model--}}
-  
-      </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page content-->
-
-                    </div> <!-- container-fluid -->
-
-                </div> <!-- content -->
 @endsection
 
 @section("customscript")
-        <script>
-    $.ajaxSetup({
+     <script src="{{asset('admin_assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <!-- Buttons examples -->
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/jszip.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/pdfmake.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/vfs_fonts.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+<script>
+ $(document).ready( function () {
+      $('#DataTables_Table_0').DataTable();
+    });
+     
+$.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
