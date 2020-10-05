@@ -22,6 +22,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+// Admin Routs 
+Route::get('/admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
 // Campus Routes
 Route::match(['get', 'post'], '/addcampus', [CampusController::class, 'index'])->name("campus");
 
