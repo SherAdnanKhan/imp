@@ -13,7 +13,7 @@ class KelexClass extends Migration
      */
     public function up()
     {
-        Schema::create('Kelex_Classes', function (Blueprint $table) {
+        Schema::create('kelex_classes', function (Blueprint $table) {
             $table->id('Class_id');
             $table->string('Class_name');
             $table->unsignedBigInteger('Campus_id')->nullable();

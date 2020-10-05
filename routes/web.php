@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcademicsController;
+use App\Http\Controllers\CampusController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,23 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+// Campus Routes
+Route::match(['get', 'post'], '/addcampus', [CampusController::class, 'index'])->name("campus");
+
+Route::post('/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
+
+Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showcampus']);
+
+Route::get('/editcampus', [App\Http\Controllers\CampusController::class, 'getcampusdata'])->name('editcampus');
+
+Route::get('/updatecampus', [App\Http\Controllers\CampusController::class, 'updatecampusdata'])->name('updatecampus');
+
+
+
+
+
+
+
  // Academics Route
 
     //section route

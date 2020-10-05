@@ -13,7 +13,7 @@ class KelexSection extends Migration
      */
     public function up()
     {
-        Schema::create('Kelex_Sections', function (Blueprint $table) {
+        Schema::create('kelex_sections', function (Blueprint $table) {
             $table->id('Section_id');
             $table->string('Section_name')->nullable();
             $table->unsignedBigInteger('Class_id')->nullable();
