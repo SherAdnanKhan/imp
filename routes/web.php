@@ -14,9 +14,6 @@ use App\Http\Controllers\CampusController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/a', function () {
-    return view('admin.academics.add_section_group');
-});
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -24,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 // Admin Routs 
 Route::get('/admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
+
 // Campus Routes
 Route::match(['get', 'post'], '/addcampus', [CampusController::class, 'index'])->name("campus");
 
@@ -34,7 +32,6 @@ Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showca
 Route::get('/editcampus', [App\Http\Controllers\CampusController::class, 'getcampusdata'])->name('editcampus');
 
 Route::post('/updatecampus', [App\Http\Controllers\CampusController::class, 'updatecampusdata'])->name('updatecampus');
-
 
 Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'deletecampusdata'])->name('deletecampus');
 
@@ -62,3 +59,11 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
     Route::match(['get', 'post'], '/updateclass', [AcademicsController::class, 'update_class'])->name("updateclass");
     Route::match(['get', 'post'], '/deleteclass', [AcademicsController::class, 'delete_class'])->name("deleteclass");
     //end class routes
+    
+    //Subject Routes
+    Route::match(['get', 'post'], '/admin/subject', [AcademicsController::class, 'index_subject'])->name("subject");
+    Route::match(['get', 'post'], '/addsubject', [AcademicsController::class, 'add_subject'])->name("addsubject");
+    Route::match(['get', 'post'], '/editsubject', [AcademicsController::class, 'edit_subject'])->name("editsubject");
+    Route::match(['get', 'post'], '/updatesubject', [AcademicsController::class, 'update_subject'])->name("updatesubject");
+    Route::match(['get', 'post'], '/deletesubject', [AcademicsController::class, 'delete_subject'])->name("deletesubject");
+

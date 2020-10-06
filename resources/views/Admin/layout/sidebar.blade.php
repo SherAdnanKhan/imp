@@ -33,7 +33,7 @@
                                 <ul class="submenu">
                                     <li><a href="{{route('section')}}">Section</a></li>
                                     <li><a href="{{route('class')}}">Classes</a></li>
-                                    <li><a href="ui-badge.html">Subject Group</a></li>
+                                    <li><a href="{{route('subject')}}">Subject</a></li>
                                     <li><a href="ui-cards.html">Promote Students</a></li>
                                     <li><a href="ui-carousel.html">Assign Class Teacher</a></li>
                                     <li><a href="ui-dropdowns.html">Class Time Table</a></li>
@@ -156,4 +156,31 @@
                 <!-- Sidebar -left -->
 
             </div>
-            <!-- Left Sidebar End -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Blank page</h4>
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                                        <li class="breadcrumb-item active">Blank page</li>
+                                    </ol>
+            
+                                    <div class="state-information d-none d-sm-block">
+                                        <div class="state-graph">
+                                            <div id="header-chart-1"></div>
+                                            <div class="info">Balance $ 2,317</div>
+                                        </div>
+                                        <div class="state-graph">
+                                            <div id="header-chart-2"></div>
+                                            <div class="info">Item Sold 1230</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

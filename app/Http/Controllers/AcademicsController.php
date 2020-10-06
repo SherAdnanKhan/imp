@@ -119,7 +119,18 @@ class AcademicsController extends Controller
         DB::table('kelex_classes')->where('class_id',$request->input('classid'))->delete();
         
                  return response()->json($id);
-            }
+    }
+      
+    #Subject Controller Functions
+    public function index_subject(Request $request)
+    {
+        
+
+        $getclass = Kelex_class::all();
+     
+            return view('admin.Academics.add_subject')->with('gclass',$getclass);
       
     }
+
+}
 
