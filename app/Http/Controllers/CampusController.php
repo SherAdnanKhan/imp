@@ -17,13 +17,7 @@ class CampusController extends Controller
      */
     public function index()
     {
-        $api_url = 'http://collabs.pk/api/api/Website/get_cities/get_cities';
-        $ch = curl_init();  
-        curl_setopt($ch,CURLOPT_URL,$api_url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        $cities=curl_exec($ch);
-        curl_close($ch);
-        $cities =  json_decode($cities);
+        $cities = getCities();
       //  dd($cities);
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
@@ -47,9 +41,21 @@ class CampusController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'schoolname' => 'required|max:255',
+            'phoneno' =>     'required',
+            'city' =>        'required',  'max:255',
+            'instuition' =>  'required',
+            'billingcharges' => 'required','max:255',
+            'discount' => 'required',
+        ]);
         $image = $request->file('schoollogo');
-        $my_image = rand() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('upload'), $my_image);
+        $my_image =null;
+        if(!empty($image)):
+            $my_image = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('upload'), $my_image);
+        endif;
+       
         $billingdate= Carbon::parse( $request->input("billingdate"));
         $agreementdate= Carbon::parse($request->input("agreementdate"));
       
