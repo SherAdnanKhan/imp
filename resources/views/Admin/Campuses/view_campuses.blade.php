@@ -1,5 +1,8 @@
 @extends('Admin.layout.master')
+@section("page-css")
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
+@endsection
 @section("content")
 <div class="content-page">
                 <!-- Start content -->
@@ -103,7 +106,7 @@
                                 <h4 class="register-heading">Edit Campus Details</h4>
                                 <div class="container-fluid" style="padding:10px;">
 
-                              <form method="post" action="{{ route('editcampus')}}" id="insertcampus" enctype="multipart/form-data">
+                              <form method="post" action="{{ route('updatecampus')}}" id="editcampus" enctype="multipart/form-data">
                                  <div class="row register-form">
 
                                     <div class="col-md-6">
@@ -132,18 +135,22 @@
                                         <div class="form-group">
                                         <label for="myfile">Upload School Logo:</label>
                                         <input type="file" id="myfile" name="schoollogo">
-                                        <img src="" alt="" style="width: 50px;height:50px;">
+                                        <img id="myfile-img"  alt="" style="width: 50px;height:50px;">
                                         <br><br>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" id="cityid" class="form-control"  name="cityid" placeholder="Enter CITY ID *" value="" />
+                                        <select name="city" id="city">
+                                        @foreach($cities as $city)
+                                        <option value="{{$city->city_id}}">{{$city->city_name}}</option>
+                                        @endforeach
+                                        </select>
                                         </div>
                                         <div class="form-group">
                                        
                                          <p>Please Select Instuition Type:</p>
                                          <label class="radio-inline">
-                                          <input type="radio" name="instuition" value="school" > School
-                                          <input type="radio" name="instuition" value="L_instuition"> Learning Instution
+                                          <input type="radio" id="sins" name="instuition" value="school" > School
+                                          <input type="radio" id="lins" name="instuition" value="L_instuition"> Learning Instution
                                          </label>
                                     </div>
                                     </div>
@@ -151,8 +158,8 @@
                                         <div class="form-group">
                                         <p>Please Select If you accept Agreement:</p>
                                             <label class="radio-inline">
-                                              <input type="radio" name="Aggreement" value="1"> Yes
-                                              <input type="radio" name="Aggreement" value="0"> No
+                                              <input type="radio" id="agree1" name="Aggreement" value="1"> Yes
+                                              <input type="radio" id="agree0" name="Aggreement" value="0"> No
                                             </label>
                                         </div>
                                         <div class="form-group">
@@ -162,15 +169,15 @@
                                         <div class="form-group">
                                         <p>Please Enter Status:</p>
                                          <label class="radio-inline">
-                                          <input type="radio" name="status" value="1"> Active
-                                          <input type="radio" name="status" value="0"> Not Active
+                                          <input type="radio" id="status1" name="status" value="1"> Active
+                                          <input type="radio" id="status0" name="status" value="0"> Not Active
                                          </label>
                                         </div>
                                          <div class="form-group">
                                         <p>Please Select Sms Allowed or not Allowed:</p>
                                          <label class="radio-inline">
-                                          <input type="radio" name="smsstatus" value="1"> Allowed
-                                          <input type="radio" name="smsstatus" value="0"> Not Allowed
+                                          <input type="radio" id="smsstatus1" name="smsstatus" value="1"> Allowed
+                                          <input type="radio" id="smsstatus0" name="smsstatus" value="0"> Not Allowed
                                          </label>
                                          </div>
                                          @csrf
@@ -220,7 +227,10 @@
 @endsection
 
 @section("customscript")
-        <script>
+<script>
+    $(document).ready(function(){
+        $("#city").select2();
+    });
     $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -236,15 +246,18 @@
             }, 
             dataType:"json",
             success: function(data){
-                console.log(data);
+                //console.log(data);
           for(i=0;i<data.length;i++){
             $('#cid').val(data[i].CAMPUS_ID);
             $('#sname').val(data[i].SCHOOL_NAME);
             $('#saddress').val(data[i].SCHOOL_ADDRESS);
             $('#pno').val(data[i].PHONE_NO);
             $('#mno').val(data[i].MOBILE_NO);
-            document.getElementById("myImg").src= "http://127.0.0.1:8000/upload/"+data[i].LOGO_IMAGE;
-            $('#mno').val(data[i].LOGO_IMAGE);
+            $('#myfile-img').attr('src','{{ url("upload") }}/'+data[i].LOGO_IMAGE);
+            (data[i].TYPE=='school')?$('#sins').prop('checked', true):$('#lins').prop('checked', true);
+            (data[i].AGREEMENT==1)?$('#agree1').prop('checked', true):$('#agree0').prop('checked', true);
+            (data[i].STATUS==1)?$('#status1').prop('checked', true):$('#status0').prop('checked', true);
+            (data[i].SMS_ALLOWED==1)?$('#smsstatus1').prop('checked', true):$('#smsstatus0').prop('checked', true);
             $('#sreg').val(data[i].SCHOOL_REG);
             $('#sweb').val(data[i].SCHOOL_WEBSITE);
             $('#cityid').val(data[i].CITY_ID);
@@ -260,32 +273,65 @@
   $('body').on('submit','#editcampus',function(e){
       e.preventDefault();
       var fdata = new FormData(this);
+      var html = "";
       // console.log(data);
       $.ajax({
-        url: '/updateuser',
+        url: '/updatecampus',
             type:'POST',
             data: fdata,
             processData: false,
             contentType: false,
-            success: function(data){
-                alert("submit sucessfully");
-              },
+            success: function(data){ 
+            for(i=0;i<data.length;i++){
+                location.reload();
+            console.log(data);
+             var status = data[i].STATUS==1?'Yes':'No';
+             var aggreement = data[i].STATUS==1?'Yes':'No';
+
+            $('#row' + data[i].CAMPUS_ID).replaceWith(`
+            <tr id="row`+data[i].CAMPUS_ID+`">
+            <td>` + data[i].CAMPUS_ID + `</td>
+            <td>` + data[i].SCHOOL_NAME+`</td>
+                        <td>` + data[i].SCHOOL_ADDRESS+`</td>
+                        <td>` + data[i].PHONE_NO+`</td>
+                        <td>` + data[i].SCHOOL_WEBSITE+`</td>
+                        <td>` + status+`</td>
+                        <td>` + data[i].CITY_ID+`</td>
+                        <td>` + aggreement +`</td>
+                        <td>` + data[i].AGREEMENT_DATE+`</td>
+                        <td><img src="{{ asset('upload') }}/` + data[i].LOGO_IMAGE+`" alt="" style="width: 50px;height:50px;"></td>
+                        <td>
+                            <button class="btn btn-success editbtn" value="`+ data[i].CAMPUS_ID+`">Edit</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger deletebtn" value="` + data[i].CAMPUS_ID+`">Delete</button>
+                        </td>
+                </tr>`);
+              }
+              $("#editcampus").get(0).reset();
+            $('#campusEditModal').modal('hide');
+            }
+              
+              ,
               error: function(error){
                 console.log(error);
               }
+      
       });
     });
+
     $('body').on('click', '.deletebtn',function () {
-        var userid = $(this).val();
+        var dcampusid = $(this).val();
         $.ajax({
-            url: '/deletedata',
+            url: '{{url("deletecampus")}}',
             type: "GET",
             data: {
-               userid:userid
+               dcampusid:dcampusid
             }, 
             dataType:"json",
             success: function(data){
               alert("delete successfully");
+              $('#row' + data).remove();
             }
         });
       });

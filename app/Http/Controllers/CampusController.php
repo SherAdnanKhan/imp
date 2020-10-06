@@ -30,11 +30,18 @@ class CampusController extends Controller
 
     public function showcampus()
     {
+        $api_url = 'http://collabs.pk/api/api/Website/get_cities/get_cities';
+        $ch = curl_init();  
+        curl_setopt($ch,CURLOPT_URL,$api_url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        $cities=curl_exec($ch);
+        curl_close($ch);
+        $cities =  json_decode($cities);
       
     $campus= Kelex_campus::all();
     
 
-    return view('Admin.Campuses.view_campuses')->with('campuses',$campus);
+    return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
     }
 
 
@@ -71,19 +78,27 @@ class CampusController extends Controller
         }
     }
     public function getcampusdata(Request $request){
-        $currentcampus = (array) DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->campusid])
+        $currentcampus = DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->campusid])
         ->get();
+      
 
 
        echo json_encode($currentcampus);
     }
     public function updatecampusdata(Request $request)
     {
+        if($request->hasFile('schoollogo'))
+        {
         $image = $request->file('schoollogo');
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload'), $my_image);
-        $billingdate= Carbon::parse( $request->input("billingdate"));
-        $agreementdate= Carbon::parse($request->input("agreementdate"));
+        $affected = DB::table('kelex_campuses')
+        ->where('CAMPUS_ID', $request->input('campusid'))
+        ->update(["LOGO_IMAGE"=>$my_image]);
+        }
+    $billingdate= Carbon::parse( $request->input("billingdate"));
+    $agreementdate= Carbon::parse($request->input("agreementdate"));
+
         
     $affected = DB::table('kelex_campuses')
               ->where('CAMPUS_ID', $request->input('campusid'))
@@ -91,7 +106,6 @@ class CampusController extends Controller
               "SCHOOL_ADDRESS"=>$request->input("schooladdress"),
               "PHONE_NO"=>$request->input("phoneno"),
               "MOBILE_NO"=>$request->input("mobileno"),
-              "LOGO_IMAGE"=>  $my_image,
               "SCHOOL_REG"=>$request->input("schoolregistration"),
               "SCHOOL_WEBSITE"=>   $request->input("schoolwebsite"),
               "CONTROLLLER"=>  "abc",
@@ -106,8 +120,20 @@ class CampusController extends Controller
               "AGREEMENT"=>   $request->input("Aggreement"),
               "AGREEMENT_DATE"=> $agreementdate,
               ]);
-        if (is_null( $affected)) {
-           echo 1;
+
+        if (!is_null( $affected)) {
+            $getchanges = DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->input('campusid')])
+            ->get();
+          return response()->json($getchanges);
         }
     }
+    public function deletecampusdata(Request $request)
+    {
+        $id=$request->input('dcampusid');
+        DB::table('kelex_campuses')->where('CAMPUS_ID',$id)->delete();
+        
+        return response()->json($id);
+
+    }
+
 }

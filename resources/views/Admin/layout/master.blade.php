@@ -68,7 +68,7 @@
 <!-- header below -->
 @include('Admin.layout.header')
 <!-- leftsidebar below -->
-@if(Auth::user()->CAMPUS_ID==1)
+@if(Auth::user()->CAMPUS_ID==0)
 @include('Admin.layout.sidebar')
 <!-- footer below -->
 @else

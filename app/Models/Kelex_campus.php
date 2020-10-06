@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Kelex_campus extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'CAMPUS_ID';
+    protected $softDelete = true;
 }

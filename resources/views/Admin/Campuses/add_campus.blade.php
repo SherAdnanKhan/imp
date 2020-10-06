@@ -142,8 +142,14 @@
                                     </div>
                                 </div>
                                 <div class="buttonHolder">
-                                <input type="submit" value="Submit" id="btn_s"> 
-                                
+                                    <div class="row">
+                                     <div class="col-md-2">
+                                <input type="submit"  class="btn btn-primary" value="Submit" id="btn_s"> 
+                                     </div>
+                                     <div class="col-md-2">
+                                <a href='/showcampus' class="btn btn-primary">Show Existing Campus</a>
+                                     </div>
+                                     
                                   </div>
 
 

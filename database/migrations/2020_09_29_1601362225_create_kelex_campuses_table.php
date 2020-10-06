@@ -12,7 +12,7 @@ class CreateKelexCampusesTable extends Migration
 
 		$table->id('CAMPUS_ID')->autoIncrement();
 		$table->string('SCHOOL_NAME',50)->nullable();
-		$table->text('SCHOOL_ADDRESS');
+		$table->text('SCHOOL_ADDRESS')->nullable();
 		$table->string('PHONE_NO',50)->nullable();
 		$table->string('MOBILE_NO',50)->nullable();
 		$table->string('LOGO_IMAGE')->nullable();
@@ -25,10 +25,11 @@ class CreateKelexCampusesTable extends Migration
 		$table->bigInteger('BILLING_CHARGE')->nullable();
 		$table->bigInteger('BILLING_DISCOUNT')->nullable();
 		$table->date('DUE_DATE')->nullable();
-		$table->bigInteger('STATUS')->default('0');
-		$table->bigInteger('SMS_ALLOWED')->default('0');
+		$table->bigInteger('STATUS')->nullable();
+		$table->bigInteger('SMS_ALLOWED')->nullable();
 		$table->enum('AGREEMENT',['0','1']);
 		$table->date('AGREEMENT_DATE')->nullable();
+		$table->softDeletes();
 		$table->timestamps();
 
         });
