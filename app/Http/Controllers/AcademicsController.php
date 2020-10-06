@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 
 use App\Models\Kelex_class;
-use App\Models\Kelex_section;
 use Illuminate\Http\Request;
+use App\Models\Kelex_section;
+use App\Models\Kelex_subject;
 use Illuminate\Support\Facades\DB;
 
 class AcademicsController extends Controller
@@ -77,6 +78,7 @@ class AcademicsController extends Controller
             }
 
     //class controller function
+
     public function index_class(Request $request)
     {
         $getclass = Kelex_class::all();
@@ -122,15 +124,56 @@ class AcademicsController extends Controller
     }
       
     #Subject Controller Functions
+
     public function index_subject(Request $request)
     {
         
 
-        $getclass = Kelex_class::all();
+        $getsubject = Kelex_subject::all();
      
-            return view('admin.Academics.add_subject')->with('gclass',$getclass);
+            return view('admin.Academics.add_subject')->with('gsubject',$getsubject);
       
     }
+    public function add_subject(Request $request)
+    {
+           $subject= new Kelex_subject();
+           $subject->SUBJECT_NAME=$request->input('subject_name');
+           $subject->SUBJECT_CODE=$request->input('subject_code');
+           if ($subject->save()) {
+                 return response()->json($subject);
+            }
+      
+    }
+    public function edit_subject(Request $request)
+    {
+        
+        $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->subjectid])
+        ->get();
+       echo json_encode($currentclass);
+      
+    }
+    public function update_subject(Request $request)
+    {
+      
+         DB::table('kelex_subjects')
+        ->where('SUBJECT_ID', $request->input('subject_id'))
+        ->update(['SUBJECT_NAME' => $request->input('subject_name'),
+        'SUBJECT_CODE' => $request->input('subject_code')
+        ]);
+
+        $selectsubject= DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subject_id'))
+        ->get();
+         
+        return response()->json($selectsubject);
+    }
+    public function delete_subject(Request $request)
+    {
+        $id=$request->input('subjectid');
+        DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subjectid'))->delete();
+        
+                 return response()->json($id);
+    }
+      
 
 }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class KelexClass extends Migration
+class CreateKelexSubject extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class KelexClass extends Migration
      */
     public function up()
     {
-        Schema::create('kelex_classes', function (Blueprint $table) {
-            $table->id('Class_id');
-            $table->string('Class_name');
-            $table->unsignedBigInteger('Campus_id')->nullable();
+        Schema::create('kelex_subjects', function (Blueprint $table) {
+            $table->id('SUBJECT_ID');
+            $table->string('SUBJECT_NAME')->nullable();
+            $table->string('SUBJECT_CODE')->nullable();
+            $table->enum('TYPE',['0','1']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class KelexClass extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('kelex_subject');
     }
 }

@@ -101,11 +101,12 @@
               </div>
                @csrf
          </form>
- </div>
-            </div>
- </div>
-                                
- </div>        </div>        </div>
+      </div>
+   </div>
+</div>
+</div>
+</div>  
+</div>
  @endsection
 @section("customscript")
  <!-- Required datatable js -->
