@@ -8,6 +8,7 @@ use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
 use App\Models\Kelex_subject;
+use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 
 class AcademicsController extends Controller
@@ -173,7 +174,61 @@ class AcademicsController extends Controller
         
                  return response()->json($id);
     }
+
+    #Session-batch Controller Functions
+    public function index_sessionbatch(Request $request)
+    {
+        
+
+        $getsession = Kelex_sessionbatch::all();
+     
+            return view('admin.Academics.add_session-batch')->with('gsession',$getsession);
       
+    }
+    public function add_sessionbatch(Request $request)
+    {
+           $sessionbatch = new Kelex_sessionbatch();
+           $sessionbatch->SB_NAME=$request->input('sb_name');
+           $sessionbatch->START_DATE=$request->input('start_date');
+           $sessionbatch->END_DATE=$request->input('end_date');
+           $sessionbatch->TYPE=$request->input('type');
+           if ($sessionbatch->save()) {
+                 return response()->json($sessionbatch);
+            }
+      
+    }
+    public function edit_sessionbatch(Request $request)
+    {
+        
+        $currentSB= DB::table('kelex_sessionbatches')->where(['SB_ID' => $request->sessionid])
+        ->get();
+       echo json_encode($currentSB);
+      
+    }
+    public function update_sessionbatch(Request $request)
+    {
+      
+         DB::table('kelex_sessionbatches')
+        ->where('SB_ID', $request->input('sb_id'))
+        ->update(['SB_NAME' => $request->input('SB_name'),
+        'START_DATE' => $request->input('start_date'),
+        'END_DATE' => $request->input('end_date'),
+        'TYPE' => $request->input('type')
+        ]);
+
+        $selectSB= DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('SB_id'))
+        ->get();
+         
+        return response()->json($selectSB);
+    }
+    public function delete_sessionbatch(Request $request)
+    {
+        $id=$request->input('sessionid');
+        DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('sessionid'))->delete();
+        
+                 return response()->json($id);
+    }
+
 
 }
 

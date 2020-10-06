@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKelexSubject extends Migration
+class CreateKelexSessionbatch extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateKelexSubject extends Migration
      */
     public function up()
     {
-        Schema::create('kelex_subjects', function (Blueprint $table) {
-            $table->id('SUBJECT_ID');
-            $table->string('SUBJECT_NAME')->nullable();
-            $table->string('SUBJECT_CODE')->nullable();
+        Schema::create('kelex_sessionbatches', function (Blueprint $table) {
+            $table->id('SB_ID');
+            $table->string('SB_NAME')->nullable();
+            $table->string('START_DATE')->nullable();
+            $table->string('END_DATE')->nullable();
             $table->enum('TYPE',['0','1']);
             $table->softDeletes();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
@@ -30,6 +32,6 @@ class CreateKelexSubject extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelex_subjects');
+        Schema::dropIfExists('kelex_sessionbatches');
     }
 }

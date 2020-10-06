@@ -34,7 +34,7 @@
                                     <li><a href="{{route('section')}}">Section</a></li>
                                     <li><a href="{{route('class')}}">Classes</a></li>
                                     <li><a href="{{route('subject')}}">Subject</a></li>
-                                    <li><a href="ui-cards.html">Promote Students</a></li>
+                                    <li><a href="{{route('session-batch')}}">Session/Batches</a></li>
                                     <li><a href="ui-carousel.html">Assign Class Teacher</a></li>
                                     <li><a href="ui-dropdowns.html">Class Time Table</a></li>
                                     <li><a href="ui-grid.html">Grid</a></li>

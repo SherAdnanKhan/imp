@@ -29,6 +29,6 @@ class KelexSection extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('kelex_sections');
     }
 }
