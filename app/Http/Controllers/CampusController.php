@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\campusrequest;
 use Carbon\Carbon;
 use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
@@ -10,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CampusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,16 +44,9 @@ class CampusController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(campusrequest $request)
     {
-        $request->validate([
-            'schoolname' => 'required|max:255',
-            'phoneno' =>     'required',
-            'city' =>        'required',  'max:255',
-            'instuition' =>  'required',
-            'billingcharges' => 'required','max:255',
-            'discount' => 'required',
-        ]);
+    //    dd($request);
         $image = $request->file('schoollogo');
         $my_image =null;
         if(!empty($image)):
@@ -58,9 +56,8 @@ class CampusController extends Controller
        
         $billingdate= Carbon::parse( $request->input("billingdate"));
         $agreementdate= Carbon::parse($request->input("agreementdate"));
-      
+        
         $kelexcampus= new Kelex_campus();
-     
         $kelexcampus->SCHOOL_NAME=      $request->input("schoolname");
         $kelexcampus->SCHOOL_ADDRESS=   $request->input("schooladdress");
         $kelexcampus->PHONE_NO=     $request->input("phoneno");
@@ -91,7 +88,7 @@ class CampusController extends Controller
 
        echo json_encode($currentcampus);
     }
-    public function updatecampusdata(Request $request)
+    public function updatecampusdata(campusrequest $request)
     {
         if($request->hasFile('schoollogo'))
         {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-
+use App\Http\Requests\classrequest;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
@@ -87,7 +87,7 @@ class AcademicsController extends Controller
             return view('admin.Academics.add_class')->with('gclass',$getclass);
       
     }
-    public function add_class(Request $request)
+    public function add_class(classrequest $request)
     {
            $class= new Kelex_class();
            $class->class_name=$request->input('class_name');
@@ -104,7 +104,7 @@ class AcademicsController extends Controller
        echo json_encode($currentclass);
       
     }
-    public function update_class(Request $request)
+    public function update_class(classrequest $request)
     {
       
          DB::table('kelex_classes')

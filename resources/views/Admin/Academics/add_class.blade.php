@@ -26,6 +26,9 @@
              
                   <div class="form-group">
                      <label for="exampleInputclass1">Class Name </label><small class="req"> *</small>
+                     
+                     <small id="class_name_error" class="form-text text-danger"></small>
+                  
                      <input autofocus="" id="class" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                      <span class="text-danger"></span>
                   </div>
@@ -136,6 +139,7 @@
 });
 $('body').on('submit','#addclass',function(e){
       e.preventDefault();
+      $('#class_name_error').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addclass")}}',
@@ -158,8 +162,15 @@ $('body').on('submit','#addclass',function(e){
                        toastr.success('Record Added..','Notice');
               },
               error: function(error){
-                console.log(error);
-              }
+               console.log(error);
+               var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
+    }
+      
+
+              
       });
     });
     ////////////////////// EDit class /////////////////////////////////////////
