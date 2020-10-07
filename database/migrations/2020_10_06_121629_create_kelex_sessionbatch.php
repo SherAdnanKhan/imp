@@ -18,7 +18,7 @@ class CreateKelexSessionbatch extends Migration
             $table->string('SB_NAME')->nullable();
             $table->string('START_DATE')->nullable();
             $table->string('END_DATE')->nullable();
-            $table->enum('TYPE',['0','1']);
+            $table->enum('TYPE',['0','1'])->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

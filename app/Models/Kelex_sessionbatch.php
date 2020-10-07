@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kelex_sessionbatch extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'SB_ID';
+    protected $softDelete = true;
 }
+

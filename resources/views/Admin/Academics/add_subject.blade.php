@@ -63,7 +63,7 @@
                            <tr id="row{{$subject->SUBJECT_ID}}">
                               <td class="mailbox-name"> {{$subject->SUBJECT_NAME}}</td>
                               <td class="mailbox-name"> {{$subject->SUBJECT_CODE}}</td>
-                              <td class="mailbox-name"> {{$subject->TYPE}}</td>
+                              <td class="mailbox-name"> {{$subject->TYPE}} </td>
                               <td class="mailbox-date pull-right">
                                  <button value="{{$subject->SUBJECT_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
                                  <button value="{{$subject->SUBJECT_ID}}" class="btn btn-default btn-xs deletebtn"> delete </button>

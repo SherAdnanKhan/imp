@@ -17,7 +17,7 @@ class CreateKelexSubject extends Migration
             $table->id('SUBJECT_ID');
             $table->string('SUBJECT_NAME')->nullable();
             $table->string('SUBJECT_CODE')->nullable();
-            $table->enum('TYPE',['0','1']);
+            $table->enum('TYPE',['0','1'])->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

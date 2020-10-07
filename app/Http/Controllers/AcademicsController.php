@@ -210,13 +210,13 @@ class AcademicsController extends Controller
       
          DB::table('kelex_sessionbatches')
         ->where('SB_ID', $request->input('sb_id'))
-        ->update(['SB_NAME' => $request->input('SB_name'),
+        ->update(['SB_NAME' => $request->input('sb_name'),
         'START_DATE' => $request->input('start_date'),
         'END_DATE' => $request->input('end_date'),
         'TYPE' => $request->input('type')
         ]);
 
-        $selectSB= DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('SB_id'))
+        $selectSB= DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('sb_id'))
         ->get();
          
         return response()->json($selectSB);

@@ -67,7 +67,7 @@
                            <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Code: activate to sort column ascending" style="width: 236px;" aria-sort="descending">START DATE</th>
                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">END DATE</th>
                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">TYPE</th>
-                           <th class="text-right no-print sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 121px;">Action</th>
+                           <th class="text-right no-print sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 230px;">Action</th>
                         </tr>
                      </thead>
                      <tbody id="displaydata">
@@ -184,7 +184,7 @@ $('body').on('submit','#addsession-batch',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               console.log(data)
+              //console.log(data)
                 $('#displaydata').append(`
                      <tr id="row`+data.SB_ID+`">
                         <td class="mailbox-name">` + data.SB_NAME + `</td>
@@ -222,7 +222,7 @@ $('body').on('submit','#addsession-batch',function(e){
             $('#sb_name').val(data[i].SB_NAME);
             $('#start_date').val(data[i].START_DATE);
             $('#end_date').val(data[i].END_DATE);
-            $('#type').val(data[i].TYPE);
+            (data[i].TYPE=="1")?$('#session').prop('checked', true):$('#batch').prop('checked', true);
           }
             }
         });
@@ -238,10 +238,10 @@ $('body').on('submit','#addsession-batch',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-              // console.log(data)
+               console.log(data)
                
                for(i=0;i<data.length;i++){
-               $('#row' + data[i].session_ID).replaceWith(`
+               $('#row' + data[i].SB_ID).replaceWith(`
                <tr id="row`+data.SB_ID+`">
                         <td class="mailbox-name">` + data.SB_NAME + `</td>
                         <td class="mailbox-name">` + data.START_DATE + `</td>

@@ -27,7 +27,7 @@ class CreateKelexCampusesTable extends Migration
 		$table->date('DUE_DATE')->nullable();
 		$table->bigInteger('STATUS')->nullable();
 		$table->bigInteger('SMS_ALLOWED')->nullable();
-		$table->enum('AGREEMENT',['0','1']);
+		$table->enum('AGREEMENT',['0','1'])->nullable();
 		$table->date('AGREEMENT_DATE')->nullable();
 		$table->softDeletes();
 		$table->timestamps();
