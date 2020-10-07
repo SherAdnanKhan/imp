@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class kelex_section extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'SECTION_ID';
+    protected $primaryKey = 'Section_id';
     protected $softDelete = true;
 }
 

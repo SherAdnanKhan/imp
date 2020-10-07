@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class classrequest extends FormRequest
+class session_batchrequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class classrequest extends FormRequest
     public function rules()
     {
         return [
-            'class_name' => 'required|max:255',
+           'sb_name'=>'required|max:255',
+            'start_date'=>'required',
+            'end_date' =>'required',
+            'type'=>'required',
         ];
     }
 }

@@ -93,6 +93,7 @@
             <div class="box-body">
              
                   <div class="form-group" style="margin:10px">
+                  <small id="class_name_err" class="form-text text-danger"></small>
                      <input  id="classid"type="hidden" name="classid" value="">
                      <label for="exampleInputclass1">class Name </label><small class="req"> *</small>
                      <input autofocus="" id="classname" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
@@ -196,6 +197,7 @@ $('body').on('submit','#addclass',function(e){
    });
   $(document).on('submit','#editclass',function(e){
       e.preventDefault();
+      $('#class_name_err').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("updateclass")}}',
@@ -223,6 +225,10 @@ $('body').on('submit','#addclass',function(e){
              },
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_err").text(val[0]);
+                    });
               }
       });
     });

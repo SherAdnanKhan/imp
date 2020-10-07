@@ -26,10 +26,12 @@
              
                <div class="form-group">
                      <label for="exampleInputsection1">Section Name </label><small class="req"> *</small>
+                     <small id="Section_name_error" class="form-text text-danger"></small>
                      <input autofocus="" id="section" name="Section_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                      <span class="text-danger"></span>
                </div>
                <label for="exampleInputsection1">Select Class :  </label>
+               <small id="Classes_id_error" class="form-text text-danger"></small>
                               <select name="Classes_id" id="classes_id" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
                               @foreach($classes as $class)
                      <option value="{{$class->Class_id}}">{{$class->Class_name}}</option>
@@ -105,13 +107,15 @@
             <div class="box-body">
              
                   <div class="form-group" style="margin:10px">
+                  <small id="Section_name_err" class="form-text text-danger"></small>
                      <input  id="sectionid"type="hidden" name="sectionid" value="">
                      <label for="exampleInputsection1">Section Name </label><small class="req"> *</small>
                      <input autofocus="" id="sectionname" name="Section_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                      <span class="text-danger"></span>
                   </div>
                   <label for="exampleInputsection1">Select Class :  </label>
-                              <select name="editClass_id" id="editClass_id" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
+                  <small id="Classes_id_err" class="form-text text-danger"></small>
+                              <select name="Classes_id" id="editClass_id" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
                               @foreach($classes as $class)
                      <option value="{{$class->Class_id}}">{{$class->Class_name}}</option>
                      @endforeach
@@ -153,6 +157,8 @@
 });
 $('body').on('submit','#addsection',function(e){
       e.preventDefault();
+      $('#Section_name_error').text('');
+      $('#Classes_id_error').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addsection")}}',
@@ -161,7 +167,7 @@ $('body').on('submit','#addsection',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-              // console.log(data)
+               //console.log(data)
                
           for(i=0;i<data.length;i++){
                 $('#displaydata').append(`
@@ -180,6 +186,10 @@ $('body').on('submit','#addsection',function(e){
               }},
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
               }
       });
     });
@@ -193,7 +203,7 @@ $('body').on('submit','#addsection',function(e){
             }, 
             dataType:"json",
             success: function(data){
-               //console.log(data);
+               console.log(data);
                
           for(i=0;i<data.length;i++){
             $('#sectionid').val(data[i].Section_id);
@@ -205,14 +215,9 @@ $('body').on('submit','#addsection',function(e){
    });
   $('body').on('submit','#editsection',function(e){
       e.preventDefault();
+      $('#Section_name_err').text('');
+      $('#Classes_id_err').text('');
       var fdata = new FormData(this);
-      fdata.append('key1', 'value1');
-fdata.append('key2', 'value2');
-
-// Display the key/value pairs
-for (var pair of fdata.entries()) {
-    console.log(pair[0]+ ', ' + pair[1]); 
-}
 
       $.ajax({
         url: '{{url("updatesection")}}',
@@ -242,6 +247,10 @@ for (var pair of fdata.entries()) {
              } },
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_err").text(val[0]);
+                    });
               }
       });
     });

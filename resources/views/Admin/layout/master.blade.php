@@ -11,6 +11,7 @@
         <meta content="Themesbrand" name="author" />
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
         <link rel="shortcut icon" href="{{asset('admin_assets/dist/img/ico/favicon.png')}}" type="image/x-icon">
+        
      
      <script src="{{asset('assets/js/jquery.min.js')}}"></script>
      
@@ -65,7 +66,7 @@
 <body >
  
 
-    <div class="wrapper">
+<div class="wrapper">
 <!-- header below -->
 @include('Admin.layout.header')
 <!-- leftsidebar below -->

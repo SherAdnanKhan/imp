@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\classrequest;
+use App\Http\Requests\sectionrequest;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
@@ -31,19 +32,20 @@ class AcademicsController extends Controller
         return view('admin.Academics.add_section')->with(['gsection'=>$data,'classes'=>$class]);
       
     }
-    public function add_section(Request $request)
+    public function add_section(sectionrequest $request)
     {
            $section= new Kelex_section();
            $section->Section_name=$request->input('Section_name');
            $section->Class_id=$request->input('Classes_id');
            $section->save();
+        
            $data = DB::table('kelex_sections')
             ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
-            ->where('kelex_sections.section_id', '=',$section->id )
+            ->where('kelex_sections.Section_id', '=',$section->Section_id)
             ->select('kelex_sections.*', 'kelex_classes.Class_name')
             ->orderBy('kelex_sections.section_id', 'asc')
             ->get();
-           
+          
                  return response()->json($data);
             
       
@@ -56,11 +58,11 @@ class AcademicsController extends Controller
        echo json_encode($currentsection);
       
     }
-    public function update_section(Request $request)
+    public function update_section(sectionrequest $request)
     {
          DB::table('kelex_sections')
         ->where('Section_id', $request->input('sectionid'))
-        ->update(['Section_Name' => $request->input('Section_name'),'Class_id' => $request->input('editClass_id')]);
+        ->update(['Section_Name' => $request->input('Section_name'),'Class_id' => $request->input('Classes_id')]);
         $data = DB::table('kelex_sections')
         ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
         ->where('kelex_sections.section_id', '=',$request->sectionid)
