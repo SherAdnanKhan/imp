@@ -37,6 +37,7 @@ class CreateStudentsTable extends Migration
             $table->date('PASSING_YEAR')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
             $table->bigInteger('USER_ID')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
