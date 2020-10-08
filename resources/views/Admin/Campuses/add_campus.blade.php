@@ -54,7 +54,8 @@
                                                         <div class="form-group">
                                                         <label for="myfile">Upload School Logo:</label><br>
                                                         <small id="schoollogo_error" class="form-text text-danger"></small>
-                                                        <input type="file" id="myfile" name="schoollogo">
+                                        
+                                                        <input type="file" id="myfile" name="schoollogo"  accept="image/*"/>
                                                         </div>
                                                         <div class="form-group">
                                                         <label for="Cid">City id:</label> 
@@ -168,7 +169,7 @@ $.ajaxSetup({
 $('body').on('submit','#insertcampus',function(e){
       e.preventDefault();
       $('#schoolname_error').text('');
-      $('#schooladdres_error').text('');
+      $('#schooladdress_error').text('');
       $('#phoneno_error').text('');
       $('#mobileno_error').text('');
       $('#schoolregistration_error').text('');

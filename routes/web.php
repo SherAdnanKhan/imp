@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AcademicsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,13 +37,7 @@ Route::post('/updatecampus', [App\Http\Controllers\CampusController::class, 'upd
 Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'deletecampusdata'])->name('deletecampus');
 
 
-
-
-
-
-
-
- // Academics Route
+ // Academics Route Start
 
     //section route
     Route::match(['get', 'post'], '/admin/section', [AcademicsController::class, 'index_section'])->name("section");
@@ -76,3 +71,9 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
     Route::match(['get', 'post'], '/deletesession-batch', [AcademicsController::class, 'delete_sessionbatch'])->name("deletesession-batch");
     //end session-batch routes
 
+// Academatics Routes End
+
+
+// Student Routes Start
+
+    Route::match(['get', 'post'], '/admin/student', [StudentController::class, 'index_student'])->name("student");

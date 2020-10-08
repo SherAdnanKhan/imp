@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\classrequest;
 use App\Http\Requests\sectionrequest;
+use App\Http\Requests\session_batchrequest;
+use App\Http\Requests\subjectrequest;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
@@ -137,7 +139,7 @@ class AcademicsController extends Controller
             return view('admin.Academics.add_subject')->with('gsubject',$getsubject);
       
     }
-    public function add_subject(Request $request)
+    public function add_subject(subjectrequest $request)
     {
            $subject= new Kelex_subject();
            $subject->SUBJECT_NAME=$request->input('subject_name');
@@ -155,7 +157,7 @@ class AcademicsController extends Controller
        echo json_encode($currentclass);
       
     }
-    public function update_subject(Request $request)
+    public function update_subject(subjectrequest $request)
     {
       
          DB::table('kelex_subjects')
@@ -187,7 +189,7 @@ class AcademicsController extends Controller
             return view('admin.Academics.add_session-batch')->with('gsession',$getsession);
       
     }
-    public function add_sessionbatch(Request $request)
+    public function add_sessionbatch(session_batchrequest $request)
     {
            $sessionbatch = new Kelex_sessionbatch();
            $sessionbatch->SB_NAME=$request->input('sb_name');
@@ -207,7 +209,7 @@ class AcademicsController extends Controller
        echo json_encode($currentSB);
       
     }
-    public function update_sessionbatch(Request $request)
+    public function update_sessionbatch(session_batchrequest $request)
     {
       
          DB::table('kelex_sessionbatches')

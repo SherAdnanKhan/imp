@@ -1,26 +1,6 @@
 @extends('Admin.layout.master')
 
 @section("content")
-<div class="content-page">
-   <!-- Start content -->
-   <div class="content">
-      <div class="container-fluid">
-
-         <div class="row">
-               <div class="col-sm-12">
-                  <div class="page-title-box">
-                     <h4 class="page-title">Dashboard</h4>
-                     <ol class="breadcrumb">
-                           <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
-                           <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
-                           <li class="breadcrumb-item active">Blank page</li>
-                     </ol>
-
-                    
-                  </div>
-               </div>
-         </div>
-         <!-- end row -->
 
          <div class="page-content-wrapper">
                <div class="row">

@@ -66,7 +66,7 @@
 <body >
  
 
-<div class="wrapper">
+<div id="wrapper">
 <!-- header below -->
 @include('Admin.layout.header')
 <!-- leftsidebar below -->
@@ -92,7 +92,6 @@
 
 
 <!-- jQuery  -->
-
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/js/metisMenu.min.js')}}"></script>
@@ -102,8 +101,11 @@
 
 <script src="{{asset('assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
  <!-- App js -->
- <script src="{{asset('assets/js/app.js')}}"></script>
  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+  <script src="{{asset('assets/dist/js/dropify.min.js') }}"></script>
+ <script src="{{asset('assets/js/app.js')}}"></script>
+
 
 @yield('customscript')
 </body>

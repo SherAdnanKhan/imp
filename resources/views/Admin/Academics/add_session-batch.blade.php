@@ -24,21 +24,25 @@
               @csrf                           
                <div class="form-group">
                   <label for="exampleInputSB1">Session/Batch Name</label><small class="req"> *</small>
+                  <small id="sb_name_error" class="form-text text-danger"></small>
                   <input autofocus="" name="sb_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">Start date</label>
+                  <small id="start_date_error" class="form-text text-danger"></small>
                   <input name="start_date" placeholder="" type="date" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">End Date</label>
+                  <small id="end_date_error" class="form-text text-danger"></small>
                   <input  name="end_date" placeholder="" type="date" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group">
                 <label for="Sins">Please Session/Batch:</label><br> 
+                <small id="type_error" class="form-text text-danger"></small>
                 <label class="radio-inline">
                 <input type="radio" name="type" value="1" style=" margin: 10px;" > Session
                 <input type="radio" name="type" value="0" style=" margin: 10px;"> Batch
@@ -118,22 +122,26 @@
             <div class="form-group">
             <input  id="sb_id"type="hidden" name="sb_id" value="">
                   <label for="exampleInputSB1">Session/Batch Name</label><small class="req"> *</small>
+                  <small id="sb_name_err" class="form-text text-danger"></small>
                   <input autofocus="" id="sb_name" name="sb_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">Start date</label>
+                  <small id="start_date_err" class="form-text text-danger"></small>
                   <input id="start_date" name="start_date" placeholder="" type="date" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">End Date</label>
+                  <small id="end_date_err" class="form-text text-danger"></small>
                   <input id="end_date" name="end_date" placeholder="" type="date" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group">
                 <label for="Sins">Please Session/Batch:</label><br> 
                 <label class="radio-inline">
+                <small id="type_err" class="form-text text-danger"></small>
                 <input type="radio" id="session" name="type" value="1" style=" margin: 10px;" > Session
                 <input type="radio" id="batch" name="type" value="0" style=" margin: 10px;"> Batch
                 </label>
@@ -176,6 +184,10 @@
 
 $('body').on('submit','#addsession-batch',function(e){
       e.preventDefault();
+      $('#sb_name_error').text('');
+      $('#start_date_error').text('');
+      $('#end_date_error').text('');
+      $('#type_error').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addsession-batch")}}',
@@ -203,6 +215,10 @@ $('body').on('submit','#addsession-batch',function(e){
               },
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
               }
       });
     });
@@ -231,6 +247,10 @@ $('body').on('submit','#addsession-batch',function(e){
    });
   $('body').on('submit','#editsession',function(e){
       e.preventDefault();
+      $('#sb_name_err').text('');
+      $('#start_date_err').text('');
+      $('#end_date_err').text('');
+      $('#type_err').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("updatesession-batch")}}',
@@ -261,6 +281,10 @@ $('body').on('submit','#addsession-batch',function(e){
              } },
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_err").text(val[0]);
+                    });
               }
       });
     });

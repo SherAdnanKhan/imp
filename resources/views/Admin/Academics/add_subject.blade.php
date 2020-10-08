@@ -24,11 +24,13 @@
               @csrf                           
                <div class="form-group">
                   <label for="exampleInputsubject1">Subject Name</label><small class="req"> *</small>
+                  <small id="subject_name_error" class="form-text text-danger"></small>
                   <input autofocus="" id="sbjname" name="subject_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">Subject Code</label>
+                  <small id="subject_code_error" class="form-text text-danger"></small>
                   <input id="sbjcode" name="subject_code" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
@@ -102,13 +104,16 @@
          <form action="{{route('updatesubject')}}" id="editsubject" name="classform" method="post" accept-charset="utf-8">
             <div class="box-body">
                <div class="form-group" style="margin:10px">
+             
                   <input  id="subject_id"type="hidden" name="subject_id" value="">
                   <label for="exampleInputsubject1">Subject Name </label><small class="req"> *</small>
+                  <small id="subject_name_err" class="form-text text-danger"></small>
                   <input autofocus="" id="subject_name" name="subject_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group" style="margin:10px">
                   <label for="exampleInputclass1">Subject Code </label><small class="req"> *</small>
+                  <small id="subject_code_err" class="form-text text-danger"></small>
                   <input autofocus="" id="subject_code" name="subject_code" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
@@ -149,6 +154,8 @@
 });
 $('body').on('submit','#addsubject',function(e){
       e.preventDefault();
+      $('#subject_name_error').text('');
+      $('#subject_code_error').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addsubject")}}',
@@ -174,6 +181,10 @@ $('body').on('submit','#addsubject',function(e){
               },
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
               }
       });
     });
@@ -200,6 +211,8 @@ $('body').on('submit','#addsubject',function(e){
    });
   $('body').on('submit','#editsubject',function(e){
       e.preventDefault();
+      $('#Section_name_err').text('');
+      $('#subject_code_err').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("updatesubject")}}',
@@ -228,6 +241,10 @@ $('body').on('submit','#addsubject',function(e){
              } },
               error: function(error){
                 console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_err").text(val[0]);
+                    });
               }
       });
     });

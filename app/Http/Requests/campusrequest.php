@@ -26,14 +26,15 @@ class campusrequest extends FormRequest
         return [
             'schoolname' => 'required|max:255',
             'schooladdress' => 'required|max:255',
-            'phoneno' => 'required',
+            'phoneno' => 'required|max:255',
             'city' =>   'required|max:255',
-            'instuition'=> 'required',
-            'status'=>  'required',
-            'smsstatus'=>  'required',
+            'instuition'=> 'required|max:255',
+            'status'=>  'required|max:10',
+            'smsstatus'=>  'required|max:10',
             'billingcharges' => 'required|max:255',
-            'discount' => 'required',
-            'billingdate' => 'required',
+            'discount' => 'required|max:255',
+            'billingdate' => 'required|max:255',
+            'schoollogo'=>'mimes:jpeg,jpg,png,gif|max:10000',
         ];
     }
 }

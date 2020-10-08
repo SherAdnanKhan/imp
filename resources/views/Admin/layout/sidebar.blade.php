@@ -8,7 +8,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
-                                <a href="index.html" class="waves-effect">
+                                <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span> Dashboard </span>
                                 </a>
                             </li>
@@ -23,7 +23,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Students <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
-                                    <li><a href="email-inbox.html">Student Admission</a></li>
+                                    <li><a href="{{route('student')}}">Student Admission</a></li>
                                     <li><a href="email-read.html">Student Details</a></li>
                                 </ul>
                             </li>
@@ -37,15 +37,6 @@
                                     <li><a href="{{route('session-batch')}}">Session/Batches</a></li>
                                     <li><a href="ui-carousel.html">Assign Class Teacher</a></li>
                                     <li><a href="ui-dropdowns.html">Class Time Table</a></li>
-                                    <li><a href="ui-grid.html">Grid</a></li>
-                                    <li><a href="ui-images.html">Images</a></li>
-                                    <li><a href="ui-modals.html">Modals</a></li>
-                                    <li><a href="ui-pagination.html">Pagination</a></li>
-                                    <li><a href="ui-popover-tooltips.html">Popover & Tooltips</a></li>
-                                    <li><a href="ui-progressbars.html">Progress Bars</a></li>
-                                    <li><a href="ui-tabs-accordions.html">Tabs & Accordions</a></li>
-                                    <li><a href="ui-typography.html">Typography</a></li>
-                                    <li><a href="ui-video.html">Video</a></li>
                                 </ul>
                             </li>
 
