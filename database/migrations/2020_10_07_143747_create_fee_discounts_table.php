@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKelexSubject extends Migration
+class CreateFeeDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateKelexSubject extends Migration
      */
     public function up()
     {
-        Schema::create('kelex_subjects', function (Blueprint $table) {
-            $table->id('SUBJECT_ID');
-            $table->string('SUBJECT_NAME')->nullable();
-            $table->string('SUBJECT_CODE')->nullable();
-            $table->enum('TYPE',['0','1'])->nullable();
+        Schema::create('kelex_fee_discounts', function (Blueprint $table) {
+            $table->id('DISCOUNT_ID');
+            $table->bigInteger('STUDENT_ID')->nullable();
+            $table->bigInteger('FEE_ID')->nullable();
+            $table->bigInteger('DISCOUNT')->nullable();
+            $table->bigInteger('USER_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateKelexSubject extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelex_subjects');
+        Schema::dropIfExists('kelex_fee_discounts');
     }
 }

@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('CAMPUS_ID')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+            $table->text('permissions')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

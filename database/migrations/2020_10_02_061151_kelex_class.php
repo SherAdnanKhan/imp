@@ -16,7 +16,7 @@ class KelexClass extends Migration
         Schema::create('kelex_classes', function (Blueprint $table) {
             $table->id('Class_id');
             $table->string('Class_name')->nullable();
-            $table->unsignedBigInteger('Campus_id')->nullable();
+            $table->unsignedBigInteger('CAMPUS_ID')->nullable();
             $table->timestamps();
         });
     }

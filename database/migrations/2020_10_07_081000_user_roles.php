@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class KelexSection extends Migration
+class UserRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class KelexSection extends Migration
      */
     public function up()
     {
-        Schema::create('kelex_sections', function (Blueprint $table) {
-            $table->id('Section_id');
-            $table->string('Section_name')->nullable();
-            $table->unsignedBigInteger('Class_id')->nullable();
+         Schema::create('user_roles', function (Blueprint $table) {
+            $table->id('user_role_id');
+            $table->string('role_name')->nullable();
             $table->unsignedBigInteger('CAMPUS_ID')->nullable();
+            $table->unsignedBigInteger('ROLE_ID')->nullable();
+            $table->longText('permissions')->nullable();
+            $table->longText('user_id')->nullable();
             $table->timestamps();
-        });
+         });
     }
 
     /**
@@ -29,6 +31,6 @@ class KelexSection extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelex_sections');
+         Schema::dropIfExists('user_roles');
     }
 }
