@@ -233,7 +233,6 @@ $('body').on('submit','#insertcampus',function(e){
       $('#discount_error').text('');
       $('#billingdate_error').text('');
       var fdata = new FormData(this);
-      try{
       $.ajax({
         url: '{{url("addcampus")}}',
             type:'POST',
@@ -252,10 +251,7 @@ $('body').on('submit','#insertcampus',function(e){
                     });
               }
       });
-    }
-    catch(err){
-        alert(failed);
-    }
+  
     });
 
   </script>
