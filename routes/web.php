@@ -77,3 +77,4 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
 // Student Routes Start
 
     Route::match(['get', 'post'], '/admin/student', [StudentController::class, 'index_student'])->name("student");
+    Route::match(['post'],'/addstudent', [StudentController::class, 'add_student'])->name('addstudent');
