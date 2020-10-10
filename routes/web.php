@@ -78,3 +78,8 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
 
     Route::match(['get', 'post'], '/admin/student', [StudentController::class, 'index_student'])->name("student");
     Route::match(['post'],'/addstudent', [StudentController::class, 'add_student'])->name('addstudent');
+    Route::get('/showstudent', [StudentController::class, 'showstudent'])->name('showstudent');
+    Route::get('/editstudent/{id}', [StudentController::class, 'getstudentdata'])->name('editstudent');
+    Route::match(['get', 'post'], '/updatestudent', [StudentController::class, 'update_student'])->name("updatestudent");
+    Route::match(['get', 'post'], '/deletestudent', [StudentController::class, 'delete_student'])->name("deletestudent");
+    

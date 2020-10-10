@@ -1647,7 +1647,6 @@ $('body').on('submit','#insertcampus',function(e){
       $('#billingdate_error').text('');
       $('#schoolemail_error').text('');
       var fdata = new FormData(this);
-      try{
       $.ajax({
         url: '{{url("addcampus")}}',
             type:'POST',
@@ -1666,10 +1665,7 @@ $('body').on('submit','#insertcampus',function(e){
                     });
               }
       });
-    }
-    catch(err){
-        alert(failed);
-    }
+  
     });
 
   </script>

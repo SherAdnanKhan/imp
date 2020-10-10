@@ -25,12 +25,13 @@ class studentrequest extends FormRequest
     {
         return [
             'NAME'=>'required|max:255',
-            'FATHER_NAME','required|max:255',
+            'FATHER_NAME'=>'required|max:255',
             'PRESENT_ADDRESS'=>'required',
             'PERMANENT_ADDRESS' =>'required',
             'GUARDIAN'=>'required',
             'SLC_NO'=>'required',
             'PASSING_YEAR'=>'required',
+            'IMAGE'=>'mimes:jpeg,jpg,png,gif|max:10000',
         ];
     }
     public function messages()

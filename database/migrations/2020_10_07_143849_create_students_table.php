@@ -33,7 +33,7 @@ class CreateStudentsTable extends Migration
             $table->bigInteger('PREV_CLASS')->nullable();
             $table->bigInteger('SLC_NO')->nullable();
             $table->string('PREV_CLASS_MARKS')->nullable();
-            $table->bigInteger('PREV_BOARD_UNI')->nullable();
+            $table->string('PREV_BOARD_UNI')->nullable();
             $table->date('PASSING_YEAR')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
             $table->bigInteger('USER_ID')->nullable();
