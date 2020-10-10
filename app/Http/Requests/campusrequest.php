@@ -35,6 +35,7 @@ class campusrequest extends FormRequest
             'discount' => 'required|max:255',
             'billingdate' => 'required|max:255',
             'schoollogo'=>'mimes:jpeg,jpg,png,gif|max:10000',
+            'schoolemail' => 'required|email:strict,dns,filter'
         ];
     }
 }

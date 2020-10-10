@@ -8,6 +8,7 @@ use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CampusController extends Controller
 {
@@ -22,31 +23,25 @@ class CampusController extends Controller
      */
     public function index()
     {
-        $cities = getCities();
-      //  dd($cities);
+        
+    //    dd($cities);
+         $cities = getCities() ? getCities() : array();
+        
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
 
     public function showcampus()
     {
-        $api_url = 'http://collabs.pk/api/api/Website/get_cities/get_cities';
-        $ch = curl_init();  
-        curl_setopt($ch,CURLOPT_URL,$api_url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        $cities=curl_exec($ch);
-        curl_close($ch);
-        $cities =  json_decode($cities);
-      
-    $campus= Kelex_campus::all();
-    
-
+        $cities = getCities();
+        $campus = new kelex_campus();
+        dd($cities);
     return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
     }
 
 
     public function store(campusrequest $request)
     {
-    //    dd($request);
+       
         $image = $request->file('schoollogo');
         $my_image =null;
         if(!empty($image)):
@@ -76,8 +71,15 @@ class CampusController extends Controller
         $kelexcampus->SMS_ALLOWED=	$request->input("smsstatus");
         $kelexcampus->AGREEMENT=   $request->input("Aggreement");
         $kelexcampus->AGREEMENT_DATE= $agreementdate;
+       
         if ($kelexcampus->save()) {
-            return response()->json($kelexcampus);
+            $campusID = $kelexcampus->CAMPUS_ID;
+            // $login_array = array( 'CAMPUS_ID' =>  $campusID,
+            //                       'username'  => $request->input('schoolemail'),
+            //                       'password' => Hash::make(12345)  
+            //                 );
+            //                 dd($login_array);
+            return response()->json(array('status' => 1,'response' => 'Campus Created Sucessfully..'));
         }
     }
     public function getcampusdata(Request $request){
