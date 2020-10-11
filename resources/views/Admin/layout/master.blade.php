@@ -71,10 +71,11 @@
 @include('Admin.layout.header')
 <!-- leftsidebar below -->
 @if(Auth::user()->CAMPUS_ID==0)
-@include('Admin.layout.sidebar')
+@include('Admin.layout.superadminsidebar')
+
 <!-- footer below -->
 @else
-@include('Admin.layout.superadminsidebar')
+@include('Admin.layout.sidebar')
 
 @endif
 @yield('content')

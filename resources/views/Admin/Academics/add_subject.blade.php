@@ -5,22 +5,12 @@
 <link href="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section("content")
-
-                        <!-- end row -->
-
-<div class="page-content-wrapper">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                <div class="row">
+<div class="row">
    <div class="col-md-4">
-      <div class="box box-primary">
-         <div class="box-header with-border">
-            <h3 class="box-title">Add Subject</h3>
-         </div>
+      <div class="card m-b-30 card-body">
+         <h3 class="card-title font-16 mt-0">Add Subjects</h3>
          <form  action="{{ route('addcampus')}}" id="addsubject" method="post" accept-charset="utf-8">
-            <div class="box-body">
+            
               @csrf                           
                <div class="form-group">
                   <label for="exampleInputsubject1">Subject Name</label><small class="req"> *</small>
@@ -34,30 +24,20 @@
                   <input id="sbjcode" name="subject_code" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
-               
-            </div>
-            <div class="box-footer">
-               <button type="submit" class="btn btn-info pull-right">Save</button>
-            </div>
+               <button type="submit" class="btn btn-info btn-rounded btn-block waves-effect waves-light">Save</button>
          </form>
       </div>
    </div>
-
-   <div class="col-md-8">
-      <div class="box box-primary" id="sublist">
-         <div class="box-header ptbnull">
-            <h3 class="box-title titlefix">Subject List</h3>
-         </div>
-         <div class="box-body">
-            <div class="table-responsive mailbox-messages">
-                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-               <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+   <div class="col-md-6">
+      <div class="card m-b-30 card-body">
+         <h3 class="card-title font-16 mt-0">Subjects List</h3>
+            <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                      <thead>
                         <tr role="row">
-                           <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject: activate to sort column ascending" style="width: 208px;">Subject</th>
-                           <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Code: activate to sort column ascending" style="width: 236px;" aria-sort="descending">Subject Code</th>
-                           <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">Instuition Type</th>
-                           <th class="text-right no-print sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 121px;">Action</th>
+                           <th >Subject</th>
+                           <th >Subject Code</th>
+                           <th >Instuition Type</th>
+                           <th >Action</th>
                         </tr>
                      </thead>
                      <tbody id="displaydata">
@@ -74,24 +54,16 @@
                            @endforeach
                         </tbody>
                   </table>
-                </div>
-            </div>
-         </div>
+                
+           
+        
       </div>
    </div>
 </div>
-</div> 
-</div> 
-                                     </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page content-->
+                        <!-- end row -->
 
-                    </div> <!-- container-fluid -->
 
-                </div>
+
 <div class="modal fade" id="SubjectEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
