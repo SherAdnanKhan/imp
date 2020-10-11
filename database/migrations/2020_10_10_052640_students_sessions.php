@@ -18,7 +18,7 @@ class StudentsSessions extends Migration
             $table->bigInteger('SESSION_ID')->nullable();
             $table->bigInteger('CLASS_ID')->nullable();
             $table->bigInteger('SECTION_ID')->nullable();
-            $table->enum('IS_ACTIVE',['0','1'])->nullable()->comment('0=inActive,2=Active');
+            $table->enum('IS_ACTIVE',['0','1'])->nullable()->comment('0=inActive,1=Active');
             $table->bigInteger('STUDENT_ID')->nullable();
             $table->timestamps();
         });

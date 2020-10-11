@@ -34,7 +34,6 @@ class CampusController extends Controller
     {
         $cities = getCities();
         $campus = new kelex_campus();
-        dd($cities);
     return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
     }
 

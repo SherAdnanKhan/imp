@@ -14,7 +14,7 @@
         
      
      <script src="{{asset('assets/js/jquery.min.js')}}"></script>
-     
+      
       <!-- Start Global Mandatory Style
          =====================================================================-->
       <!-- jquery-ui css -->
@@ -59,9 +59,6 @@
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
-        <style>
-    
-         </style>
     </head>
 <body >
  
@@ -71,10 +68,11 @@
 @include('Admin.layout.header')
 <!-- leftsidebar below -->
 @if(Auth::user()->CAMPUS_ID==0)
-@include('Admin.layout.sidebar')
+@include('Admin.layout.superadminsidebar')
+
 <!-- footer below -->
 @else
-@include('Admin.layout.superadminsidebar')
+@include('Admin.layout.sidebar')
 
 @endif
 @yield('content')

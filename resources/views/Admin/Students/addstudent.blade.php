@@ -99,7 +99,7 @@
                            <label for="exampleInputPAl1">Present address</label>
                            <small class="req"> *</small>
                            <input type="text" id="PRESENT_ADDRESS" name="PRESENT_ADDRESS" class="form-control" >
-                           <small id="PRESENT_ADDRESSerror" class="form-text text-danger"></small>
+                           <small id="PRESENT_ADDRESS_error" class="form-text text-danger"></small>
                         </div>
                      </div>
                      <div class="col-md-3">
@@ -169,14 +169,54 @@
                      </div>
                      <div class="col-md-4">
                         <div class="form-group">
-                           <label for="exampleInputsection1">Select Class :  </label>
+                           <label for="exampleInputsection1">Select Previous Class :  </label>
                               <small class="req"> *</small>
                               <select name="PREV_CLASS" id="PREV_CLASS" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
+                              <option value="">Select</option>
                               @foreach($classes as $class)
                              <option value="{{$class->Class_id}}">{{$class->Class_name}}</option>
                                    @endforeach
                              </select>
                              <small id="PREV_CLASS_error" class="form-text text-danger"></small>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="exampleInputsection1">Select Admission Class :  </label>
+                              <small class="req"> *</small>
+                             <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                            id="class_id">
+                            <option value="0" disabled selected>Select
+                                Class*</option>
+                            @foreach($classes as $class)
+                            <option  value="{{ $class->Class_id }}">
+                                {{ ucfirst($class->Class_name) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                             <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="exampleInputsection1">Select Section :  </label>
+                              <small class="req"> *</small>
+                             <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
+                             </select>
+                             <small id="SECTION_ID_error" class="form-text text-danger"></small>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="exampleInputsection1">Select Session/Batch :  </label>
+                              <small class="req"> *</small>
+                              <select name="SESSION_ID" id="SESSION_ID" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
+                              <option value="">Select</option>
+                              @foreach($sessions as $session)
+                              <option value="{{$session->SB_ID}}">{{$session->SB_NAME}}</option>
+                                   @endforeach
+                             </select>
+                             <small id="SESSION_ID_error" class="form-text text-danger"></small>
                         </div>
                      </div>
                   </div>  
@@ -189,6 +229,24 @@
 <script>
    $(document).ready(function(){
     $('.dropify').dropify();
+    $('#class_id').on('change', function () {
+                let id = $(this).val();
+                $('#sectionid').empty();
+                $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                type: 'GET',
+                url: 'getsection/' + id,
+                success: function (response) {
+                var response = JSON.parse(response);
+                //console.log(response);   
+                $('#sectionid').empty();
+                $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
+                response.forEach(element => {
+                    $('#sectionid').append(`<option value="${element['Section_id']}.${element['Class_id']}">${element['Section_name']}</option>`);
+                    });
+                }
+            });
+        });
    });
 </script>
 <script>
@@ -198,6 +256,7 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
+                
 $('body').on('submit','#addstudent',function(e){
       e.preventDefault();
       $('#NAME_error').text('');
@@ -220,6 +279,9 @@ $('body').on('submit','#addstudent',function(e){
       $('#PREV_CLASS_MARKS_error').text('');
       $('#PREV_BOARD_UNI_error').text('');
       $('#PASSING_YEAR_error').text('');
+      $('#SESSION_ID_error').text('');
+      $('#CLASS_ID_error').text('');
+      $('#SECTION_ID_error').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addstudent")}}',
