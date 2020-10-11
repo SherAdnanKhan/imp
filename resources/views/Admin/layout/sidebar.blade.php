@@ -12,13 +12,7 @@
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span> Dashboard </span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Campuses <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
-                                <ul class="submenu">
-                                    <li><a href="{{route('campus')}}">Add Campus</a></li>
-                                    <li><a href="/showcampus">View Campuses</a></li>
-                                </ul>
-                            </li>
+                      
 
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Students <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>

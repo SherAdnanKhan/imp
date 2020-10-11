@@ -168,7 +168,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-2"><h5>Permssions</h5></div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="card-body">
                                                         <div class="card m-b-20">
                                                             <div class="col-sm-12">
@@ -193,18 +193,18 @@
                                                                 <div class="form-group">
                                                                     <span class="button-checkbox">
                                                                             <button type="button" class="btn" data-color="primary">View</button>
-                                                                            <input type="checkbox" name="usermanagment[view]" class="hidden" checked value="1" />
+                                                                            <input type="checkbox" name="role_per[usermanagment][view]" class="hidden" checked value="1" />
                                                                         </span>
                                                                         <span class="button-checkbox">
                                                                             <button type="button" class="btn" data-color="success">Create</button>
-                                                                            <input type="checkbox" class="hidden"  name="usermanagment[create]" checked value="1" />
+                                                                            <input type="checkbox" class="hidden"  name="role_per[usermanagment][create]" checked value="1" />
                                                                         </span>
                                                                         <span class="button-checkbox">
                                                                             <button type="button" class="btn" data-color="info">Update</button>
-                                                                            <input type="checkbox" class="hidden"  name="usermanagment[updated]" checked value="1" />
+                                                                            <input type="checkbox" class="hidden"  name="role_per[usermanagment][update]" checked value="1" />
                                                                         </span>
                                                                         <span class="button-checkbox">
-                                                                            <button type="button" class="btn" data-color="warning"  name="usermanagment[delete]">Delete</button>
+                                                                            <button type="button" class="btn" data-color="warning"  name="role_per[usermanagment][delete]">Delete</button>
                                                                             <input type="checkbox" class="hidden" checked value="1" />
                                                                     </span>  
                                                                 </div>
@@ -225,24 +225,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="acadamics[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="acadamics[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="acadamics[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  name="acadamics[delete]">Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked value="1" />
-                                                                        </span>  
-                                                                    </div> -->
+
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -271,11 +254,11 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_pe[acadamics]r[student_manage][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][student_manage][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked name="role_per[acadamics][student_manage][delete]" />
+                                                                                <input type="checkbox" class="hidden" checked name="role_per[acadamics][student_manage][delete]"  value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -287,7 +270,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SESSION / BATCH">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[session]status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][session][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -298,19 +281,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[session][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[acadamics][session][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[session][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][session][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[session][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][session][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked name="role_per[session][delete]" />
+                                                                                <input type="checkbox" class="hidden" checked name="role_per[acadamics][session][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -341,7 +324,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][classess][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][classess][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -372,11 +355,11 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][sections[create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][sections][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][sections][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][sections][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -411,7 +394,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][subjects][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[acadamics][subjects][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -435,24 +418,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="admissionwithdraw[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="admissionwithdraw[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="admissionwithdraw[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="admissionwithdraw[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                               
                                                                 </div>
                                                                 
                                                             </div>
@@ -482,7 +448,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[admissionwithdraw][withdraw_register][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[admissionwithdraw][withdraw_register][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -519,7 +485,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[registermanagment][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[registermanagment][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -544,24 +510,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="correspondence[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="correspondence[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="correspondence[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="correspondence[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                              
                                                                 </div>
                                                                 
                                                             </div>
@@ -591,7 +540,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[complaintletter][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[complaintletter][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -627,7 +576,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[showcause][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[showcause][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -664,7 +613,7 @@
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[notification][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[notification][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
@@ -689,24 +638,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="fee_managament[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="fee_managament[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="fee_managament[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="fee_managament[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                                 
                                                                 </div>
                                                                 
                                                             </div>
@@ -717,7 +649,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Define Fee Category">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_category][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_category][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -728,19 +660,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[fee_category][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[fee_managament][fee_category][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_category][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_category][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_category][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_category][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_category][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_managament][fee_category][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -753,7 +685,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Define Fee">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[define_fee][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][define_fee][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -764,19 +696,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[define_fee][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[fee_managament][define_fee][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[define_fee][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][define_fee][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[define_fee][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][define_fee][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[define_fee][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_managament][define_fee][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -789,7 +721,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Fee Collection">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_collection][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_collection][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -800,19 +732,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[fee_collection][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[fee_managament][fee_collection][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_collection][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_collection][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_collection][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_collection][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_collection][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_managament][fee_collection][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -825,7 +757,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Print Fee Voucher">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_voucher][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_voucher][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -836,19 +768,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[fee_voucher][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[fee_managament][fee_voucher][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_voucher][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_voucher][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_voucher][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_voucher][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="frole_per[ee_voucher][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_managament][fee_voucher][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -861,7 +793,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Fee register">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_register][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_register][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -872,19 +804,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[fee_register][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[fee_managament][fee_register][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_register][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_register][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_registe][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][fee_register][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_register][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_managament][fee_register][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -897,7 +829,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Family Accounts">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[family_accounts][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][family_accounts][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -908,19 +840,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[family_accounts][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[fee_managament][family_accounts][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[family_accounts][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][family_accounts][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[family_accounts][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[fee_managament][family_accounts][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[family_accounts][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[fee_managament][family_accounts][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -941,24 +873,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="std_attendance[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="std_attendance[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="std_attendance[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="std_attendance[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                                   
                                                                 </div>
                                                                 
                                                             </div>
@@ -969,7 +884,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Applications">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[application][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][application][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -980,55 +895,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[application][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[std_attendance][application][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[application][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance][application][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[application][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance][application][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[application][delete]" value="1"/>
-                                                                        </span>  
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-group">
-                                                                    <div class="input-group mb-6">
-                                                                            <div class="input-group-prepend">
-                                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Applications">
-                                                                                <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[application][status]" value="1">
-                                                                                </div>
-                                                                            </div>
-                                                                            
-                                                                            </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[application][view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[application][create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[application][updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[application][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[std_attendance][application][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1041,7 +920,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Attendance Managment">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance_manage][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][std_attendance_manage][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1052,19 +931,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[std_attendance_manage][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[std_attendance][std_attendance_manage][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance_manage][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance][std_attendance_manage][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance_manage][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance][std_attendance_manage][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[std_attendance_manage][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[std_attendance][std_attendance_manage][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1077,7 +956,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Non-Present Report">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[non_present][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][non_present][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1088,19 +967,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[non_present][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[std_attendance][non_present][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[non_present][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance][non_present][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[non_present][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[std_attendance][non_present][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[non_present][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[std_attendance][non_present][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1121,24 +1000,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="hr_managment[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="hr_managment[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="hr_managment[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="hr_managment[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                                
                                                                 </div>
                                                                 
                                                             </div>
@@ -1150,7 +1012,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Employee Categories">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[emp_categories][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_categories][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1161,19 +1023,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[emp_categories][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[hr_managment][emp_categories][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[emp_categories][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[hr_managment][emp_categories][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[emp_categories][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[hr_managment][emp_categories][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[emp_categories][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[hr_managment][emp_categories][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1186,7 +1048,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Employee Managment">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[emp_manage][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_manage][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1197,19 +1059,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[emp_manage][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[hr_managment][emp_manage][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[emp_manage][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[hr_managment][emp_manage][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[emp_manage][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[hr_managment][emp_manage][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[emp_manage][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[hr_managment][emp_manage][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1223,7 +1085,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Employee Attendance">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[emp_attendance][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_attendance][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1234,19 +1096,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[emp_attendance][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[hr_managment][emp_attendance][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[emp_attendance][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[hr_managment][emp_attendance][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[emp_attendance][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[hr_managment][emp_attendance][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[emp_attendance][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[hr_managment][emp_attendance][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1268,24 +1130,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="accounts[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="accounts[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="accounts[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="accounts[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                              
                                                                 </div>
                                                                 
                                                             </div>
@@ -1297,7 +1142,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Assets Category">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[asset_category][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][asset_category][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1308,19 +1153,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[asset_category][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[accounts][asset_category][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[role_per[role_per[asset_category][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[accounts][[asset_category][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[role_per[asset_category][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[accounts][asset_category][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[asset_category][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[accounts][asset_category][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1334,7 +1179,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Assets Managamnet">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[asset_managment][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][asset_managment][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1345,19 +1190,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[asset_managment][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[accounts][asset_managment][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[asset_managment][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[accounts][asset_managment][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[asset_managment][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[accounts][asset_managment][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[asset_managment][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[accounts][asset_managment][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1379,24 +1224,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <!-- <div class="form-group">
-                                                                        <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="certificate[view]" class="hidden" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="certificate[create]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="certificate[updated]" checked value="1" />
-                                                                            </span>
-                                                                            <span class="button-checkbox">
-                                                                                <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="certificate[delete]"/>
-                                                                        </span>  
-                                                                    </div> -->
+                                                        
                                                                 </div>
                                                                 
                                                             </div>
@@ -1408,7 +1236,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SLC">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[slc][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][slc][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1419,19 +1247,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[slc][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[certificate][slc][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[slc][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[certificate][slc][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[slc][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[certificate][slc][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[slc][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[certificate][slc][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1444,7 +1272,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Experience">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[experience][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][experience][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1455,19 +1283,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[experience][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[certificate][experience][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[experience][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[certificate][experience][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[experience][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[certificate][experience][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[experience][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[certificate][experience][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1480,7 +1308,7 @@
                                                                             <div class="input-group-prepend">
                                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Curricular ">
                                                                                 <div class="input-group-text">
-                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[curricular][status]" value="1">
+                                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][curricular][status]" value="1">
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -1491,19 +1319,19 @@
                                                                     <div class="form-group">
                                                                         <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="primary">View</button>
-                                                                                <input type="checkbox" name="role_per[curricular][view]" class="hidden" checked value="1" />
+                                                                                <input type="checkbox" name="role_per[certificate][curricular][view]" class="hidden" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="success">Create</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[curricular][create]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[certificate][curricular][create]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="info">Update</button>
-                                                                                <input type="checkbox" class="hidden"  name="role_per[curricular][updated]" checked value="1" />
+                                                                                <input type="checkbox" class="hidden"  name="role_per[certificate][curricular][update]" checked value="1" />
                                                                             </span>
                                                                             <span class="button-checkbox">
                                                                                 <button type="button" class="btn" data-color="warning"  >Delete</button>
-                                                                                <input type="checkbox" class="hidden" checked  name="role_per[curricular][delete]" value="1"/>
+                                                                                <input type="checkbox" class="hidden" checked  name="role_per[certificate][curricular][delete]" value="1"/>
                                                                         </span>  
                                                                     </div>
                                                                 </div>
@@ -1513,7 +1341,7 @@
 
                                                           
                                                               
-                                                </div>
+                                                </div> -->
                                 
                                         
                                                 <div class="row register-form">
@@ -1573,14 +1401,14 @@ $(function () {
         $button.on('click', function () {
             $checkbox.prop('checked', !$checkbox.is(':checked'));
             $checkbox.triggerHandler('change');
-            updateDisplay();
+            updateisplay();
         });
         $checkbox.on('change', function () {
-            updateDisplay();
+            updateisplay();
         });
 
         // Actions
-        function updateDisplay() {
+        function updateisplay() {
             var isChecked = $checkbox.is(':checked');
 
             // Set the button's state
@@ -1607,7 +1435,7 @@ $(function () {
         // Initialization
         function init() {
 
-            updateDisplay();
+            updateisplay();
 
             // Inject the icon if applicable
             if ($button.find('.state-icon').length == 0) {

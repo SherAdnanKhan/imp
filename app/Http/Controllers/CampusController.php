@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class CampusController extends Controller
 {
@@ -26,6 +28,8 @@ class CampusController extends Controller
         
     //    dd($cities);
          $cities = getCities() ? getCities() : array();
+         $role = Role::create(['name' => 'writer']);
+$permission = Permission::create(['name' => 'edit articles']);
         
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
@@ -40,7 +44,7 @@ class CampusController extends Controller
 
     public function store(campusrequest $request)
     {
-       
+    //    dd($request->all);
         $image = $request->file('schoollogo');
         $my_image =null;
         if(!empty($image)):
