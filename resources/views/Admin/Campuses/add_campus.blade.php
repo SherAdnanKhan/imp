@@ -5,7 +5,7 @@
 @endsection
 @section("content")
 <div class="page-content-wrapper">
-                            <div class="row">
+                            <div class="row">   
                                 <div class="col-12">
                                     <div class="card">
                                         
@@ -19,7 +19,7 @@
                                             </div>
                                         <div class="card-body"> <h4 class="mt-0 header-title">Add Campus</h4>
                                             <p class="text-muted m-b-30 ">Parsley is a javascript form validation
-                                                library. It helps you provide your users with feedback on their form
+                                                library. It helpsss you provide your users with feedback on their form
                                                 submission before sending it to your server.</p>
 
                                             <h4 class="register-heading">Enter Campus Details</h4>

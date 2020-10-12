@@ -8,9 +8,6 @@ use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class CampusController extends Controller
 {
@@ -34,7 +31,8 @@ class CampusController extends Controller
     public function showcampus()
     {
         $cities = getCities();
-        $campus = new kelex_campus();
+        $campus = kelex_campus::all();
+
     return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
     }
 
