@@ -8,12 +8,15 @@ use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CampusController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('isSuperAdmin');
+
     }
     /**
      * Display a listing of the resource.
@@ -23,16 +26,14 @@ class CampusController extends Controller
     public function index()
     {
         
-    //    dd($cities);
          $cities = getCities() ? getCities() : array();
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
 
     public function showcampus()
     {
-        $cities = getCities();
+        $cities = getCities() ? getCities() : [];
         $campus = kelex_campus::all();
-
     return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
     }
 
