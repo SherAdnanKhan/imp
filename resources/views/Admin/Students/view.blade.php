@@ -82,26 +82,7 @@ form.example::after {
        </div>
 
        <div class="row" style="padding-top: 40px;">
-            <div class="col-md-12">
-            <table class="table table-dark">
-                    <thead>
-                      <tr>
-                        <th scope="col">Student ID</th>
-                        <th scope="col">Student Name</th>
-                        <th scope="col">FATHER NAME</th>
-                        <th scope="col">FATHER Contact</th>
-                        <th scope="col">PREVIOUS CLASS</th>
-                        <th scope="col">PRESENT ADDRESS</th>
-                        <th scope="col">SHIFT</th>
-                        <th scope="col">Date Of Birth </th>
-                        <th scope="col">Student Picture</th>
-                        <th scope="col">Edit</th>
-                      </tr>
-                    </thead>
-                    
-                    <tbody id="displaydata">
-                    </tbody>
-                  </table>
+            <div class="col-md-12" id="displaydata">
             </div>
             </div>
 
@@ -131,40 +112,61 @@ form.example::after {
         });
         $('#sectionid').on('change', function () {
                 let id = $(this).val();
+                let html = "";
+
                 $.ajax({
                 type: 'GET',
                 dataType: "json",
                 url: 'getmatchingdata/'+ id,
                 success: function (data) {
                   if ($.trim(data) == '' ) {
-                    $("#displaydata").empty();
-                    $('#displaydata').append(`
-                    <p style="text-align:center;color:red;"> NO Result Match </p>
-                    `)
+                    html +='<p style="text-align:center;color:red;"> NO Result Match </p>';
                   }
                   else
                   {
-                    $("#displaydata").empty();
-                for (i = 0; i < data.length; i++) {
+                    html += '<table class="table table-dark">';
+                    html += '<thead>';
+                    html += ' <tr>';
+                    html += '   <th scope="col">Student ID</th>';
+                    html += '    <th scope="col">Student Name</th>';
+                    html += '   <th scope="col">FATHER NAME</th>';
+                    html += '    <th scope="col">FATHER Contact</th>';
+                    html += '    <th scope="col">PREVIOUS CLASS</th>';
+                    html += '    <th scope="col">PRESENT ADDRESS</th>';
+                    html += '    <th scope="col">SHIFT</th>';
+                    html += '   <th scope="col">Date Of Birth </th>';
+                    html += '    <th scope="col">Student Picture</th>';
+                    html += '     <th scope="col">Edit</th>';
+                    html += '   </tr>';
+                    html += ' </thead>';
+                    html += ' <tbody>';
+                    for (i = 0; i < data.length; i++) {
+               
+                     
+                      html += '<tr id="row'+data[i].STUDENT_ID+'">';
+                      html += '  <td>'+ data[i].STUDENT_ID+' </td>';
+                      html += '  <td>' + data[i].NAME+ '</td>';
+                      html += '  <td>' + data[i].FATHER_NAME+ '</td>';
+                      html += '  <td>' + data[i].FATHER_CONTACT+ '</td>';
+                      html += '  <td>'+ data[i].PREV_CLASS+ '</td>';
+                      html += '  <td>' + data[i].PRESENT_ADDRESS + '</td>';
+                      html += ' <td>' + data[i].SHIFT + '</td>';
+                      html += '  <td>' + data[i].DOB + '</td>';
+                      html += '  <td><img src="http://127.0.0.1:8000/upload/'+ data[i].IMAGE + '" style="width:50px;height:50px;" alt=""></td>';
+                      html += '   <td>';
+                      html += '      <button class="btn btn-success ajaxEditBtn">Edit</button>';
+                      html += '   </td>';
+                      html += '</tr>';
+                    }
+                    html += '</tbody>';
+                   html += '</table>';
 
-                $('#displaydata').append(`
-
-                     <tr id="row`+data[i].STUDENT_ID+`">
-                        <td>`+ data[i].STUDENT_ID+ `</td>
-                        <td>` + data[i].NAME+ `</td>
-                        <td>` + data[i].FATHER_NAME+ `</td>
-                        <td>` + data[i].FATHER_CONTACT+ `</td>
-                        <td>`+ data[i].PREV_CLASS+ `</td>
-                        <td>` + data[i].PRESENT_ADDRESS + `</td>
-                        <td>` + data[i].SHIFT + `</td>
-                        <td>` + data[i].DOB + `</td>
-                        <td><img src="http://127.0.0.1:8000/upload/`+ data[i].IMAGE + `" style="width:50px;height:50px;" alt=""></td>
-                        <td>
-                            <button class="btn btn-success ajaxEditBtn">Edit</button>
-                        </td>
-                      </tr>`)
-                }}
+                  }
+                 
+                  $("#displaydata").empty();
+                $('#displaydata').html(html);
                 }
+                
               });
             });
     });

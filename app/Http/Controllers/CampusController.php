@@ -28,9 +28,6 @@ class CampusController extends Controller
         
     //    dd($cities);
          $cities = getCities() ? getCities() : array();
-         $role = Role::create(['name' => 'writer']);
-$permission = Permission::create(['name' => 'edit articles']);
-        
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
 
