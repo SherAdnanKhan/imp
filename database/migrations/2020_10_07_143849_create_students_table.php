@@ -30,6 +30,7 @@ class CreateStudentsTable extends Migration
             $table->string('GUARDIAN',100)->nullable();
             $table->string('GUARDIAN_CNIC',100)->nullable();
             $table->string('IMAGE',100)->nullable();
+            $table->bigInteger('REG_NO')->nullable();
             $table->bigInteger('PREV_CLASS')->nullable();
             $table->bigInteger('SLC_NO')->nullable();
             $table->string('PREV_CLASS_MARKS')->nullable();

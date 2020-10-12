@@ -53,7 +53,7 @@
                   </div>
                
 
-                  <table class="table table-bordered dt-responsive nowrap"">
+                  <table class="table table-bordered dt-responsive nowrap">
                     <thead>
                       <tr>
                         <th scope="col">Student ID</th>

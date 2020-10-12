@@ -32,6 +32,9 @@ class studentrequest extends FormRequest
             'SLC_NO'=>'required',
             'PASSING_YEAR'=>'required',
             'IMAGE'=>'mimes:jpeg,jpg,png,gif|max:10000',
+            'SESSION_ID'=>'required',
+            'CLASS_ID'=>'required',
+            'SECTION_ID'=>'required',
         ];
     }
     public function messages()

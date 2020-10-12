@@ -28,32 +28,40 @@
                                  </div>
                               <div class="col-3">
                                  <div class="form-group">
-                                    <label for="">Session</label> 
+                                    <label for="">Class</label> 
                                        <small class="req"> *</small>
-                                    <select name="session_id" id="session_id" class="form-control">
-                                       <option value="">Select Session</option>
-
+                                       <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                                          id="class_id">
+                                          <option value="0" disabled selected>Select
+                                             Class*</option>
+                                          @foreach($classes as $class)
+                                          <option  value="{{ $class->Class_id }}">
+                                             {{ ucfirst($class->Class_name) }}</option>
+                                          @endforeach
                                     </select>
+                                    <small id="CLASS_ID_error" class="form-text text-danger"></small>
                                  </div>
                               </div>
                                  <div class="col-3">
                                      <div class="form-group">
-                                       <label for="">Class</label> 
+                                       <label for="">Section</label> 
                                           <small class="req"> *</small>
-                                       <select name="class_id" id="class_id" class="form-control">
-                                          <option value="">Select Session</option>
-
+                                          <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                                        </select>
+                                       <small id="SECTION_ID_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                                  <div class="col-3">
                                     <div class="form-group">
-                                       <label for="">Section</label> 
+                                       <label for="">Session</label> 
                                           <small class="req"> *</small>
-                                       <select name="section_id" id="section" class="form-control">
-                                          <option value="">Select Session</option>
-
-                                       </select>
+                                          <select name="SESSION_ID" id="SESSION_ID" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
+                              <option value="">Select</option>
+                              @foreach($sessions as $session)
+                              <option value="{{$session->SB_ID}}">{{$session->SB_NAME}}</option>
+                                   @endforeach
+                             </select>
+                             <small id="SESSION_ID_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                               </div>
@@ -258,6 +266,24 @@
 <script>
    $(document).ready(function(){
     $('.dropify').dropify();
+    $('#class_id').on('change', function () {
+                let id = $(this).val();
+                $('#sectionid').empty();
+                $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                type: 'GET',
+                url: 'getsection/' + id,
+                success: function (response) {
+                var response = JSON.parse(response);
+                //console.log(response);   
+                $('#sectionid').empty();
+                $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
+                response.forEach(element => {
+                    $('#sectionid').append(`<option value="${element['Section_id']}.${element['Class_id']}">${element['Section_name']}</option>`);
+                    });
+                }
+            });
+        });
    });
 </script>
 <script>
@@ -267,6 +293,7 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
+                
 $('body').on('submit','#addstudent',function(e){
       e.preventDefault();
       $('#NAME_error').text('');
@@ -289,6 +316,9 @@ $('body').on('submit','#addstudent',function(e){
       $('#PREV_CLASS_MARKS_error').text('');
       $('#PREV_BOARD_UNI_error').text('');
       $('#PASSING_YEAR_error').text('');
+      $('#SESSION_ID_error').text('');
+      $('#CLASS_ID_error').text('');
+      $('#SECTION_ID_error').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addstudent")}}',

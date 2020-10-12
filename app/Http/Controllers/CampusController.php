@@ -27,15 +27,14 @@ class CampusController extends Controller
     {
         
          $cities = getCities() ? getCities() : array();
-        
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
 
     public function showcampus()
     {
         $cities = getCities() ? getCities() : [];
-        $campus = new kelex_campus();
-        return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
+        $campus = kelex_campus::all();
+    return view('Admin.Campuses.view_campuses')->with(['campuses'=>$campus,'cities'=>$cities]);
     }
 
 
