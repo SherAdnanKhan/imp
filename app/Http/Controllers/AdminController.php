@@ -17,7 +17,7 @@ class AdminController extends Controller
     }
 
     public function index(){
-        
+         
       $campus =  kelex_campus::all();
      return view('Admin.superAdmin.superAdmin')->with('campuses',$campus);
     }

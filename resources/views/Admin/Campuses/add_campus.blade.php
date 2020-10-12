@@ -168,7 +168,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-2"><h5>Permssions</h5></div>
                                                 </div>
-                                                <!-- <div class="row">
+                                                <div class="row">
                                                     <div class="card-body">
                                                         <div class="card m-b-20">
                                                             <div class="col-sm-12">
@@ -1341,7 +1341,7 @@
 
                                                           
                                                               
-                                                </div> -->
+                                                </div>
                                 
                                         
                                                 <div class="row register-form">

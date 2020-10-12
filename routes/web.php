@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
 
 // Campus Routes
-Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus");
+Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus")->middleware('isSuperAdmin');;
 
 Route::match(['post'],'/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
 
