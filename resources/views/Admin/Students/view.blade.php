@@ -1,6 +1,6 @@
 @extends('Admin.layout.master')
 @section("page-css")
-<style>
+<!-- <style>
   
 td:nth-child(even) {color: white; background-color: #009B77;}
   * {
@@ -37,11 +37,65 @@ form.example::after {
   clear: both;
   display: table;
 }
-</style>
+</style> -->
 
 @endsection
 @section("content")
-<div class="container mt-4">
+<div class="row">
+   <div class="col-md-12">
+      <div class="card m-b-30 card-body">
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="">Class *<span class="gcolor"></span> </label>
+                  <select class="form-control formselect required" placeholder="Select Class"
+                    id="class_id">
+                    <option value="0"  selected>Select
+                        Class*</option>
+                    @foreach($classes as $class)
+                    <option  value="{{ $class->Class_id }}">
+                        {{ ucfirst($class->Class_name) }}</option>
+                    @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                   <label>section*</label>
+                  <select class="form-control formselect required" placeholder="Select Section" id="sectionid">
+                    <option value="0"  selected>Select
+                  </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                  <label for="">Search</label>
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search.." name="search2">
+                      <div class="input-group-append">
+                      <button type="button" class="btn btn-info btn-sm "><i class="fa fa-search"></i></button>
+                      </div>
+                  </div>
+                 
+                 
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+   <div class="col-12">
+      <div class="card m-b-30 card-body">
+          <div class="row">
+            <div class="col-12" id="displaydata">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- <div class="container mt-4">
         <div class="row">
 
             <div class="col-md-4">
@@ -86,29 +140,29 @@ form.example::after {
             </div>
             </div>
 
-</div>
+</div> -->
 
 @endsection
 @section('customscript')
 <script>
-                $(document).ready(function () {
-                $('#class_id').on('change', function () {
-                let id = $(this).val();
-                $('#sectionid').empty();
-                $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
-                $.ajax({
-                type: 'GET',
-                url: 'getsection/' + id,
-                success: function (response) {
-                var response = JSON.parse(response);
-                //console.log(response);   
-                $('#sectionid').empty();
-                $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
-                response.forEach(element => {
-                    $('#sectionid').append(`<option value="${element['Section_id']}.${element['Class_id']}">${element['Section_name']}</option>`);
-                    });
-                }
-            });
+        $(document).ready(function () {
+          $('#class_id').on('change', function () {
+          let id = $(this).val();
+          $('#sectionid').empty();
+          $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
+          $.ajax({
+            type: 'GET',
+            url: 'getsection/' + id,
+            success: function (response) {
+            var response = JSON.parse(response);
+            //console.log(response);   
+            $('#sectionid').empty();
+            $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
+            response.forEach(element => {
+                $('#sectionid').append(`<option value="${element['Section_id']}.${element['Class_id']}">${element['Section_name']}</option>`);
+                });
+            }
+          });
         });
         $('#sectionid').on('change', function () {
                 let id = $(this).val();
@@ -124,7 +178,7 @@ form.example::after {
                   }
                   else
                   {
-                    html += '<table class="table table-dark">';
+                    html += '<table class="table table-bordered dt-responsive nowrap">';
                     html += '<thead>';
                     html += ' <tr>';
                     html += '   <th scope="col">Student ID</th>';
@@ -142,7 +196,7 @@ form.example::after {
                     html += ' <tbody>';
                     for (i = 0; i < data.length; i++) {
                
-                     
+                     let image = (!data[i].IMAGE == "") ? '{{!!asset("upload/'+ data[i].IMAGE + '")!!}}' : 'https://via.placeholder.com/200';
                       html += '<tr id="row'+data[i].STUDENT_ID+'">';
                       html += '  <td>'+ data[i].STUDENT_ID+' </td>';
                       html += '  <td>' + data[i].NAME+ '</td>';
@@ -152,7 +206,7 @@ form.example::after {
                       html += '  <td>' + data[i].PRESENT_ADDRESS + '</td>';
                       html += ' <td>' + data[i].SHIFT + '</td>';
                       html += '  <td>' + data[i].DOB + '</td>';
-                      html += '  <td><img src="http://127.0.0.1:8000/upload/'+ data[i].IMAGE + '" style="width:50px;height:50px;" alt=""></td>';
+                      html += '  <td><img src="'+image+'" style="width:50px;height:50px;" alt=""></td>';
                       html += '   <td>';
                       html += '      <button class="btn btn-success ajaxEditBtn">Edit</button>';
                       html += '   </td>';

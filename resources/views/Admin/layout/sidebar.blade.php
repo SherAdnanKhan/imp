@@ -122,7 +122,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-title-box">
-                        <h4 class="page-title">Blank page</h4>
+                        <!-- <h4 class="page-title">Blank page</h4>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
@@ -138,7 +138,7 @@
                                 <div id="header-chart-2"></div>
                                 <div class="info">Item Sold 1230</div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

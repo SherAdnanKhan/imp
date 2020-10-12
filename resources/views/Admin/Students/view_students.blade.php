@@ -25,10 +25,17 @@
                     </div>
                     <div class="col-3">
                       <div class="form-group">
-                        <label for="">Session</label> 
+                        <label for="">Class</label> 
                             <small class="req"> *</small>
-                        <select name="session_id" id="session_id" class="form-control">
-                            <option value="">Select Session</option>
+                            <select class="form-control formselect required" placeholder="Select Class"
+                                id="class_id">
+                                <option value="0" disabled selected>Select
+                                    Class*</option>
+                                @foreach($classes as $class)
+                                <option  value="{{ $class->Class_id }}">
+                                    {{ ucfirst($class->Class_name) }}</option>
+                                @endforeach
+                            </select>
 
                         </select>
                       </div>
@@ -37,10 +44,8 @@
                       <div class="form-group">
                         <label for="">Session</label> 
                             <small class="req"> *</small>
-                        <select name="session_id" id="session_id" class="form-control">
-                            <option value="">Select Session</option>
-
-                        </select>
+                            <select class="form-control formselect required" placeholder="Select Section" id="sectionid">
+                          </select>
                       </div>
                     </div>
                     <div class="col-3 ">
