@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                        <label for="">Session</label> 
                                           <small class="req"> *</small>
-                                          <select name="SESSION_ID" id="SESSION_ID" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
+                                          <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Section" id="SESSION_ID" >
                               <option value="">Select</option>
                               @foreach($sessions as $session)
                               <option value="{{$session->SB_ID}}">{{$session->SB_NAME}}</option>
@@ -157,7 +157,7 @@
                                        <label for="exampleInputPAl1">Present address</label>
                                        <small class="req"> *</small>
                                        <input type="text" id="PRESENT_ADDRESS" name="PRESENT_ADDRESS" class="form-control" >
-                                       <small id="PRESENT_ADDRESSerror" class="form-text text-danger"></small>
+                                       <small id="PRESENT_ADDRESS_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                                  <div class="col-md-3">
@@ -217,7 +217,7 @@
                                     <div class="form-group">
                                        <label for="exampleInputsection1">Previous Class :  </label>
                                           <small class="req"> *</small>
-                                          <select class="form-control" name="PREV_CLASS" id="PREV_CLASS" style="text-indent: 10px; color:#85144b; width: 150px;font-size: 20px; margin: 10px;">
+                                          <select class="form-control formselect required" name="PREV_CLASS" id="PREV_CLASS" >
                                           @foreach($classes as $class)
                                           <option value="{{$class->Class_id}}">{{$class->Class_name}}</option>
                                                 @endforeach

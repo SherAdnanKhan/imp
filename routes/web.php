@@ -19,16 +19,17 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
-// Admin Routs 
-Route::get('/admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
+Auth::routes(['verify'=> true]);
 
+Route::group([ 'middleware' => 'SuperAdmin'], function()
+{
+Route::get('/superadmin',[App\Http\Controllers\AdminController::class,'index'])->name('superadmin');
 // Campus Routes
-Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus")->middleware('isSuperAdmin');;
+Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus");
 
 Route::match(['post'],'/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
 
-Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showcampus']);
+Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showcampus'])->name('showcampus');
 
 Route::get('/editcampus', [App\Http\Controllers\CampusController::class, 'getcampusdata'])->name('editcampus');
 
@@ -36,11 +37,15 @@ Route::post('/updatecampus', [App\Http\Controllers\CampusController::class, 'upd
 
 Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'deletecampusdata'])->name('deletecampus');
 
+});
 
+Route::group([ 'middleware' => 'Admin'], function()
+{
+    Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
  // Academics Route Start
 
     //section route
-    Route::match(['get', 'post'], '/admin/section', [AcademicsController::class, 'index_section'])->name("section");
+    Route::match(['get', 'post'], '/section', [AcademicsController::class, 'index_section'])->name("section");
     Route::match(['get', 'post'], '/addsection', [AcademicsController::class, 'add_section'])->name("addsection");
     Route::match(['get', 'post'], '/editsection', [AcademicsController::class, 'edit_section'])->name("editsection");
     Route::match(['get', 'post'], '/updatesection', [AcademicsController::class, 'update_section'])->name("updatesection");
@@ -48,7 +53,7 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
     //end section routes
 
     //Class Routes
-    Route::match(['get', 'post'], '/admin/class', [AcademicsController::class, 'index_class'])->name("class");
+    Route::match(['get', 'post'], '/class', [AcademicsController::class, 'index_class'])->name("class");
     Route::match(['get', 'post'], '/addclass', [AcademicsController::class, 'add_class'])->name("addclass");
     Route::match(['get', 'post'], '/editclass', [AcademicsController::class, 'edit_class'])->name("editclass");
     Route::match(['get', 'post'], '/updateclass', [AcademicsController::class, 'update_class'])->name("updateclass");
@@ -56,7 +61,7 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
     //end class routes
 
     //Subject Routes
-    Route::match(['get', 'post'], '/admin/subject', [AcademicsController::class, 'index_subject'])->name("subject");
+    Route::match(['get', 'post'], 'subject', [AcademicsController::class, 'index_subject'])->name("subject");
     Route::match(['get', 'post'], '/addsubject', [AcademicsController::class, 'add_subject'])->name("addsubject");
     Route::match(['get', 'post'], '/editsubject', [AcademicsController::class, 'edit_subject'])->name("editsubject");
     Route::match(['get', 'post'], '/updatesubject', [AcademicsController::class, 'update_subject'])->name("updatesubject");
@@ -64,7 +69,7 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
     //end Subject routes
 
     //session-batch Routes
-    Route::match(['get', 'post'], '/admin/session-batch', [AcademicsController::class, 'index_sessionbatch'])->name("session-batch");
+    Route::match(['get', 'post'], '/session-batch', [AcademicsController::class, 'index_sessionbatch'])->name("session-batch");
     Route::match(['get', 'post'], '/addsession-batch', [AcademicsController::class, 'add_sessionbatch'])->name("addsession-batch");
     Route::match(['get', 'post'], '/editsession-batch', [AcademicsController::class, 'edit_sessionbatch'])->name("editsession-batch");
     Route::match(['get', 'post'], '/updatesession-batch', [AcademicsController::class, 'update_sessionbatch'])->name("updatesession-batch");
@@ -89,3 +94,7 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
     Route::get('getmatchingdata/{id}',  [StudentController::class, 'fetchstudentdata']);
 
     Route::get('/searchstudent', [StudentController::class, 'searchstudent'])->name('searchstudent');
+
+    Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
+
+});

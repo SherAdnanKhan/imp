@@ -17,9 +17,8 @@ class StudentController extends Controller
     public function index_student()
     {
         $class= Kelex_class::all(); 
-        $section= kelex_section::all(); 
         $session= Kelex_sessionbatch::all(); 
-        return view("Admin.Students.addstudent")->with(['classes'=>$class,'sections'=>$section,'sessions'=>$session]);
+        return view("Admin.Students.addstudent")->with(['classes'=>$class,'sessions'=>$session]);
     }
     public function add_student(studentrequest $request)
     {
@@ -38,7 +37,7 @@ class StudentController extends Controller
         // dd($regno['']);
         $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
         // dd($regno);
-         Kelex_student::create([
+        $recent_entry_student= Kelex_student::create([
             'NAME' => $request->NAME,
             'FATHER_NAME' => $request->FATHER_NAME,
             'FATHER_CONTACT' => $request->FATHER_CONTACT,
@@ -63,14 +62,10 @@ class StudentController extends Controller
              'REG_NO'=> $regno,
               'USER_ID' => Auth::user()->id, 
         ]);
-        $studentid= DB::table('kelex_students')
-        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-        ->select('STUDENT_ID')
-        ->latest('created_at')
-        ->first();
-        // dd($studentid->STUDENT_ID);
+       
+        $studentid= $recent_entry_student->STUDENT_ID;
         Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
-        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=> $studentid->STUDENT_ID]);
+        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=> $studentid]);
 
         $msg='Student Record inserted successfully';
         return response()->json($msg);
@@ -85,9 +80,8 @@ class StudentController extends Controller
     }
 
     public function getstudentdata($id){
-        $data = Kelex_student::find($id)->toArray();
-        $class= Kelex_class::all(); 
-        return view('Admin.Students.editstudent')->with(['student'=>$data,'classes'=>$class]);
+        list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
+        return view('Admin.Students.editstudent')->with(['student'=>$data,'classes'=>$class,'sessions'=>$session,'sections'=>$section,'std_session_data'=>$std_session_data]);
        
     }
     public function update_student(studentrequest $request)
@@ -98,7 +92,7 @@ class StudentController extends Controller
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);
         endif;
-       Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
+        Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
           ->update([ 'NAME' => $request->NAME,
             'FATHER_NAME' => $request->FATHER_NAME,
             'FATHER_CONTACT' => $request->FATHER_CONTACT,
@@ -122,6 +116,9 @@ class StudentController extends Controller
              'CAMPUS_ID' => '1',
               'USER_ID' => '1', 
         ]);
+        Kelex_students_session::where('STUDENT_ID',$request->STUDENT_ID)->
+        update(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
+        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID]);
         $msg='Student Record Updated successfully';
         return response()->json($msg);
     }
@@ -131,8 +128,6 @@ class StudentController extends Controller
     {
 
     $class= Kelex_class::all();
-    
-
     return view('Admin.Students.view')->with('classes',$class);
     }
     
@@ -153,10 +148,28 @@ class StudentController extends Controller
         ->select('kelex_students.*')
         ->get()->toArray());
     }
+    
+    public function showdetails($id)
+    {
+      list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
+      return view('Admin.Students.view_students_details')->with(['student'=>$data,'classes'=>$class,'sessions'=>$session,'sections'=>$section,'std_session_data'=>$std_session_data]);
+    
+    }
 
     public function searchstudent(Request $request)
     {
 
 
+    }
+
+   private function getstudentdetails($id="")
+    {
+        $data = Kelex_student::find($id)->toArray();
+        $std_session_data= Kelex_students_session::where('STUDENT_ID',$id)->first();
+        $class= Kelex_class::all(); 
+        $sectionid= $std_session_data['SECTION_ID'];
+        $section= kelex_section::where('Section_id',$sectionid)->first();
+        $session=Kelex_sessionbatch::all();
+        return array($data,$class,$section,$session,$std_session_data);
     }
 }

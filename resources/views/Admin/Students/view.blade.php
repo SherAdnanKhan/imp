@@ -191,6 +191,7 @@ form.example::after {
                     html += '   <th scope="col">Date Of Birth </th>';
                     html += '    <th scope="col">Student Picture</th>';
                     html += '     <th scope="col">Edit</th>';
+                    html += '     <th scope="col">View Details</th>';
                     html += '   </tr>';
                     html += ' </thead>';
                     html += ' <tbody>';
@@ -208,8 +209,9 @@ form.example::after {
                       html += '  <td>' + data[i].DOB + '</td>';
                       html += '  <td><img src="'+image+'" style="width:50px;height:50px;" alt=""></td>';
                       html += '   <td>';
-                      html += '      <button class="btn btn-success ajaxEditBtn">Edit</button>';
+                      html += '     <a href="editstudent/'+ data[i].STUDENT_ID+'" class="btn btn-success editbtn">Edit</a>';
                       html += '   </td>';
+                      html += '   <td> <a href="viewstudentdetails/'+ data[i].STUDENT_ID+'" class="btn btn-success viewbtn">Details</a></td>';
                       html += '</tr>';
                     }
                     html += '</tbody>';

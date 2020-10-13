@@ -14,9 +14,7 @@ class CampusController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('isSuperAdmin');
-
+        $this->middleware(['auth','verified']);
     }
     /**
      * Display a listing of the resource.
