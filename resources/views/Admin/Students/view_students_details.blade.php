@@ -10,25 +10,19 @@
          <div class="box box-primary">
             <div class="box-body box-profile">
                <img class="profile-user-img img-responsive img-circle" src="{{asset('upload')}}/{{$student['IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="User profile picture" style="height: 250px; width:250px">
-               <h3 class="profile-username text-center">Kriti Singh</h3>
+               <h3 class="profile-username text-center">{{ucfirst($student['NAME'])}}</h3>
                <ul class="list-group list-group-unbordered">
                   <li class="list-group-item listnoback">
-                     <b>Admission No</b> <a class="pull-right text-aqua"> {{$student['IMAGE']}}</a>
+                     <b>Admission No</b> <a class="pull-right text-aqua"> {{ucfirst($student['REG_NO'])}}</a>
                   </li>
                   <li class="list-group-item listnoback">
-                     <b>Roll Number</b> <a class="pull-right text-aqua">111</a>
+                     <b>Class</b> <a class="pull-right text-aqua">{{ucfirst($class['Class_name'])}} ({{ucfirst($session['SB_NAME'])}})</a>
                   </li>
                   <li class="list-group-item listnoback">
-                     <b>Class</b> <a class="pull-right text-aqua">Class 1 (2020-21)</a>
+                     <b>Section</b> <a class="pull-right text-aqua">{{ucfirst($section['Section_name'])}}</a>
                   </li>
                   <li class="list-group-item listnoback">
-                     <b>Section</b> <a class="pull-right text-aqua">B</a>
-                  </li>
-                  <li class="list-group-item listnoback">
-                     <b>RTE</b> <a class="pull-right text-aqua">No</a>
-                  </li>
-                  <li class="list-group-item listnoback">
-                     <b>Gender</b> <a class="pull-right text-aqua">Female</a>
+                     <b>Gender</b> <a class="pull-right text-aqua">{{ucfirst($student['GENDER'])}}</a>
                   </li>
                </ul>
             </div>
@@ -68,41 +62,20 @@
                         <table class="table table-hover table-striped tmb0">
                            <tbody>
                               <tr>
-                                 <td class="col-md-4">Admission Date</td>
-                                 <td class="col-md-5">                                          
-                                    02/05/2020
-                                 </td>
-                              </tr>
-                              <tr>
                                  <td>Date of Birth</td>
-                                 <td>02/04/2005</td>
-                              </tr>
-                              <tr>
-                                 <td>Category</td>
-                                 <td>
-                                    General                                         
-                                 </td>
+                                 <td>{{$student['DOB']}}</td>
                               </tr>
                               <tr>
                                  <td>Mobile Number</td>
-                                 <td>49456454</td>
-                              </tr>
-                              <tr>
-                                 <td>Caste</td>
-                                 <td>Hindu</td>
+                                 <td>{{$student['SECONDARY_CONTACT']}}</td>
                               </tr>
                               <tr>
                                  <td>Religion</td>
-                                 <td>Rajpoot</td>
+                                 <td>{{$student['RELIGION']}}</td>
                               </tr>
                               <tr>
-                                 <td>Email</td>
-                                 <td>kriti@gmail.com</td>
-                              </tr>
-                              <tr>
-                                 <td>Medical History</td>
-                                 <td>
-                                 </td>
+                                 <td>CNIC/FORM B</td>
+                                 <td>{{$student['CNIC']}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -115,11 +88,11 @@
                            <tbody>
                               <tr>
                                  <td class="col-md-4">Current Address</td>
-                                 <td class="col-md-5">89 Vento Apartment, CA</td>
+                                 <td class="col-md-5">{{$student['PRESENT_ADDRESS']}}</td>
                               </tr>
                               <tr>
                                  <td>Permanent Address</td>
-                                 <td>89 Vento Apartment, CA</td>
+                                 <td>{{$student['PERMANENT_ADDRESS']}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -132,132 +105,22 @@
                            <tbody>
                               <tr>
                                  <td class="col-md-4">Father Name</td>
-                                 <td class="col-md-5">Manish Singh</td>
-                                 <td rowspan="3"><img class="profile-user-img img-responsive img-circle" src="https://demo.smart-school.in/uploads/student_images/11father.jpg"></td>
+                                 <td class="col-md-5">{{$student['PERMANENT_ADDRESS']}}</td>
                               </tr>
                               <tr>
                                  <td>Father Phone</td>
-                                 <td>165465415</td>
+                                 <td>{{$student['PERMANENT_ADDRESS']}}</td>
                               </tr>
                               <tr>
-                                 <td>Father Occupation</td>
-                                 <td>Business</td>
+                                 <td>Father CNIC</td>
+                                 <td>{{$student['FATHER_CNIC']}}</td>
                               </tr>
-                              <tr>
-                                 <td>Mother Name</td>
-                                 <td>Megha</td>
-                                 <td rowspan="3"><img class="profile-user-img img-responsive img-circle" src="https://demo.smart-school.in/uploads/student_images/11mother.jpg"></td>
-                              </tr>
-                              <tr>
-                                 <td>Mother Phone</td>
-                                 <td>654654444</td>
-                              </tr>
-                              <tr>
-                                 <td>Mother Occupation</td>
-                                 <td>Housewife</td>
-                              </tr>
-                              <tr>
                                  <td>Guardian Name</td>
-                                 <td>Megha</td>
-                                 <td rowspan="3"><img class="profile-user-img img-responsive img-circle" src="https://demo.smart-school.in/uploads/student_images/11guardian.jpg"></td>
+                                 <td>{{$student['GUARDIAN']}}</td>
                               </tr>
                               <tr>
-                                 <td>Guardian Email</td>
-                                 <td>megha@gmail.com</td>
-                              </tr>
-                              <tr>
-                                 <td>Guardian Relation</td>
-                                 <td>Mother</td>
-                              </tr>
-                              <tr>
-                                 <td>Guardian Phone</td>
-                                 <td>654654444</td>
-                              </tr>
-                              <tr>
-                                 <td>Guardian Occupation</td>
-                                 <td>Housewife</td>
-                              </tr>
-                              <tr>
-                                 <td>Guardian Address</td>
-                                 <td>89 Vento Apartment, CA</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-                  <div class="tshadow mb25  bozero">
-                     <h3 class="pagetitleh2">Route Details</h3>
-                     <div class="table-responsive around10 pt0">
-                        <table class="table table-hover table-striped tmb0">
-                           <tbody>
-                              <tr>
-                                 <td class="col-md-4">Route</td>
-                                 <td class="col-md-5">Brooklyn Central</td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">Vehicle Number</td>
-                                 <td class="col-md-5">VH5645</td>
-                              </tr>
-                              <tr>
-                                 <td>Driver Name</td>
-                                 <td>Maximus</td>
-                              </tr>
-                              <tr>
-                                 <td>Driver Contact</td>
-                                 <td>5456456</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-                  <div class="tshadow mb25  bozero">
-                     <h3 class="pagetitleh2">Miscellaneous Details</h3>
-                     <div class="table-responsive around10 pt0">
-                        <table class="table table-hover table-striped tmb0">
-                           <tbody>
-                              <tr>
-                                 <td class="col-md-4">Blood Group</td>
-                                 <td class="col-md-5"></td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">Student House</td>
-                                 <td class="col-md-5"></td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">Height</td>
-                                 <td class="col-md-5">3.5 Feet</td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">Weight</td>
-                                 <td class="col-md-5">30 KG</td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">As on Date</td>
-                                 <td class="col-md-5">02/03/2020</td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">Previous School Details</td>
-                                 <td class="col-md-5"></td>
-                              </tr>
-                              <tr>
-                                 <td class="col-md-4">National Identification Number</td>
-                                 <td class="col-md-5">4564564564</td>
-                              </tr>
-                              <tr>
-                                 <td>Local Identification Number</td>
-                                 <td>654654654</td>
-                              </tr>
-                              <tr>
-                                 <td>Bank Account Number</td>
-                                 <td>6546144</td>
-                              </tr>
-                              <tr>
-                                 <td>Bank Name</td>
-                                 <td>CBS BANK</td>
-                              </tr>
-                              <tr>
-                                 <td>IFSC Code</td>
-                                 <td>56464564</td>
+                                 <td>Guardian CNIC</td>
+                                 <td>{{$student['FATHER_CNIC']}}</td>
                               </tr>
                            </tbody>
                         </table>

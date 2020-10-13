@@ -152,7 +152,11 @@ class StudentController extends Controller
     public function showdetails($id)
     {
       list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
-      return view('Admin.Students.view_students_details')->with(['student'=>$data,'classes'=>$class,'sessions'=>$session,'sections'=>$section,'std_session_data'=>$std_session_data]);
+      $classid= $std_session_data['CLASS_ID'];
+      $selectedclass= Kelex_class::where('Class_id',$classid)->first();
+      $sessionid= $std_session_data['SESSION_ID'];
+      $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)->first();
+      return view('Admin.Students.view_students_details')->with(['student'=>$data,'class'=>$selectedclass,'session'=>$selectedsession,'section'=>$section]);
     
     }
 
