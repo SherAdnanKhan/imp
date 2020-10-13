@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Http\Requests\classrequest;
-use App\Http\Requests\sectionrequest;
-use App\Http\Requests\session_batchrequest;
-use App\Http\Requests\subjectrequest;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
 use App\Models\Kelex_subject;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\classrequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\sectionrequest;
+use App\Http\Requests\subjectrequest;
+use App\Http\Requests\session_batchrequest;
 
 class AcademicsController extends Controller
 {
@@ -36,11 +37,13 @@ class AcademicsController extends Controller
     }
     public function add_section(sectionrequest $request)
     {
-           $section= new Kelex_section();
-           $section->Section_name=$request->input('Section_name');
-           $section->Class_id=$request->input('Classes_id');
-           $section->save();
-        
+        $section= new Kelex_section();
+        $section-> Section_name=$request->input('Section_name');
+        $section-> Class_id=$request->input('Classes_id');
+        $section-> CAMPUS_ID= Auth::user()->CAMPUS_ID;
+        $section-> USER_ID = Auth::user()->id;
+        $section->save();
+      
            $data = DB::table('kelex_sections')
             ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
             ->where('kelex_sections.Section_id', '=',$section->Section_id)
@@ -77,7 +80,7 @@ class AcademicsController extends Controller
     public function delete_section(Request $request)
     {
         $id=$request->input('sectionid');
-        DB::table('kelex_sections')->where('Section_id',$request->input('sectionid'))->delete();
+        DB::table('kelex_sections')->where('Section_id',$id)->delete();
         
                  return response()->json($id);
             }
@@ -93,8 +96,11 @@ class AcademicsController extends Controller
     }
     public function add_class(classrequest $request)
     {
+        
            $class= new Kelex_class();
            $class->class_name=$request->input('class_name');
+           $class->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+           $class->USER_ID = Auth::user()->id;
            if ($class->save()) {
                  return response()->json($class);
             }
@@ -144,6 +150,8 @@ class AcademicsController extends Controller
            $subject= new Kelex_subject();
            $subject->SUBJECT_NAME=$request->input('subject_name');
            $subject->SUBJECT_CODE=$request->input('subject_code');
+           $subject->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+           $subject->USER_ID = Auth::user()->id;
            if ($subject->save()) {
                  return response()->json($subject);
             }
@@ -196,6 +204,8 @@ class AcademicsController extends Controller
            $sessionbatch->START_DATE=$request->input('start_date');
            $sessionbatch->END_DATE=$request->input('end_date');
            $sessionbatch->TYPE=$request->input('type');
+           $sessionbatch->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+           $sessionbatch->USER_ID = Auth::user()->id;
            if ($sessionbatch->save()) {
                  return response()->json($sessionbatch);
             }

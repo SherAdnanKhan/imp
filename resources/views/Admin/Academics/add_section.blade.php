@@ -50,9 +50,7 @@
                      {{$section->Section_name}} 
                   </td>
                   <td>
-                  <td>
                      {{$section->Class_name}}
-                  </td>
                   </td>
                   <td class="mailbox-date pull-right">
                   <button value="{{$section->Section_id}}" class="btn btn-default btn-xs editbtn" > edit </button>

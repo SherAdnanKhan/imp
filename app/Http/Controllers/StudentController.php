@@ -35,7 +35,13 @@ class StudentController extends Controller
         ->latest('created_at')
         ->first();
         // dd($regno['']);
+        $rollno= DB::table('kelex_students_sessions')
+        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
+        ->select('ROLL_NO')
+        ->latest('created_at')
+        ->first();
         $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
+        $rollno = ( $rollno == NULL) ? 1 : $rollno->ROLL_NO+1;
         // dd($regno);
         $recent_entry_student= Kelex_student::create([
             'NAME' => $request->NAME,
@@ -62,10 +68,10 @@ class StudentController extends Controller
              'REG_NO'=> $regno,
               'USER_ID' => Auth::user()->id, 
         ]);
-       
         $studentid= $recent_entry_student->STUDENT_ID;
         Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
-        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=> $studentid]);
+        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=> $studentid,'ROLL_NO'=> $rollno,'CAMPUS_ID'=>Auth::user()->CAMPUS_ID,
+         'USER_ID'=> Auth::user()->id]);
 
         $msg='Student Record inserted successfully';
         return response()->json($msg);
