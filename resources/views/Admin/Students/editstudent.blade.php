@@ -279,7 +279,7 @@
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
-                    $('#sectionid').append(`<option value="${element['Section_id']}.${element['Class_id']}">${element['Section_name']}</option>`);
+                    $('#sectionid').append(`<option value="${element['Section_id']}">${element['Section_name']}</option>`);
                     });
                 }
             });

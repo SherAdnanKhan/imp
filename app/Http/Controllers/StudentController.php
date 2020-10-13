@@ -93,7 +93,8 @@ class StudentController extends Controller
     public function update_student(studentrequest $request)
     {
         $image = $request->file('IMAGE');
-        $my_image =null;
+        $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)->first();
+        $my_image =$img['IMAGE'];
         if(!empty($image)):
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);

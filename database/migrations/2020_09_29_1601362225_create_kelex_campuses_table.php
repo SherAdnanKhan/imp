@@ -17,6 +17,7 @@ class CreateKelexCampusesTable extends Migration
 		$table->string('MOBILE_NO',50)->nullable();
 		$table->string('LOGO_IMAGE')->nullable();
 		$table->string('SCHOOL_REG',50)->nullable();
+		$table->string('SCHOOL_EMAIL',50)->nullable();
 		$table->string('SCHOOL_WEBSITE',50)->nullable();
 		$table->string('CONTROLLLER')->nullable();
 		$table->unsignedBigInteger('USER_ID')->nullable();
