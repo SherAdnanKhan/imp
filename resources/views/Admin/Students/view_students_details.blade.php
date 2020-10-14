@@ -29,33 +29,29 @@
          </div>
       </div>
       <div class="col-md-9">
-         <div class="nav-tabs-custom theme-shadow">
-            <ul class="nav nav-tabs">
-               <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true" data-original-title="" title="">Profile</a></li>
-               <li class=""><a href="#fee" data-toggle="tab" aria-expanded="false" data-original-title="" title="">Fees</a></li>
-               <li class=""><a href="#documents" data-toggle="tab" aria-expanded="false" data-original-title="" title="">Documents</a></li>
-               <li class=""><a href="#timelineh" data-toggle="tab" aria-expanded="false" data-original-title="" title="">Timeline</a></li>
-               <li class="pull-right dropdown">
-                  <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-                  <ul class="dropdown-menu">
-                     <li><a style="cursor: pointer;" onclick="send_password()"> Send Student Password</a></li>
-                     <li><a style="cursor: pointer;" onclick="send_parent_password()">  Send Parent Password</a></li>
-                  </ul>
-               </li>
-               <li class="pull-right">
-                  <a style="cursor: pointer;" onclick="disable_student('11')" class="text-red" data-toggle="tooltip" data-placement="bottom" title="Disable">
-                  <i class="fa fa-thumbs-o-down"></i>                                    </a>
-               </li>
-               <li class="pull-right">
-                  <a href="#" class="schedule_modal text-green" data-toggle="tooltip" data-placement="bottom" title="Login Details"><i class="fa fa-key"></i>
-                  </a>
-               </li>
-               <li class="pull-right">
-                  <a href="https://demo.smart-school.in/student/edit/11" class="" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i>
-                  </a>
-               </li>
-            </ul>
-            <div class="tab-content">
+      <ul class="nav nav-pills nav-justified" role="tablist">
+                                                <li class="nav-item waves-effect waves-light">
+                                                    <a class="nav-link active" data-toggle="tab" href="#activity" role="tab">Profile</a>
+                                                </li>
+                                                <li class="nav-item waves-effect waves-light">
+                                                    <a class="nav-link" data-toggle="tab" href="#fee" role="tab">Fees</a>
+                                                </li>
+                                                <li class="nav-item waves-effect waves-light">
+                                                    <a class="nav-link" data-toggle="tab" href="#documents" role="tab">Documents</a>
+                                                </li>
+                                                <li class="nav-item waves-effect waves-light">
+                                                    <a class="nav-link" data-toggle="tab" href="#timelineh" role="tab">Timeline</a>
+                                                </li>
+                                                <li class="pull-right dropdown">
+                                                      <a href="#" class="dropdown-toggle" type="button" data-toggle="dropdown" data-original-title="" title="" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                      <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" onclick="send_password()"> Send Student Password</a></li>
+                                                            <li><a class="dropdown-item" onclick="send_parent_password()">  Send Parent Password</a></li>
+                                                      </ul>
+                                                </li>
+                                                
+                                             </ul>
+            <div class="tab-content" style="padding:20px;">
                <div class="tab-pane active" id="activity">
                   <div class="tshadow mb25 bozero">
                      <div class="table-responsive around10 pt0">

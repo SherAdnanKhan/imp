@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AcademicsController;
+use App\Http\Controllers\EmployeeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,4 +100,15 @@ Route::group([ 'middleware' => 'Admin'], function()
 
     Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
+// Fee Routes Start
+Route::match(['get', 'post'], '/feecategory', [FeeController::class, 'index_feecategory'])->name("feecategory");
+Route::match(['get', 'post'], '/addfeecategory', [FeeController::class, 'add_feecategory'])->name("addfeecategory");
+Route::match(['get', 'post'], '/editfeecategory', [FeeController::class, 'edit_feecategory'])->name("editfeecategory");
+Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'update_feecategory'])->name("updatefeecategory");
+
+
+
+//Employee Routes Start
+Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
+Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
 });

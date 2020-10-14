@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->bigInteger('DESIGNATION_ID')->nullable();
             $table->string('QUALIFICATION')->nullable();
             $table->enum('EMP_TYPE',['1','2'])->nullable()->comment('1=teaching staff, 2= non-teaching staff');
-            $table->text('ADDRESS')->nullable();
+            $table->string('ADDRESS')->nullable();
             $table->string('PASSWORD',100)->nullable();
             $table->string('EMP_IMAGE',250)->nullable();
             $table->bigInteger('CREATED_BY')->nullable();

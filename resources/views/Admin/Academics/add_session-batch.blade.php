@@ -9,7 +9,7 @@
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Add Session/Batch</h3>
-         <form  action="{{ route('addcampus')}}" id="addsession-batch" method="post" accept-charset="utf-8">
+         <form  action="{{ route('addsession-batch')}}" id="addsession-batch" method="post" accept-charset="utf-8">
             <div class="box-body">
               @csrf                           
                <div class="form-group">
