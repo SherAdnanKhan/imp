@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelex_sessionbatch;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_fee_category;
@@ -14,7 +15,11 @@ class FeeController extends Controller
 {
     public function index_feecategory()
     {   
-        $getfeecat=Kelex_fee_category::all();
+        $getfeecat = DB::table('kelex_fee_categories')
+                                ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
+                                ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
+                                ->select('kelex_fee_categories.*','kelex_classes.*','kelex_sections.*')
+                                ->get()->toArray();
         $class= Kelex_class::all(); 
         return view('Admin.FeesManagement.add_fee')->with(['classes'=>$class,'getfeecat'=>$getfeecat]);
       
@@ -61,5 +66,17 @@ class FeeController extends Controller
         ->get();
          
         return response()->json($selectFC);
+    }
+
+    public function fee_structure()
+    {
+        $sessions = Kelex_sessionbatch::all();
+        $getfeecat = DB::table('kelex_fee_categories')
+                                ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
+                                ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
+                                ->select('kelex_fee_categories.*','kelex_classes.*','kelex_sections.*')
+                                ->get()->toArray();
+        $class= Kelex_class::all(); 
+        return view('Admin.FeesManagement.fee_structure')->with(['sessions' => $sessions,'classes'=>$class,'getfeecat'=>$getfeecat]);
     }
 }

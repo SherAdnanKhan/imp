@@ -6,53 +6,95 @@
 @endsection
 @section('content')
 <div class="row">
-   <div class="col-md-4">
       <div class="card m-b-30 card-body">
-            <h3 class="card-title font-16 mt-0">Add Section/batch</h3>
-            <form action="{{ route('addfeecategory')}}" id="addfeecategory" name="sectionform" method="post" accept-charset="utf-8">
-                                <div class="form-group">
-                                    <label for="">Class</label> 
-                                       <small class="req"> *</small>
-                                       <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
-                                          id="class_id">
-                                          <option value="0" disabled selected>Select
-                                             Class*</option>
-                                          @foreach($classes as $class)
-                                          <option  value="{{ $class->Class_id }}">
-                                             {{ ucfirst($class->Class_name) }}</option>
-                                          @endforeach
-                                    </select>
-                                    <small id="CLASS_ID_error" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                       <label for="">Section</label> 
-                                          <small class="req"> *</small>
-                                          <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
-                                       </select>
-                                       <small id="SECTION_ID_error" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group" style="margin:10px">
-                                   
-                                    <label for="exampleInputclass1">Fee Name</label><small class="req"> *</small>
-                                    <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="text" class="form-control" value="" autocomplete="off">
-                                    <small id="CATEGORY_error" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="SHIFT"> Shift:</label><br> 
-                                    <label class="radio-inline">
-                                    
-                                    <input type="radio" id="morning" name="SHIFT" value="1" style=" margin: 10px;" > Morning
-                                    <input type="radio" id="evening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
-                                    </label>
-                                    <small id="SHIFT_error" class="form-text text-danger"></small>
-                                </div>
-                    
-                        <button type="submit" class="btn btn-info btn-rounded btn-block waves-effect waves-light">Save</button>
-                
-                     @csrf
+            <h3 class="card-title font-16 mt-0">Define Fee Structure</h3>
+            <form action="{{ route('add-fee-structure')}}" id="addfeecategory" name="sectionform" method="post" accept-charset="utf-8">
+               <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                           <label for="">session</label> 
+                              <small class="req"> *</small>
+                              <select name="session_id" class="form-control formselect required" placeholder="Select Class"
+                                 id="class_id">
+                                 <option value="0" selected>Session*</option>
+                                 @foreach($classes as $class)
+                                 <option  value="{{ $class->Class_id }}">
+                                    {{ ucfirst($class->Class_name) }}</option>
+                                 @endforeach
+                           </select>
+                           <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                        </div>
+                  </div>
+                  <div class="col">
+                     <div class="form-group">
+                        <label for="">Class</label> 
+                           <small class="req"> *</small>
+                           <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                              id="class_id">
+                              <option value="0"  selected>
+                                 Class *</option>
+                              @foreach($classes as $class)
+                              <option  value="{{ $class->Class_id }}">
+                                 {{ ucfirst($class->Class_name) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+                  <div class="col">
+                        <div class="form-group">
+                           <label for="">Section</label> 
+                              <small class="req"> *</small>
+                              <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
+                           </select>
+                           <small id="SECTION_ID_error" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+
+               </div>
+
+               <div class="row">
+                  <div class="col">
+                     <div class="col">
+                        <div class="form-group" >
+                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
+                           <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="number" class="form-control" value="" autocomplete="off">
+                           <small id="CATEGORY_error" class="form-text text-danger"></small>
+                        </div>                  
+                     </div>
+                  </div>
+                  <div class="col">
+                     <div class="form-group">
+                        <label for="SHIFT"> Shift:</label><br> 
+                        <label class="radio-inline">
+                        
+                        <input type="radio" id="morning" name="SHIFT" value="1" style=" margin: 10px;" checked > Morning
+                        <input type="radio" id="evening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
+                        </label>
+                        <small id="SHIFT_error" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+                  <div class="col">
+                     <div class="form-group">
+                         <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
+                     </div>
+                  </div>
+                 
+               </div>
+              
+
+             
+               
+               
+   
+              
+
+            @csrf
             </form>
       </div>
    </div>
+</div>
+<div class="row">
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Fee Catergory List</h3>
@@ -74,7 +116,7 @@
                   <td> {{$getfc->Section_name}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
                   <td>
-                     <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
+                     <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button>
                
                   </td>
                </tr>
@@ -214,14 +256,14 @@ $('body').on('submit','#addfeecategory',function(e){
       $('#SHIFT_error').text('');
       var fdata = new FormData(this);
       $.ajax({
-        url: '{{url("addfeecategory")}}',
+        url: '{{url("add-fee-structure")}}',
             type:'POST',
             data: fdata,
             processData: false,
             contentType: false,
             success: function(data){
               console.log(data)
-              var type = data.SHIFT==1?'Morning':'Evening';
+              var type = data.SHIFT==1 ? 'Morning':'Evening';
                 $('#displaydata').append(`
                      <tr id="row`+data.FEE_CAT_ID+`">
                         <td class="mailbox-name">` + data.CATEGORY + `</td>
