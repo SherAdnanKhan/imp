@@ -6,6 +6,8 @@ use App\Http\Controllers\FeeController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AcademicsController;
+use App\Http\Controllers\StudentAttendanceController;
+use App\Http\Controllers\GeneralController; 
 use App\Http\Controllers\EmployeeController;
 
 /*
@@ -101,13 +103,20 @@ Route::group([ 'middleware' => 'Admin'], function()
     Route::match(['get', 'post'], '/updatestudent', [StudentController::class, 'update_student'])->name("updatestudent");
     
     Route::get('/showstudent', [StudentController::class, 'show'])->name('showstudent');
-
-    Route::get('/getsection/{id}',  [StudentController::class, 'fetch']);
-
+    // Route::get('/getsection/{id}',  [StudentController::class, 'fetch']);
+    Route::get('/getsection/{id}',  [GeneralController::class, 'getSections']);
+    Route::get('/getclasses/',  [GeneralController::class, 'getClasses']);
     Route::get('getmatchingdata/{id}',  [StudentController::class, 'fetchstudentdata']);
 
     Route::get('/searchstudent', [StudentController::class, 'searchstudent'])->name('searchstudent');
 
+/// Student Attendance start 
+    Route::get('/student-attendance', [StudentAttendanceController::class, 'student_attendance'])->name('student-attendance');
+    Route::post('/get-abscent-list', [StudentAttendanceController::class, 'getNonPresentStudents'])->name('get-abscent-list');
+    Route::post('/get-std-for-attendance', [StudentAttendanceController::class, 'get_stds_for_attendance'])->name('get-std-for-attendance');
+    Route::post('/save-students-attendance', [StudentAttendanceController::class, 'save_students_attendance'])->name('save-students-attendance');
+    Route::match(['post','get'],'/non-present-students', [StudentAttendanceController::class, 'non_present_students'])->name('non-present-students');
+/// Student Attendance end..
     Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
 // Fee Routes Start
@@ -121,8 +130,12 @@ Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'upda
 //Employee Routes Start
 Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
 Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
+<<<<<<< HEAD
 Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
 Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
 Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
    
 });
+=======
+});
+>>>>>>> 0cb7061cc6ffc35129ccfb57fc8fa08371998280
