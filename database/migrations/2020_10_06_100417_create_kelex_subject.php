@@ -19,6 +19,7 @@ class CreateKelexSubject extends Migration
             $table->string('SUBJECT_CODE')->nullable();
             $table->enum('TYPE',['0','1'])->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
+            $table->unsignedBigInteger('USER_ID')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

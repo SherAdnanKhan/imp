@@ -28,7 +28,7 @@
             <thead>
                <tr role="row">
                   <th>Class</th>
-                  <th>Action</th>
+                  <th class="text-right">Action</th>
                </tr>
             </thead>
             <tbody id="displaydata">
@@ -48,41 +48,45 @@
       </div>
    </div>
 </div>
+ <!-- Edit class using modal -->
+<div id="classEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Class</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                     </div>
+                     <div class="modal-body">
+                     <form action="{{route('updateclass')}}" id="editclass" name="classform" method="post" accept-charset="utf-8">
 
- 
+                        <div class="box-body">
+                           
+                              <div class="form-group" style="margin:10px">
+                              <small id="class_name_err" class="form-text text-danger"></small>
+                                 <input  id="classid"type="hidden" name="classid" value="">
+                                 <label for="exampleInputclass1">class Name </label><small class="req"> *</small>
+                                 <input autofocus="" id="classname" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
+                                 <span class="text-danger"></span>
+                              </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                     </div>
+                           @csrf
+                     </form>
+
+                  
+                   
+               </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
+   </div>
 
 
 
  <!-- Edit class using modal -->
- <div class="modal fade" id="classEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="color:rgb(255, 255, 255); background-color: rgb(13, 189, 13);">
-                <h5 class="modal-title" id="exampleModalLabel">Edit class </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:rgb(255, 255, 255);">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-         <form action="{{route('updateclass')}}" id="editclass" name="classform" method="post" accept-charset="utf-8">
-            
-            <div class="box-body">
-             
-                  <div class="form-group" style="margin:10px">
-                  <small id="class_name_err" class="form-text text-danger"></small>
-                     <input  id="classid"type="hidden" name="classid" value="">
-                     <label for="exampleInputclass1">class Name </label><small class="req"> *</small>
-                     <input autofocus="" id="classname" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
-                     <span class="text-danger"></span>
-                  </div>
-            </div>
-               <div class="box-footer">
-                  <button type="submit" class="btn btn-info pull-right">Save</button>
-              </div>
-               @csrf
-         </form>
-      </div>
-   </div>
-</div>
 </div>
 </div>  
 </div>
@@ -195,7 +199,7 @@ $('body').on('submit','#addclass',function(e){
             
                } 
                $("#editclass").get(0).reset();
-                $('.classEditModal').modal('hide');
+               $('#classEditModal').modal('hide');
                 toastr.warning('Record Saved..','Notice');
              },
               error: function(error){

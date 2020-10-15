@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Kelex_students_session extends Model
 {
     use HasFactory;
-    protected $fillable = ['SESSION_ID','CLASS_ID','SECTION_ID','IS_ACTIVE','STUDENT_ID'];
+    protected $fillable = ['SESSION_ID','CLASS_ID','SECTION_ID','IS_ACTIVE','STUDENT_ID','ROLL_NO','CAMPUS_ID','USER_ID'];
 
 }

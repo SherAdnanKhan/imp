@@ -17,6 +17,7 @@ class KelexClass extends Migration
             $table->id('Class_id');
             $table->string('Class_name')->nullable();
             $table->unsignedBigInteger('CAMPUS_ID')->nullable();
+            $table->unsignedBigInteger('USER_ID')->nullable();
             $table->timestamps();
         });
     }

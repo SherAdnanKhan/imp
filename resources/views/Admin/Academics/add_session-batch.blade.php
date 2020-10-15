@@ -9,7 +9,7 @@
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Add Session/Batch</h3>
-         <form  action="{{ route('addcampus')}}" id="addsession-batch" method="post" accept-charset="utf-8">
+         <form  action="{{ route('addsession-batch')}}" id="addsession-batch" method="post" accept-charset="utf-8">
             <div class="box-body">
               @csrf                           
                <div class="form-group">
@@ -76,17 +76,16 @@
       </div>
    </div>
 </div>
-
-<div class="modal fade" id="sessionEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header" style="color:rgb(255, 255, 255); background-color: rgb(13, 189, 13);">
-            <h5 class="modal-title" id="exampleModalLabel">Edit class </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:rgb(255, 255, 255);">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <form action="{{route('updatesession-batch')}}" id="editsession" name="classform" method="post" accept-charset="utf-8">
+<!-- edit Session Batch modal  -->
+<div id="sessionEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Session/Batches</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                     </div>
+                     <div class="modal-body">
+            <form action="{{route('updatesession-batch')}}" id="editsession" name="classform" method="post" accept-charset="utf-8">
          @csrf     
          <div class="box-body">
             <div class="form-group">
@@ -117,14 +116,19 @@
                 </label>
             </div>
             </div>
-            <div class="box-footer">
-               <button type="submit" class="btn btn-info btn-rounded btn-block waves-effect waves-light">Save</button>
-            </div>
-            @csrf
-         </form>
-      </div>
+            <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                     </div>
+                           @csrf
+                     </form>
+
+                  
+                   
+               </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
    </div>
-</div>
  <!-- content -->
 @endsection
 @section("customscript")

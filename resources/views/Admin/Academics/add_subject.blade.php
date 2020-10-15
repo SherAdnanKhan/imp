@@ -61,19 +61,16 @@
    </div>
 </div>
                         <!-- end row -->
-
-
-
-<div class="modal fade" id="SubjectEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header" style="color:rgb(255, 255, 255); background-color: rgb(13, 189, 13);">
-            <h5 class="modal-title" id="exampleModalLabel">Edit class </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:rgb(255, 255, 255);">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <form action="{{route('updatesubject')}}" id="editsubject" name="classform" method="post" accept-charset="utf-8">
+<!-- Edit Subject Using Modal -->
+<div id="SubjectEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Session/Batches</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                     </div>
+                     <div class="modal-body">
+                     <form action="{{route('updatesubject')}}" id="editsubject" name="classform" method="post" accept-charset="utf-8">
             <div class="box-body">
                <div class="form-group" style="margin:10px">
              
@@ -90,14 +87,19 @@
                   <span class="text-danger"></span>
                </div>
             </div>
-            <div class="box-footer">
-               <button type="submit" class="btn btn-info pull-right">Save</button>
-            </div>
-            @csrf
-         </form>
-      </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                     </div>
+                           @csrf
+                     </form>
+
+                  
+                   
+               </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
    </div>
-</div>
  <!-- content -->
 @endsection
 @section("customscript")

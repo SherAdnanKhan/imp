@@ -17,9 +17,15 @@ class Superadmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::user()->CAMPUS_ID == 0):
-            redirect('Admin');
-        endif;
-        return $next($request);
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        if(Auth::user()->CAMPUS_ID==0){
+            return $next($request);
+        }
+
+        if(Auth::user()->CAMPUS_ID!==0){
+            return redirect()->route('admin');
+        }
     }
 }

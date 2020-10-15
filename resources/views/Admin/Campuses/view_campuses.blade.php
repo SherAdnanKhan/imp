@@ -67,15 +67,14 @@
                   <a href="{{route('campus')}}" class="btn btn-primary">Add New Campus</a>
             </div>
         </div>
-        
-    <div class="modal fade" id="campusEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content"  style="width:1000px">
-                       
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active " style="padding:20px;margin:20px;" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <h4 class="register-heading">Edit Campus Details</h4>
-                                <div class="container-fluid" style="padding:10px;">
+        <div class="modal fade bs-example-modal-lg" id="campusEditModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Edit Campus Details</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                                </div>
+                                                                <div class="modal-body">
 
                               <form method="post" action="{{ route('updatecampus')}}" id="editcampus" enctype="multipart/form-data">
                                  <div class="row register-form">
@@ -99,6 +98,9 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="sreg" class="form-control"  name="schoolregistration" placeholder="Enter School Registration *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" id="smail" class="form-control"  name="schoolemail" placeholder="Enter School Email *" value="" />
                                         </div>
                                         <div class="form-group">
                                             <input type="text" id="sweb" class="form-control"  name="schoolwebsite" placeholder="Enter School Website *" value="" />
@@ -165,36 +167,20 @@
                                    
                                     </div>
                                 </div>
-                                <div class="buttonHolder">
-                                <input type="submit" value="Submit" id="editcampus"> 
-                                
-                                  </div>
+                                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light" id="editcampus">Save changes</button>
+                     </div>
+                           @csrf
+                     </form>
 
+                  
+                   
+               </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
+   </div>
 
-                               
-                                  @csrf
-                            </form>
-                        
-                        </div>
-                    </div>
-                </div>
-
-    </div>
-            </div>
-            </div>
-        </div>
-        {{--End of User edit model--}}
-  
-      </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page content-->
-
-                    </div> <!-- container-fluid -->
-
-                </div> <!-- content -->
 @endsection
 
 @section("customscript")
@@ -230,6 +216,7 @@
             (data[i].STATUS==1)?$('#status1').prop('checked', true):$('#status0').prop('checked', true);
             (data[i].SMS_ALLOWED==1)?$('#smsstatus1').prop('checked', true):$('#smsstatus0').prop('checked', true);
             $('#sreg').val(data[i].SCHOOL_REG);
+            $('#smail').val(data[i].SCHOOL_EMAIL);
             $('#sweb').val(data[i].SCHOOL_WEBSITE);
             $('#cityid').val(data[i].CITY_ID);
             $('#adate').val(data[i].AGREEMENT_DATE);

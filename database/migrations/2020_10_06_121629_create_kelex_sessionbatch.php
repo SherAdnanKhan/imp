@@ -20,6 +20,7 @@ class CreateKelexSessionbatch extends Migration
             $table->string('END_DATE')->nullable();
             $table->enum('TYPE',['0','1'])->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
+            $table->unsignedBigInteger('USER_ID')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

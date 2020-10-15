@@ -18,6 +18,7 @@ class KelexSection extends Migration
             $table->string('Section_name')->nullable();
             $table->unsignedBigInteger('Class_id')->nullable();
             $table->unsignedBigInteger('CAMPUS_ID')->nullable();
+            $table->unsignedBigInteger('USER_ID')->nullable();
             $table->timestamps();
         });
     }
