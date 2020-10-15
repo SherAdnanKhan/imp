@@ -1,86 +1,221 @@
 @extends('Admin.layout.master')
 
 @section("content")
-<div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <div class="container-fluid">
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="page-title-box">
-                                    <h4 class="page-title">Blank page</h4>
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
-                                        <li class="breadcrumb-item active">Blank page</li>
-                                    </ol>
-            
-                                    <div class="state-information d-none d-sm-block">
-                                        <div class="state-graph">
-                                            <div id="header-chart-1"></div>
-                                            <div class="info">Balance $ 2,317</div>
-                                        </div>
-                                        <div class="state-graph">
-                                            <div id="header-chart-2"></div>
-                                            <div class="info">Item Sold 1230</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end row -->
-
-                        <div class="page-content-wrapper">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <!-- Demo purpose only -->
-                                            <div style="min-height: 300px;">
-                                            <div class="col-sm-6 col-md-3 m-t-30">
-                                                    <div class="text-center">
-                                                        <p class="text-muted">Large modal</p>
-                                                        <!-- Large modal -->
-                                                        <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
-                                                    </div>
-            
-            
-                                                    <!--  Modal content for the above example -->
-                                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title mt-0" id="myLargeModalLabel">Large modal</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>Cras mattis consectetur purus sit amet fermentum.
-                                                                        Cras justo odio, dapibus ac facilisis in,
-                                                                        egestas eget quam. Morbi leo risus, porta ac
-                                                                        consectetur ac, vestibulum at eros.</p>
-                                                                    <p>Praesent commodo cursus magna, vel scelerisque
-                                                                        nisl consectetur et. Vivamus sagittis lacus vel
-                                                                        augue laoreet rutrum faucibus dolor auctor.</p>
-                                                                    <p>Aenean lacinia bibendum nulla sed consectetur.
-                                                                        Praesent commodo cursus magna, vel scelerisque
-                                                                        nisl consectetur et. Donec sed odio dui. Donec
-                                                                        ullamcorper nulla non metus auctor
-                                                                        fringilla.</p>
-                                                                </div>
-                                                            </div><!-- /.modal-content -->
-                                                        </div><!-- /.modal-dialog -->
-                                                    </div><!-- /.modal -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end page content-->
-
-                    </div> <!-- container-fluid -->
-
-                </div> <!-- content -->
+<section class="content">
+   <div class="row">
+      <div class="col-md-4">
+         <!-- Horizontal Form -->
+         <div class="box box-primary">
+            <div class="box-header with-border">
+               <h3 class="box-title">Add Subject Group</h3>
+            </div>
+            <!-- /.box-header -->
+            <form id="form1" action="https://demo.smart-school.in/admin/subjectgroup" name="employeeform" method="post" accept-charset="utf-8">
+               <div class="box-body">
+                  <input type="hidden" name="ci_csrf_token" value="">
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Name</label> <small class="req">*</small>
+                     <input autofocus="" id="name" name="name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
+                     <span class="text-danger"></span>
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Class </label><small class="req"> *</small>
+                     <select id="class_id" name="class_id" class="form-control">
+                        <option value="">Select</option>
+                        <option value="1">
+                           Class 1
+                        </option>
+                        <option value="2">
+                           Class 2
+                        </option>
+                        <option value="3">
+                           Class 3
+                        </option>
+                     </select>
+                     <span class="text-danger"></span>
+                  </div>
+                  <div class="form-group">
+                     <!-- Radio group !-->
+                     <label class="control-label">Sections</label><small class="req"> *</small>
+                     <div class="section_checkbox"></div>
+                     <span class="text-danger"></span>
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Subject</label><small class="req"> *</small>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="1">English
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="2">Hindi
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="3">Mathematics
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="4">Science
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="5">Social Studies
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="6">French
+                        </label>
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" name="subject[]" value="7">Drawing
+                        </label>
+                     </div>
+                     <span class="text-danger"></span>
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Description</label>
+                     <textarea class="form-control" id="description" name="description" placeholder="" rows="3"></textarea>
+                     <span class="text-danger"></span>
+                  </div>
+               </div>
+               <!-- /.box-body -->
+               <div class="box-footer">
+                  <button type="submit" class="btn btn-info pull-right">Save</button>
+               </div>
+            </form>
+         </div>
+      </div>
+      <!--/.col (right) -->
+      <!-- left column -->
+      <div class="col-md-8">
+         <!-- general form elements -->
+         <div class="box box-primary">
+            <div class="box-header ptbnull">
+               <h3 class="box-title titlefix">Subject Group List</h3>
+               <div class="box-tools pull-right">
+               </div>
+               <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+               <div class="table-responsive mailbox-messages" id="subject_list">
+                  <div class="download_label">Subject Group List</div>
+                  <a class="btn btn-default btn-xs pull-right" id="print" onclick="printDiv()" style="display: block;"><i class="fa fa-print"></i></a> <a class="btn btn-default btn-xs pull-right" id="btnExport" onclick="fnExcelReport();" style="display: block;"> <i class="fa fa-file-excel-o"></i> </a>
+                  <table class="table table-striped  table-hover " id="headerTable">
+                     <thead>
+                        <tr>
+                           <th>Name</th>
+                           <th>Class Section</th>
+                           <th>Subject</th>
+                           <th class="text-right no_print" style="display: block;">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td class="mailbox-name">
+                              <a href="#" data-toggle="popover" class="detail_popover" data-original-title="" title="">Class 3rd Subject Group</a>
+                              <div class="fee_detail_popover" style="display: none">
+                                 <p class="text text-danger">No Description</p>
+                              </div>
+                           </td>
+                           <td>
+                              <table width="100%">
+                                 <tbody>
+                                    <tr>
+                                       <td>
+                                          <div>Class 3 - A</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Class 3 - B</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Class 3 - C</div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </td>
+                           <td>
+                              <table width="100%">
+                                 <tbody>
+                                    <tr>
+                                       <td>
+                                          <div>English</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Hindi</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Mathematics</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Science</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Social Studies</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>French</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>
+                                          <div>Drawing</div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </td>
+                           <td class="mailbox-date pull-right no_print" style="display: block;">
+                              <a href="https://demo.smart-school.in/admin/subjectgroup/edit/3" class="btn btn-default btn-xs no_print" data-toggle="tooltip" title="Edit" style="display: block;">
+                              <i class="fa fa-pencil"></i>
+                              </a>
+                              <a href="https://demo.smart-school.in/admin/subjectgroup/delete/3" class="btn btn-default btn-xs no_print" data-toggle="tooltip" title="Delete" onclick="return confirm('Delete Confirm?');" style="display: block;">
+                              <i class="fa fa-remove"></i>
+                              </a>
+                           </td>
+                        </tr>
+                        
+                     </tbody>
+                  </table>
+                  <!-- /.table -->
+               </div>
+               <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.box-body -->
+         </div>
+      </div>
+      <!--/.col (left) -->
+      <!-- right column -->
+   </div>
+   <div class="row">
+      <!-- left column -->
+      <!-- right column -->
+      <div class="col-md-12">
+      </div>
+      <!--/.col (right) -->
+   </div>
+   <!-- /.row -->
+</section>
 @endsection

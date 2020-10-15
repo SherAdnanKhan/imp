@@ -136,16 +136,13 @@ class AcademicsController extends Controller
       
     #Subject Controller Functions
 
-    public function index_subject(Request $request)
+    public function index_subjectgroup(Request $request)
     {
         
-
-        $getsubject = Kelex_subject::all();
-     
-            return view('admin.Academics.add_subject')->with('gsubject',$getsubject);
+            return view('admin.Academics.add_subjectgroup');
       
     }
-    public function add_subject(subjectrequest $request)
+    public function add_subjectgroup(subjectrequest $request)
     {
            $subject= new Kelex_subject();
            $subject->SUBJECT_NAME=$request->input('subject_name');
@@ -157,7 +154,7 @@ class AcademicsController extends Controller
             }
       
     }
-    public function edit_subject(Request $request)
+    public function edit_subjectgroup(Request $request)
     {
         
         $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->subjectid])
@@ -165,7 +162,7 @@ class AcademicsController extends Controller
        echo json_encode($currentclass);
       
     }
-    public function update_subject(subjectrequest $request)
+    public function update_subjectgroup(subjectrequest $request)
     {
       
          DB::table('kelex_subjects')
@@ -179,13 +176,66 @@ class AcademicsController extends Controller
          
         return response()->json($selectsubject);
     }
-    public function delete_subject(Request $request)
+    public function delete_subjectgroup(Request $request)
     {
         $id=$request->input('subjectid');
         DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subjectid'))->delete();
         
                  return response()->json($id);
     }
+
+     #Subject Controller Functions
+
+     public function index_subject(Request $request)
+     {
+         
+ 
+         $getsubject = Kelex_subject::all();
+      
+             return view('admin.Academics.add_subject')->with('gsubject',$getsubject);
+       
+     }
+     public function add_subject(subjectrequest $request)
+     {
+            $subject= new Kelex_subject();
+            $subject->SUBJECT_NAME=$request->input('subject_name');
+            $subject->SUBJECT_CODE=$request->input('subject_code');
+            $subject->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+            $subject->USER_ID = Auth::user()->id;
+            if ($subject->save()) {
+                  return response()->json($subject);
+             }
+       
+     }
+     public function edit_subject(Request $request)
+     {
+         
+         $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->subjectid])
+         ->get();
+        echo json_encode($currentclass);
+       
+     }
+     public function update_subject(subjectrequest $request)
+     {
+       
+          DB::table('kelex_subjects')
+         ->where('SUBJECT_ID', $request->input('subject_id'))
+         ->update(['SUBJECT_NAME' => $request->input('subject_name'),
+         'SUBJECT_CODE' => $request->input('subject_code')
+         ]);
+ 
+         $selectsubject= DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subject_id'))
+         ->get();
+          
+         return response()->json($selectsubject);
+     }
+     public function delete_subject(Request $request)
+     {
+         $id=$request->input('subjectid');
+         DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subjectid'))->delete();
+         
+                  return response()->json($id);
+     }
 
     #Session-batch Controller Functions
     public function index_sessionbatch(Request $request)

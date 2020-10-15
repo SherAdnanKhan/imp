@@ -79,6 +79,16 @@ Route::group([ 'middleware' => 'Admin'], function()
     Route::match(['get', 'post'], '/deletesession-batch', [AcademicsController::class, 'delete_sessionbatch'])->name("deletesession-batch");
     //end session-batch routes
 
+     //Subject Group Routes
+     Route::match(['get', 'post'], 'subjectgroup', [AcademicsController::class, 'index_subjectgroup'])->name("subjectgroup");
+     Route::match(['get', 'post'], '/addsubjectgroup', [AcademicsController::class, 'add_subjectgroup'])->name("addsubjectgroup");
+     Route::match(['get', 'post'], '/editsubjectgroup', [AcademicsController::class, 'edit_subjectgroup'])->name("editsubjectgroup");
+     Route::match(['get', 'post'], '/updatesubjectgroup', [AcademicsController::class, 'update_subjectgroup'])->name("updatesubjectgroup");
+     Route::match(['get', 'post'], '/deletesubjectgroup', [AcademicsController::class, 'delete_subject'])->name("deletesubject");
+     //end Subject route
+
+
+
 // Academatics Routes End
 
 
@@ -111,4 +121,8 @@ Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'upda
 //Employee Routes Start
 Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
 Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
+Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
+Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
+Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
+   
 });

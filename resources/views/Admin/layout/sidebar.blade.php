@@ -75,7 +75,7 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-album"></i> <span> HR Managment  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span> </a>
                                 <ul class="submenu">
                                     <li><a href="{{route('employee')}}">Employee Categories</a></li>
-                                    <li><a href="icons-ion.html">Employee Managment</a></li>
+                                    <li><a href="{{route('showemployee')}}">Employee Managment</a></li>
                                     <li><a href="icons-fontawesome.html">Employee Attendance</a></li>
                                 </ul>
                             </li>
