@@ -69,8 +69,13 @@ class StudentController extends Controller
         ->latest('created_at')
         ->first();
         // dd($studentid->STUDENT_ID);
-        Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
-        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=> $studentid->STUDENT_ID]);
+        Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,
+                                        'CLASS_ID'=>$request->CLASS_ID,
+                                        'IS_ACTIVE'=>'1',
+                                        'SECTION_ID'=>$request->SECTION_ID,
+                                        'USER_ID' => Auth::user()->id, 
+                                         'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+                                        'STUDENT_ID'=> $studentid->STUDENT_ID]);
 
         $msg='Student Record inserted successfully';
         return response()->json($msg);
