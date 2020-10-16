@@ -29,6 +29,9 @@
                                     <li><a href="{{route('class')}}">Classes</a></li>
                                     <li><a href="{{route('section')}}">Section</a></li>
                                     <li><a href="{{route('subject')}}">Subject</a></li>
+                                    <li><a href="{{route('sgroup')}}">Subject Group Name</a></li>
+                                    <li><a href="{{route('subjectgroup')}}">Subject Group</a></li>
+                                 
                                 </ul>
                             </li>
 

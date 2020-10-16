@@ -7,13 +7,18 @@ use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
 use App\Models\Kelex_subject;
+use App\Http\Requests\sbnrequest;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\classrequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\sectionrequest;
 use App\Http\Requests\subjectrequest;
+use App\Models\Kelex_subjectgroupname;
 use App\Http\Requests\session_batchrequest;
+use App\Http\Requests\subjectgrouprequest;
+use App\Models\Kelex_students_session;
+use App\Models\Kelex_subjectgroup;
 
 class AcademicsController extends Controller
 {
@@ -85,72 +90,123 @@ class AcademicsController extends Controller
                  return response()->json($id);
             }
 
-    //class controller function
+    //CLASS CONTROLLER ROUTES
 
-    public function index_class(Request $request)
+        public function index_class(Request $request)
+        {
+            $getclass = Kelex_class::all();
+            
+                return view('admin.Academics.add_class')->with('gclass',$getclass);
+            
+        }
+        public function add_class(classrequest $request)
+        {
+            
+                $class= new Kelex_class();
+                $class->class_name=$request->input('class_name');
+                $class->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+                $class->USER_ID = Auth::user()->id;
+                if ($class->save()) {
+                        return response()->json($class);
+                }
+            
+        }
+        public function edit_class(Request $request)
+        {
+            
+            $currentclass= DB::table('kelex_classes')->where(['class_id' => $request->classid])
+            ->get();
+            echo json_encode($currentclass);
+            
+        }
+        public function update_class(classrequest $request)
+        {
+            
+                DB::table('kelex_classes')
+            ->where('class_id', $request->input('classid'))
+            ->update(['class_Name' => $request->input('class_name')]);
+    
+            $classhthis= DB::table('kelex_classes')->where('class_id',$request->input('classid'))
+            ->get();
+                
+            return response()->json($classhthis);
+        }
+        public function delete_class(Request $request)
+        {
+            $id=$request->input('classid');
+            DB::table('kelex_classes')->where('class_id',$request->input('classid'))->delete();
+            
+                        return response()->json($id);
+        }
+    
+    //SUBJECT GROUP NAME controller function
+
+    public function index_sgroup(Request $request)
     {
-        $getclass = Kelex_class::all();
+        $subjectgroup = Kelex_subjectgroupname::all();
      
-            return view('admin.Academics.add_class')->with('gclass',$getclass);
+            return view('admin.Academics.add_groupname')->with('subjectgroup',$subjectgroup);
       
     }
-    public function add_class(classrequest $request)
+    public function add_sgroup(sbnrequest $request)
     {
         
-           $class= new Kelex_class();
-           $class->class_name=$request->input('class_name');
-           $class->CAMPUS_ID= Auth::user()->CAMPUS_ID;
-           $class->USER_ID = Auth::user()->id;
-           if ($class->save()) {
-                 return response()->json($class);
+           $subject_group_name= new Kelex_subjectgroupname();
+           $subject_group_name->GROUP_NAME=$request->input('GROUP_NAME');
+           $subject_group_name->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+           $subject_group_name->USER_ID = Auth::user()->id;
+           if ($subject_group_name->save()) {
+                 return response()->json($subject_group_name);
             }
       
     }
-    public function edit_class(Request $request)
+    public function edit_sgroup(Request $request)
     {
         
-        $currentclass= DB::table('kelex_classes')->where(['class_id' => $request->classid])
+        $currentSBG= DB::table('Kelex_subjectgroupnames')->where(['GROUP_ID' => $request->GROUP_ID])
         ->get();
-       echo json_encode($currentclass);
+       echo json_encode($currentSBG);
       
     }
-    public function update_class(classrequest $request)
+    public function update_sgroup(sbnrequest $request)
     {
       
-         DB::table('kelex_classes')
-        ->where('class_id', $request->input('classid'))
-        ->update(['class_Name' => $request->input('class_name')]);
+         DB::table('Kelex_subjectgroupnames')
+        ->where('GROUP_ID', $request->input('GROUP_ID'))
+        ->update(['GROUP_NAME' => $request->input('GROUP_NAME')]);
 
-        $classhthis= DB::table('kelex_classes')->where('class_id',$request->input('classid'))
+        $SBNthis= DB::table('Kelex_subjectgroupnames')->where('GROUP_ID',$request->input('GROUP_ID'))
         ->get();
          
-        return response()->json($classhthis);
+        return response()->json($SBNthis);
     }
-    public function delete_class(Request $request)
-    {
-        $id=$request->input('classid');
-        DB::table('kelex_classes')->where('class_id',$request->input('classid'))->delete();
-        
-                 return response()->json($id);
-    }
-      
-    #Subject Controller Functions
+
+    #Subject Group Controller Functions
 
     public function index_subjectgroup(Request $request)
     {
-        
-            return view('admin.Academics.add_subjectgroup');
-      
+        $class= Kelex_class::all(); 
+        $subject= Kelex_subject::all();
+        $subjectgroupname= Kelex_subjectgroupname::all();
+        $session= Kelex_sessionbatch::all();
+        return view('admin.Academics.add_subject_group')->with(['subjects'=>$subject,'subjectgroupnames'=>$subjectgroupname,'classes'=>$class,'sessions'=>$session]);
     }
-    public function add_subjectgroup(subjectrequest $request)
+    public function add_subjectgroup(subjectgrouprequest $request)
     {
-           $subject= new Kelex_subject();
-           $subject->SUBJECT_NAME=$request->input('subject_name');
-           $subject->SUBJECT_CODE=$request->input('subject_code');
-           $subject->CAMPUS_ID= Auth::user()->CAMPUS_ID;
-           $subject->USER_ID = Auth::user()->id;
-           if ($subject->save()) {
-                 return response()->json($subject);
+        $subject=$request->input('subjectgroup');
+        for($i=0;$i<count($subject);$i++){
+
+        }
+           $subjectgroup= new Kelex_subjectgroup();
+           $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
+           $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
+           $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
+           $subjectgroup->SUBJECT_ID=$subject[$i];
+           $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+           $subjectgroup->USER_ID = Auth::user()->id;
+           if ($subjectgroup->save()) {
+               dd($subjectgroup);
+                 return response()->json($subjectgroup);
             }
       
     }
@@ -162,7 +218,7 @@ class AcademicsController extends Controller
        echo json_encode($currentclass);
       
     }
-    public function update_subjectgroup(subjectrequest $request)
+    public function update_subjectgroup(subjectgrouprequest $request)
     {
       
          DB::table('kelex_subjects')

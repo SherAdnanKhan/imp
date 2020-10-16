@@ -272,7 +272,7 @@
                 $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
                 $.ajax({
                 type: 'GET',
-                url: '/getsection/' + id,
+                url: '/getsections/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
                 //console.log(response);   
