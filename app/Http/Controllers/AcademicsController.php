@@ -185,35 +185,92 @@ class AcademicsController extends Controller
 
     public function index_subjectgroup(Request $request)
     {
-        $class= Kelex_class::all(); 
-        $subject= Kelex_subject::all();
-        $subjectgroupname= Kelex_subjectgroupname::all();
-        $session= Kelex_sessionbatch::all();
-        return view('admin.Academics.add_subject_group')->with(['subjects'=>$subject,'subjectgroupnames'=>$subjectgroupname,'classes'=>$class,'sessions'=>$session]);
+        $data['classes']= Kelex_class::all(); 
+        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')->get()->toArray();
+        $subjects = array();
+        foreach($subject as $row)
+        {
+            $subjects[$row['SUBJECT_ID']] = $row['SUBJECT_NAME'];
+        }
+        $data['subjects'] =  $subjects;
+        $data['subjectgroupnames'] = Kelex_subjectgroupname::all();
+        $data['sessions'] = Kelex_sessionbatch::all();
+        $data['subjectgroup'] = DB::table('kelex_subjectgroups')
+        ->leftJoin('kelex_subjectgroupnames', 'kelex_subjectgroups.GROUP_ID', '=', 'kelex_subjectgroupnames.GROUP_ID')
+        ->leftJoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_subjectgroups.SECTION_ID')
+        ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_subjectgroups.CLASS_ID')
+        ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_subjectgroups.SESSION_ID')
+        ->where('kelex_subjectgroups.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
+        ->select('kelex_subjectgroups.id','kelex_subjectgroupnames.GROUP_NAME',
+        'kelex_subjectgroups.SUBJECT_ID',
+        'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')->get()->toArray();
+        return view('admin.Academics.add_subject_group',$data);
     }
     public function add_subjectgroup(subjectgrouprequest $request)
     {
-        $subject=$request->input('subjectgroup');
-        for($i=0;$i<count($subject);$i++){
-
+            $result= DB::table('kelex_subjectgroups')
+            ->where('GROUP_ID','=', $request->input('GROUP_ID'))
+            ->where('CLASS_ID','=', $request->input('CLASS_ID'))
+            ->where('SECTION_ID','=',$request->input('SECTION_ID'))
+            ->where('SESSION_ID','=',$request->input('SESSION_ID'))
+            ->whereIn('SUBJECT_ID',$request->input('subjectgroup'))
+            ->select('kelex_subjectgroups.*')
+            ->get();
+        if(!count($result) == 0)
+        {
+            return response()->json();
+            exit;
         }
-           $subjectgroup= new Kelex_subjectgroup();
-           $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
-           $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
-           $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
-           $subjectgroup->SUBJECT_ID=$subject[$i];
-           $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
-           $subjectgroup->USER_ID = Auth::user()->id;
-           if ($subjectgroup->save()) {
-               dd($subjectgroup);
-                 return response()->json($subjectgroup);
-            }
-      
+        $subject=implode(',',$request->input('subjectgroup'));
+        $subjectgroup= new Kelex_subjectgroup();
+        $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
+        $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
+        $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
+        $subjectgroup->SUBJECT_ID=$subject;
+        $subjectgroup->SESSION_ID=$request->input('SESSION_ID');
+        $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+        $subjectgroup->USER_ID = Auth::user()->id;
+        $subjectgroup->save();
+        $sectionid= $subjectgroup->SECTION_ID;
+        $classid= $subjectgroup->CLASS_ID;
+        $sessionid= $subjectgroup->SESSION_ID;
+        $subjectgroupid= $subjectgroup->GROUP_ID;
+
+
+        $subjectgroups['SUBJECT_ID']=$subjectgroup->SUBJECT_ID;
+        $subjectgroups['id']=$subjectgroup->id;
+
+        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')->get()->toArray();
+        $subjects = array();
+        foreach($subject as $row)
+        {
+            $subjects[$row['SUBJECT_ID']] = $row['SUBJECT_NAME'];
+        }
+        $subjectgroups['subjects'] = $subjects;
+
+
+        $subjectgroups['Section_name'] = DB::table('kelex_sections')
+        ->where('kelex_sections.Section_id', '=',$sectionid)
+        ->select('kelex_sections.Section_name')->first();
+
+        $subjectgroups['Class_name'] = DB::table('kelex_classes')
+        ->where('kelex_classes.Class_id', '=',$classid)
+        ->select('kelex_classes.Class_name')->first();
+
+        $subjectgroups['SB_NAME'] = DB::table('kelex_sessionbatches')
+        ->where('kelex_sessionbatches.SB_ID', '=',$sessionid)
+        ->select('kelex_sessionbatches.SB_NAME')->first();
+
+        $subjectgroups['subjectgroup'] = DB::table('kelex_subjectgroupnames')
+        ->where('kelex_subjectgroupnames.GROUP_ID', '=',$subjectgroupid)->first();
+        return response()->json($subjectgroups);
+            
+    
     }
     public function edit_subjectgroup(Request $request)
     {
         
-        $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->subjectid])
+        $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->id])
         ->get();
        echo json_encode($currentclass);
       

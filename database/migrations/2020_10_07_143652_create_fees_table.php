@@ -13,7 +13,7 @@ class CreateFeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('kelex_fees', function (Blueprint $table) {
+        Schema::create('kelex_fee_structures', function (Blueprint $table) {
             $table->id('FEE_ID');
             $table->bigInteger('CLASS_ID')->nullable();
             $table->bigInteger('SECTION_ID')->nullable();
@@ -31,6 +31,6 @@ class CreateFeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelex_fees');
+        Schema::dropIfExists('kelex_fee_structures');
     }
 }

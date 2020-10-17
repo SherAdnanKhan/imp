@@ -50,10 +50,10 @@
                                 </div>
                   <div class="form-group">
                      <label for="exampleInputEmail1">Subject</label>
-                     @foreach($subjects as $subject)
+                     @foreach($subjects as $subject => $key)
                      <div class="checkbox">
-                     <input type="checkbox" id="subjectgroup[{{$subject->SUBJECT_ID}}]" name="subjectgroup[{{$subject->SUBJECT_ID}}]" value="{{$subject->SUBJECT_ID}}">
-                           <label for="subjectgroup[{{$subject->SUBJECT_ID}}]">{{$subject->SUBJECT_NAME }} </label><br>
+                     <input type="checkbox" id="subjectgroup[{{ $subject }}]" name="subjectgroup[]" value="{{ $subject }}">
+                           <label for="subjectgroup[{{ $subject }}]">{{$key}} </label><br>
                   
                      </div>
                      @endforeach
@@ -97,7 +97,7 @@
                <div class="table-responsive mailbox-messages" id="subject_list">
                   <div class="download_label">Subject Group List</div>
                   <a class="btn btn-default btn-xs pull-right" id="print" onclick="printDiv()" style="display: block;"><i class="fa fa-print"></i></a> <a class="btn btn-default btn-xs pull-right" id="btnExport" onclick="fnExcelReport();" style="display: block;"> <i class="fa fa-file-excel-o"></i> </a>
-                  <table class="table table-striped  table-hover " id="headerTable">
+                  <table class="table table-striped" id="headerTable">
                      <thead>
                         <tr>
                            <th>Name</th>
@@ -106,84 +106,24 @@
                            <th class="text-right no_print" style="display: block;">Action</th>
                         </tr>
                      </thead>
-                     <tbody>
-                        <tr>
-                           <td class="mailbox-name">
-                              <a href="#" data-toggle="popover" class="detail_popover" data-original-title="" title="">Class 3rd Subject Group</a>
-                           </td>
-                           <td>
-                              <table width="100%">
-                                 <tbody>
-                                    <tr>
-                                       <td>
-                                          <div>Class 3 - A</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Class 3 - B</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Class 3 - C</div>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </td>
-                           <td>
-                              <table width="100%">
-                                 <tbody>
-                                    <tr>
-                                       <td>
-                                          <div>English</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Hindi</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Mathematics</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Science</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Social Studies</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>French</div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>
-                                          <div>Drawing</div>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </td>
-                           <td class="mailbox-date pull-right no_print" style="display: block;">
-                              <a href="https://demo.smart-school.in/admin/subjectgroup/edit/3" class="btn btn-default btn-xs no_print" data-toggle="tooltip" title="Edit" style="display: block;">
-                              <i class="fa fa-pencil"></i>
-                              </a>
-                              <a href="https://demo.smart-school.in/admin/subjectgroup/delete/3" class="btn btn-default btn-xs no_print" data-toggle="tooltip" title="Delete" onclick="return confirm('Delete Confirm?');" style="display: block;">
-                              <i class="fa fa-remove"></i>
-                              </a>
-                           </td>
-                        </tr>
-                        
-                     </tbody>
+                     <tbody id="displaydata">
+                     @foreach($subjectgroup as $sb)
+                     <tr id="{{$sb->id}}">
+                      <td class="mailbox-name">{{ $sb->GROUP_NAME}}</td>
+                   <td class="mailbox-name">({{$sb->Class_name}}) ({{$sb->Section_name}})({{$sb->SB_NAME}})</td>
+                      <td>
+                         <?php $IDs = explode(',',$sb->SUBJECT_ID); for($i=0; $i < count($IDs); $i++) { ?>
+                         {{ $subjects[$IDs[$i]] }},
+                         <?php } ?>
+                        </td>
+                           <td class="mailbox-date pull-right">
+                            <button value="{{$sb->id}}" class="btn btn-default btn-xs editbtn"> edit </button>
+                             <button value="{{$sb->id}}" class="btn btn-default btn-xs deletebtn"> delete </button>
+                                 
+                            </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
                   </table>
                   <!-- /.table -->
                </div>
@@ -255,6 +195,7 @@ $('body').on('submit','#addsubjectgroup',function(e){
       $('#subject_error').text('');
       $('#SESSION_ID_error').text('');
       var fdata = new FormData(this);
+      let html = "";
       $.ajax({
         url: '{{url("addsubjectgroup")}}',
             type:'POST',
@@ -262,9 +203,37 @@ $('body').on('submit','#addsubjectgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-              console.log(data);
+            if ($.trim(data) == '' ) {
+                    html +='<p style="text-align:center;color:red;"> Record Already Present </p>';
+            }
+           else {
+            var id= data['id'];
+            var subjects= data['subjects'];
+            var SUBJECT_ID=data['SUBJECT_ID'];
+            var Class_name=data['Class_name']['Class_name'];
+            var Section_name=data['Section_name']['Section_name'];
+            var SB_NAME=data['SB_NAME']['SB_NAME'];
+            var SUBJECT_NAME=data['SUBJECT_NAME'];
+            var Groupid=data['subjectgroup']['GROUP_ID'];
+            var Groupname=data['subjectgroup']['GROUP_NAME'];
+            IDs = SUBJECT_ID.split(',');
+
+              html += '  <tr id="'+id+'">';
+              html += '          <td class="mailbox-name">' + Groupname + '</td>';
+              html += '       <td class="mailbox-name">(' + Class_name+') ('+ Section_name+')( ' + SB_NAME + ')</td>';
+              for( var i=0; i < IDs.length; i++) {        
+              html += '                       <td class="mailbox-name">' + subjects[IDs[i]] + '</td>';
+              }
+              html += '               <td class="mailbox-date pull-right">';
+              html += '                <button value="'+data.GROUP_ID+'" class="btn btn-default btn-xs editbtn"> edit </button>';
+              html += '                 <button value="'+data.GROUP_ID+'" class="btn btn-default btn-xs deletebtn"> delete </button>';
+                                 
+              html += '                </td>';
+              html += '        </tr>';
+           }
+               $('#displaydata').append(html);
              
-              },
+            },
               error: function(error){
                 console.log(error);
                 var response = $.parseJSON(error.responseText);

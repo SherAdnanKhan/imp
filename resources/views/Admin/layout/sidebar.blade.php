@@ -57,7 +57,8 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-finance"></i><span> Fee Management <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
                                     <li><a href="{{route('feecategory')}}">Define Fee Category</a></li>
-                                    <li><a href="charts-chartjs.html">Define Fee</a></li>
+                                    <li><a href="{{route('fee-structure')}}">Define Fee Structure</a></li>
+                                    <li><a href="charts-chartjs.html">Apply Fee</a></li>
                                     <li><a href="charts-flot.html">Fee Collection</a></li>
                                     <li><a href="charts-c3.html">Print Fee Voucher</a></li>
                                     <li><a href="charts-morris.html">Fee register</a></li>
