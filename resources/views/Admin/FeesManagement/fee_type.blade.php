@@ -50,20 +50,26 @@
                            <small id="SECTION_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-
-               </div>
-
-               <div class="row">
                   <div class="col">
-                     <div class="col">
-                        <div class="form-group" >
-                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
-                           <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="number" class="form-control" value="" autocomplete="off">
-                           <small id="CATEGORY_error" class="form-text text-danger"></small>
-                        </div>                  
+                     <div class="form-group">
+                        <label for="">Fee Category</label> 
+                           <small class="req"> *</small>
+                           <select name="FEE_CATEGORY_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="category_id">
+                              <option value="0"  selected>
+                                 Fee Category *</option>
+                              @foreach($feecategory as $row)
+                              <option  value="{{ $class->Class_id }}">
+                                 {{ ucfirst($row->CATEGORY) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+               </div>
+               
+               <div class="row">
+                  <div class="col-3">
                      <div class="form-group">
                         <label for="">Fee Category</label> 
                            <small class="req"> *</small>
@@ -90,8 +96,18 @@
                         <small id="SHIFT_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-3">
+                     <div class="col">
+                        <div class="form-group" >
+                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
+                           <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="number" class="form-control" value="" autocomplete="off">
+                           <small id="CATEGORY_error" class="form-text text-danger"></small>
+                        </div>                  
+                     </div>
+                  </div>
+                  <div class="col-3">
                      <div class="form-group">
+                     <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
                      </div>
                   </div>
@@ -111,7 +127,7 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-8">
+   <div class="col-md-11">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Fee Type List</h3>
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
