@@ -1,103 +1,97 @@
 @extends('Admin.layout.master')
 
-@section("content")
-<section class="content">
+@section("content") 
    <div class="row">
       <div class="col-md-4">
          <!-- Horizontal Form -->
-         <div class="box box-primary">
-            <div class="box-header with-border">
-               <h3 class="box-title">Add Subject Group</h3>
-            </div>
+         <div class="card m-b-30 card-body">
+               <h3 class="card-title font-20 mt-0">Add Subject Group</h3>
             <!-- /.box-header -->
             <form id="addsubjectgroup" action="{{ route('addsubjectgroup')}}" name="addsubjectgroup" method="post" accept-charset="utf-8">
             @csrf
-            <div class="form-group">
-                                    <label for="">subject group names</label> 
-                                       <small class="req"> *</small>
-                                       <select name="GROUP_ID" class="form-control formselect required" placeholder="Select Group"
-                                          id="GROUP_ID">
-                                          <option value="0" disabled selected>Select
-                                             Subject Group Name*</option>
-                                          @foreach($subjectgroupnames as $subjectgroupname)
-                                          <option  value="{{ $subjectgroupname->GROUP_ID}}">
-                                             {{ ucfirst($subjectgroupname->GROUP_NAME) }}</option>
-                                          @endforeach
-                                    </select>
-                                    <small id="GROUP_ID_error" class="form-text text-danger"></small>
-                                </div>
-               
-                  <div class="form-group">
-                                    <label for="">Class</label> 
-                                       <small class="req"> *</small>
-                                       <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
-                                          id="class_id">
-                                          <option value="0" disabled selected>Select
-                                             Class*</option>
-                                          @foreach($classes as $class)
-                                          <option  value="{{ $class->Class_id }}">
-                                             {{ ucfirst($class->Class_name) }}</option>
-                                          @endforeach
-                                    </select>
-                                    <small id="CLASS_ID_error" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                       <label for="">Section</label> 
-                                          <small class="req"> *</small>
-                                          <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
-                                       </select>
-                                       <small id="SECTION_ID_error" class="form-text text-danger"></small>
-                                </div>
-                  <div class="form-group">
-                     <label for="exampleInputEmail1">Subject</label>
-                     @foreach($subjects as $subject => $key)
-                     <div class="checkbox">
-                     <input type="checkbox" id="subjectgroup[{{ $subject }}]" name="subjectgroup[]" value="{{ $subject }}">
-                           <label for="subjectgroup[{{ $subject }}]">{{$key}} </label><br>
-                  
-                     </div>
-                     @endforeach
-                     <small id="subject_error" class="form-text text-danger"></small>
+                <div class="form-group">
+                     <label for="">Session</label> 
+                        <small class="req"> *</small>
+                        <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
+                           id="SESSION_ID">
+                           <option value="0" disabled selected>Select
+                              Session*</option>
+                           @foreach($sessions as $session)
+                           <option  value="{{ $session->SB_ID }}">
+                              {{ ucfirst($session->SB_NAME) }}</option>
+                           @endforeach
+                        </select>
+                     <small id="SESSION_ID_error" class="form-text text-danger"></small>
                   </div>
-                  <div class="form-group">
-                                    <label for="">Session</label> 
-                                       <small class="req"> *</small>
-                                       <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
-                                          id="SESSION_ID">
-                                          <option value="0" disabled selected>Select
-                                             Session*</option>
-                                          @foreach($sessions as $session)
-                                          <option  value="{{ $session->SB_ID }}">
-                                             {{ ucfirst($session->SB_NAME) }}</option>
-                                          @endforeach
-                                    </select>
-                                    <small id="SESSION_ID_error" class="form-text text-danger"></small>
-                                </div>
+               <div class="form-group">
+                  <label for="">subject group names</label> 
+                     <small class="req"> *</small>
+                     <select name="GROUP_ID" class="form-control formselect required" placeholder="Select Class"
+                        id="GROUP_ID">
+                        <option value="0" disabled selected>Select
+                           Subject Group Name*</option>
+                        @foreach($subjectgroupnames as $subjectgroupname)
+                        <option  value="{{$subjectgroupname->GROUP_ID}}">
+                           {{ ucfirst($subjectgroupname->GROUP_NAME) }}</option>
+                        @endforeach
+                  </select>
+                  <small id="GROUP_ID_error" class="form-text text-danger"></small>
                </div>
+
+               <div class="form-group">
+                  <label for="">Class</label> 
+                     <small class="req"> *</small>
+                     <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                        id="class_id">
+                        <option value="0" disabled selected>Select
+                           Class*</option>
+                        @foreach($classes as $class)
+                        <option  value="{{ $class->Class_id }}">
+                           {{ ucfirst($class->Class_name) }}</option>
+                        @endforeach
+                  </select>
+                  <small id="CLASS_ID_error" class="form-text text-danger"></small>
+               </div>
+               <div class="form-group">
+                     <label for="">Section</label> 
+                        <small class="req"> *</small>
+                        <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
+                     </select>
+                     <small id="SECTION_ID_error" class="form-text text-danger"></small>
+               </div>
+               <div class="form-group">
+                  <label for="exampleInputEmail1">Subject</label>
+                  @foreach($subjects as $subject => $key)
+                  <div class="checkbox">
+                  <input type="checkbox" id="subjectgroup[{{ $subject }}]" name="subjectgroup[]" value="{{ $subject }}">
+                        <label for="subjectgroup[{{ $subject }}]">{{$key}} </label><br>
+               
+                  </div>
+                  @endforeach
+                  <small id="subject_error" class="form-text text-danger"></small>
+               </div>
+                 
+               
                <!-- /.box-body -->
-               <div class="box-footer">
+               <div class="form-group">
                   <button type="submit" class="btn btn-info pull-right">Save</button>
                </div>
             </form>
          </div>
-    
+      </div>
       <!--/.col (right) -->
       <!-- left column -->
       <div class="col-md-8">
          <!-- general form elements -->
-         <div class="box box-primary">
-            <div class="box-header ptbnull">
-               <h3 class="box-title titlefix">Subject Group List</h3>
-               <div class="box-tools pull-right">
-               </div>
-               <!-- /.box-tools -->
-            </div>
+         <div class="card m-b-30 card-body">
+               <h3 class="card-title font-20 mt-0">Subject Group List</h3>
+       
+            
             <!-- /.box-header -->
             <div class="box-body">
                <div class="table-responsive mailbox-messages" id="subject_list">
-                  <div class="download_label">Subject Group List</div>
-                  <a class="btn btn-default btn-xs pull-right" id="print" onclick="printDiv()" style="display: block;"><i class="fa fa-print"></i></a> <a class="btn btn-default btn-xs pull-right" id="btnExport" onclick="fnExcelReport();" style="display: block;"> <i class="fa fa-file-excel-o"></i> </a>
-                  <table class="table table-striped" id="headerTable">
+                  
+                   <table class="table table-striped" id="headerTable">
                      <thead>
                         <tr>
                            <th>Name</th>
@@ -107,19 +101,21 @@
                         </tr>
                      </thead>
                      <tbody id="displaydata">
-                     @foreach($subjectgroup as $sb)
-                     <tr id="{{$sb->id}}">
-                      <td class="mailbox-name">{{ $sb->GROUP_NAME}}</td>
-                   <td class="mailbox-name">({{$sb->Class_name}}) ({{$sb->Section_name}})({{$sb->SB_NAME}})</td>
-                      <td>
-                         <?php $IDs = explode(',',$sb->SUBJECT_ID); for($i=0; $i < count($IDs); $i++) { ?>
-                         {{ $subjects[$IDs[$i]] }},
-                         <?php } ?>
+                     @foreach($subjectgroup as $sb => $val)
+
+                     <tr id="{{ $val['id'] }}">
+                        <td class="mailbox-name">{{ $val['GROUP_NAME'] }}</td>
+                        <td class="mailbox-name">({{ $val['Class_name']  }}) ({{ $val['Section_name'] }})({{ $val['SB_NAME'] }})</td>
+                        <td>
+                           {!!$val['subjects'] !!}
                         </td>
                            <td class="mailbox-date pull-right">
-                            <button value="{{$sb->id}}" class="btn btn-default btn-xs editbtn"> edit </button>
+                            <button value="{{  $val['id']  }}" class="btn btn-primary btn-xs editbtn"> edit </button>
+                             <button value="{{  $val['id']  }}" class="btn btn-danger btn-xs deletebtn"> delete </button>
+                                 
                             </td>
-                    </tr>
+                    </tr> 
+
                     @endforeach
                     </tbody>
                   </table>

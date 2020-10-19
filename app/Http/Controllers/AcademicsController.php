@@ -19,6 +19,7 @@ use App\Http\Requests\session_batchrequest;
 use App\Http\Requests\subjectgrouprequest;
 use App\Models\Kelex_students_session;
 use App\Models\Kelex_subjectgroup;
+use \stdClass;
 
 class AcademicsController extends Controller
 {
@@ -187,25 +188,51 @@ class AcademicsController extends Controller
     {
         $data['classes']= Kelex_class::all(); 
         $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')->get()->toArray();
-        $subjects = array();
         foreach($subject as $row)
         {
             $subjects[$row['SUBJECT_ID']] = $row['SUBJECT_NAME'];
         }
+
         $data['subjects'] =  $subjects;
         $data['subjectgroupnames'] = Kelex_subjectgroupname::all();
         $data['sessions'] = Kelex_sessionbatch::all();
-        $data['subjectgroup'] = DB::table('kelex_subjectgroups')
+        
+        $data['subjectgroup'] = [];
+        $record =  DB::table('kelex_subjectgroups')
         ->leftJoin('kelex_subjectgroupnames', 'kelex_subjectgroups.GROUP_ID', '=', 'kelex_subjectgroupnames.GROUP_ID')
         ->leftJoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_subjectgroups.SECTION_ID')
         ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_subjectgroups.CLASS_ID')
         ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_subjectgroups.SESSION_ID')
         ->where('kelex_subjectgroups.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
-        ->select('kelex_subjectgroups.id','kelex_subjectgroupnames.GROUP_NAME',
-        'kelex_subjectgroups.SUBJECT_ID',
-        'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')->get()->toArray();
+        ->select('kelex_subjectgroups.id','kelex_subjectgroupnames.GROUP_NAME','kelex_subjectgroups.SECTION_ID',
+        'kelex_subjectgroups.SUBJECT_ID','kelex_subjectgroups.CLASS_ID','kelex_subjectgroups.SESSION_ID',
+        'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')
+        ->groupBy('kelex_subjectgroups.GROUP_ID')
+        ->get()->toArray();
+   $record = json_decode(json_encode($record), true);
+        
+         $subjectArr = [];
+        foreach($record as $key => $row):
+                $subjectArr=  DB::table('kelex_subjectgroups')
+                    ->leftJoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_subjectgroups.SECTION_ID')
+                    ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_subjectgroups.CLASS_ID')
+                    ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_subjectgroups.SUBJECT_ID')
+                    ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_subjectgroups.SESSION_ID')
+                    ->where('kelex_subjectgroups.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
+                    ->where('kelex_subjectgroups.SECTION_ID','=',$row['SECTION_ID'])
+                    ->where('kelex_subjectgroups.CLASS_ID','=',$row['CLASS_ID'])
+                    ->where('kelex_subjectgroups.SESSION_ID','=',$row['SESSION_ID'])
+                    ->select('kelex_subjects.SUBJECT_NAME')
+                    ->get()->toArray();
+                
+                $record[$key]['subjects'] =  implode("<br>",array_column($subjectArr,'SUBJECT_NAME'));
+            ;
+        endforeach;
+        $data['subjectgroup'] = $record;
         return view('admin.Academics.add_subject_group',$data);
     }
+  
+
     public function add_subjectgroup(subjectgrouprequest $request)
     {
             $result= DB::table('kelex_subjectgroups')
@@ -213,28 +240,42 @@ class AcademicsController extends Controller
             ->where('CLASS_ID','=', $request->input('CLASS_ID'))
             ->where('SECTION_ID','=',$request->input('SECTION_ID'))
             ->where('SESSION_ID','=',$request->input('SESSION_ID'))
-            ->whereIn('SUBJECT_ID',$request->input('subjectgroup'))
-            ->select('kelex_subjectgroups.*')
-            ->get();
-        if(!count($result) == 0)
+            ->whereIn('SUBJECT_ID', $request->input('subjectgroup'))
+            ->select('kelex_subjectgroups.SUBJECT_ID')
+            ->get()->toArray();
+            // dd($result);
+        $check = [];
+        if(count($result) == 0)
         {
-            return response()->json();
-            exit;
+             $check = $request->input('subjectgroup');
+        }else{
+            $subjectIDs = array_column($result,'SUBJECT_ID');
+            $subject = $request->input('subjectgroup');
+
+            $check = ($subjectIDs > $subject) ? array_diff($subjectIDs, $subject) : array_diff($subject, $subjectIDs); 
+            // dd ($subjectIDs, $subject,$check);
+            
         }
-        $subject=implode(',',$request->input('subjectgroup'));
-        $subjectgroup= new Kelex_subjectgroup();
-        $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
-        $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
-        $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
-        $subjectgroup->SUBJECT_ID=$subject;
-        $subjectgroup->SESSION_ID=$request->input('SESSION_ID');
-        $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
-        $subjectgroup->USER_ID = Auth::user()->id;
-        $subjectgroup->save();
-        $sectionid= $subjectgroup->SECTION_ID;
-        $classid= $subjectgroup->CLASS_ID;
-        $sessionid= $subjectgroup->SESSION_ID;
-        $subjectgroupid= $subjectgroup->GROUP_ID;
+        $check = array_values($check);
+        if(empty($check)):
+            return response()->json(['status' => 0,'response' => 'Nothing to add']);
+        else:
+            for ($i=0; $i < count($check); $i++):
+                $subjectgroup= new Kelex_subjectgroup();
+                $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
+                $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
+                $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
+                $subjectgroup->SUBJECT_ID=$check[$i];
+                $subjectgroup->SESSION_ID=$request->input('SESSION_ID');
+                $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+                $subjectgroup->USER_ID = Auth::user()->id;
+                $subjectgroup->save();
+                $sectionid= $subjectgroup->SECTION_ID;
+                $classid= $subjectgroup->CLASS_ID;
+                $sessionid= $subjectgroup->SESSION_ID;
+                $subjectgroupid= $subjectgroup->GROUP_ID;
+            endfor;
+        endif;
 
 
         $subjectgroups['SUBJECT_ID']=$subjectgroup->SUBJECT_ID;

@@ -7,8 +7,8 @@
 @section('content')
 <div class="row">
       <div class="card m-b-30 card-body">
-            <h3 class="card-title font-16 mt-0">Define Fee Structure</h3>
-            <form action="{{ route('add-fee-structure')}}" id="addfeecategory" name="sectionform" method="post" accept-charset="utf-8">
+            <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
+            <form action="{{ route('add-fee-type')}}" id="add_fee_type" name="add_fee_type" method="post" accept-charset="utf-8">
                <div class="row">
                   <div class="col">
                       <div class="form-group">
@@ -50,17 +50,39 @@
                            <small id="SECTION_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-
-               </div>
-
-               <div class="row">
                   <div class="col">
-                     <div class="col">
-                        <div class="form-group" >
-                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
-                           <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="number" class="form-control" value="" autocomplete="off">
-                           <small id="CATEGORY_error" class="form-text text-danger"></small>
-                        </div>                  
+                     <div class="form-group">
+                        <label for="">Fee Category</label> 
+                           <small class="req"> *</small>
+                           <select name="FEE_CATEGORY_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="category_id">
+                              <option value="0"  selected>
+                                 Fee Category *</option>
+                              @foreach($feecategory as $row)
+                              <option  value="{{ $class->Class_id }}">
+                                 {{ ucfirst($row->CATEGORY) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="row">
+                  <div class="col-3">
+                     <div class="form-group">
+                        <label for="">Fee Category</label> 
+                           <small class="req"> *</small>
+                           <select name="FEE_CATEGORY_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="category_id">
+                              <option value="0"  selected>
+                                 Fee Category *</option>
+                              @foreach($feecategory as $row)
+                              <option  value="{{ $class->Class_id }}">
+                                 {{ ucfirst($row->CATEGORY) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
                   <div class="col">
@@ -74,8 +96,18 @@
                         <small id="SHIFT_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-3">
+                     <div class="col">
+                        <div class="form-group" >
+                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
+                           <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="number" class="form-control" value="" autocomplete="off">
+                           <small id="CATEGORY_error" class="form-text text-danger"></small>
+                        </div>                  
+                     </div>
+                  </div>
+                  <div class="col-3">
                      <div class="form-group">
+                     <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
                      </div>
                   </div>
@@ -95,16 +127,17 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-8">
+   <div class="col-md-11">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Fee Catergory List</h3>
+         <h3 class="card-title font-16 mt-0">Fee Type List</h3>
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
-               <th>Fee Name</th>
+               <th> Name</th>
                <th>Classes</th>
                <th>Sections</th>
                <th>Shift</th>
+               <th>Amount</th>
                <th>Action</th>
                </tr>
             </thead>
@@ -115,6 +148,9 @@
                   <td> {{$getfc->Class_name}}</td>
                   <td> {{$getfc->Section_name}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
+                   <td> 
+                   {{-- $getfc->AMOUNT --}}
+                   </td>
                   <td>
                      <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button>
                
@@ -248,7 +284,7 @@
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$('body').on('submit','#addfeecategory',function(e){
+$('body').on('submit','#add_fee_type',function(e){
       e.preventDefault();
       $('#CLASS_ID_error').text('');
       $('#SECTION_ID_error').text('');
@@ -287,6 +323,7 @@ $('body').on('submit','#addfeecategory',function(e){
                     });
               }
       });
+      return false
     });
 
     $(document).on('click', '.editbtn',function () {
