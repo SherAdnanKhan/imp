@@ -15,7 +15,7 @@
             <div class="form-group">
                                     <label for="">subject group names</label> 
                                        <small class="req"> *</small>
-                                       <select name="GROUP_ID" class="form-control formselect required" placeholder="Select Class"
+                                       <select name="GROUP_ID" class="form-control formselect required" placeholder="Select Group"
                                           id="GROUP_ID">
                                           <option value="0" disabled selected>Select
                                              Subject Group Name*</option>
@@ -118,8 +118,6 @@
                         </td>
                            <td class="mailbox-date pull-right">
                             <button value="{{$sb->id}}" class="btn btn-default btn-xs editbtn"> edit </button>
-                             <button value="{{$sb->id}}" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
                             </td>
                     </tr>
                     @endforeach
@@ -144,6 +142,95 @@
    </div>
    <!-- /.row -->
 </section>
+<div id="sessionEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Session/Batches</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                     </div>
+                     <div class="modal-body">  
+       <form id="updatesubjectgroup" action="{{ route('updatesubjectgroup')}}" name="updatesubjectgroup" method="post" accept-charset="utf-8">
+            @csrf
+            <div class="form-group">
+            <input type="hidden" id="id" name="id" value="">
+                                    <label for="">subject group names</label> 
+                                       <small class="req"> *</small>
+                                       <select name="GROUP_ID" class="form-control formselect required" placeholder="Select Class"
+                                          id="GROUP_IDs">
+                                          <option value="0" disabled selected>Select
+                                             Subject Group Name*</option>
+                                          @foreach($subjectgroupnames as $subjectgroupname)
+                                          <option  value="{{ $subjectgroupname->GROUP_ID}}">
+                                             {{ ucfirst($subjectgroupname->GROUP_NAME) }}</option>
+                                          @endforeach
+                                    </select>
+                                    <small id="GROUP_ID_error" class="form-text text-danger"></small>
+                                </div>
+               
+                  <div class="form-group">
+                                    <label for="">Class</label> 
+                                       <small class="req"> *</small>
+                                       <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                                          id="class_ids">
+                                          <option value="0" disabled selected>Select
+                                             Class*</option>
+                                          @foreach($classes as $class)
+                                          <option  value="{{ $class->Class_id }}">
+                                             {{ ucfirst($class->Class_name) }}</option>
+                                          @endforeach
+                                    </select>
+                                    <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                       <label for="">Section</label> 
+                                          <small class="req"> *</small>
+                                          <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionids" >
+                                       </select>
+                                       <small id="SECTION_ID_error" class="form-text text-danger"></small>
+                                </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Subject</label>
+                     @foreach($subjects as $subject => $key)
+                     <div class="checkbox">
+                     <input type="checkbox" id="subjectgroups{{$subject}}" name="subjectgroups[]" value="{{ $subject }}" >
+                           <label for="subjectgroups[{{ $subject }}]">{{$key}} </label><br>
+                  
+                     </div>
+                     @endforeach
+                     <small id="subject_error" class="form-text text-danger"></small>
+                  </div>
+                  <div class="form-group">
+                                    <label for="">Session</label> 
+                                       <small class="req"> *</small>
+                                       <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
+                                          id="SESSION_IDs">
+                                          <option value="0" disabled selected>Select
+                                             Session*</option>
+                                          @foreach($sessions as $session)
+                                          <option  value="{{ $session->SB_ID }}">
+                                             {{ ucfirst($session->SB_NAME) }}</option>
+                                          @endforeach
+                                    </select>
+                                    <small id="SESSION_ID_error" class="form-text text-danger"></small>
+                                </div>
+               </div>
+               <!-- /.box-body -->
+               <div class="box-footer">
+                  <button type="submit" class="btn btn-info pull-right">Save</button>
+               </div>
+
+
+                  
+                   
+               </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
+   </div>
+
+
+
+
 @endsection
 @section("customscript")
  <!-- Required datatable js -->
@@ -179,6 +266,24 @@
                 }
             });
         });
+        $('#class_ids').on('change', function () {
+                let id = $(this).val();
+                $('#sectionids').empty();
+                $('#sectionids').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                type: 'GET',
+                url: 'getsections/' + id,
+                success: function (response) {
+                var response = JSON.parse(response);
+                //console.log(response);   
+                $('#sectionids').empty();
+                $('#sectionids').append(`<option value="0" disabled selected>Select Section*</option>`);
+                response.forEach(element => {
+                    $('#sectionids').append(`<option value="${element['Section_id']}">${element['Section_name']}</option>`);
+                    });
+                }
+            });
+        });
    });
 </script>    
 <Script>
@@ -189,7 +294,7 @@
 });
 $('body').on('submit','#addsubjectgroup',function(e){
       e.preventDefault();
-      $('#CLASS_ID_error').text('');
+      $('#GROUP_ID').text('');
       $('#SECTION_ID_error').text('');
       $('#NAME_error').text('');
       $('#subject_error').text('');
@@ -203,36 +308,7 @@ $('body').on('submit','#addsubjectgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-            if ($.trim(data) == '' ) {
-                    html +='<p style="text-align:center;color:red;"> Record Already Present </p>';
-            }
-           else {
-            var id= data['id'];
-            var subjects= data['subjects'];
-            var SUBJECT_ID=data['SUBJECT_ID'];
-            var Class_name=data['Class_name']['Class_name'];
-            var Section_name=data['Section_name']['Section_name'];
-            var SB_NAME=data['SB_NAME']['SB_NAME'];
-            var SUBJECT_NAME=data['SUBJECT_NAME'];
-            var Groupid=data['subjectgroup']['GROUP_ID'];
-            var Groupname=data['subjectgroup']['GROUP_NAME'];
-            IDs = SUBJECT_ID.split(',');
-
-              html += '  <tr id="'+id+'">';
-              html += '          <td class="mailbox-name">' + Groupname + '</td>';
-              html += '       <td class="mailbox-name">(' + Class_name+') ('+ Section_name+')( ' + SB_NAME + ')</td>';
-              for( var i=0; i < IDs.length; i++) {        
-              html += '                       <td class="mailbox-name">' + subjects[IDs[i]] + '</td>';
-              }
-              html += '               <td class="mailbox-date pull-right">';
-              html += '                <button value="'+data.GROUP_ID+'" class="btn btn-default btn-xs editbtn"> edit </button>';
-              html += '                 <button value="'+data.GROUP_ID+'" class="btn btn-default btn-xs deletebtn"> delete </button>';
-                                 
-              html += '                </td>';
-              html += '        </tr>';
-           }
-               $('#displaydata').append(html);
-             
+               window.location.reload();
             },
               error: function(error){
                 console.log(error);
@@ -243,6 +319,58 @@ $('body').on('submit','#addsubjectgroup',function(e){
               }
       });
     });
+    $(document).on('click', '.editbtn',function () {
+        var sessionGPID = $(this).val();
+        $.ajax({
+            url: '{{url("editsubjectgroup")}}',
+            type: "GET",
+            data: {
+               sessionGPID:sessionGPID
+            }, 
+            dataType:"json",
+            success: function(data)
+         {
+               console.log(data);
+              var EditSBdata=data['EditSBdata'];
+              var subjectid=data['EditSBdata']['SUBJECT_ID'];
+              var subjectidarr= subjectid.split(",");
+            $('#id').val(data['EditSBdata']['id'])
+            $('#GROUP_IDs').val(EditSBdata["GROUP_ID"]).change();
+            $('#class_ids').val(EditSBdata["CLASS_ID"]).change();
+            $('#sectionids').val(EditSBdata["SECTION_ID"]).change();
+            $('#SESSION_IDs').val(EditSBdata["SESSION_ID"]).change();
+            for(var i=0 ;i<subjectidarr.length;i++)
+            {
+                $('#subjectgroups'+subjectidarr[i]+'').prop('checked', true);
+            }
+         }
+
+        });
+       $('#sessionEditModal').modal('show');
+   });
+
+   $('body').on('submit','#updatesubjectgroup',function(e){
+      e.preventDefault();
+      var fdata = new FormData(this);
+      $.ajax({
+        url: '{{url("updatesubjectgroup")}}',
+            type:'POST',
+            data: fdata,
+            processData: false,
+            contentType: false,
+            success: function(data){
+               window.location.reload();
+             } ,
+              error: function(error){
+                console.log(error);
+                var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_err").text(val[0]);
+                    });
+              }
+      });
+    });
+
 </script>
 
 @endsection

@@ -270,31 +270,29 @@ class AcademicsController extends Controller
     public function edit_subjectgroup(Request $request)
     {
         
-        $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->id])
-        ->get();
-       echo json_encode($currentclass);
+        $sessionGPdata= DB::table('kelex_subjectgroups')->where(['id' => $request->sessionGPID])
+        ->first();
+
+
+        $subjectgroups['EditSBdata']=$sessionGPdata;
+       echo json_encode($subjectgroups);
       
     }
     public function update_subjectgroup(subjectgrouprequest $request)
     {
-      
-         DB::table('kelex_subjects')
-        ->where('SUBJECT_ID', $request->input('subject_id'))
-        ->update(['SUBJECT_NAME' => $request->input('subject_name'),
-        'SUBJECT_CODE' => $request->input('subject_code')
-        ]);
 
-        $selectsubject= DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subject_id'))
-        ->get();
-         
-        return response()->json($selectsubject);
-    }
-    public function delete_subjectgroup(Request $request)
-    {
-        $id=$request->input('subjectid');
-        DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subjectid'))->delete();
-        
-                 return response()->json($id);
+        $subject=implode(',',$request->input('subjectgroups'));
+        $id=$request->input('id');
+        $subjectgroup= Kelex_subjectgroup::find($id);
+        $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
+        $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
+        $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
+        $subjectgroup->SUBJECT_ID=$subject;
+        $subjectgroup->SESSION_ID=$request->input('SESSION_ID');
+        $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+        $subjectgroup->USER_ID = Auth::user()->id;
+        $subjectgroup->save();
+        return response()->json();
     }
 
      #Subject Controller Functions

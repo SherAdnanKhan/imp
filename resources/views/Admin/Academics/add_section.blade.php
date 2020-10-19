@@ -182,6 +182,7 @@ $('body').on('submit','#addsection',function(e){
           for(i=0;i<data.length;i++){
             $('#sectionid').val(data[i].Section_id);
             $('#sectionname').val(data[i].Section_name);
+            $('#editClass_id').val(data[i].Class_id).change();
           }
             }
         });

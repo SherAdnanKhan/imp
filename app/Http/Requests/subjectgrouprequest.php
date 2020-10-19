@@ -24,7 +24,7 @@ class subjectgrouprequest extends FormRequest
     public function rules()
     {
         return [
-            'GROUP_ID'=>'required|max:255',
+            'GROUP_ID'=>'required',
             'CLASS_ID'=>'required',
             'SECTION_ID' =>'required',
             'SESSION_ID' =>'required',

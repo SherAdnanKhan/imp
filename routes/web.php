@@ -93,7 +93,6 @@ Route::group([ 'middleware' => 'Admin'], function()
      Route::match(['get', 'post'], '/addsubjectgroup', [AcademicsController::class, 'add_subjectgroup'])->name("addsubjectgroup");
      Route::match(['get', 'post'], '/editsubjectgroup', [AcademicsController::class, 'edit_subjectgroup'])->name("editsubjectgroup");
      Route::match(['get', 'post'], '/updatesubjectgroup', [AcademicsController::class, 'update_subjectgroup'])->name("updatesubjectgroup");
-     Route::match(['get', 'post'], '/deletesubjectgroup', [AcademicsController::class, 'delete_subject'])->name("deletesubject");
      //end Subject route
 
 
