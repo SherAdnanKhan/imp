@@ -74,7 +74,7 @@
                   <td> {{$getfc->Section_name}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
                   <td>
-                     <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
+                     <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-default pull-right btn-xs editbtn" > edit </button>
                
                   </td>
                </tr>
@@ -168,7 +168,7 @@
                 $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
                 $.ajax({
                 type: 'GET',
-                url: 'getsections/' + id,
+                url: 'getsection/' + id,
                 success: function (response) {
                //  var response = JSON.parse(response);
                 //console.log(response);   
@@ -186,7 +186,7 @@
                 $('#editsectionid').append(`<option value="0" disabled selected>Processing...</option>`);
                 $.ajax({
                 type: 'GET',
-                url: 'getsections/' + id,
+                url: 'getsection/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
                 //console.log(response);   

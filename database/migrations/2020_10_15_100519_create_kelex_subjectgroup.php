@@ -18,7 +18,7 @@ class CreateKelexSubjectgroup extends Migration
             $table->bigInteger('GROUP_ID')->nullable();
             $table->bigInteger('CLASS_ID')->nullable();
             $table->bigInteger('SECTION_ID')->nullable();
-            $table->string('SUBJECT_ID')->nullable();
+            $table->bigInteger('SUBJECT_ID')->nullable();
             $table->bigInteger('SESSION_ID')->nullable();
             $table->bigInteger('USER_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();

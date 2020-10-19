@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kelex_employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller
@@ -23,26 +24,18 @@ class EmployeeController extends Controller
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);
         endif;
-        // $regno = 0;
-        $EMP= DB::table('kelex_employees')
-        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-        ->select('EMP_NO')
-        ->latest('created_at')
-        ->first();
-     
-        $EMP_NO = ( $EMP == NULL) ? 1 : $EMP->EMP_NO+1;
-        // dd($regno);
+
         $recent_entry_student= Kelex_employee::create([
             'EMP_NAME' => $request->EMP_NAME,
             'FATHER_NAME' => $request->FATHER_NAME,
             'DESIGNATION_ID' => $request->DESIGNATION_ID,
             'QUALIFICATION' => $request->QUALIFICATION,
             'GENDER' => $request->GENDER,
-            'EMP_DOB' => $request->DOB, 
+            'EMP_DOB' => $request->EMP_DOB, 
             'CNIC' => $request->CNIC,
             'EMP_TYPE' => $request->EMP_TYPE,
             'ADDRESS' => $request->ADDRESS,
-            'PASSWORD' => $request->PASSWORD, 
+            'EMP_NO' => $request->EMP_NO, 
             'ALLOWANCESS' => $request->ALLOWANCESS,
             'CREATED_BY' => Auth::user()->id,
              'JOINING_DATE' => $request->JOINING_DATE,
@@ -50,7 +43,7 @@ class EmployeeController extends Controller
              'EMP_IMAGE' => $my_image,
               'ADDED_BY' => Auth::user()->id,
              'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
-             'EMP_NO'=> $EMP_NO,
+             'PASSWORD'=> Hash::make('123456'),
         ]);
         $msg='Employee Record inserted successfully';
         return response()->json($msg);
@@ -70,43 +63,34 @@ class EmployeeController extends Controller
         return view('Admin.HRManagement.editemployeecategory')->with('employee',$data,);
        
     }
-    // public function update_student(studentrequest $request)
-    // {
-    //     $image = $request->file('IMAGE');
-    //     $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)->first();
-    //     $my_image =$img['IMAGE'];
-    //     if(!empty($image)):
-    //         $my_image = rand() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('upload'), $my_image);
-    //     endif;
-    //     Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
-    //       ->update([ 'NAME' => $request->NAME,
-    //         'FATHER_NAME' => $request->FATHER_NAME,
-    //         'FATHER_CONTACT' => $request->FATHER_CONTACT,
-    //         'SECONDARY_CONTACT' => $request->SECONDARY_CONTACT,
-    //         'GENDER' => $request->GENDER,
-    //         'DOB' => $request->DOB, 
-    //         'CNIC' => $request->CNIC,
-    //         'RELIGION' => $request->RELIGION,
-    //         'FATHER_CNIC' => $request->FATHER_CNIC,
-    //         'SHIFT' => $request->SHIFT, 
-    //         'PRESENT_ADDRESS' => $request->PRESENT_ADDRESS,
-    //         'PERMANENT_ADDRESS' => $request->PERMANENT_ADDRESS,
-    //          'GUARDIAN' => $request->GUARDIAN,
-    //          'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC, 
-    //          'IMAGE' => $my_image,
-    //           'PREV_CLASS' => $request->PREV_CLASS,
-    //           'SLC_NO' => $request->SLC_NO,
-    //          'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
-    //          'PREV_BOARD_UNI' => $request->PREV_BOARD_UNI,
-    //          'PASSING_YEAR' => $request->PASSING_YEAR, 
-    //          'CAMPUS_ID' => '1',
-    //           'USER_ID' => '1', 
-    //     ]);
-    //     Kelex_students_session::where('STUDENT_ID',$request->STUDENT_ID)->
-    //     update(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
-    //     'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID]);
-    //     $msg='Student Record Updated successfully';
-    //     return response()->json($msg);
-    // }
+    public function update_employee(Request $request)
+    {
+        $res = Kelex_employee::find($request->id);
+        $image = $request->file('EMP_IMAGE');
+        if(!empty($image))
+        {
+            $my_image = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('upload'), $my_image);
+                $res->EMP_IMAGE = $my_image;
+        }
+        $res->EMP_NAME = $request->input('EMP_NAME');
+        $res->FATHER_NAME = $request->input('FATHER_NAME');
+        $res->GENDER = $request->input('GENDER');
+        $res->CNIC = $request->input('CNIC');
+        $res->DESIGNATION_ID = $request->input('DESIGNATION_ID');
+        $res->QUALIFICATION = $request->input('QUALIFICATION');
+        $res->EMP_TYPE = $request->input('EMP_TYPE');
+        $res->ADDRESS = $request->input('ADDRESS');
+        $res->CREATED_BY = $request->input('CREATED_BY');
+        $res->JOINING_DATE = $request->input('JOINING_DATE');
+        $res->LEAVING_DATE = $request->input('LEAVING_DATE');
+        $res->EMP_DOB = $request->input('EMP_DOB');
+        $res->ALLOWANCESS = $request->input('ALLOWANCESS');
+        $res->ADDED_BY = $request->input('ADDED_BY');
+        $res->CAMPUS_ID = $request->input('CAMPUS_ID');
+        $res->save();
+
+        return response()->json('success fully updated');
+
+    }
 }

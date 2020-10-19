@@ -290,7 +290,7 @@
 });
 $('body').on('submit','#addsubjectgroup',function(e){
       e.preventDefault();
-      $('#GROUP_ID').text('');
+      $('#GROUP_ID_error').text('');
       $('#SECTION_ID_error').text('');
       $('#NAME_error').text('');
       $('#subject_error').text('');
@@ -304,7 +304,7 @@ $('body').on('submit','#addsubjectgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               window.location.reload();
+              window.location.reload();
             },
               error: function(error){
                 console.log(error);

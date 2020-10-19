@@ -186,6 +186,7 @@ class AcademicsController extends Controller
 
     public function index_subjectgroup(Request $request)
     {
+        
         $data['classes']= Kelex_class::all(); 
         $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')->get()->toArray();
         foreach($subject as $row)
@@ -207,10 +208,10 @@ class AcademicsController extends Controller
         ->select('kelex_subjectgroups.id','kelex_subjectgroupnames.GROUP_NAME','kelex_subjectgroups.SECTION_ID',
         'kelex_subjectgroups.SUBJECT_ID','kelex_subjectgroups.CLASS_ID','kelex_subjectgroups.SESSION_ID',
         'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')
-        ->groupBy('kelex_subjectgroups.GROUP_ID')
+        ->groupBy('kelex_subjectgroups.SECTION_ID')
         ->get()->toArray();
    $record = json_decode(json_encode($record), true);
-        
+        // dd($record);
          $subjectArr = [];
         foreach($record as $key => $row):
                 $subjectArr=  DB::table('kelex_subjectgroups')

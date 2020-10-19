@@ -22,6 +22,7 @@
                     <thead>
                       <tr>
                         <th scope="col">Staff ID</th>
+                        <th scope="col">Employee NO</th>
                         <th scope="col">Name</th>
                         <th scope="col">Designation</th>
                         <th scope="col">QUALIFICATION</th>
@@ -34,6 +35,7 @@
                       @foreach ($employees as $employee)
                       <tr id="row{{$employee->EMP_ID}}">
                         <td>{{$employee->EMP_ID}}</td>
+                        <td>{{$employee->EMP_NO}}</td>
                         <td>{{$employee->EMP_NAME}}</td>
                         <td>{{$employee->DESIGNATION_ID}}</td>
                         <td>{{$employee->QUALIFICATION}}</td>

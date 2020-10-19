@@ -8,21 +8,21 @@
 <div class="row">
       <div class="card m-b-30 card-body">
             <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
-            <form action="{{ route('add-fee-type')}}" id="add_fee_type" name="add_fee_type" method="post" accept-charset="utf-8">
+            <form action="{{ route('add-fee-type')}}" id="add-fee-type" name="add-fee-type" method="post" accept-charset="utf-8">
                <div class="row">
                   <div class="col">
                       <div class="form-group">
                            <label for="">session</label> 
                               <small class="req"> *</small>
-                              <select name="session_id" class="form-control formselect required" placeholder="Select Class"
-                                 id="class_id">
-                                 <option value="0" selected>Session*</option>
-                                 @foreach($classes as $class)
-                                 <option  value="{{ $class->Class_id }}">
-                                    {{ ucfirst($class->Class_name) }}</option>
+                              <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class"
+                                 id="SESSION_ID">
+                                 <option value="0" disabled selected>Session*</option>
+                                 @foreach($sessions as $session)
+                                 <option  value="{{ $session->SB_ID }}">
+                                    {{ ucfirst($session->SB_NAME) }}</option>
                                  @endforeach
                            </select>
-                           <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                           <small id="SESSION_ID_error" class="form-text text-danger"></small>
                         </div>
                   </div>
                   <div class="col">
@@ -31,7 +31,7 @@
                            <small class="req"> *</small>
                            <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                               id="class_id">
-                              <option value="0"  selected>
+                              <option value="0" disabled selected>
                                  Class *</option>
                               @foreach($classes as $class)
                               <option  value="{{ $class->Class_id }}">
@@ -54,38 +54,22 @@
                      <div class="form-group">
                         <label for="">Fee Category</label> 
                            <small class="req"> *</small>
-                           <select name="FEE_CATEGORY_ID" class="form-control category_id required" placeholder="Select Category"
-                              id="category_id">
-                              <option value="0"  selected>
+                           <select name="FEE_CAT_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="FEE_CAT_ID">
+                              <option value="0" disabled selected>
                                  Fee Category *</option>
                               @foreach($feecategory as $row)
-                              <option  value="{{ $class->Class_id }}">
+                              <option  value="{{ $row->FEE_CAT_ID}}">
                                  {{ ucfirst($row->CATEGORY) }}</option>
                               @endforeach
                         </select>
-                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                        <small id="FEE_CAT_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
                </div>
                
                <div class="row">
                   <div class="col-3">
-                     <div class="form-group">
-                        <label for="">Fee Category</label> 
-                           <small class="req"> *</small>
-                           <select name="FEE_CATEGORY_ID" class="form-control category_id required" placeholder="Select Category"
-                              id="category_id">
-                              <option value="0"  selected>
-                                 Fee Category *</option>
-                              @foreach($feecategory as $row)
-                              <option  value="{{ $class->Class_id }}">
-                                 {{ ucfirst($row->CATEGORY) }}</option>
-                              @endforeach
-                        </select>
-                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
-                     </div>
-                  </div>
-                  <div class="col">
                      <div class="form-group">
                         <label for="SHIFT"> Shift:</label><br> 
                         <label class="radio-inline">
@@ -100,8 +84,8 @@
                      <div class="col">
                         <div class="form-group" >
                            <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
-                           <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="number" class="form-control" value="" autocomplete="off">
-                           <small id="CATEGORY_error" class="form-text text-danger"></small>
+                           <input autofocus="" id="FEE_AMOUNT" name="FEE_AMOUNT" placeholder="" type="number" class="form-control" value="" autocomplete="off">
+                           <small id="FEE_AMOUNT_error" class="form-text text-danger"></small>
                         </div>                  
                      </div>
                   </div>
@@ -113,14 +97,6 @@
                   </div>
                  
                </div>
-              
-
-             
-               
-               
-   
-              
-
             @csrf
             </form>
       </div>
@@ -132,10 +108,11 @@
          <h3 class="card-title font-16 mt-0">Fee Type List</h3>
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
-               <tr role="row">
-               <th> Name</th>
+            <tr role="row">
+               <th>Session</th>
                <th>Classes</th>
                <th>Sections</th>
+               <th>Category</th>
                <th>Shift</th>
                <th>Amount</th>
                <th>Action</th>
@@ -143,18 +120,14 @@
             </thead>
             <tbody id="displaydata">
             @foreach($getfeecat as $getfc)
-               <tr id="row{{$getfc->FEE_CAT_ID}}">
-                  <td> {{$getfc->CATEGORY}}</td>
+               <tr id="row{{$getfc->FEE_ID}}">
+                  <td> {{$getfc->SB_NAME}}</td>
                   <td> {{$getfc->Class_name}}</td>
                   <td> {{$getfc->Section_name}}</td>
+                  <td> {{$getfc->CATEGORY}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
-                   <td> 
-                   {{-- $getfc->AMOUNT --}}
-                   </td>
-                  <td>
-                     <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button>
-               
-                  </td>
+                  <td> {{$getfc->FEE_AMOUNT}}</td>
+                  <td><button value="{{$getfc->FEE_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button> </td>
                </tr>
                @endforeach
             </tbody>
@@ -163,55 +136,106 @@
    </div>
 </div>
  <!-- Edit feecat using modal -->
- <div id="feecatEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-               <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Section</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                     </div>
-                     <div class="modal-body">
+ <div class="modal fade bs-example-modal-lg" id="feeTypeEditModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title mt-0" id="myLargeModalLabel">Edit Fee Type Details</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              </div>
+                              <div class="modal-body">
 
-                     <form action="{{ route('updatefeecategory')}}" id="editfeecategory" name="sectionform" method="post" accept-charset="utf-8">
-                                <div class="form-group">
-                                    <label for="">Class</label> 
-                                       <small class="req"> *</small>
-                                       <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
-                                          id="editclass_id">
-                                          <option value="0" disabled selected>Select
-                                             Class*</option>
-                                    </select>
-                                    <small id="CLASS_ID_err" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                       <label for="">Section</label> 
-                                          <small class="req"> *</small>
-                                          <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="editsectionid" >
-                                          <option value="0" disabled selected>Select
-                                             Class*</option>
-                                       </select>
-                                       <small id="SECTION_ID_err" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group" style="margin:10px">
-                                   
-                                    <label for="exampleInputclass1">Fee Name</label><small class="req"> *</small>
-                                    <input type="hidden" id="editFEE_CAT_ID" name="FEE_CAT_ID" value="">
-                                    <input autofocus="" id="editCATEGORY" name="CATEGORY" placeholder="" type="text" class="form-control" value="" autocomplete="off">
-                                    <small id="CATEGORY_err" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="SHIFT"> Shift:</label><br> 
-                                    <label class="radio-inline">
-                                    
-                                    <input type="radio" id="editmorning" name="SHIFT" value="1" style=" margin: 10px;" > Morning
-                                    <input type="radio" id="editevening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
-                                    </label>
-                                    <small id="SHIFT_err" class="form-text text-danger"></small>
-                                </div>
-                    
-                        <button type="submit" class="btn btn-info btn-rounded btn-block waves-effect waves-light">Update</button>
-                
-                     @csrf
+                     <form action="{{ route('update-fee-type')}}" id="update-fee-type" name="update-fee-type" method="post" accept-charset="utf-8">
+               <div class="row">
+                  <div class="col">
+                      <div class="form-group">
+                           <label for="">session</label> 
+                              <small class="req"> *</small>
+                              <input type="hidden" id="FEE_ID" name="FEE_ID" value="">
+                              <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class"
+                                 id="editSESSION_ID">
+                                 <option value="0" disabled selected>Session*</option>
+                                 @foreach($sessions as $session)
+                                 <option  value="{{ $session->SB_ID }}">
+                                    {{ ucfirst($session->SB_NAME) }}</option>
+                                 @endforeach
+                           </select>
+                           <small id="SESSION_ID_err" class="form-text text-danger"></small>
+                        </div>
+                  </div>
+                  <div class="col">
+                     <div class="form-group">
+                        <label for="">Class</label> 
+                           <small class="req"> *</small>
+                           <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                              id="editCLASS_ID">
+                              <option value="0" disabled selected>
+                                 Class *</option>
+                              @foreach($classes as $class)
+                              <option  value="{{ $class->Class_id }}">
+                                 {{ ucfirst($class->Class_name) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="CLASS_ID_err" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+                  <div class="col">
+                        <div class="form-group">
+                           <label for="">Section</label> 
+                              <small class="req"> *</small>
+                              <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="editSECTION_ID" >
+                           </select>
+                           <small id="SECTION_ID_err" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+                  <div class="col">
+                     <div class="form-group">
+                        <label for="">Fee Category</label> 
+                           <small class="req"> *</small>
+                           <select name="FEE_CAT_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="editFEE_CAT_ID">
+                              <option value="0" disabled selected>
+                                 Fee Category *</option>
+                              @foreach($feecategory as $row)
+                              <option  value="{{ $row->FEE_CAT_ID}}">
+                                 {{ ucfirst($row->CATEGORY) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="FEE_CAT_ID_err" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+               </div>
+               
+               <div class="row">
+                  <div class="col-4">
+                     <div class="form-group">
+                        <label for="SHIFT"> Shift:</label><br> 
+                        <label class="radio-inline">
+                        
+                        <input type="radio" id="editmorning" name="SHIFT" value="1" style=" margin: 10px;" checked > Morning
+                        <input type="radio" id="editevening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
+                        </label>
+                        <small id="SHIFT_err" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="col">
+                        <div class="form-group" >
+                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
+                           <input autofocus="" id="editFEE_AMOUNT" name="FEE_AMOUNT" placeholder="" type="number" class="form-control" value="" autocomplete="off">
+                           <small id="FEE_AMOUNT_err" class="form-text text-danger"></small>
+                        </div>                  
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <div class="form-group">
+                     <br><br>
+                         <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
+                     </div>
+                  </div>
+                 
+               </div>
+            @csrf
             </form>
                </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -258,20 +282,20 @@
                 }
             });
         });
-        $('#editclass_id').on('change', function () {
+        $('#editCLASS_ID').on('change', function () {
                 let id = $(this).val();
-                $('#editsectionid').empty();
-                $('#editsectionid').append(`<option value="0" disabled selected>Processing...</option>`);
+                $('#editSECTION_ID').empty();
+                $('#editSECTION_ID').append(`<option value="0" disabled selected>Processing...</option>`);
                 $.ajax({
                 type: 'GET',
-                url: 'getsection/' + id,
+                url: 'getsections/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
                 //console.log(response);   
-                $('#editsectionid').empty();
-                $('#editsectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
+                $('#editSECTION_ID').empty();
+                $('#editSECTION_ID').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
-                    $('#editsectionid').append(`<option value="${element['Section_id']}">${element['Section_name']}</option>`);
+                    $('#editSECTION_ID').append(`<option value="${element['Section_id']}">${element['Section_name']}</option>`);
                     });
                 }
             });
@@ -284,36 +308,32 @@
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$('body').on('submit','#add_fee_type',function(e){
+$('body').on('submit','#add-fee-type',function(e){
       e.preventDefault();
       $('#CLASS_ID_error').text('');
       $('#SECTION_ID_error').text('');
-      $('#CATEGORY_error').text('');
       $('#SHIFT_error').text('');
+      $('#SESSION_ID_error').text('');
+      $('#FEE_CAT_ID_error').text('');
+
       var fdata = new FormData(this);
+
       $.ajax({
-        url: '{{url("add-fee-structure")}}',
+        url: '{{url("add-fee-type")}}',
             type:'POST',
             data: fdata,
             processData: false,
             contentType: false,
             success: function(data){
-              console.log(data)
-              var type = data.SHIFT==1 ? 'Morning':'Evening';
-                $('#displaydata').append(`
-                     <tr id="row`+data.FEE_CAT_ID+`">
-                        <td class="mailbox-name">` + data.CATEGORY + `</td>
-                        <td class="mailbox-name">` + data.CLASS_ID + `</td>
-                        <td class="mailbox-name">` + data.SECTION_ID + `</td>
-                        <td class="mailbox-name">` + type + `</td>
-                        
-                        <td class="mailbox-date pull-right">
-                     <button value="`+data.FEE_CAT_ID+`" class="btn btn-primary btn-xs editbtn" > Edit </button>
-                          </td>
-                      </tr>`)
-                      $("#addfeecategory").get(0).reset();
-                     location.reload();
-                     //  $('#DataTables_Table_0').DataTable().destroy().draw();
+               if ($.trim(data) == '' ) {
+                  toastr.success('Record Added..','Notice');
+                  $("#add-fee-type").get(0).reset();
+                  setTimeout(function(){location.reload();},1000);
+                  }
+                  else
+                  {
+                     toastr.error(data,'Notice');
+                  }
               },
               error: function(error){
                 console.log(error);
@@ -323,85 +343,62 @@ $('body').on('submit','#add_fee_type',function(e){
                     });
               }
       });
-      return false
     });
-
     $(document).on('click', '.editbtn',function () {
-        var feecatid = $(this).val();
-        var classlist = "";  
-        var sectionlist = "";  
-        var classId ;
-        var class_selected;
+        var FEE_ID = $(this).val();
         $.ajax({
-            url: '{{url("editfeecategory")}}',
+            url: '{{url("edit-fee-type")}}',
             type: "GET",
             data: {
-               feecatid:feecatid
+               FEE_ID:FEE_ID
             }, 
             dataType:"json",
-            success: function(data){
-              // console.log(data);
-        //   for();
-          feedata = data.record;
-          classes = data.classes;
-          console.log(classes);
-          sections = data.sections;
-          for(i=0;i<feedata.length;i++){
-            classId = feedata[i].CLASS_ID;
-            $('#editFEE_CAT_ID').val(feedata[i].FEE_CAT_ID);
-            $('#editCATEGORY').val(feedata[i].CATEGORY);
-            (feedata[i].TYPE=="1")?$('#editmorning').prop('checked', true):$('#editevening').prop('checked', true);
-          }
-          for(k=0;k<classes.length;k++)
-          {
-                if(classId == classes[k]['Class_id']){
-                    class_selected = "selected";
-                }else{
-                  class_selected = "";
-                }
-            classlist += '<option value="'+classes[k]['Class_id']+'" '+class_selected+'>'+classes[k]['Class_name']+'</option>';
-          }
-          sectionlist += '<option value="'+sections['Section_id']+'">'+sections['Section_name']+'</option>"';
-          console.log(sectionlist);
-          $('#editclass_id').html(classlist);
-          $('#editsectionid').html(sectionlist);
+            success: function(data)
+         {
+               console.log(data);
+            $('#FEE_ID').val(data['FEE_ID'])
+            $('#editCLASS_ID').val(data["CLASS_ID"]).change();
+            $('#editSECTION_ID').val(data["SECTION_ID"]).change();
+            (data.SHIFT=="1")?$('#editmorning').prop('checked', true):$('#editevening').prop('checked', true);
+            $('#editSESSION_ID').val(data["SESSION_ID"]).change();
+            $('#editFEE_CAT_ID').val(data["FEE_CAT_ID"]).change();
+            $('#editFEE_AMOUNT').val(data["FEE_AMOUNT"])
 
-          }  });
-       $('#feecatEditModal').modal('show');
+         }
+
+        });
+       $('#feeTypeEditModal').modal('show');
    });
-  $('body').on('submit','#editfeecategory',function(e){
+
+  $('body').on('submit','#update-fee-type',function(e){
       e.preventDefault();
       $('#CLASS_ID_err').text('');
       $('#SECTION_ID_err').text('');
       $('#CATEGORY_err').text('');
       $('#SHIFT_err').text('');
+      $('#SESSION_ID_err').text('');
+      $('#FEE_CAT_ID_err').text('');
+
       var fdata = new FormData(this);
       $.ajax({
-        url: '{{url("updatefeecategory")}}',
+        url: '{{url("update-fee-type")}}',
             type:'POST',
             data: fdata,
             processData: false,
             contentType: false,
             success: function(data){
                console.log(data)
-               
-               for(i=0;i<data.length;i++){
-                var type = data.SHIFT==1?'Morning':'Evening';
-                $('#row' + +data[i].FEE_CAT_ID).replaceWith(`
-                     <tr id="row`+data.FEE_CAT_ID+`">
-                        <td class="mailbox-name">` + data[i].CATEGORY + `</td>
-                        <td class="mailbox-name">` + data[i].CLASS_ID + `</td>
-                        <td class="mailbox-name">` + data[i].SECTION_ID + `</td>
-                        <td class="mailbox-name">` + type + `</td>
-                        
-                        <td class="mailbox-date pull-right">
-                     <button value="`+data[i].FEE_CAT_ID+`" class="btn btn-default btn-xs editbtn" > edit </button>
-                     <button value="`+data[i].FEE_CAT_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                          </td>
-                      </tr>`)
-                      $("#editfeecategory").get(0).reset();
-                      $('#feecatEditModal').modal('hide');
-               }
+               if ($.trim(data) == '' ) {
+                  toastr.success('Record Updated Sucessfully..','Notice');
+                  $("#update-fee-type").get(0).reset();
+                  $('#feeTypeEditModal').modal('hide');
+                  setTimeout(function(){location.reload();},1000);
+             
+                  }
+                  else
+                  {
+                     toastr.error(data,'Notice');
+                  }  
               },
               error: function(error){
                 console.log(error);
