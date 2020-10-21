@@ -131,13 +131,15 @@ Route::group([ 'middleware' => 'Admin'], function()
     Route::match(['get', 'post'], '/addfeecategory', [FeeController::class, 'add_feecategory'])->name("addfeecategory");
     Route::match(['get', 'post'], '/editfeecategory', [FeeController::class, 'edit_feecategory'])->name("editfeecategory");
     Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'update_feecategory'])->name("updatefeecategory");
-
+     Route::match(['get', 'post'], '/get-fee-categories/{class_id}/{section_id}', [FeeController::class, 'get_fee_categories'])->name("get-fee-categories");
 
 //Fee type Routes Start
     Route::match(['get', 'post'], '/fee-type', [FeeController::class, 'fee_type'])->name("fee-type");
     Route::match(['get', 'post'], '/add-fee-type', [FeeController::class, 'add_fee_type'])->name("add-fee-type");
     Route::match(['get', 'post'], '/edit-fee-type', [FeeController::class, 'edit_fee_type'])->name("edit-fee-type");
     Route::match(['get', 'post'], '/update-fee-type', [FeeController::class, 'update_subjectgroup'])->name("update-fee-type");
+    Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_structure'])->name("fee-structure");
+    Route::get('/get-fee-type/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 
 //Employee Routes Start

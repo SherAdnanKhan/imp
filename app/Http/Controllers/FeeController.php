@@ -42,6 +42,21 @@ class FeeController extends Controller
             }
       
     }
+
+    public function get_fee_categories(Request $request)
+    {
+        // dd($request->all());
+        $getfeecat = DB::table('kelex_fee_categories')
+                    ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
+                    ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
+                    ->where('kelex_fee_categories.SECTION_ID','=',$request->section_id)
+                    ->where('kelex_fee_categories.CLASS_ID','=',$request->class_id)
+                    ->where('kelex_fee_categories.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
+                    ->select('FEE_CAT_ID','CATEGORY')
+                    ->get()->toArray();
+        return  $getfeecat;
+    }
+
     public function edit_feecategory(Request $request)
     {
       
@@ -93,6 +108,18 @@ class FeeController extends Controller
         $data = ['sessions' => $sessions,'classes'=>$class,'getfeecat'=>$getfeecat,'feecategory'=> $feecategory];
         return view('Admin.FeesManagement.fee_type')->with($data);
     }
+    public function get_fee_type($class_id,$section_id,$fee_cat_id)
+    {
+              $getfeecat = DB::table('kelex_fee_types')
+                            ->join('kelex_fee_categories', 'kelex_fee_categories.FEE_CAT_ID', '=', 'kelex_fee_types.FEE_CAT_ID')
+                            ->where('kelex_fee_types.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
+                            ->where('kelex_fee_types.CLASS_ID','=',$class_id)
+                            ->where('kelex_fee_types.SECTION_ID','=',$section_id)
+                            ->where('kelex_fee_types.FEE_CAT_ID','=',$fee_cat_id)
+                            ->select('kelex_fee_types.*')
+                            ->get()->toArray();
+                            return $getfeecat;
+    }
 
     public function add_fee_type(FeetypeRequest $request)
     {
@@ -135,20 +162,40 @@ class FeeController extends Controller
         ->get()->toArray();
         if(count($result) == 0)
         {
-        
-        $feetype= Kelex_fee_type::where('FEE_ID', $request->FEE_ID)->
-        update(['CLASS_ID'=>$request->CLASS_ID,'SESSION_ID'=>$request->SESSION_ID,
-        'SECTION_ID'=>$request->SECTION_ID,
-        'FEE_CAT_ID'=>$request->FEE_CAT_ID,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,
-        'UPDATE_BY'=> Auth::user()->id,
-        'SHIFT'=>$request->SHIFT,
-        'FEE_AMOUNT'=>$request->FEE_AMOUNT]);
-        return response()->json();
-        }
-        else
-        {
-            return response()->json("Another Record Already Existed"); 
-        }
-}
+            
+            $feetype= Kelex_fee_type::where('FEE_ID', $request->FEE_ID)->
+            update(['CLASS_ID'=>$request->CLASS_ID,'SESSION_ID'=>$request->SESSION_ID,
+            'SECTION_ID'=>$request->SECTION_ID,
+            'FEE_CAT_ID'=>$request->FEE_CAT_ID,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,
+            'UPDATE_BY'=> Auth::user()->id,
+            'SHIFT'=>$request->SHIFT,
+            'FEE_AMOUNT'=>$request->FEE_AMOUNT]);
+            return response()->json();
+            }
+            else
+            {
+                return response()->json("Another Record Already Existed"); 
+            }
+    }
+
+    public function fee_structure()
+    {
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID',Auth::user()->CAMPUS_ID);
+        $feecategory = Kelex_fee_category::all()->where('CAMPUS_ID',Auth::user()->CAMPUS_ID);
+        $getfeecat = DB::table('kelex_fee_types')
+                                ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_types.SECTION_ID')
+                                ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_types.CLASS_ID')
+                                ->join('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_fee_types.SESSION_ID')
+                                ->join('kelex_fee_categories', 'kelex_fee_categories.FEE_CAT_ID', '=', 'kelex_fee_types.FEE_CAT_ID')
+                                ->where('kelex_sessionbatches.CAMPUS_ID', '=',Auth::user()->CAMPUS_ID)
+                                ->select('kelex_fee_categories.CATEGORY','kelex_classes.Class_name','kelex_sections.Section_name',
+                                'kelex_sessionbatches.SB_NAME','kelex_fee_types.*')
+                                ->get()->toArray();
+
+        $class= Kelex_class::all()->where('CAMPUS_ID',Auth::user()->CAMPUS_ID);; 
+        // dd($getfeecat);
+          $data = ['sessions' => $sessions,'classes'=>$class,'getfeecat'=>$getfeecat,'feecategory'=> $feecategory];
+        return view('Admin.FeesManagement.fee_structure')->with($data);
+    }
 
 }
