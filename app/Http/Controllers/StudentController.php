@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\studentloginRequest;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
@@ -11,9 +12,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\studentrequest;
 use App\Models\Kelex_students_session;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+   
+   
     public function index_student()
     {
         $class= Kelex_class::all(); 
@@ -59,6 +63,7 @@ class StudentController extends Controller
              'GUARDIAN' => $request->GUARDIAN,
              'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC, 
              'IMAGE' => $my_image,
+             'STD_PASSWORD'=> Hash::make('123456'),
               'PREV_CLASS' => $request->PREV_CLASS,
               'SLC_NO' => $request->SLC_NO,
              'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
@@ -67,23 +72,11 @@ class StudentController extends Controller
              'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
              'REG_NO'=> $regno,
               'USER_ID' => Auth::user()->id, 
-        ]);
-        $studentid= DB::table('kelex_students')
-        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-        ->select('STUDENT_ID')
-        ->latest('created_at')
-        ->first();
-        // dd($studentid->STUDENT_ID);
-        Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,
-                                        'CLASS_ID'=>$request->CLASS_ID,
-                                        'IS_ACTIVE'=>'1',
-                                        'SECTION_ID'=>$request->SECTION_ID,
-                                        'USER_ID' => Auth::user()->id, 
-                                         'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
-                                        'STUDENT_ID'=> $studentid->STUDENT_ID]);
+        ]);  
         $studentid= $recent_entry_student->STUDENT_ID;
         Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
-        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=> $studentid,'ROLL_NO'=> $rollno,'CAMPUS_ID'=>Auth::user()->CAMPUS_ID,
+        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=>$studentid,
+        'ROLL_NO'=> $rollno,'CAMPUS_ID'=>Auth::user()->CAMPUS_ID,
          'USER_ID'=> Auth::user()->id]);
 
         $msg='Student Record inserted successfully';
@@ -160,13 +153,15 @@ class StudentController extends Controller
     {
       
      $explode_id = array_map('intval', explode('.', $id));
-    
-        echo json_encode( DB::table('kelex_students_sessions')
+     $SECTION_ID=$explode_id[0];
+     $CLASS_ID=$explode_id[1];
+       $result=  DB::table('kelex_students_sessions')
         ->leftJoin('kelex_students', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
-        ->where('kelex_students_sessions.SECTION_ID', '=',$explode_id[0])
-        ->where('kelex_students_sessions.CLASS_ID', '=',$explode_id[1])
+        ->where('kelex_students_sessions.SECTION_ID', '=',$SECTION_ID)
+        ->where('kelex_students_sessions.CLASS_ID', '=',$CLASS_ID)
         ->select('kelex_students.*')
-        ->get()->toArray());
+        ->get()->toArray();
+        return response()->json($result);
     }
     
     public function showdetails($id)

@@ -50,7 +50,7 @@
                                                       </ul>
                                                 </li>
                                                 
-                                             </ul>
+      </ul>
             <div class="tab-content" style="padding:20px;">
                <div class="tab-pane active" id="activity">
                   <div class="tshadow mb25 bozero">

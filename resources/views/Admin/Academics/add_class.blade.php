@@ -130,11 +130,11 @@ $('body').on('submit','#addclass',function(e){
             success: function(data){
                console.log(data)
                 $('#displaydata').append(`
-                     <tr id="row`+data.id+`">
+                     <tr id="row`+data.CLASS_ID+`">
                         <td class="mailbox-name">` + data.class_name + `</td>
                               <td class="mailbox-date pull-right">
-                              <button value="`+data.id+`" class="btn btn-default btn-xs editbtn"> edit </button>
-                              <button value="`+data.id+`" class="btn btn-default btn-xs deletebtn"> delete </button>
+                              <button value="`+data.CLASS_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
+                              <button value="`+data.CLASS_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
                                  
                               </td>
                       </tr>`)

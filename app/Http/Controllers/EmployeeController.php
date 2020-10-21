@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\EmployeeRequest;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\teacherloginRequest;
 
 class EmployeeController extends Controller
 {
+
+   
+
     public function index_employee()
     {   
         return view('Admin.HRManagement.addemployeecategory');

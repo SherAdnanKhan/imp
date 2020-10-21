@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class Admin
+class Student
 {
     /**
      * Handle an incoming request.
@@ -17,20 +16,12 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('user_id') && session()->has('CAMPUS_ID') !==0){
+        if(session()->has('REG_NO')){
             return $next($request);
         }
-
-
-        else if (session()->has('user_id') && session()->has('CAMPUS_ID') ==0)
-        {
-            return redirect()->route('superadmin');
-        }
-        else
-        {
+        else{
             return redirect('/');
         }
 
-        
     }
 }

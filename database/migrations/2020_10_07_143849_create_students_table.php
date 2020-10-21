@@ -26,6 +26,7 @@ class CreateStudentsTable extends Migration
             $table->string('FATHER_CNIC',100)->nullable();
             $table->enum('SHIFT',['1','2'])->nullable()->comments('1= Morning 2= Evening');
             $table->text('PRESENT_ADDRESS')->nullable();
+            $table->string('STD_PASSWORD')->nullable();
             $table->text('PERMANENT_ADDRESS')->nullable();
             $table->string('GUARDIAN',100)->nullable();
             $table->string('GUARDIAN_CNIC',100)->nullable();

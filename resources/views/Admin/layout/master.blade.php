@@ -67,12 +67,18 @@
 <!-- header below -->
 @include('Admin.layout.header')
 <!-- leftsidebar below -->
-@if(Auth::user()->CAMPUS_ID==0)
+@if(Session::get('CAMPUS_ID')==0 && Session::get('is_admin'))
 @include('Admin.layout.superadminsidebar')
 
 <!-- footer below -->
-@else
+@elseif(Session::get('CAMPUS_ID')!==0 && Session::get('is_admin'))
 @include('Admin.layout.sidebar')
+
+@elseif(Session::get('CAMPUS_ID')!==0 && Session::get('is_teacher'))
+@include('Admin.layout.teachersidebar')
+
+@elseif(Session::get('CAMPUS_ID')!==0 && Session::get('is_student'))
+@include('Admin.layout.studentsidebar')
 
 @endif
 @yield('content')
