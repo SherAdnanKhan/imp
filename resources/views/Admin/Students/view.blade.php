@@ -167,7 +167,6 @@ form.example::after {
         $('#sectionid').on('change', function () {
                 let id = $(this).val();
                 let html = "";
-
                 $.ajax({
                 type: 'GET',
                 dataType: "json",

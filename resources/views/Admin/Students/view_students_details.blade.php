@@ -24,6 +24,9 @@
                   <li class="list-group-item listnoback">
                      <b>Gender</b> <a class="pull-right text-aqua">{{ucfirst($student['GENDER'])}}</a>
                   </li>
+                  <li class="list-group-item listnoback">
+                     <b>Id Card</b> <a href="/getidcard/{{$student['STUDENT_ID']}}" class="btn btn-primary pull-right text-aqua"> Show</a>
+                  </li>
                </ul>
             </div>
          </div>
@@ -50,7 +53,7 @@
                                                       </ul>
                                                 </li>
                                                 
-                                             </ul>
+      </ul>
             <div class="tab-content" style="padding:20px;">
                <div class="tab-pane active" id="activity">
                   <div class="tshadow mb25 bozero">

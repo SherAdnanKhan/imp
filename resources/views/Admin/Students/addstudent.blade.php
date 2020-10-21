@@ -234,9 +234,12 @@
                                     </div>
                                  </div>
                                  <div class="col-4">
-                                    <div class="form-group">
-         
-                                    </div>
+                                 <div class="form-group">
+                                          <label for="exampleInputFNO1">Father CNIC</label>
+                                          <small class="req"> *</small>
+                                          <input id="FATHER_CNIC" name="FATHER_CNIC" placeholder="" type="text" class="form-control" >
+                                          <small id="FATHER_CNIC_error" class="form-text text-danger"></small>
+                                       </div>
                                    
                                  </div>
                                 
