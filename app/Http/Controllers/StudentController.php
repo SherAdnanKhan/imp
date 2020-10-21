@@ -96,6 +96,15 @@ class StudentController extends Controller
         return view('Admin.Students.editstudent')->with(['student'=>$data,'classes'=>$class,'sessions'=>$session,'sections'=>$section,'std_session_data'=>$std_session_data]);
        
     }
+    public function get_student_data_for_id_card($id){
+        list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
+        $classid= $std_session_data['CLASS_ID'];
+        $selectedclass= Kelex_class::where('Class_id',$classid)->first();
+        $sessionid= $std_session_data['SESSION_ID'];
+        $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)->first();
+        return view('Admin.Students.student_id_card')->with(['student'=>$data,'classes'=>$selectedclass,'sessions'=>$sessionid,'sections'=>$section]);
+       
+    }
     public function update_student(studentrequest $request)
     {
         $image = $request->file('IMAGE');

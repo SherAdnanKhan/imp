@@ -167,6 +167,10 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
 
     Route::get('/searchstudent', [StudentController::class, 'searchstudent'])->name('searchstudent');
 
+    Route::get('/getidcard/{id}', [StudentController::class, 'get_student_data_for_id_card'])->name('getidcard');
+
+
+
     
 
 /// Student Attendance start 

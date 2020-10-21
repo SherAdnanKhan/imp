@@ -43,7 +43,31 @@
                             <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings m-r-5"></i> Settings</a>
                             <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5"></i> Lock screen</a>
                             <div class="dropdown-divider"></div>  
-                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+
+                            @if(Session::get('is_teacher'))
+                            <a class="dropdown-item text-danger" href="{{ route('logoutteacher') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logoutteacher') }}" method="POST" class="d-none">
+                                        @csrf
+                            </form>
+
+                            @elseif(Session::get('is_student'))
+
+                                    <a class="dropdown-item text-danger" href="{{ route('logoutstudent') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                 {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logoutstudent') }}" method="POST" class="d-none">
+                                        @csrf
+                            </form>
+
+                            @else
+                                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                                  {{ __('Logout') }}
@@ -52,6 +76,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                            @endif
                         </div>                                                                    
                     </div>
                 </li>
