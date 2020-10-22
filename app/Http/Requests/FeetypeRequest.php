@@ -31,4 +31,23 @@ class FeetypeRequest extends FormRequest
             'SESSION_ID'=>'required',
         ];
     }
+        public function messages()
+    {
+
+        return[
+            'CLASS_ID.required' => "Class ID is required",
+
+            'SECTION_ID.required' => "Section ID is required",
+
+            'FEE_CAT.required' => "Fee Category is required",
+
+            'FEE_CAT.max' => "Fee Category can't be greater than 255 characters",
+            
+            'SHIFT.required' => "Shift Field is required",            
+
+            'SESSION_ID.required' => "Session ID is required",
+
+        ];
+            
+    }
 }

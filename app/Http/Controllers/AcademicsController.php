@@ -283,47 +283,10 @@ class AcademicsController extends Controller
                 $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
                 $subjectgroup->USER_ID = Auth::user()->id;
                 $subjectgroup->save();
-                $sectionid= $subjectgroup->SECTION_ID;
-                $classid= $subjectgroup->CLASS_ID;
-                $sessionid= $subjectgroup->SESSION_ID;
-                $subjectgroupid= $subjectgroup->GROUP_ID;
             endfor;
         endif;
-
-
-        $subjectgroups['SUBJECT_ID']=$subjectgroup->SUBJECT_ID;
-        $subjectgroups['id']=$subjectgroup->id;
-
-        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')
-        ->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get()->toArray();
-        $subjects = array();
-        foreach($subject as $row)
-        {
-            $subjects[$row['SUBJECT_ID']] = $row['SUBJECT_NAME'];
-        }
-        $subjectgroups['subjects'] = $subjects;
-
-
-        $subjectgroups['Section_name'] = DB::table('kelex_sections')
-        ->where('kelex_sections.Section_id', '=',$sectionid)
-        ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-        ->select('kelex_sections.Section_name')->first();
-
-        $subjectgroups['Class_name'] = DB::table('kelex_classes')
-        ->where('kelex_classes.Class_id', '=',$classid)
-        ->where('kelex_classes.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-        ->select('kelex_classes.Class_name')->first();
-
-        $subjectgroups['SB_NAME'] = DB::table('kelex_sessionbatches')
-        ->where('kelex_sessionbatches.SB_ID', '=',$sessionid)
-        ->where('kelex_sessionbatches.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-        ->select('kelex_sessionbatches.SB_NAME')->first();
-
-        $subjectgroups['subjectgroup'] = DB::table('kelex_subjectgroupnames')
-        ->where('kelex_subjectgroupnames.GROUP_ID', '=',$subjectgroupid)
-        ->where('kelex_subjectgroupnames.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-        ->first();
-        return response()->json($subjectgroups);
+        
+        return response()->json($subjectgroup);
             
     
     }

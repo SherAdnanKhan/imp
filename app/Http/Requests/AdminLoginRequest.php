@@ -28,4 +28,11 @@ class AdminLoginRequest extends FormRequest
             'password'=>'required',
         ];
     }
+    public function messages()
+    {
+        return[
+            'username.required'=>'Username is required',
+            'password.required'=>'Password is required',
+        ];
+    }
 }

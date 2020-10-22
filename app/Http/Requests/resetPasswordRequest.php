@@ -36,4 +36,16 @@ class resetPasswordRequest extends FormRequest
         ];
 
     }
+
+    public function messages()
+    {
+        return[
+            'password.required'=>'Password is  required',
+            'password.string'=>'Password must be string',
+            'password.min'=>'Password can not be less than 6 Characters',
+            'password.regex'=>'Password must have a capital letter ,small letter and numbers',
+            'confirm-password.required'=>'Confirm-Password is  required',
+            'password.same'=>'passwords are not matching',
+        ];
+    }
 }

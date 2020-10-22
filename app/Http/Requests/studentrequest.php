@@ -40,8 +40,18 @@ class studentrequest extends FormRequest
     public function messages()
 {
     return [
-        'NAME.required' => 'A Name is required',
+        'NAME.required' => 'A Student Name is required',
         'FATHER_NAME.required'  => 'A father name is required',
+        'PRESENT_ADDRESS.required'=> 'A Present Address is required',
+        'PERMANENT_ADDRESS.required'=> 'A Permanent ADDRESS is required',
+        'GUARDIAN.required'=> 'A GUARDIAN name is required',
+        'SLC_NO.required'=> 'A School leaving certidicate NO is required',
+        'PASSING_YEAR.required'=> 'A School PASSING YEAR is required',
+        'IMAGE.mimes'=> 'Image should be jpeg,jpg,png,gif format ',
+        'IMAGE.max'=> ' image size should not exceed 10mb',
+        'SESSION_ID.required'=> 'A SESSION is required',
+        'CLASS_ID.required'=> 'A CLASS is required',
+        'SECTION_ID.required'=> 'A SECTION is required',
     ];
 }
 }

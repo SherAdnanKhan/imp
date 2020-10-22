@@ -30,4 +30,20 @@ class FeeCategoryRequest extends FormRequest
             'SHIFT'=>'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'CLASS_ID.required' => "Class ID is required",
+
+            'SECTION_ID.required' => "Section ID is required",
+
+            'CATEGORY.required' => "Category Field is required",
+
+            'CATEGORY.max' => "Category Field can't be greater than 255 characters",
+
+            'SHIFT.required' => "Shift Field is required",
+        ];
+            
+    }
 }
