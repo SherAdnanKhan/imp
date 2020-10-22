@@ -27,7 +27,7 @@
                         <th scope="col">Designation</th>
                         <th scope="col">QUALIFICATION</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody id="displaydata">
@@ -41,7 +41,9 @@
                         <td>{{$employee->QUALIFICATION}}</td>
                         <td><img src="{{asset('upload')}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;"></td>
                         <td>
-                           <a href="editemployee/{{$employee->EMP_ID}}" class="btn btn-success editbtn"> Edit </a>
+                           <a href="editemployee/{{$employee->EMP_ID}}" style="margin-right:10px;" class="btn btn-success editbtn"> Edit </a>
+                         
+                           <a href="teacher/getemployeedetails/{{$employee->EMP_ID}}" class="btn btn-danger editbtn"> Details </a>
                         </td>
                       </tr>
                       @endforeach

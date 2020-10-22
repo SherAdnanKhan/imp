@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kelex_employee;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\EmployeeRequest;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\teacherloginRequest;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class EmployeeController extends Controller
 {
@@ -57,14 +57,14 @@ class EmployeeController extends Controller
     {
 
     $employee= Kelex_employee::all();
-    
-
     return view('Admin.HRManagement.viewemployeecategory')->with('employees',$employee);
     }
 
     public function getemployeedata($id){
 
-        $data= Kelex_employee::where('EMP_ID',$id)->first();
+        $data= Kelex_employee::where('EMP_ID',$id)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
+        ->first();
         return view('Admin.HRManagement.editemployeecategory')->with('employee',$data,);
        
     }
@@ -97,5 +97,17 @@ class EmployeeController extends Controller
 
         return response()->json('success fully updated');
 
+    }
+    public function getemployeedetails($employeeid)
+    {
+            try {
+            $employeeid = Crypt::decryptString($employeeid);
+            } catch (DecryptException $e) {
+            //
+            }
+        
+        $result = Kelex_employee::find($employeeid);
+        // dd($result);
+        return view('Admin.HRManagement.view_employee_details')->with('empdata',$result);
     }
 }

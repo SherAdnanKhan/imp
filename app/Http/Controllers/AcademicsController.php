@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use \stdClass;
 use App\Category;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
@@ -9,17 +10,17 @@ use App\Models\Kelex_section;
 use App\Models\Kelex_subject;
 use App\Http\Requests\sbnrequest;
 use App\Models\Kelex_sessionbatch;
+use App\Models\Kelex_subjectgroup;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\classrequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\sectionrequest;
 use App\Http\Requests\subjectrequest;
-use App\Models\Kelex_subjectgroupname;
-use App\Http\Requests\session_batchrequest;
-use App\Http\Requests\subjectgrouprequest;
 use App\Models\Kelex_students_session;
-use App\Models\Kelex_subjectgroup;
-use \stdClass;
+use App\Models\Kelex_subjectgroupname;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\subjectgrouprequest;
+use App\Http\Requests\session_batchrequest;
 
 class AcademicsController extends Controller
 {
@@ -32,7 +33,8 @@ class AcademicsController extends Controller
     {
         $data = DB::table('kelex_sections')
         ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
-        ->select('kelex_sections.*', 'kelex_classes.Class_name')
+        ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+        ->select('kelex_sections.*', 'kelex_classes.Class_name')      
         ->orderBy('kelex_sections.section_id', 'asc')
         ->get();
 
@@ -53,6 +55,7 @@ class AcademicsController extends Controller
            $data = DB::table('kelex_sections')
             ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
             ->where('kelex_sections.Section_id', '=',$section->Section_id)
+            ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->select('kelex_sections.*', 'kelex_classes.Class_name')
             ->orderBy('kelex_sections.section_id', 'asc')
             ->get();
@@ -77,6 +80,7 @@ class AcademicsController extends Controller
         $data = DB::table('kelex_sections')
         ->leftJoin('kelex_classes', 'kelex_sections.Class_id', '=', 'kelex_classes.Class_id')
         ->where('kelex_sections.section_id', '=',$request->sectionid)
+        ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->select('kelex_sections.*', 'kelex_classes.Class_name')
         ->orderBy('kelex_sections.section_id', 'asc')
         ->get();
@@ -86,7 +90,8 @@ class AcademicsController extends Controller
     public function delete_section(Request $request)
     {
         $id=$request->input('sectionid');
-        DB::table('kelex_sections')->where('Section_id',$id)->delete();
+        DB::table('kelex_sections')->where('Section_id',$id)
+        ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->delete();
         
                  return response()->json($id);
             }
@@ -116,6 +121,7 @@ class AcademicsController extends Controller
         {
             
             $currentclass= DB::table('kelex_classes')->where(['class_id' => $request->classid])
+            ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->get();
             echo json_encode($currentclass);
             
@@ -125,6 +131,7 @@ class AcademicsController extends Controller
             
                 DB::table('kelex_classes')
             ->where('class_id', $request->input('classid'))
+            ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->update(['class_Name' => $request->input('class_name')]);
     
             $classhthis= DB::table('kelex_classes')->where('class_id',$request->input('classid'))
@@ -135,7 +142,8 @@ class AcademicsController extends Controller
         public function delete_class(Request $request)
         {
             $id=$request->input('classid');
-            DB::table('kelex_classes')->where('class_id',$request->input('classid'))->delete();
+            DB::table('kelex_classes')->where('class_id',$request->input('classid'))
+            ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->delete();
             
                         return response()->json($id);
         }
@@ -165,7 +173,7 @@ class AcademicsController extends Controller
     {
         
         $currentSBG= DB::table('Kelex_subjectgroupnames')->where(['GROUP_ID' => $request->GROUP_ID])
-        ->get();
+        ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get();
        echo json_encode($currentSBG);
       
     }
@@ -174,9 +182,11 @@ class AcademicsController extends Controller
       
          DB::table('Kelex_subjectgroupnames')
         ->where('GROUP_ID', $request->input('GROUP_ID'))
+        ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->update(['GROUP_NAME' => $request->input('GROUP_NAME')]);
 
         $SBNthis= DB::table('Kelex_subjectgroupnames')->where('GROUP_ID',$request->input('GROUP_ID'))
+        ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->get();
          
         return response()->json($SBNthis);
@@ -188,7 +198,8 @@ class AcademicsController extends Controller
     {
         
         $data['classes']= Kelex_class::all(); 
-        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')->get()->toArray();
+        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get()->toArray();
         foreach($subject as $row)
         {
             $subjects[$row['SUBJECT_ID']] = $row['SUBJECT_NAME'];
@@ -204,7 +215,7 @@ class AcademicsController extends Controller
         ->leftJoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_subjectgroups.SECTION_ID')
         ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_subjectgroups.CLASS_ID')
         ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_subjectgroups.SESSION_ID')
-        ->where('kelex_subjectgroups.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
+        ->where('kelex_subjectgroups.CAMPUS_ID','=', Session::get('CAMPUS_ID'))
         ->select('kelex_subjectgroups.id','kelex_subjectgroupnames.GROUP_NAME','kelex_subjectgroups.SECTION_ID',
         'kelex_subjectgroups.SUBJECT_ID','kelex_subjectgroups.CLASS_ID','kelex_subjectgroups.SESSION_ID',
         'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')
@@ -219,7 +230,7 @@ class AcademicsController extends Controller
                     ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_subjectgroups.CLASS_ID')
                     ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_subjectgroups.SUBJECT_ID')
                     ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_subjectgroups.SESSION_ID')
-                    ->where('kelex_subjectgroups.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
+                    ->where('kelex_subjectgroups.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
                     ->where('kelex_subjectgroups.SECTION_ID','=',$row['SECTION_ID'])
                     ->where('kelex_subjectgroups.CLASS_ID','=',$row['CLASS_ID'])
                     ->where('kelex_subjectgroups.SESSION_ID','=',$row['SESSION_ID'])
@@ -241,6 +252,7 @@ class AcademicsController extends Controller
             ->where('CLASS_ID','=', $request->input('CLASS_ID'))
             ->where('SECTION_ID','=',$request->input('SECTION_ID'))
             ->where('SESSION_ID','=',$request->input('SESSION_ID'))
+            ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->whereIn('SUBJECT_ID', $request->input('subjectgroup'))
             ->select('kelex_subjectgroups.SUBJECT_ID')
             ->get()->toArray();
@@ -259,7 +271,7 @@ class AcademicsController extends Controller
         }
         $check = array_values($check);
         if(empty($check)):
-            return response()->json(['status' => 0,'response' => 'Nothing to add']);
+            return response()->json();
         else:
             for ($i=0; $i < count($check); $i++):
                 $subjectgroup= new Kelex_subjectgroup();
@@ -282,7 +294,8 @@ class AcademicsController extends Controller
         $subjectgroups['SUBJECT_ID']=$subjectgroup->SUBJECT_ID;
         $subjectgroups['id']=$subjectgroup->id;
 
-        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')->get()->toArray();
+        $subject= Kelex_subject::select('SUBJECT_ID','SUBJECT_NAME')
+        ->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get()->toArray();
         $subjects = array();
         foreach($subject as $row)
         {
@@ -293,18 +306,23 @@ class AcademicsController extends Controller
 
         $subjectgroups['Section_name'] = DB::table('kelex_sections')
         ->where('kelex_sections.Section_id', '=',$sectionid)
+        ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->select('kelex_sections.Section_name')->first();
 
         $subjectgroups['Class_name'] = DB::table('kelex_classes')
         ->where('kelex_classes.Class_id', '=',$classid)
+        ->where('kelex_classes.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->select('kelex_classes.Class_name')->first();
 
         $subjectgroups['SB_NAME'] = DB::table('kelex_sessionbatches')
         ->where('kelex_sessionbatches.SB_ID', '=',$sessionid)
+        ->where('kelex_sessionbatches.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->select('kelex_sessionbatches.SB_NAME')->first();
 
         $subjectgroups['subjectgroup'] = DB::table('kelex_subjectgroupnames')
-        ->where('kelex_subjectgroupnames.GROUP_ID', '=',$subjectgroupid)->first();
+        ->where('kelex_subjectgroupnames.GROUP_ID', '=',$subjectgroupid)
+        ->where('kelex_subjectgroupnames.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+        ->first();
         return response()->json($subjectgroups);
             
     
@@ -313,6 +331,7 @@ class AcademicsController extends Controller
     {
         
         $sessionGPdata= DB::table('kelex_subjectgroups')->where(['id' => $request->sessionGPID])
+        ->where('kelex_subjectgroups.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->first();
 
 
@@ -364,6 +383,7 @@ class AcademicsController extends Controller
      {
          
          $currentclass= DB::table('kelex_subjects')->where(['SUBJECT_ID' => $request->subjectid])
+         ->where('kelex_subjects.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
          ->get();
         echo json_encode($currentclass);
        
@@ -373,6 +393,7 @@ class AcademicsController extends Controller
        
           DB::table('kelex_subjects')
          ->where('SUBJECT_ID', $request->input('subject_id'))
+         ->where('kelex_subjects.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
          ->update(['SUBJECT_NAME' => $request->input('subject_name'),
          'SUBJECT_CODE' => $request->input('subject_code')
          ]);
@@ -385,7 +406,8 @@ class AcademicsController extends Controller
      public function delete_subject(Request $request)
      {
          $id=$request->input('subjectid');
-         DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subjectid'))->delete();
+         DB::table('kelex_subjects')->where('SUBJECT_ID',$request->input('subjectid'))
+         ->where('kelex_subjects.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->delete();
          
                   return response()->json($id);
      }
@@ -418,7 +440,7 @@ class AcademicsController extends Controller
     {
         
         $currentSB= DB::table('kelex_sessionbatches')->where(['SB_ID' => $request->sessionid])
-        ->get();
+        ->where('kelex_sessionbatches.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get();
        echo json_encode($currentSB);
       
     }
@@ -427,6 +449,7 @@ class AcademicsController extends Controller
       
          DB::table('kelex_sessionbatches')
         ->where('SB_ID', $request->input('sb_id'))
+        ->where('kelex_sessionbatches.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->update(['SB_NAME' => $request->input('sb_name'),
         'START_DATE' => $request->input('start_date'),
         'END_DATE' => $request->input('end_date'),
@@ -434,6 +457,7 @@ class AcademicsController extends Controller
         ]);
 
         $selectSB= DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('sb_id'))
+        ->where('kelex_sessionbatches.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
         ->get();
          
         return response()->json($selectSB);
@@ -441,7 +465,8 @@ class AcademicsController extends Controller
     public function delete_sessionbatch(Request $request)
     {
         $id=$request->input('sessionid');
-        DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('sessionid'))->delete();
+        DB::table('kelex_sessionbatches')->where('SB_ID',$request->input('sessionid'))
+        ->where('kelex_sessionbatches.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->delete();
         
                  return response()->json($id);
     }

@@ -16,7 +16,7 @@ class Student
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('REG_NO')){
+        if(session()->has('STUDENT_ID') || session()->has('user_id')){
             return $next($request);
         }
         else{

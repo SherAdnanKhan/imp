@@ -16,7 +16,6 @@ class AdminLoginController extends Controller
     public function login_Admin(AdminLoginRequest $request)
     {
         $authSuccess = Auth::attempt(['username' => $request->username, 'password' => $request->password]);
-            
         if($authSuccess) {
             $request->session()->regenerate();
             $user = User::where('username',$request->username)->first();

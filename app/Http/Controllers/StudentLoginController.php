@@ -22,7 +22,7 @@ class StudentLoginController extends Controller
         Session::put([
             'CAMPUS_ID'=>$result[0]['CAMPUS_ID'],
             'is_student'=>true,
-            'REG_NO'=>$result[0]['STUDENT_ID'],
+            'STUDENT_ID'=>$result[0]['STUDENT_ID'],
             ]);
         return response()->json(['url'=>url('student/dashboard')]);
       }

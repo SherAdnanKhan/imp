@@ -52,6 +52,7 @@ Route::post('/password_reset_student',[StudentLoginController::class,'resetpassw
 Route::group([ 'middleware' => 'Student'], function()
 {  
 Route::match(['get', 'post'],'/dashboard',[StudentLoginController::class,'dashboard'])->name('dashboard');
+Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 });
 
 });
@@ -68,11 +69,14 @@ Route::post('/passwordreset_teacher',[TeacherLoginController::class,'resetpasswo
 Route::group([ 'middleware' => 'Teacher'], function()
 {  
 Route::match(['get', 'post'],'/dashboard',[TeacherLoginController::class,'dashboard'])->name('dashboard');
-});
+
+Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
 
 });
 
-Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
+});
+
+
 
 
 Route::group([ 'middleware' => 'SuperAdmin'], function()
@@ -203,5 +207,6 @@ Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'
 Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
 Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
 Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
+
 
 });

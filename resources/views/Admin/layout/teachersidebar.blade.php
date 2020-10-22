@@ -20,6 +20,13 @@
                                     <li><a href="{{route('non-present-students')}}">Non-Present Report</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Profile <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                                <ul class="submenu">
+                                
+                                    <li><a href="{{route('get-employee-details',['course_id' =>  Crypt::encryptString(Session::get('EMP_ID')) ])}}"> Teacher Details</a></li>
+                                </ul>
+                            </li>
 
                     
                         </ul>

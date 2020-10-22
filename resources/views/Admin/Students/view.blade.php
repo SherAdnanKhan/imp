@@ -209,7 +209,7 @@ form.example::after {
                       html += '   <td>';
                       html += '     <a href="editstudent/'+ data[i].STUDENT_ID+'" class="btn btn-success editbtn">Edit</a>';
                       html += '   </td>';
-                      html += '   <td> <a href="viewstudentdetails/'+ data[i].STUDENT_ID+'" class="btn btn-success viewbtn">Details</a></td>';
+                      html += '   <td> <a href="student/viewstudentdetails/'+ data[i].STUDENT_ID+'" class="btn btn-success viewbtn">Details</a></td>';
                       html += '</tr>';
                     }
                     html += '</tbody>';

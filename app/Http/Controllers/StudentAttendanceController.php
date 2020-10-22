@@ -10,6 +10,7 @@ use App\Models\Student_Attendance;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\kelex_student_session;
+use Illuminate\Support\Facades\Session;
 use App\Models\Kelex_student_attendance;
 
 class StudentAttendanceController extends Controller
@@ -47,6 +48,7 @@ class StudentAttendanceController extends Controller
             ->leftJoin('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_attendances.STD_ID')
             ->leftJoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
             ->where('kelex_student_attendances.SECTION_ID', '=',$sectionID)
+            ->where('kelex_student_attendances.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->where('kelex_student_attendances.CLASS_ID', '=',$sessionID)
             ->where('kelex_student_attendances.ATTEN_DATE', '=',$date)
             ->select('kelex_students.*','kelex_student_attendances.ATTEN_STATUS','kelex_student_attendances.STD_ATTENDANCE_ID')
@@ -57,6 +59,7 @@ class StudentAttendanceController extends Controller
             $record = DB::table('kelex_students_sessions')
             ->leftJoin('kelex_students', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
             ->where('kelex_students_sessions.SECTION_ID', '=',$sectionID)
+            ->where('kelex_students_sessions.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->where('kelex_students_sessions.CLASS_ID', '=',$sessionID)
             ->select('kelex_students.*')
             ->get()->toArray();
@@ -131,6 +134,7 @@ class StudentAttendanceController extends Controller
             ->where('kelex_students_sessions.SECTION_ID', '=',$sectionID)
             ->where('kelex_students_sessions.CLASS_ID', '=',$sessionID)
             ->where('kelex_students_sessions.SESSION_ID', '=',$sessionID)
+            ->where('kelex_students_sessions.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
             ->where('kelex_student_attendances.ATTEN_STATUS', '=','A')
             ->whereBetween('kelex_student_attendances.ATTEN_DATE', [$fromdate,$todate])
             ->select('kelex_students.STUDENT_ID','kelex_students.REG_NO','kelex_students.NAME','kelex_students.NAME','kelex_students.FATHER_NAME','kelex_classes.Class_name','kelex_sections.Section_name','kelex_student_attendances.ATTEN_STATUS','kelex_student_attendances.STD_ATTENDANCE_ID')

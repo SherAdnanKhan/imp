@@ -16,7 +16,7 @@ class Teacher
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('EMP_NO')){
+        if(session()->has('EMP_ID') || session()->has('user_id') ){
             return $next($request);
         }
         else{
