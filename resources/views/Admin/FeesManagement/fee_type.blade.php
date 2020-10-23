@@ -104,7 +104,7 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-11">
+   <div class="col-sm-11">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Fee Type List</h3>
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
@@ -127,7 +127,7 @@
                   <td> {{$getfc->Section_name}}</td>
                   <td> {{$getfc->CATEGORY}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
-                  <td> {{$getfc->FEE_AMOUNT}}</td>
+                  <td> {{$getfc->FEE_TYPE}}</td>
                   <td><button value="{{$getfc->FEE_TYPE_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button> </td>
                </tr>
                @endforeach

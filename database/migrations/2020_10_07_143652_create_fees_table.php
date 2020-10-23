@@ -23,7 +23,7 @@ class CreateFeesTable extends Migration
             $table->enum('SHIFT',['1','2'])->nullable()->comments('1= Morning 2= Evening');
             $table->bigInteger('CREATED_BY')->nullable();
             $table->bigInteger('UPDATE_BY')->nullable();
-            // $table->decimal('FEE_AMOUNT')->nullable();
+            $table->text('FEE_TYPE')->nullable();
             $table->timestamps();
         });
     }
