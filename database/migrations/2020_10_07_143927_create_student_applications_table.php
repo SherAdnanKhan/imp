@@ -9,6 +9,7 @@ class CreateStudentApplicationsTable extends Migration
     /**
      * Run the migrations.
      *
+     * 
      * @return void
      */
     public function up()
@@ -16,10 +17,12 @@ class CreateStudentApplicationsTable extends Migration
         Schema::create('kelex_student_applications', function (Blueprint $table) {
             $table->id('STD_APPLICATION_ID');
             $table->bigInteger('STUDENT_ID')->nullable();
+            $table->text('APPLICATION_DESCRIPTION')->nullable();
             $table->enum('APPLICATION_TYPE',['1','2','3','4'])->nullable();
-            $table->date('APPLICATION_DATE')->nullable();
+            $table->date('START_DATE')->nullable();
+            $table->date('END_DATE')->nullable();
             $table->date('APPROVED_AT')->nullable();
-            $table->enum('APPLICATION_STATUS',['0','1','2'])->nullable()->comment('0=pending,1=approved,2=rejected');
+            $table->enum('APPLICATION_STATUS',['approved','rejected'])->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
             $table->timestamps();
         });

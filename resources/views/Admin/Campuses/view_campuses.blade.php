@@ -21,6 +21,7 @@
                 </div>
                 <br>
                 <br>
+                <div class="table-responsive">
                 <table class="table table-dark">
                     <thead>
                       <tr>
@@ -63,6 +64,7 @@
                       @endforeach
                     </tbody>
                   </table>
+                </div>
 
                   <a href="{{route('campus')}}" class="btn btn-primary">Add New Campus</a>
             </div>

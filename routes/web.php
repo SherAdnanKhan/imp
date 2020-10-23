@@ -53,6 +53,12 @@ Route::group([ 'middleware' => 'Student'], function()
 {  
 Route::match(['get', 'post'],'/dashboard',[StudentLoginController::class,'dashboard'])->name('dashboard');
 Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
+
+//application routes
+Route::match(['get', 'post'],'/Application',[StudentAttendanceController::class,'StudentApplication'])->name('StudentApplication');
+Route::match(['get', 'post'],'/AddApplication',[StudentAttendanceController::class,'AddApplication'])->name('Student_Add_Application');
+Route::match(['get', 'post'],'/ViewApplication',[StudentAttendanceController::class,'ViewApplication'])->name('Student_View_Application');
+
 });
 
 });
@@ -183,7 +189,9 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::post('/get-std-for-attendance', [StudentAttendanceController::class, 'get_stds_for_attendance'])->name('get-std-for-attendance');
     Route::post('/save-students-attendance', [StudentAttendanceController::class, 'save_students_attendance'])->name('save-students-attendance');
     Route::match(['post','get'],'/non-present-students', [StudentAttendanceController::class, 'non_present_students'])->name('non-present-students');
-/// Student Attendance end..
+    Route::match(['get', 'post'],'/ViewApplicationAdmin',[StudentAttendanceController::class,'ViewApplicationbyadmin'])->name('Admin_View_Application');
+    Route::match(['get', 'post'],'/actionApplicationAdmin',[StudentAttendanceController::class,'actionApplicationbyadmin'])->name('Admin_action_Application');
+    /// Student Attendance end..
  
 
 // Fee Catergory Routes Start

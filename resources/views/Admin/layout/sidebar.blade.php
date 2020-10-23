@@ -58,7 +58,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-table-settings"></i><span> Student Attendance <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
-                                    <li><a href="tables-basic.html">Applications</a></li>
+                                    <li><a href="{{route('Admin_View_Application')}}">Applications</a></li>
                                     <li><a href="{{route('student-attendance')}}">Attendance Managment</a></li>
                                     <li><a href="{{route('non-present-students')}}">Non-Present Report</a></li>
                                 </ul>
