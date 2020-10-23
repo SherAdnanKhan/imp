@@ -24,6 +24,7 @@
    <div class="col-md-6">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Class List</h3>
+        
            <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
@@ -44,6 +45,7 @@
                @endforeach
             </tbody>
          </table>
+         </div>
         
       </div>
    </div>

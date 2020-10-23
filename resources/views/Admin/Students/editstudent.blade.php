@@ -21,13 +21,13 @@
                         <form id="updatestudent" action="{{route('updatestudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
                         @csrf
                               <div class="row">
-                                <div class="col-3">
+                                <div class="col-md-3">
                                     <label for="upload">Upload Student picture</label>
                                     <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
                                     <img src="{{ asset('upload')}}/{{$student['IMAGE']}}" alt="No image Found" style="width: 50px;height:50px;">
                                     <small id="IMAGE_error" class="form-text text-danger"></small>
                                  </div>
-                              <div class="col-3">
+                              <div class="col-md-3">
                                  <div class="form-group">
                                     <label for="">Class</label> 
                                        <small class="req"> *</small>
@@ -43,7 +43,7 @@
                                     <small id="CLASS_ID_error" class="form-text text-danger"></small>
                                  </div>
                               </div>
-                                 <div class="col-3">
+                                 <div class="col-md-3">
                                      <div class="form-group">
                                        <label for="">Section</label> 
                                           <small class="req"> *</small>
@@ -54,7 +54,7 @@
                                        <small id="SECTION_ID_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
-                                 <div class="col-3">
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label for="">Session</label> 
                                           <small class="req"> *</small>

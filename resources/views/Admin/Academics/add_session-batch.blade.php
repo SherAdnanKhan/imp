@@ -48,6 +48,7 @@
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Session / Batch List</h3>
+         <div class="table-responsive">
           <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
@@ -55,7 +56,7 @@
                   <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Code: activate to sort column ascending" style="width: 236px;" aria-sort="descending">START DATE</th>
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">END DATE</th>
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">TYPE</th>
-                  <th class="text-right no-print sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 230px;">Action</th>
+                  <th class="text-right no-print sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending" style="width: 230px;">Action</th>
                </tr>
             </thead>
             <tbody id="displaydata">
@@ -67,12 +68,17 @@
                   <td class="mailbox-name"> {{$session->TYPE==1?'Session':'Batch'}}</td>
                   <td class="mailbox-date pull-right">
                      <button value="{{$session->SB_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
+                  </td>
+                  <td>
                      <button value="{{$session->SB_ID}}" class="btn btn-default btn-xs deletebtn"> delete </button>
                   </td>
                </tr>
                @endforeach
             </tbody>
          </table>
+         </div>
+         </div>
+         </div>
       </div>
    </div>
 </div>
@@ -181,6 +187,8 @@ $('body').on('submit','#addsession-batch',function(e){
                         
                               <td class="mailbox-date pull-right">
                               <button value="`+data.SB_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
+                              </td>
+                              <td>
                               <button value="`+data.SB_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
                                  
                               </td>

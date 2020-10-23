@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="row ">
-                                    <div class="col">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for=agreement>SMS</label><br>
                                             <small id="smsstatus_error" class="form-text text-danger"></small>
@@ -141,7 +141,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-3">
                                             @csrf
                                         <div class="form-group">
                                             <label> Enter Billing Details</label>
@@ -149,14 +149,14 @@
                                             <input type="number" class="form-control" name="billingcharges" placeholder="Enter charges *" value="" />
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                         <label for="">Enter Discount</label>
                                             <small id="discount_error" class="form-text text-danger"></small>
                                             <input type="number" class="form-control" name="discount" placeholder="Enter Discount *" value="" />
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label> Please Select Billing Date </label>
                                             <small id="billingdate_error" class="form-text text-danger"></small>

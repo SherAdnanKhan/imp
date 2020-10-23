@@ -10,7 +10,7 @@
             <div class="card-body">
                <div class="card m-b-20">
                   <div class="row">
-                     <div class="col-2">
+                     <div class="col-md-2">
                           <a href="{{route('showstudent')}}" class="btn btn-info">Show Existing Students</a>
                         
                      </div>
@@ -21,12 +21,12 @@
                         <form id="addstudent" action="{{route('addstudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
                         @csrf
                               <div class="row">
-                                <div class="col-3">
+                                <div class="col-md-3">
                                     <label for="upload">Upload Student picture</label>
                                     <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
                                     <small id="IMAGE_error" class="form-text text-danger"></small>
                                  </div>
-                              <div class="col-3">
+                              <div class="col-md-3">
                                  <div class="form-group">
                                     <label for="">Class</label> 
                                        <small class="req"> *</small>
@@ -42,7 +42,7 @@
                                     <small id="CLASS_ID_error" class="form-text text-danger"></small>
                                  </div>
                               </div>
-                                 <div class="col-3">
+                                 <div class="col-md-3">
                                      <div class="form-group">
                                        <label for="">Section</label> 
                                           <small class="req"> *</small>
@@ -51,7 +51,7 @@
                                        <small id="SECTION_ID_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
-                                 <div class="col-3">
+                                 <div class="col-md-3">
                                     <div class="form-group">
                                        <label for="">Session</label> 
                                           <small class="req"> *</small>
@@ -233,7 +233,7 @@
                                        <small id="PREV_CLASS_MARKS_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
-                                 <div class="col-4">
+                                 <div class="col-md-4">
                                  <div class="form-group">
                                           <label for="exampleInputFNO1">Father CNIC</label>
                                           <small class="req"> *</small>

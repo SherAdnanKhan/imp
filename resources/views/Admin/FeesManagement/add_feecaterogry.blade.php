@@ -8,7 +8,7 @@
 <div class="row">
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
-            <h3 class="card-title font-16 mt-0">Add Section/batch</h3>
+            <h3 class="card-title font-16 mt-0">Add Fee Category</h3>
             <form action="{{ route('addfeecategory')}}" id="addfeecategory" name="sectionform" method="post" accept-charset="utf-8">
                                 <div class="form-group">
                                     <label for="">Class</label> 
@@ -56,6 +56,7 @@
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Fee Catergory List</h3>
+         <div class="table-responsive">
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
@@ -81,6 +82,7 @@
                @endforeach
             </tbody>
          </table>
+         </div>
       </div>
    </div>
 </div>

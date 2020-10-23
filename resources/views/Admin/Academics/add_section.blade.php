@@ -8,7 +8,7 @@
 <div class="row">
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
-            <h3 class="card-title font-16 mt-0">Add Section/batch</h3>
+            <h3 class="card-title font-16 mt-0">Add Section</h3>
                <form action="{{route('addsection')}}" id="addsection" name="sectionform" method="post" accept-charset="utf-8">
                    <div class="form-group">
                            <label for="exampleInputsection1">Section Name </label><small class="req"> *</small>
@@ -34,13 +34,14 @@
    </div>
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Section/bactch List</h3>
+         <h3 class="card-title font-16 mt-0">Section List</h3>
+         <div class="table-responsive">
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Class: activate to sort column ascending" style="width: 255px;">Sections</th>
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Sections: activate to sort column ascending" style="width: 341px;">Classes</th>
-                  <th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 222px;">Action</th>
+                  <th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending" style="width: 222px;">Action</th>
                </tr>
             </thead>
             <tbody id="displaydata">
@@ -54,12 +55,15 @@
                   </td>
                   <td class="mailbox-date pull-right">
                   <button value="{{$section->Section_id}}" class="btn btn-default btn-xs editbtn" > edit </button>
+                  </td>
+                  <td>
                   <button value="{{$section->Section_id}}" class="btn btn-default btn-xs deletebtn"> delete </button>
                   </td>
                </tr>
                @endforeach
             </tbody>
          </table>
+         </div>
       </div>
    </div>
 </div>
@@ -152,6 +156,8 @@ $('body').on('submit','#addsection',function(e){
                          </td>
                               <td class="mailbox-date pull-right">
                               <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs editbtn"> edit </button>
+                              </td>
+                              <td>
                               <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs deletebtn"> delete </button>
                                  
                               </td>

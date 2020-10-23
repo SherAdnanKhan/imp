@@ -26,6 +26,14 @@
                                     <li><a href=" {{route('viewstudentdetails',['id' =>  Crypt::encryptString(Session::get('STUDENT_ID')) ])}}"> Student Details</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Application <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                                <ul class="submenu">
+                               
+                                    <li><a href=" {{route('StudentApplication')}}"> Add New Application</a></li>
+                                    <li><a href=" {{route('Student_View_Application')}}"> View Application Status</a></li>
+                                </ul>
+                            </li>
 
                     
                         </ul>

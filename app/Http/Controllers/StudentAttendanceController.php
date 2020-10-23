@@ -4,24 +4,16 @@ namespace App\Http\Controllers;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
-use App\Models\Kelex_student;
 use App\Models\Kelex_sessionbatch;
-use App\Models\Student_Attendance;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\kelex_student_session;
 use Illuminate\Support\Facades\Session;
 use App\Models\Kelex_student_attendance;
+use App\Models\Kelex_student_application;
+use App\Http\Requests\StudentApplicationRequest;
 
 class StudentAttendanceController extends Controller
 {
-   
-    public function __construct()
-    {
-        $this->middleware('auth');;
-        
-    }
-
     public function student_attendance()
     {
         
@@ -142,4 +134,55 @@ class StudentAttendanceController extends Controller
             ->toArray();
             return $record;
     }
+//Student Application start here
+    public function StudentApplication(Request $request)
+{
+    return view('Admin.StudentsAttendance.student_application');
+}
+public function AddApplication(StudentApplicationRequest $request)
+{
+    $result= Kelex_student_application::where('START_DATE',$request->START_DATE)->
+    where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
+    if(count($result)==0)
+    {
+       Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),
+      'APPLICATION_DESCRIPTION'=>$request->APPLICATION_DESCRIPTION,'APPLICATION_TYPE'=>$request->APPLICATION_TYPE,
+      'START_DATE'=>$request->START_DATE,'END_DATE'=>$request->END_DATE,'CAMPUS_ID'=>Session::get('CAMPUS_ID')]);
+      return response()->json(true);
+    }
+    else
+    {
+        return response()->json(false);
+    }
+
+}
+public function ViewApplication(Request $request)
+{
+    $application=Kelex_student_application::where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
+
+    return view('Admin.StudentsAttendance.view_application_student')->with('application',$application);
+
+}
+public function ViewApplicationbyadmin(Request $request)
+{
+    $application=Kelex_student_application::where('APPLICATION_STATUS',null)->get();
+
+    return view('Admin.StudentsAttendance.check_application_admin')->with('applications',$application);
+
+}
+public function actionApplicationbyadmin(Request $request)
+{
+    $application=Kelex_student_application::where('APPLICATION_STATUS',!null)->
+    where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)
+    ->get();
+
+    if(count($application)==0){
+    Kelex_student_application::where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)->
+    update(['APPLICATION_STATUS'=>$request->APPLICATION_STATUS,
+    'APPROVED_AT'=>date('Y-m-d')]);
+    return response()->json(true);
+    }
+    return response()->json(false);
+
+}
 }

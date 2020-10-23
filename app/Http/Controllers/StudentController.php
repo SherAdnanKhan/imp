@@ -14,6 +14,8 @@ use App\Http\Requests\studentrequest;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
+use App\Models\Kelex_student_application;
+use App\Http\Requests\StudentApplicationRequest;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class StudentController extends Controller
@@ -218,4 +220,7 @@ class StudentController extends Controller
         $session=Kelex_sessionbatch::all();
         return array($data,$class,$section,$session,$std_session_data);
     }
+
+
+
 }
