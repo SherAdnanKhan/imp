@@ -27,4 +27,11 @@ class classrequest extends FormRequest
             'class_name' => 'required|max:255',
         ];
     }
+    public function messages()
+    {
+        return[
+            'class_name.required' => "Class Name is required",
+            'class_name.max' => "Class Name can not be greater than 255 characters",
+        ];
+    }
 }

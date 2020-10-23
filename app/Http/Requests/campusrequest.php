@@ -33,9 +33,53 @@ class campusrequest extends FormRequest
             'smsstatus'=>  'required|max:10',
             'billingcharges' => 'required|max:255',
             'discount' => 'required|max:255',
-            'billingdate' => 'required|max:255',
+            'billingdate' => 'required',
             'schoollogo'=>'mimes:jpeg,jpg,png,gif|max:10000',
             'schoolemail' => 'required|email:strict,dns,filter'
         ];
+    }
+
+    public function messages()
+    {
+        return[
+            
+            'schoolname.required' => "School Name is required",
+            'schoolname.max' => "School Name can not be greater than 255 characters",
+  
+            'schooladdress.required' => "School Address is required",
+            'schooladdress.max' => "School Address can not be greater than 255 characters",
+
+            'phoneno.required' => "Phone Number is required",
+            'phoneno.max' => "Phone Number can not be greater than 255 characters",
+
+            'city.required' => "City Name is required",
+            'city.max' => "City Name can not be greater than 255 characters",
+
+            'instuition.required' => "Instuition Name is required",
+            'instuition.max' => "Instuition Name can not be greater than 255 characters",
+  
+            'status.required' => "Status is required",
+            'status.max' => "status can not be greater than 10 characters",
+
+            'smsstatus.required' => "Sms status is required",
+            'smsstatus.max' => "Sms status can not be greater than 10 characters",
+            
+            'billingcharges.required' => "Billing Charges Field is required",
+            'billingcharges.max' => "Billing Charges Field can not be greater than 255 characters",
+
+            'discount.required' => "Discount Field is required",
+            'discount.max' => "Discount Field can not be greater than 255 characters",
+            
+            'billingdate.required' => "Billing Date is required",
+
+            'schoollogo.mimes' => "File must be of type Image (jpeg,jpg,png,gif)",
+            'schoollogo.max' => "File size cannot be greater than 10000 kb ",
+
+            'schoolemail.required' => "Email is required",
+            'schoolemail.email' => "Email Address must be valid",
+            
+        ];
+            
+        
     }
 }

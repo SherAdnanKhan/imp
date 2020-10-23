@@ -28,4 +28,11 @@ class sectionrequest extends FormRequest
             'Classes_id'=>'required',
         ];
     }
+    public function messages()
+    {
+        return[
+       'Section_name.required' => "Section Name is required",
+        'Classes_id.required' => "Classes Name is required",
+    ];
+    }
 }

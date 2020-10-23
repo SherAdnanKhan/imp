@@ -27,4 +27,10 @@ class sbnrequest extends FormRequest
             'GROUP_NAME'=>'required',
         ];
     }
+    public function messages()
+    {
+        return[
+       'GROUP_NAME.required' => "Group Name is required",
+   ];
+    }
 }

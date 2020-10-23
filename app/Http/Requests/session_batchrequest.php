@@ -30,4 +30,15 @@ class session_batchrequest extends FormRequest
             'type'=>'required',
         ];
     }
+
+     public function messages()
+    {
+        return[
+            'sb_name.required' => "Session Batches Name is required",
+            'start_date.max' => "Session Batches Name can't be greater than 255 characters",
+            'start_date.required' => "Start Date is required",
+            'end_date.required' => "End Date is required",
+            'type.required' => "Type Field is required",
+    ];
+    }
 }

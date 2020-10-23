@@ -28,4 +28,11 @@ class teacherloginRequest extends FormRequest
             'PASSWORD'=>'required',
         ];
     }
+    public function messages()
+    {
+        return [
+            'EMP_NO.required' => 'A Employee NO is required',
+            'PASSWORD.required'  => 'A PASSWORD  is required',
+        ];
+    }
 }

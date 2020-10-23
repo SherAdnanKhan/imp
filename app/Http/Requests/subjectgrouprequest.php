@@ -30,4 +30,13 @@ class subjectgrouprequest extends FormRequest
             'SESSION_ID' =>'required',
         ];
     }
+    public function messages()
+    {
+        return [
+            'GROUP_ID.required' => 'A Subject Group Name is required',
+            'CLASS_ID.required'  => 'A CLASS is required',
+            'SECTION_ID.required' => 'A SECTION is required',
+            'SESSION_ID.required'  => 'A SESSION is required',
+        ];
+    }
 }

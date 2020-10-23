@@ -29,4 +29,12 @@ class subjectrequest extends FormRequest
 
         ];
     }
+    public function messages()
+    {
+        return [
+            'subject_name.required' => 'A subject name is required',
+            'max.required' => 'subject name should be less than 255 characters',
+            'subject_code.required'  => 'A subject code  is required',
+        ];
+    }
 }

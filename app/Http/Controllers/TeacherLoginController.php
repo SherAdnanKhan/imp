@@ -22,7 +22,7 @@ class TeacherLoginController extends Controller
         Session::put([
             'CAMPUS_ID'=>$result[0]['CAMPUS_ID'],
             'is_teacher'=>true,
-            'EMP_NO'=>$result[0]['EMP_NO'],
+            'EMP_ID'=>$result[0]['EMP_ID'],
             ]);
         return response()->json(['url'=>url('teacher/dashboard')]);
       }

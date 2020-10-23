@@ -28,4 +28,12 @@ class studentloginRequest extends FormRequest
             'STD_PASSWORD'=>'required',
         ];
     }
+
+     public function messages()
+    {
+        return[
+       'REG_NO.required' => "Registration Number is required",
+        'STD_PASSWORD.required' => "Student Password is required",
+    ];
+    }
 }

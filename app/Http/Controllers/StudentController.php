@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\studentloginRequest;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
@@ -10,9 +9,12 @@ use App\Models\Kelex_student;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\studentrequest;
-use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\studentrequest;
+use Illuminate\Support\Facades\Crypt;
+use App\Models\Kelex_students_session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class StudentController extends Controller
 {
@@ -99,22 +101,26 @@ class StudentController extends Controller
     public function get_student_data_for_id_card($id){
         list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
         $classid= $std_session_data['CLASS_ID'];
-        $selectedclass= Kelex_class::where('Class_id',$classid)->first();
+        $selectedclass= Kelex_class::where('Class_id',$classid)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $sessionid= $std_session_data['SESSION_ID'];
-        $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)->first();
+        $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         return view('Admin.Students.student_id_card')->with(['student'=>$data,'classes'=>$selectedclass,'sessions'=>$sessionid,'sections'=>$section]);
        
     }
     public function update_student(studentrequest $request)
     {
         $image = $request->file('IMAGE');
-        $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)->first();
+        $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $my_image =$img['IMAGE'];
         if(!empty($image)):
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);
         endif;
         Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
           ->update([ 'NAME' => $request->NAME,
             'FATHER_NAME' => $request->FATHER_NAME,
             'FATHER_CONTACT' => $request->FATHER_CONTACT,
@@ -139,6 +145,7 @@ class StudentController extends Controller
               'USER_ID' => '1', 
         ]);
         Kelex_students_session::where('STUDENT_ID',$request->STUDENT_ID)->
+        where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
         update(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
         'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID]);
         $msg='Student Record Updated successfully';
@@ -155,7 +162,8 @@ class StudentController extends Controller
     
     public function fetch($id)
     {
-        echo json_encode(DB::table('kelex_sections')->where('Class_id',$id)->get());
+        echo json_encode(DB::table('kelex_sections')->where('Class_id',$id)->
+        where('CAMPUS_ID','=', Session::get('CAMPUS_ID'))->get());
     }
 
     public function fetchstudentdata($id)
@@ -168,6 +176,7 @@ class StudentController extends Controller
         ->leftJoin('kelex_students', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
         ->where('kelex_students_sessions.SECTION_ID', '=',$SECTION_ID)
         ->where('kelex_students_sessions.CLASS_ID', '=',$CLASS_ID)
+        ->where('kelex_students_sessions.CAMPUS_ID','=', Session::get('CAMPUS_ID'))
         ->select('kelex_students.*')
         ->get()->toArray();
         return response()->json($result);
@@ -175,11 +184,18 @@ class StudentController extends Controller
     
     public function showdetails($id)
     {
+        try {
+            $id = Crypt::decryptString($id);
+            } catch (DecryptException $e) {
+            //
+            }
       list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
       $classid= $std_session_data['CLASS_ID'];
-      $selectedclass= Kelex_class::where('Class_id',$classid)->first();
+      $selectedclass= Kelex_class::where('Class_id',$classid)
+      ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
       $sessionid= $std_session_data['SESSION_ID'];
-      $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)->first();
+      $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)
+      ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
       return view('Admin.Students.view_students_details')->with(['student'=>$data,'class'=>$selectedclass,'session'=>$selectedsession,'section'=>$section]);
     
     }
@@ -193,10 +209,12 @@ class StudentController extends Controller
    private function getstudentdetails($id="")
     {
         $data = Kelex_student::find($id)->toArray();
-        $std_session_data= Kelex_students_session::where('STUDENT_ID',$id)->first();
+        $std_session_data= Kelex_students_session::where('STUDENT_ID',$id)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $class= Kelex_class::all(); 
         $sectionid= $std_session_data['SECTION_ID'];
-        $section= kelex_section::where('Section_id',$sectionid)->first();
+        $section= kelex_section::where('Section_id',$sectionid)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $session=Kelex_sessionbatch::all();
         return array($data,$class,$section,$session,$std_session_data);
     }
