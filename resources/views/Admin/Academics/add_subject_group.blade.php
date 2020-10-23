@@ -90,14 +90,13 @@
             <!-- /.box-header -->
             <div class="box-body">
                <div class="table-responsive mailbox-messages" id="subject_list">
-                  
                    <table class="table table-striped" id="headerTable">
                      <thead>
                         <tr>
                            <th>Name</th>
                            <th>Class Section Session</th>
                            <th>Subject</th>
-                           <th class="text-right no_print" style="display: block;">Action</th>
+                           <th colspan="2"class= "text-right no_print" style="display: block;">Action</th>
                         </tr>
                      </thead>
                      <tbody id="displaydata">
@@ -109,8 +108,10 @@
                         <td>
                            {!!$val['subjects'] !!}
                         </td>
-                           <td class="mailbox-date pull-right">
+                           <td>
                             <button value="{{  $val['id']  }}" class="btn btn-primary btn-xs editbtn"> edit </button>
+                            </td>
+                            <td>
                              <button value="{{  $val['id']  }}" class="btn btn-danger btn-xs deletebtn"> delete </button>
                                  
                             </td>
@@ -304,7 +305,15 @@ $('body').on('submit','#addsubjectgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-              window.location.reload();
+               if(data==true)
+               {
+                  window.location.reload();
+               }
+               else
+               {
+                  toastr.error('Already existed..','Notice');
+               }
+            
             },
               error: function(error){
                 console.log(error);

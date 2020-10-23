@@ -271,7 +271,7 @@ class AcademicsController extends Controller
         }
         $check = array_values($check);
         if(empty($check)):
-            return response()->json();
+            return response()->json([false]);
         else:
             for ($i=0; $i < count($check); $i++):
                 $subjectgroup= new Kelex_subjectgroup();
@@ -286,7 +286,7 @@ class AcademicsController extends Controller
             endfor;
         endif;
         
-        return response()->json($subjectgroup);
+        return response()->json(true);
             
     
     }

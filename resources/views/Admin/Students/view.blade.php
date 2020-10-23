@@ -45,7 +45,7 @@ form.example::after {
    <div class="col-md-12">
       <div class="card m-b-30 card-body">
           <div class="row">
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="form-group">
                 <label for="">Class *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class"
@@ -59,7 +59,7 @@ form.example::after {
                 </select>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="form-group">
                    <label>section*</label>
                   <select class="form-control formselect required" placeholder="Select Section" id="sectionid">
@@ -67,7 +67,7 @@ form.example::after {
                   </select>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="form-group">
                   <label for="">Search</label>
                   <div class="input-group">
@@ -85,10 +85,10 @@ form.example::after {
     </div>
   </div>
   <div class="row">
-   <div class="col-12">
+   <div class="col-md-12">
       <div class="card m-b-30 card-body">
           <div class="row">
-            <div class="col-12" id="displaydata">
+            <div class="col-md-12" id="displaydata">
             </div>
           </div>
         </div>
@@ -177,6 +177,7 @@ form.example::after {
                   }
                   else
                   {
+                    html += ' <div class="table-responsive">';
                     html += '<table class="table table-bordered dt-responsive nowrap">';
                     html += '<thead>';
                     html += ' <tr>';
@@ -214,6 +215,7 @@ form.example::after {
                     }
                     html += '</tbody>';
                    html += '</table>';
+                   html += '</div>';
 
                   }
                  

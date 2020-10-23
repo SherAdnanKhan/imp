@@ -31,13 +31,14 @@
    <div class="col-md-6">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Subjects List</h3>
+         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                      <thead>
                         <tr role="row">
                            <th >Subject</th>
                            <th >Subject Code</th>
                            <th >Instuition Type</th>
-                           <th >Action</th>
+                           <th class="text-right" colspan="2">Action</th>
                         </tr>
                      </thead>
                      <tbody id="displaydata">
@@ -48,12 +49,15 @@
                               <td class="mailbox-name"> {{$subject->TYPE}} </td>
                               <td class="mailbox-date pull-right">
                                  <button value="{{$subject->SUBJECT_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
+                              </td>
+                              <td>
                                  <button value="{{$subject->SUBJECT_ID}}" class="btn btn-default btn-xs deletebtn"> delete </button>
                               </td>
                            </tr>
                            @endforeach
                         </tbody>
                   </table>
+                  </div>
                 
            
         
@@ -147,6 +151,8 @@ $('body').on('submit','#addsubject',function(e){
                         
                               <td class="mailbox-date pull-right">
                               <button value="`+data.SUBJECT_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
+                              </td>
+                              <td>
                               <button value="`+data.SUBJECT_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
                                  
                               </td>

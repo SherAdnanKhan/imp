@@ -10,7 +10,7 @@
             <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
             <form action="{{ route('add-fee-type')}}" id="add-fee-type" name="add-fee-type" method="post" accept-charset="utf-8">
                <div class="row">
-                  <div class="col">
+                  <div class="col-md-3">
                       <div class="form-group">
                            <label for="">session</label> 
                               <small class="req"> *</small>
@@ -25,7 +25,7 @@
                            <small id="SESSION_ID_error" class="form-text text-danger"></small>
                         </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-3">
                      <div class="form-group">
                         <label for="">Class</label> 
                            <small class="req"> *</small>
@@ -41,7 +41,7 @@
                         <small id="CLASS_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-3">
                         <div class="form-group">
                            <label for="">Section</label> 
                               <small class="req"> *</small>
@@ -50,7 +50,7 @@
                            <small id="SECTION_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-3">
                      <div class="form-group">
                         <label for="">Fee Category</label> 
                            <small class="req"> *</small>
@@ -69,7 +69,7 @@
                </div>
                
                <div class="row">
-                  <div class="col-3">
+                  <div class="col-md-3">
                      <div class="form-group">
                         <label for="SHIFT"> Shift:</label><br> 
                         <label class="radio-inline">
@@ -80,7 +80,7 @@
                         <small id="SHIFT_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-3">
+                  <div class="col-md-3">
                      <div class="col">
                         <div class="form-group" >
                            <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
@@ -89,7 +89,7 @@
                         </div>                  
                      </div>
                   </div>
-                  <div class="col-3">
+                  <div class="col-md-3">
                      <div class="form-group">
                      <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
@@ -106,6 +106,7 @@
    <div class="col-md-11">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Fee Type List</h3>
+         <div class="table-responsive">
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
             <tr role="row">
@@ -132,6 +133,7 @@
                @endforeach
             </tbody>
          </table>
+         </div>
       </div>
    </div>
 </div>
@@ -145,9 +147,10 @@
                               </div>
                               <div class="modal-body">
 
-                     <form action="{{ route('update-fee-type')}}" id="update-fee-type" name="update-fee-type" method="post" accept-charset="utf-8">
+                  
                <div class="row">
-                  <div class="col">
+                  <div class="col-md-3">
+                  <form action="{{ route('update-fee-type')}}" id="update-fee-type" name="update-fee-type" method="post" accept-charset="utf-8">
                       <div class="form-group">
                            <label for="">session</label> 
                               <small class="req"> *</small>
@@ -163,7 +166,7 @@
                            <small id="SESSION_ID_err" class="form-text text-danger"></small>
                         </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-3">
                      <div class="form-group">
                         <label for="">Class</label> 
                            <small class="req"> *</small>
@@ -179,7 +182,7 @@
                         <small id="CLASS_ID_err" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-3">
                         <div class="form-group">
                            <label for="">Section</label> 
                               <small class="req"> *</small>
@@ -188,7 +191,7 @@
                            <small id="SECTION_ID_err" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md-3">
                      <div class="form-group">
                         <label for="">Fee Category</label> 
                            <small class="req"> *</small>
@@ -207,7 +210,7 @@
                </div>
                
                <div class="row">
-                  <div class="col-4">
+                  <div class="col-md-4">
                      <div class="form-group">
                         <label for="SHIFT"> Shift:</label><br> 
                         <label class="radio-inline">
@@ -218,7 +221,7 @@
                         <small id="SHIFT_err" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-md-4">
                      <div class="col">
                         <div class="form-group" >
                            <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
@@ -227,7 +230,7 @@
                         </div>                  
                      </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-md-4">
                      <div class="form-group">
                      <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>

@@ -34,25 +34,14 @@
                                  
                                 </ul>
                             </li>
-
                             <li>
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-album"></i> <span> HR Managment  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span> </a>
                                 <ul class="submenu">
-                                    <li><a href="components-lightbox.html">With-Draw Register</a></li>
-                                    <li><a href="components-rangeslider.html">Register Managment</a></li>
+                                    <li><a href="{{route('employee')}}">Add New Employee</a></li>
+                                    <li><a href="{{route('showemployee')}}">Employee Managment</a></li>
+                                    <li><a href="icons-fontawesome.html">Employee Attendance</a></li>
                                 </ul>
                             </li>
-
-                            <li>
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-clipboard"></i><span> Correspondence <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
-                                <ul class="submenu">
-                                    <li><a href="form-elements.html">Complaint Letter Managment</a></li>
-                                    <li><a href="form-validation.html">Showcause Managment</a></li>
-                                    <li><a href="form-advanced.html">Notification</a></li>
-
-                                </ul>
-                            </li>
-
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-finance"></i><span> Fee Management <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
@@ -76,13 +65,26 @@
                             </li>
 
                             <li>
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-album"></i> <span> HR Managment  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span> </a>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
-                                    <li><a href="{{route('employee')}}">Employee Categories</a></li>
-                                    <li><a href="{{route('showemployee')}}">Employee Managment</a></li>
-                                    <li><a href="icons-fontawesome.html">Employee Attendance</a></li>
+                                    <li><a href="components-lightbox.html">With-Draw Register</a></li>
+                                    <li><a href="components-rangeslider.html">Register Managment</a></li>
                                 </ul>
                             </li>
+                            <li>
+
+                            <li>
+
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-clipboard"></i><span> Correspondence <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
+                                <ul class="submenu">
+                                    <li><a href="form-elements.html">Complaint Letter Managment</a></li>
+                                    <li><a href="form-validation.html">Showcause Managment</a></li>
+                                    <li><a href="form-advanced.html">Notification</a></li>
+
+                                </ul>
+                            </li>
+
+                            
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-maps"></i><span> Accounts  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span></a>
                                 <ul class="submenu">

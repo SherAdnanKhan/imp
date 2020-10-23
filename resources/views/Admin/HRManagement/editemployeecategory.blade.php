@@ -18,7 +18,7 @@
                      <form id="updateemployee" action="{{route('updateemployee')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
                            @csrf
                                  <div class="row">
-                                   <div class="col-3">
+                                   <div class="col-md-3">
                                       <input type="hidden" name="id" value="{{$employee['EMP_ID']}}" id="id">
                                        <label for="upload">Upload EMPLOYEE picture</label>
                                        <input type="file" name="EMP_IMAGE" id="EMP_IMAGE" size="20" class="dropify"  accept="image/*"/>
@@ -124,7 +124,7 @@
                                  </div>
                                  <div class="row">
                                     
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                        <div class="form-group">
                                        <label for="exampleInputdob1">JOINING DATE</label>
                                           <small class="req"> *</small>
@@ -132,7 +132,7 @@
                                           <small id="JOINING_DATE_error" class="form-text text-danger"></small>
                                        </div>
                                     </div>
-                                       <div class="col-4"> 
+                                       <div class="col-md-4"> 
                                        <div class="form-group">
                                        <label for="exampleInputdob1">LEAVING DATE</label>
                                           <small class="req"> *</small>
