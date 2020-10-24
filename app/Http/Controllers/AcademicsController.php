@@ -307,15 +307,10 @@ class AcademicsController extends Controller
         $id=$request->input('id');
         $result= DB::table('kelex_subjectgroups')
         ->Where('id','!=',$id)
-        ->where('GROUP_ID','=', $request->input('GROUP_ID'))
-        ->where('CLASS_ID','=', $request->input('CLASS_ID'))
         ->where('SECTION_ID','=',$request->input('SECTION_ID'))
-        ->where('SESSION_ID','=',$request->input('SESSION_ID'))
         ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-        ->whereIn('SUBJECT_ID', $request->input('subjectgroups'))
         ->select('kelex_subjectgroups.SUBJECT_ID')
         ->get()->toArray();
-        
     $check = [];
     if(count($result) == 0)
     {
@@ -328,8 +323,9 @@ class AcademicsController extends Controller
         // dd ($subjectIDs, $subject,$check);
         
     }
+
     $check = array_values($check);
-    if(empty($check)):
+    if(empty($check)||count($result)!=0):
         return response()->json([false]);
     else:
         for ($i=0; $i < count($check); $i++):

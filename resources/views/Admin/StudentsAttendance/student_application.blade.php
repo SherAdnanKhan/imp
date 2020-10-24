@@ -19,8 +19,8 @@
                            <select name="APPLICATION_TYPE" class="form-control category_id required" placeholder="Select Category">
                               <option value="0" disabled selected>
                                 Select Application Type *</option>
-                              <option  value="1"> Sick Leave </option>
-                              <option  value="2"> Leave </option>
+                              <option  value="SL"> Sick Leave </option>
+                              <option  value="L"> Leave </option>
                               <!-- <option  value="3"> Sick Leave </option>
                               <option  value="4"> Sick Leave </option> -->
                         </select>

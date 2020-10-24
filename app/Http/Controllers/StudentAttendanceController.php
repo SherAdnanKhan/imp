@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+use DateTime;
 use DatePeriod;
 use DateInterval;
 use App\Models\Kelex_class;
-use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Models\Kelex_student_attendance;
 use App\Models\Kelex_student_application;
@@ -170,7 +171,7 @@ public function ViewApplication(Request $request)
 }
 public function ViewApplicationbyadmin(Request $request)
 {
-    // $dates = $this->twoDatesRange('2020-04-04', '2020-04-06'); dd($dates);
+    
 
     $todayapplicationlog=Kelex_student_application::orderBy('START_DATE', 'ASC')->get();
         
@@ -187,9 +188,34 @@ public function actionApplicationbyadmin(Request $request)
     where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)
     ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
     if(count($application)!=="0"){
-    Kelex_student_application::where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)->
-    update(['APPLICATION_STATUS'=>$request->APPLICATION_STATUS,
-    'APPROVED_AT'=>date('Y-m-d'),'USER_ID'=>Session::get('user_id')]);
+   $result= Kelex_student_application::find($request->STD_APPLICATION_ID);
+   $result->APPLICATION_STATUS= $request->APPLICATION_STATUS;
+   $result->APPROVED_AT=date('Y-m-d');
+   $result->USER_ID = Session::get('user_id');
+   $result->save();
+    if($request->APPLICATION_STATUS='1')
+    {
+    $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+    $currentstudent= Kelex_students_session::where('STUDENT_ID',$request->studentid)
+    ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+    for($i=0;$i<count($dates);$i++)
+    {
+        Kelex_student_attendance::create([
+            'STD_ID' => $currentstudent->STUDENT_ID,
+            'ATTEN_STATUS' => $result->APPLICATION_TYPE,
+            'REMARKS' => "decided by application",
+            'ATTEN_DATE' => date('Y-m-d',strtotime($dates[$i])),
+            'CLASS_ID' => $currentstudent->CLASS_ID,
+            'SECTION_ID' => $currentstudent->SECTION_ID,
+            'SESSION_ID' => $currentstudent->SESSION_ID,
+            'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+            'USER_ID' =>Session::get('user_id'),
+        ]);
+
+
+    }
+}
+
     return response()->json(true);
     }
 

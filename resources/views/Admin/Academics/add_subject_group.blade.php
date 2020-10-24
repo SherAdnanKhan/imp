@@ -162,7 +162,7 @@
                                              {{ ucfirst($subjectgroupname->GROUP_NAME) }}</option>
                                           @endforeach
                                     </select>
-                                    <small id="GROUP_ID_error" class="form-text text-danger"></small>
+                                    <small id="GROUP_ID_err" class="form-text text-danger"></small>
                                 </div>
                
                   <div class="form-group">
@@ -184,7 +184,7 @@
                                           <small class="req"> *</small>
                                           <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionids" >
                                        </select>
-                                       <small id="SECTION_ID_error" class="form-text text-danger"></small>
+                                       <small id="SECTION_ID_err" class="form-text text-danger"></small>
                                 </div>
                
                   <div class="form-group">
@@ -196,7 +196,7 @@
                   
                      </div>
                      @endforeach
-                     <small id="subject_error" class="form-text text-danger"></small>
+                     <small id="subject_err" class="form-text text-danger"></small>
                   </div>
                   <div class="form-group">
                                     <label for="">Session</label> 
@@ -210,7 +210,7 @@
                                              {{ ucfirst($session->SB_NAME) }}</option>
                                           @endforeach
                                     </select>
-                                    <small id="SESSION_ID_error" class="form-text text-danger"></small>
+                                    <small id="SESSION_ID_err" class="form-text text-danger"></small>
                                 </div>
                </div>
                <!-- /.box-body -->
@@ -354,9 +354,14 @@ $('body').on('submit','#addsubjectgroup',function(e){
         });
        $('#sessionEditModal').modal('show');
    });
-
+      
    $('body').on('submit','#updatesubjectgroup',function(e){
       e.preventDefault();
+      $('#GROUP_ID_err').text('');
+      $('#SECTION_ID_err').text('');
+      $('#NAME_err').text('');
+      $('#subject_err').text('');
+      $('#SESSION_ID_err').text('');
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("updatesubjectgroup")}}',
@@ -365,6 +370,7 @@ $('body').on('submit','#addsubjectgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+             
                if(data==true)
                {
                   window.location.reload();

@@ -20,4 +20,5 @@ class Kelex_student_application extends Model
         'REMARKS',
         'USER_ID'
     ];
+    protected $primaryKey = "STD_APPLICATION_ID";
 }

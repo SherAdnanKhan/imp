@@ -31,7 +31,7 @@
                         @if(isset($application))
                       @foreach($application as $stdapplication)
                       <tr id="row{{$stdapplication->STD_APPLICATION_ID}}">
-                        <td><?= $stdapplication->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
+                        <td><?= $stdapplication->APPLICATION_TYPE=='SL'?'Sick Leave':'Leave'?></td>
                         <td>{{$stdapplication->START_DATE}}</td>
                         <td>{{$stdapplication->END_DATE}}</td>
                         <td>

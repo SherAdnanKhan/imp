@@ -18,7 +18,7 @@ class CreateStudentApplicationsTable extends Migration
             $table->id('STD_APPLICATION_ID');
             $table->bigInteger('STUDENT_ID')->nullable();
             $table->enum('APPLICATION_STATUS',['0','1','2'])->nullable()->comments('0=pending,1=approved,2=rejected');
-            $table->enum('APPLICATION_TYPE',['1','2','3','4'])->nullable();
+            $table->enum('APPLICATION_TYPE',['L','SL','HL','H'])->nullable();
             $table->text('APPLICATION_DESCRIPTION')->nullable();
             $table->date('START_DATE')->nullable();
             $table->date('END_DATE')->nullable();

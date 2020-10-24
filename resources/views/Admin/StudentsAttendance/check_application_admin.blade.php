@@ -31,13 +31,13 @@
                     @foreach($applications as $application)
                       
                       <tr id="row{{$application->STD_APPLICATION_ID}}">
-                        <td><?= $application->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
+                        <td><?= $application->APPLICATION_TYPE=='SL'?'Sick Leave':'Leave'?></td>
                         <td>{{$application->START_DATE}}</td>
                         <td>{{$application->END_DATE}}</td>
                         <td>
-                      <button class="btn btn-danger btnapp" approveid="{{$application->STD_APPLICATION_ID}}" value="1"> approve </button>
+                      <button class="btn btn-danger btnapp" studentid="{{$application->STUDENT_ID}}" approveid="{{$application->STD_APPLICATION_ID}}" value="1"> approve </button>
                       &nbsp
-                      <button class="btn btn-primary btnrej" rejectid="{{$application->STD_APPLICATION_ID}}" value="2"> reject </button> 
+                      <button class="btn btn-primary btnrej" studentid="{{$application->STUDENT_ID}}" rejectid="{{$application->STD_APPLICATION_ID}}" value="2"> reject </button> 
                         </td>
                       </tr>
                       @endforeach
@@ -70,7 +70,7 @@
                         @if(isset($todayapplog))
                       @foreach($todayapplog as $stdapplication)
                       <tr id="row{{$stdapplication->STD_APPLICATION_ID}}">
-                        <td><?= $stdapplication->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
+                        <td><?= $stdapplication->APPLICATION_TYPE=='SL'?'Sick Leave':'Leave'?></td>
                         <td>{{$stdapplication->START_DATE}}</td>
                         <td>{{$stdapplication->END_DATE}}</td>
                         <td>
@@ -108,12 +108,14 @@
 $('body').on('click', '.btnapp',function () {
         var APPLICATION_STATUS = $(this).val();
         var STD_APPLICATION_ID  = $(this).attr('approveid');
+        var studentid  = $(this).attr('studentid');
         $.ajax({
             url: '{{url("actionApplicationAdmin")}}',
             type: "GET",
             data: {
                APPLICATION_STATUS:APPLICATION_STATUS,
-               STD_APPLICATION_ID:STD_APPLICATION_ID
+               STD_APPLICATION_ID:STD_APPLICATION_ID,
+               studentid:studentid
             }, 
             dataType:"json",
             success: function(data){
@@ -132,12 +134,14 @@ $('body').on('click', '.btnapp',function () {
    $('body').on('click', '.btnrej',function () {
         var APPLICATION_STATUS = $(this).val();
         var STD_APPLICATION_ID =$(this).attr('rejectid');
+        var studentid  = $(this).attr('studentid');
         $.ajax({
             url: '{{url("actionApplicationAdmin")}}',
             type: "GET",
             data: {
                APPLICATION_STATUS:APPLICATION_STATUS,
-               STD_APPLICATION_ID:STD_APPLICATION_ID
+               STD_APPLICATION_ID:STD_APPLICATION_ID,
+               studentid:studentid
             }, 
             dataType:"json",
             success: function(data){
