@@ -48,7 +48,7 @@ class EmployeeController extends Controller
              'EMP_IMAGE' => $my_image,
               'ADDED_BY' => Auth::user()->id,
              'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
-             'PASSWORD'=> Hash::make('123456'),
+             'PASSWORD'=> Hash::make("123456"),
         ]);
         $msg='Employee Record inserted successfully';
         return response()->json($msg);

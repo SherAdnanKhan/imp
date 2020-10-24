@@ -15,11 +15,15 @@ class CreateStaffApplicationsTable extends Migration
     {
         Schema::create('kelex_staff_applications', function (Blueprint $table) {
             $table->id('STAFF_APP_ID');
-            $table->bigInteger('STAFF_ID')->nullable();
+            $table->bigInteger('EMP_ID')->nullable();
+            $table->enum('APPLICATION_STATUS',['0','1','2'])->nullable()->comments('0=pending,1=approved,2=rejected');
+            $table->enum('APPLICATION_TYPE',['1','2','3','4'])->nullable();
+            $table->text('APPLICATION_DESCRIPTION')->nullable();
+            $table->date('START_DATE')->nullable();
+            $table->date('END_DATE')->nullable();
+            $table->date('APPROVED_AT')->nullable();
             $table->bigInteger('USER_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
-            $table->enum('APPLICATION_TYPE',['1','2','3','4','5'])->nullable();
-            $table->enum('APLLICATION_STATUS',['0','1','2'])->nullable()->comments('0=pending,1=approved,2=rejected');
             $table->timestamps();
         });
     }

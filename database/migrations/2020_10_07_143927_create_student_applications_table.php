@@ -17,12 +17,13 @@ class CreateStudentApplicationsTable extends Migration
         Schema::create('kelex_student_applications', function (Blueprint $table) {
             $table->id('STD_APPLICATION_ID');
             $table->bigInteger('STUDENT_ID')->nullable();
-            $table->text('APPLICATION_DESCRIPTION')->nullable();
+            $table->enum('APPLICATION_STATUS',['0','1','2'])->nullable()->comments('0=pending,1=approved,2=rejected');
             $table->enum('APPLICATION_TYPE',['1','2','3','4'])->nullable();
+            $table->text('APPLICATION_DESCRIPTION')->nullable();
             $table->date('START_DATE')->nullable();
             $table->date('END_DATE')->nullable();
             $table->date('APPROVED_AT')->nullable();
-            $table->enum('APPLICATION_STATUS',['approved','rejected'])->nullable();
+            $table->bigInteger('USER_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
             $table->timestamps();
         });

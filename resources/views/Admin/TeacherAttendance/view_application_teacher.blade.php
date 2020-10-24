@@ -10,7 +10,7 @@
                                         <div class="container">
             <div class="pt-5">
                 <div class="row d-flex justify-content-center align-items-center">
-                    <h1>Student Attendance details</h1>
+                    <h1>Teacher Attendance details</h1>
                 </div>
                     
            {{--Table data display--}}         
@@ -29,18 +29,18 @@
                     </thead>
                     <tbody id="displaydata">
                         @if(isset($application))
-                      @foreach($application as $stdapplication)
-                      <tr id="row{{$stdapplication->STD_APPLICATION_ID}}">
-                        <td><?= $stdapplication->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
-                        <td>{{$stdapplication->START_DATE}}</td>
-                        <td>{{$stdapplication->END_DATE}}</td>
+                      @foreach($application as $teachapplication)
+                      <tr id="row{{$teachapplication->STAFF_APP_ID}}">
+                        <td><?= $teachapplication->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
+                        <td>{{$teachapplication->START_DATE}}</td>
+                        <td>{{$teachapplication->END_DATE}}</td>
                         <td>
                         <?php 
-                        if($stdapplication->APPLICATION_STATUS=="1")
+                        if($teachapplication->APPLICATION_STATUS=="1")
                         {
                           echo 'Approved';
                         }
-                        else if($stdapplication->APPLICATION_STATUS=="2")
+                        else if($teachapplication->APPLICATION_STATUS=="2")
                         {
                           echo 'Rejected';
                         }
@@ -50,7 +50,7 @@
                         }
                         ?>
                         </td>
-                        <td><?= $stdapplication->APPROVED_AT==null?'Pending':$stdapplication->APPROVED_AT?></td>
+                        <td><?= $teachapplication->APPROVED_AT==null?'Pending':$teachapplication->APPROVED_AT?></td>
                       </tr>
                       @endforeach
                       @endif

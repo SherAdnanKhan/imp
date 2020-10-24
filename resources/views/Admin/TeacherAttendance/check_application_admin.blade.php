@@ -9,7 +9,7 @@
                                         <div class="card-body">
                                         <div class="container">
             <div class="row d-flex justify-content-center align-items-center">
-                    <h1>Student Attendance details</h1>
+                    <h1>Teacher Attendance details</h1>
                     
            {{--Table Attdence today display--}}
                    
@@ -30,14 +30,14 @@
                     @if(isset($applications) && count($applications)>0)
                     @foreach($applications as $application)
                       
-                      <tr id="row{{$application->STD_APPLICATION_ID}}">
+                      <tr id="row{{$application->STAFF_APP_ID}}">
                         <td><?= $application->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
                         <td>{{$application->START_DATE}}</td>
                         <td>{{$application->END_DATE}}</td>
                         <td>
-                      <button class="btn btn-danger btnapp" approveid="{{$application->STD_APPLICATION_ID}}" value="1"> approve </button>
+                      <button class="btn btn-danger btnapp" approveid="{{$application->STAFF_APP_ID}}" value="1"> approve </button>
                       &nbsp
-                      <button class="btn btn-primary btnrej" rejectid="{{$application->STD_APPLICATION_ID}}" value="2"> reject </button> 
+                      <button class="btn btn-primary btnrej" rejectid="{{$application->STAFF_APP_ID}}" value="2"> reject </button> 
                         </td>
                       </tr>
                       @endforeach
@@ -68,18 +68,18 @@
                     </thead>
                     <tbody id="displaydata">
                         @if(isset($todayapplog))
-                      @foreach($todayapplog as $stdapplication)
-                      <tr id="row{{$stdapplication->STD_APPLICATION_ID}}">
-                        <td><?= $stdapplication->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
-                        <td>{{$stdapplication->START_DATE}}</td>
-                        <td>{{$stdapplication->END_DATE}}</td>
+                      @foreach($todayapplog as $teachapplication)
+                      <tr id="row{{$teachapplication->STAFF_APP_ID}}">
+                        <td><?= $teachapplication->APPLICATION_TYPE==1?'Sick Leave':'Leave'?></td>
+                        <td>{{$teachapplication->START_DATE}}</td>
+                        <td>{{$teachapplication->END_DATE}}</td>
                         <td>
                         <?php 
-                        if($stdapplication->APPLICATION_STATUS=="1")
+                        if($teachapplication->APPLICATION_STATUS=="1")
                         {
                           echo 'Approved';
                         }
-                        else if($stdapplication->APPLICATION_STATUS=="2")
+                        else if($teachapplication->APPLICATION_STATUS=="2")
                         {
                           echo 'Rejected';
                         }
@@ -89,7 +89,7 @@
                         }
                         ?>
                         </td>
-                        <td><?= $stdapplication->APPROVED_AT==null?'Pending':$stdapplication->APPROVED_AT?></td>
+                        <td><?= $teachapplication->APPROVED_AT==null?'Pending':$teachapplication->APPROVED_AT?></td>
                       </tr>
                       @endforeach
                       @endif
@@ -107,13 +107,13 @@
 <script>
 $('body').on('click', '.btnapp',function () {
         var APPLICATION_STATUS = $(this).val();
-        var STD_APPLICATION_ID  = $(this).attr('approveid');
+        var STAFF_APP_ID  = $(this).attr('approveid');
         $.ajax({
-            url: '{{url("actionApplicationAdmin")}}',
+            url: '{{url("TeacteractionApplicationAdmin")}}',
             type: "GET",
             data: {
                APPLICATION_STATUS:APPLICATION_STATUS,
-               STD_APPLICATION_ID:STD_APPLICATION_ID
+               STAFF_APP_ID:STAFF_APP_ID
             }, 
             dataType:"json",
             success: function(data){
@@ -131,13 +131,13 @@ $('body').on('click', '.btnapp',function () {
 
    $('body').on('click', '.btnrej',function () {
         var APPLICATION_STATUS = $(this).val();
-        var STD_APPLICATION_ID =$(this).attr('rejectid');
+        var TeacteractionApplicationAdmin =$(this).attr('rejectid');
         $.ajax({
-            url: '{{url("actionApplicationAdmin")}}',
+            url: '{{url("TeacteractionApplicationAdmin")}}',
             type: "GET",
             data: {
                APPLICATION_STATUS:APPLICATION_STATUS,
-               STD_APPLICATION_ID:STD_APPLICATION_ID
+               TeacteractionApplicationAdmin:TeacteractionApplicationAdmin
             }, 
             dataType:"json",
             success: function(data){

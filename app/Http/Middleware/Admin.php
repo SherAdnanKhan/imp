@@ -26,9 +26,13 @@ class Admin
         {
             return redirect()->route('superadmin');
         }
-        else
+        else if(session()->has('is_student'))
         {
-            return redirect('/');
+            return redirect('/student/dashboard');
+        }
+        else if(session()->has('is_teacher'))
+        {
+            return redirect('/teacher/dashboard');
         }
 
         

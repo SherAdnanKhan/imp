@@ -67,7 +67,7 @@ class StudentController extends Controller
              'GUARDIAN' => $request->GUARDIAN,
              'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC, 
              'IMAGE' => $my_image,
-             'STD_PASSWORD'=> Hash::make('123456'),
+             'STD_PASSWORD'=> Hash::make("123456"),
               'PREV_CLASS' => $request->PREV_CLASS,
               'SLC_NO' => $request->SLC_NO,
              'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,

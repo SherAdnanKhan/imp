@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use DatePeriod;
+use DateInterval;
 use App\Models\Kelex_class;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Kelex_section;
 use App\Models\Kelex_sessionbatch;
@@ -142,10 +145,11 @@ class StudentAttendanceController extends Controller
 public function AddApplication(StudentApplicationRequest $request)
 {
     $result= Kelex_student_application::where('START_DATE',$request->START_DATE)->
+    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
     where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
     if(count($result)==0)
     {
-       Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),
+       Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),'APPLICATION_STATUS'=>'0',
       'APPLICATION_DESCRIPTION'=>$request->APPLICATION_DESCRIPTION,'APPLICATION_TYPE'=>$request->APPLICATION_TYPE,
       'START_DATE'=>$request->START_DATE,'END_DATE'=>$request->END_DATE,'CAMPUS_ID'=>Session::get('CAMPUS_ID')]);
       return response()->json(true);
@@ -158,31 +162,57 @@ public function AddApplication(StudentApplicationRequest $request)
 }
 public function ViewApplication(Request $request)
 {
-    $application=Kelex_student_application::where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
+    $application=Kelex_student_application::where('STUDENT_ID',Session::get('STUDENT_ID'))->
+    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
 
     return view('Admin.StudentsAttendance.view_application_student')->with('application',$application);
 
 }
 public function ViewApplicationbyadmin(Request $request)
 {
-    $application=Kelex_student_application::where('APPLICATION_STATUS',null)->get();
+    // $dates = $this->twoDatesRange('2020-04-04', '2020-04-06'); dd($dates);
 
-    return view('Admin.StudentsAttendance.check_application_admin')->with('applications',$application);
+    $todayapplicationlog=Kelex_student_application::orderBy('START_DATE', 'ASC')->get();
+        
+    $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
+    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
+
+    return view('Admin.StudentsAttendance.check_application_admin')->with(['applications'=>$application,'todayapplog'=>$todayapplicationlog]);
 
 }
 public function actionApplicationbyadmin(Request $request)
 {
-    $application=Kelex_student_application::where('APPLICATION_STATUS',!null)->
+    
+    $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
     where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)
-    ->get();
-
-    if(count($application)==0){
+    ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
+    if(count($application)!=="0"){
     Kelex_student_application::where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)->
     update(['APPLICATION_STATUS'=>$request->APPLICATION_STATUS,
-    'APPROVED_AT'=>date('Y-m-d')]);
+    'APPROVED_AT'=>date('Y-m-d'),'USER_ID'=>Session::get('user_id')]);
     return response()->json(true);
     }
+
     return response()->json(false);
 
+
+
 }
+
+function twoDatesRange($start, $end, $format = 'Y-m-d') {
+    $arr = array();
+    $interval = new DateInterval('P1D');
+
+    $realEnd = new DateTime($end);
+    $realEnd->add($interval);
+
+    $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+
+    foreach($period as $date) { 
+        $arr[] = $date->format($format); 
+    }
+
+    return $arr;
+}
+
 }

@@ -143,7 +143,7 @@
             <div class="modal-dialog">
                <div class="modal-content">
                      <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Session/Batches</h5>
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Subject Group</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                      </div>
                      <div class="modal-body">  
@@ -186,6 +186,7 @@
                                        </select>
                                        <small id="SECTION_ID_error" class="form-text text-danger"></small>
                                 </div>
+               
                   <div class="form-group">
                      <label for="exampleInputEmail1">Subject</label>
                      @foreach($subjects as $subject => $key)
@@ -364,7 +365,14 @@ $('body').on('submit','#addsubjectgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               window.location.reload();
+               if(data==true)
+               {
+                  window.location.reload();
+               }
+               else
+               {
+                  toastr.error('Already existed..','Notice');
+               }
              } ,
               error: function(error){
                 console.log(error);

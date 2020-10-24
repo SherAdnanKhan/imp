@@ -10,9 +10,10 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GeneralController; 
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\AdminLoginController;
-use App\Http\Controllers\StudentAttendanceController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
+use App\Http\Controllers\StudentAttendanceController;
+use App\Http\Controllers\TeacherAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,7 @@ Route::group([ 'middleware' => 'Student'], function()
 Route::match(['get', 'post'],'/dashboard',[StudentLoginController::class,'dashboard'])->name('dashboard');
 Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
-//application routes
+//Student application routes
 Route::match(['get', 'post'],'/Application',[StudentAttendanceController::class,'StudentApplication'])->name('StudentApplication');
 Route::match(['get', 'post'],'/AddApplication',[StudentAttendanceController::class,'AddApplication'])->name('Student_Add_Application');
 Route::match(['get', 'post'],'/ViewApplication',[StudentAttendanceController::class,'ViewApplication'])->name('Student_View_Application');
@@ -77,6 +78,11 @@ Route::group([ 'middleware' => 'Teacher'], function()
 Route::match(['get', 'post'],'/dashboard',[TeacherLoginController::class,'dashboard'])->name('dashboard');
 
 Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
+// Teacher Application routes
+
+Route::match(['get', 'post'],'/Application',[TeacherAttendanceController::class,'TeacherApplication'])->name('TeacherApplication');
+Route::match(['get', 'post'],'/AddApplication',[TeacherAttendanceController::class,'AddApplication'])->name('Teacher_Add_Application');
+Route::match(['get', 'post'],'/ViewApplication',[TeacherAttendanceController::class,'ViewApplication'])->name('Teacher_View_Application');
 
 });
 
@@ -193,8 +199,12 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'],'/actionApplicationAdmin',[StudentAttendanceController::class,'actionApplicationbyadmin'])->name('Admin_action_Application');
     /// Student Attendance end..
  
+/// Teacher Attendance start 
+    Route::match(['get', 'post'],'/TeacherViewApplicationAdmin',[TeacherAttendanceController::class,'ViewApplicationbyadmin'])->name('Teacher-View-Application-by-admin');
+    Route::match(['get', 'post'],'/TeacteractionApplicationAdmin',[TeacherAttendanceController::class,'actionApplicationbyadmin'])->name('Teacher-Action-Application-by-admin');
+  /// Teacher Attendance end..
 
-// Fee Catergory Routes Start
+    // Fee Catergory Routes Start
 
     Route::match(['get', 'post'], '/feecategory', [FeeController::class, 'index_feecategory'])->name("feecategory");
     Route::match(['get', 'post'], '/addfeecategory', [FeeController::class, 'add_feecategory'])->name("addfeecategory");
