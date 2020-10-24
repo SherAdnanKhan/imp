@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kelex_student;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\studentloginRequest;
 
@@ -11,12 +12,12 @@ class StudentLoginController extends Controller
 {
     public function login_student(studentloginRequest $request)
     {
-        
+
       $result=  Kelex_student::where(['REG_NO'=>$request->REG_NO,'STD_PASSWORD'=>$request->STD_PASSWORD])->
       select('kelex_students.*')
       ->get();
-      
-     
+
+
       if(count($result)>0)
       {
         Session::put([
@@ -42,7 +43,7 @@ class StudentLoginController extends Controller
         return redirect('/');
     }
     public function dashboard()
-    {   
+    {
         return view('student_dashboard');
     }
 
