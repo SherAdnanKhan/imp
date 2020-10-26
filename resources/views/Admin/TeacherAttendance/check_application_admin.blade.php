@@ -35,9 +35,9 @@
                         <td>{{$application->START_DATE}}</td>
                         <td>{{$application->END_DATE}}</td>
                         <td>
-                      <button class="btn btn-danger btnapp" approveid="{{$application->STAFF_APP_ID}}" value="1"> approve </button>
+                      <button class="btn btn-danger btnapp" teacherid="{{$application->EMP_ID}}" approveid="{{$application->STAFF_APP_ID}}" value="1"> approve </button>
                       &nbsp
-                      <button class="btn btn-primary btnrej" rejectid="{{$application->STAFF_APP_ID}}" value="2"> reject </button> 
+                      <button class="btn btn-primary btnrej" teacherid="{{$application->EMP_ID}}" rejectid="{{$application->STAFF_APP_ID}}" value="2"> reject </button> 
                         </td>
                       </tr>
                       @endforeach
@@ -106,12 +106,14 @@
 @section('customscript')
 <script>
 $('body').on('click', '.btnapp',function () {
+       var EMP_ID  = $(this).attr('teacherid');
         var APPLICATION_STATUS = $(this).val();
         var STAFF_APP_ID  = $(this).attr('approveid');
         $.ajax({
             url: '{{url("TeacteractionApplicationAdmin")}}',
             type: "GET",
             data: {
+              EMP_ID:EMP_ID,
                APPLICATION_STATUS:APPLICATION_STATUS,
                STAFF_APP_ID:STAFF_APP_ID
             }, 
@@ -131,11 +133,14 @@ $('body').on('click', '.btnapp',function () {
 
    $('body').on('click', '.btnrej',function () {
         var APPLICATION_STATUS = $(this).val();
+        var EMP_ID  = $(this).attr('teacherid');
+       var STD_APPLICATION_ID  = $(this).attr('approveid');
         var TeacteractionApplicationAdmin =$(this).attr('rejectid');
         $.ajax({
             url: '{{url("TeacteractionApplicationAdmin")}}',
             type: "GET",
             data: {
+              EMP_ID:EMP_ID,
                APPLICATION_STATUS:APPLICATION_STATUS,
                TeacteractionApplicationAdmin:TeacteractionApplicationAdmin
             }, 

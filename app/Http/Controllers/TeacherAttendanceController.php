@@ -92,10 +92,25 @@ class TeacherAttendanceController extends Controller
     }
     public function AddApplication(TeacherApplicationRequest $request)
     {
-        $result= Kelex_staff_application::where('START_DATE',$request->START_DATE)->
-        where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
-        where('EMP_ID',Session::get('EMP_ID'))->get();
-        if(count($result)==0)
+        $matchdates=0;
+        $result= Kelex_staff_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
+        where('EMP_ID',Session::get('EMP_ID'))->first();
+        if(!empty($result))
+    {
+        $requestdates=$this->twoDatesRange($request->START_DATE, $request->END_DATE);
+        $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+        for($i=0;$i<count($dates);$i++)
+        {
+            for($j=0;$j<count($requestdates);$j++)
+         {
+            if($dates[$i]==$requestdates[$j])
+            {
+            $matchdates+=1;
+            }
+         }
+        }
+    }
+        if($matchdates==0)
         {
            Kelex_staff_application::create(['EMP_ID'=>Session::get('EMP_ID'),'APPLICATION_STATUS'=>'0',
           'APPLICATION_DESCRIPTION'=>$request->APPLICATION_DESCRIPTION,'APPLICATION_TYPE'=>$request->APPLICATION_TYPE,
@@ -132,14 +147,34 @@ class TeacherAttendanceController extends Controller
     }
     public function actionApplicationbyadmin(Request $request)
     {
-        
         $application=Kelex_staff_application::where('APPLICATION_STATUS',"0")->
         where('STAFF_APP_ID',$request->STAFF_APP_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
         if(count($application)!=="0"){
-        Kelex_staff_application::where('STAFF_APP_ID',$request->STAFF_APP_ID)->
-        update(['APPLICATION_STATUS'=>$request->APPLICATION_STATUS,
-        'APPROVED_AT'=>date('Y-m-d'),'USER_ID'=>Session::get('user_id')]);
+       $result= Kelex_staff_application::find($request->STAFF_APP_ID);
+       $result->APPLICATION_STATUS= $request->APPLICATION_STATUS;
+       $result->APPROVED_AT=date('Y-m-d');
+       $result->USER_ID = Session::get('user_id');
+       $result->save();
+        if($request->APPLICATION_STATUS='1')
+        {
+        $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+        $currentemployee= Kelex_employee::where('EMP_ID',$request->EMP_ID)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+        for($i=0;$i<count($dates);$i++)
+        {
+            Kelex_staff_attendance::firstOrCreate(
+                ['EMP_ID' => $currentemployee->EMP_ID, 'ATTEN_DATE' => date('Y-m-d',strtotime($dates[$i]))],
+                ['EMP_ID' => $currentemployee->EMP_ID,
+                'ATTEN_STATUS' => $result->APPLICATION_TYPE,
+                'REMARKS' => "decided by application",
+                'ATTEN_DATE' => date('Y-m-d',strtotime($dates[$i])),
+                'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+                'USER_ID' =>Session::get('user_id'),]);
+    
+    
+         }
+        }
         return response()->json(true);
         }
     

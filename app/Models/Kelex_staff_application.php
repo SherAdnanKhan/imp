@@ -19,5 +19,6 @@ class Kelex_staff_application extends Model
         'REMARKS',
         'USER_ID'
     ];
+    protected $primaryKey = "STAFF_APP_ID";
     use HasFactory;
 }

@@ -13,7 +13,7 @@
         <link rel="shortcut icon" href="{{asset('admin_assets/dist/img/ico/favicon.png')}}" type="image/x-icon">
         
      
-     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+   
       
       <!-- Start Global Mandatory Style
          =====================================================================-->

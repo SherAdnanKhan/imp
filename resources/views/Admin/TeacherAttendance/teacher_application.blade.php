@@ -29,13 +29,13 @@
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">From date</label>
                   <small id="START_DATE_error" class="form-text text-danger"></small>
-                  <input name="START_DATE" placeholder="" type="date" class="form-control" value="" autocomplete="off">
+                  <input name="START_DATE" placeholder="" id="txtDate" type="date" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">TO Date</label>
                   <small id="END_DATE_error" class="form-text text-danger"></small>
-                  <input  name="END_DATE" placeholder="" type="date" class="form-control" value="" autocomplete="off">
+                  <input  name="END_DATE" placeholder="" id="txtDate1" type="date" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="m-t-20">
@@ -72,6 +72,21 @@
   }
 });
 
+$(document).ready(function() {
+
+    var dtToday = new Date();
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    var maxDate = year + '-' + month + '-' + day;
+    $('#txtDate').attr('min', maxDate);
+    $('#txtDate1').attr('min', maxDate);
+});
+	  
 $('body').on('submit','#AddApplication',function(e){
       e.preventDefault();
       $('#APPLICATION_TYPE_error').text('');
@@ -93,7 +108,7 @@ $('body').on('submit','#AddApplication',function(e){
               }
               else
               {
-                  toastr.error('You have Already Submitted Application For Today');
+                  toastr.error('You have Already Submitted Application For Paticular date');
               }
               },
               error: function(error){

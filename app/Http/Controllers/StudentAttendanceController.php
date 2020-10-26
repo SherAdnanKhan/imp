@@ -86,8 +86,8 @@ class StudentAttendanceController extends Controller
                'REMARKS' => $remarks[$i],
                'ATTEN_DATE' => date('Y-m-d',strtotime($request->date)),
                'CLASS_ID' => $request->class_id,
-               'SECTION_ID' => $request->class_id,
-               'SESSION_ID' => $request->class_id,
+               'SECTION_ID' => $request->section_id,
+               'SESSION_ID' => $request->session_id,
                'CAMPUS_ID' => $campus_id,
                'USER_ID' =>$userid,
            ];
@@ -149,10 +149,25 @@ class StudentAttendanceController extends Controller
 }
 public function AddApplication(StudentApplicationRequest $request)
 {
-    $result= Kelex_student_application::where('START_DATE',$request->START_DATE)->
-    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
-    where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
-    if(count($result)==0)
+    $matchdates=0;
+    $result= Kelex_student_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
+    where('STUDENT_ID',Session::get('STUDENT_ID'))->first();
+    if(count($result))
+    {
+    $requestdates=$this->twoDatesRange($request->START_DATE, $request->END_DATE);
+    $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+    for($i=0;$i<count($dates);$i++)
+    {
+        for($j=0;$j<count($requestdates);$j++)
+        {
+        if($dates[$i]==$requestdates[$j])
+        {
+        $matchdates+=1;
+        }
+    }
+    }
+    }
+    if($matchdates==0)
     {
        Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),'APPLICATION_STATUS'=>'0',
       'APPLICATION_DESCRIPTION'=>$request->APPLICATION_DESCRIPTION,'APPLICATION_TYPE'=>$request->APPLICATION_TYPE,
@@ -204,8 +219,9 @@ public function actionApplicationbyadmin(Request $request)
     ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
     for($i=0;$i<count($dates);$i++)
     {
-        Kelex_student_attendance::create([
-            'STD_ID' => $currentstudent->STUDENT_ID,
+            Kelex_student_attendance::firstOrCreate(
+            ['STD_ID' => $currentstudent->STUDENT_ID, 'ATTEN_DATE' => date('Y-m-d',strtotime($dates[$i]))],
+            ['STD_ID' => $currentstudent->STUDENT_ID,
             'ATTEN_STATUS' => $result->APPLICATION_TYPE,
             'REMARKS' => "decided by application",
             'ATTEN_DATE' => date('Y-m-d',strtotime($dates[$i])),
