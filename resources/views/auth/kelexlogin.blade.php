@@ -180,7 +180,8 @@ $('body').on('submit','#Adminloginform',function(e){
                   }
                   else
                   {
-                    window.location=data.url;
+
+                  window.location=data.url;
                      
                   }
               },

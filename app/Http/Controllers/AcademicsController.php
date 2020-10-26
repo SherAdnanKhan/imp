@@ -304,19 +304,47 @@ class AcademicsController extends Controller
     }
     public function update_subjectgroup(subjectgrouprequest $request)
     {
-
-        $subject=implode(',',$request->input('subjectgroups'));
         $id=$request->input('id');
-        $subjectgroup= Kelex_subjectgroup::find($id);
-        $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
-        $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
-        $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
-        $subjectgroup->SUBJECT_ID=$subject;
-        $subjectgroup->SESSION_ID=$request->input('SESSION_ID');
-        $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
-        $subjectgroup->USER_ID = Auth::user()->id;
-        $subjectgroup->save();
-        return response()->json();
+        $result= DB::table('kelex_subjectgroups')
+        ->Where('id','!=',$id)
+        ->where('SECTION_ID','=',$request->input('SECTION_ID'))
+        ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+        ->select('kelex_subjectgroups.SUBJECT_ID')
+        ->get()->toArray();
+    $check = [];
+    if(count($result) == 0)
+    {
+         $check = $request->input('subjectgroups');
+    }else{
+        $subjectIDs = array_column($result,'SUBJECT_ID');
+        $subject = $request->input('subjectgroups');
+
+        $check = ($subjectIDs > $subject) ? array_diff($subjectIDs, $subject) : array_diff($subject, $subjectIDs); 
+        // dd ($subjectIDs, $subject,$check);
+        
+    }
+
+    $check = array_values($check);
+    if(empty($check)||count($result)!=0):
+        return response()->json([false]);
+    else:
+        for ($i=0; $i < count($check); $i++):
+            $subjectgroup= Kelex_subjectgroup::find($id);
+            $subjectgroup->GROUP_ID=$request->input('GROUP_ID');
+            $subjectgroup->CLASS_ID=$request->input('CLASS_ID');
+            $subjectgroup->SECTION_ID=$request->input('SECTION_ID');
+            $subjectgroup->SUBJECT_ID=$check[$i];
+            $subjectgroup->SESSION_ID=$request->input('SESSION_ID');
+            $subjectgroup->CAMPUS_ID= Auth::user()->CAMPUS_ID;
+            $subjectgroup->USER_ID = Auth::user()->id;
+            $subjectgroup->save();
+        endfor;
+    endif;
+    
+    return response()->json(true);
+        
+
+
     }
 
      #Subject Controller Functions

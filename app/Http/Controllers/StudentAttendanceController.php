@@ -10,6 +10,7 @@ use App\Models\Kelex_section;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Models\Kelex_student_attendance;
 use App\Models\Kelex_student_application;
@@ -145,10 +146,11 @@ class StudentAttendanceController extends Controller
 public function AddApplication(StudentApplicationRequest $request)
 {
     $result= Kelex_student_application::where('START_DATE',$request->START_DATE)->
+    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
     where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
     if(count($result)==0)
     {
-       Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),
+       Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),'APPLICATION_STATUS'=>'0',
       'APPLICATION_DESCRIPTION'=>$request->APPLICATION_DESCRIPTION,'APPLICATION_TYPE'=>$request->APPLICATION_TYPE,
       'START_DATE'=>$request->START_DATE,'END_DATE'=>$request->END_DATE,'CAMPUS_ID'=>Session::get('CAMPUS_ID')]);
       return response()->json(true);
@@ -161,7 +163,8 @@ public function AddApplication(StudentApplicationRequest $request)
 }
 public function ViewApplication(Request $request)
 {
-    $application=Kelex_student_application::where('STUDENT_ID',Session::get('STUDENT_ID'))->get();
+    $application=Kelex_student_application::where('STUDENT_ID',Session::get('STUDENT_ID'))->
+    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
 
     return view('Admin.StudentsAttendance.view_application_student')->with('application',$application);
 
@@ -171,23 +174,57 @@ public function ViewApplicationbyadmin(Request $request)
     // dd($this->twoDatesRange('2020-01-01','2020-02-07'));
     $application=Kelex_student_application::where('APPLICATION_STATUS',null)->get();
 
-    return view('Admin.StudentsAttendance.check_application_admin')->with('applications',$application);
+
+    $todayapplicationlog=Kelex_student_application::orderBy('START_DATE', 'ASC')->get();
+
+    $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
+    where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
+
+    return view('Admin.StudentsAttendance.check_application_admin')->with(['applications'=>$application,'todayapplog'=>$todayapplicationlog]);
 
 }
 public function actionApplicationbyadmin(Request $request)
 {
-    dd($request->all());
-    $application=Kelex_student_application::where('APPLICATION_STATUS',!null)->
-    where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)
-    ->get();
 
-    if(count($application)==0){
-    Kelex_student_application::where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)->
-    update(['APPLICATION_STATUS'=>$request->APPLICATION_STATUS,
-    'APPROVED_AT'=>date('Y-m-d')]);
+
+    $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
+    where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)
+    ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
+    if(count($application)!=="0"){
+   $result= Kelex_student_application::find($request->STD_APPLICATION_ID);
+   $result->APPLICATION_STATUS= $request->APPLICATION_STATUS;
+   $result->APPROVED_AT=date('Y-m-d');
+   $result->USER_ID = Session::get('user_id');
+   $result->save();
+    if($request->APPLICATION_STATUS='1')
+    {
+    $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+    $currentstudent= Kelex_students_session::where('STUDENT_ID',$request->studentid)
+    ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+    for($i=0;$i<count($dates);$i++)
+    {
+        Kelex_student_attendance::create([
+            'STD_ID' => $currentstudent->STUDENT_ID,
+            'ATTEN_STATUS' => $result->APPLICATION_TYPE,
+            'REMARKS' => "decided by application",
+            'ATTEN_DATE' => date('Y-m-d',strtotime($dates[$i])),
+            'CLASS_ID' => $currentstudent->CLASS_ID,
+            'SECTION_ID' => $currentstudent->SECTION_ID,
+            'SESSION_ID' => $currentstudent->SESSION_ID,
+            'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+            'USER_ID' =>Session::get('user_id'),
+        ]);
+
+
+    }
+}
+
     return response()->json(true);
     }
+
     return response()->json(false);
+
+
 
 }
     function twoDatesRange($start, $end, $format = 'Y-m-d')
@@ -206,4 +243,5 @@ public function actionApplicationbyadmin(Request $request)
 
         return $arr;
     }
+
 }

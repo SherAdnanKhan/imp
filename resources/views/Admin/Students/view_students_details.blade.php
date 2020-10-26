@@ -62,19 +62,19 @@
                            <tbody>
                               <tr>
                                  <td>Date of Birth</td>
-                                 <td>{{$student['DOB']}}</td>
+                                 <td class="text-right">{{$student['DOB']}}</td>
                               </tr>
                               <tr>
                                  <td>Mobile Number</td>
-                                 <td>{{$student['SECONDARY_CONTACT']}}</td>
+                                 <td class="text-right">{{$student['SECONDARY_CONTACT']}}</td>
                               </tr>
                               <tr>
                                  <td>Religion</td>
-                                 <td>{{$student['RELIGION']}}</td>
+                                 <td class="text-right">{{$student['RELIGION']}}</td>
                               </tr>
                               <tr>
                                  <td>CNIC/FORM B</td>
-                                 <td>{{$student['CNIC']}}</td>
+                                 <td class="text-right">{{$student['CNIC']}}</td>
                               </tr>
                            </tbody>
                         </table>

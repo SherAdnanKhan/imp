@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kelex_student_application extends Model
+class Kelex_staff_application extends Model
 {
-    use HasFactory;
     protected $fillable = [
-        'STUDENT_ID',
+        'EMP_ID',
         'APPLICATION_DESCRIPTION',
         'APPLICATION_TYPE',
         'START_DATE',
@@ -20,5 +19,5 @@ class Kelex_student_application extends Model
         'REMARKS',
         'USER_ID'
     ];
-    protected $primaryKey = "STD_APPLICATION_ID";
+    use HasFactory;
 }

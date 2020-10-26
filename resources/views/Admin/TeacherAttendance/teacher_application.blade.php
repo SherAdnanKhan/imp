@@ -9,8 +9,8 @@
   <div class="col-md-2"></div>
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0 text-center">Student Application Leave Form</h3>
-         <form  action="{{ route('Student_Add_Application')}}" id="AddApplication" method="post" accept-charset="utf-8">
+         <h3 class="card-title font-16 mt-0 text-center">Teacher Application Leave Form</h3>
+         <form  action="{{ route('Teacher_Add_Application')}}" id="AddApplication" method="post" accept-charset="utf-8">
             <div class="box-body">
               @csrf   
               <div class="form-group">
@@ -19,8 +19,8 @@
                            <select name="APPLICATION_TYPE" class="form-control category_id required" placeholder="Select Category">
                               <option value="0" disabled selected>
                                 Select Application Type *</option>
-                              <option  value="SL"> Sick Leave </option>
-                              <option  value="L"> Leave </option>
+                              <option  value="1"> Sick Leave </option>
+                              <option  value="2"> Leave </option>
                               <!-- <option  value="3"> Sick Leave </option>
                               <option  value="4"> Sick Leave </option> -->
                         </select>
@@ -80,7 +80,7 @@ $('body').on('submit','#AddApplication',function(e){
       $('#APPLICATION_DESCRIPTION_error').text('');
       var fdata = new FormData(this);
       $.ajax({
-        url: '{{url("student/AddApplication")}}',
+        url: '{{url("teacher/AddApplication")}}',
             type:'POST',
             data: fdata,
             processData: false,
