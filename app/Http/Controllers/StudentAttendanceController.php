@@ -37,7 +37,11 @@ class StudentAttendanceController extends Controller
         $date = date('Y-m-d',strtotime($request->date));
         $campus_id = Auth::user()->CAMPUS_ID;
         $check = DB::table('kelex_student_attendances')
-                        ->where(['CLASS_ID' => $classID,'SECTION_ID' =>$sectionID,'SESSION_ID'=>$sessionID,'CAMPUS_ID'=> $campus_id,'ATTEN_DATE' => $date])
+                        ->where('CLASS_ID','=', $classID)
+                        ->where('SECTION_ID' ,'=',$sectionID)
+                        ->where('SESSION_ID','=',$sessionID)
+                        ->where('CAMPUS_ID','=', $campus_id)
+                        ->where('ATTEN_DATE' ,'=', $date)
                         ->get()->toArray();
         if(count($check)>0):
             $record = DB::table('kelex_student_attendances')
