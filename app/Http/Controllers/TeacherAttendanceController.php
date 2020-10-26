@@ -6,12 +6,86 @@ use DateTime;
 use DatePeriod;
 use DateInterval;
 use Illuminate\Http\Request;
+use App\Models\Kelex_employee;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Kelex_staff_attendance;
 use App\Models\Kelex_staff_application;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\TeacherSearchRequest;
 use App\Http\Requests\TeacherApplicationRequest;
 
 class TeacherAttendanceController extends Controller
 {
+
+    public function Teacher_attendance()
+    {
+        return view("Admin.TeacherAttendance.tchr_Attendance_view");
+    }
+
+
+    public function get_tchrall_for_attendance(TeacherSearchRequest $request)
+    {
+        $update = null;
+        $date = date('Y-m-d',strtotime($request->alldate));
+        $campus_id = Auth::user()->CAMPUS_ID;
+        $check = DB::table('kelex_staff_attendances')
+                        ->where(['CAMPUS_ID'=> $campus_id,'ATTEN_DATE' => $date])
+                        ->get()->toArray();
+        if(count($check)>0):
+        $record=DB::table('kelex_staff_attendances')
+        ->leftJoin('kelex_employees', 'kelex_employees.EMP_ID', '=', 'kelex_staff_attendances.EMP_ID')
+        ->where('kelex_staff_attendances.CAMPUS_ID', '=',Session::get('CAMPUS_ID'))
+        ->where('kelex_staff_attendances.ATTEN_DATE' ,'=', $date)
+         ->select('kelex_employees.*','kelex_staff_attendances.ATTEN_STATUS','kelex_staff_attendances.TCHR_ATTENDANCE_ID')
+        ->get()->toArray();
+        $data['update'] = 1;
+        $data['record'] = $record;
+        else:
+         $record=DB::table('kelex_employees')->
+         where('CAMPUS_ID','=',Session::get('CAMPUS_ID'))->get()->toArray();
+         $data['update'] = 0;
+         $data['record'] = $record;
+        endif;
+        return response()->json($data);
+
+    }
+    public function save_teachers_attendance(Request $request)
+    {
+       $teachers_id = $request->teachersid;
+       $attendance = $request->atten_status;
+       $remarks = $request->remarks;
+       $campus_id = Auth::user()->CAMPUS_ID;
+       $userid =  Auth::user()->id;
+       $update = $request->update;
+       $attendance_ids = $request->attendance_ids;
+       for ($i=0; $i <count($teachers_id) ; $i++) { 
+           $data = [
+               'EMP_ID' => $teachers_id[$i],
+               'ATTEN_STATUS' => $attendance[$i],
+               'REMARKS' => $remarks[$i],
+               'ATTEN_DATE' => date('Y-m-d',strtotime($request->date)),
+               'CAMPUS_ID' => $campus_id,
+               'USER_ID' =>$userid,
+           ];
+        //    $where = [
+               
+        //    ];
+       
+
+           if($update == 0):
+                Kelex_staff_attendance::create($data);
+           else:
+                $where = [
+                    'TCHR_ATTENDANCE_ID' => $attendance_ids[$i],
+                ];
+                Kelex_staff_attendance::where($where)->update($data);
+           endif;
+           
+       }
+       return ['status'=> 'Teacher Attendance record Saved Successfully'];
+    }
+
     public function TeacherApplication(Request $request)
     {
         return view('Admin.TeacherAttendance.teacher_application');
