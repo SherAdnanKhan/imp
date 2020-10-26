@@ -12,7 +12,7 @@
                <div class="row">
                   <div class="col-md-3">
                       <div class="form-group">
-                           <label for="">session</label> 
+                           <label for="">session</label>
                               <small class="req"> *</small>
                               <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class"
                                  id="SESSION_ID">
@@ -27,7 +27,7 @@
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="">Class</label> 
+                        <label for="">Class</label>
                            <small class="req"> *</small>
                            <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                               id="class_id">
@@ -43,26 +43,16 @@
                   </div>
                   <div class="col-md-3">
                         <div class="form-group">
-                           <label for="">Section</label> 
+                           <label for="">Section</label>
                               <small class="req"> *</small>
                               <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                            </select>
                            <small id="SECTION_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-<<<<<<< HEAD
-                
-               </div>
-               
-               <div class="row">
-                 <div class="col">
-||||||| merged common ancestors
-                  <div class="col">
-=======
                   <div class="col-md-3">
->>>>>>> 7d909bb3248f710c31e777ecd3f16b60f4ec3d9d
                      <div class="form-group">
-                        <label for="">Fee Category</label> 
+                        <label for="">Fee Category</label>
                            <small class="req"> *</small>
                            <select name="FEE_CAT_ID" class="form-control category_id required" placeholder="Select Category"
                               id="FEE_CAT_ID">
@@ -76,23 +66,11 @@
                         <small id="FEE_CAT_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-<<<<<<< HEAD
                   <div class="col">
-||||||| merged common ancestors
-               </div>
-               
-               <div class="row">
-                  <div class="col-3">
-=======
-               </div>
-               
-               <div class="row">
-                  <div class="col-md-3">
->>>>>>> 7d909bb3248f710c31e777ecd3f16b60f4ec3d9d
                      <div class="form-group">
-                        <label for="SHIFT"> Shift:</label><br> 
+                        <label for="SHIFT"> Shift:</label><br>
                         <label class="radio-inline">
-                        
+
                         <input type="radio" id="morning" name="SHIFT" value="1" style=" margin: 10px;" checked > Morning
                         <input type="radio" id="evening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
                         </label>
@@ -105,22 +83,16 @@
                            <label for="exampleInputclass1">TYPE</label><small class="req"> *</small>
                            <input autofocus="" id="FEE_TYPE" name="FEE_TYPE" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                            <small id="FEE_AMOUNT_error" class="form-text text-danger"></small>
-                        </div>                  
+                        </div>
                      </div>
                   </div>
-<<<<<<< HEAD
-                  <div class="col">
-||||||| merged common ancestors
-                  <div class="col-3">
-=======
                   <div class="col-md-3">
->>>>>>> 7d909bb3248f710c31e777ecd3f16b60f4ec3d9d
                      <div class="form-group">
                      <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
                      </div>
                   </div>
-                 
+
                </div>
             @csrf
             </form>
@@ -172,12 +144,12 @@
                               </div>
                               <div class="modal-body">
 
-                  
+
                <div class="row">
                   <div class="col-md-3">
                   <form action="{{ route('update-fee-type')}}" id="update-fee-type" name="update-fee-type" method="post" accept-charset="utf-8">
                       <div class="form-group">
-                           <label for="">session</label> 
+                           <label for="">session</label>
                               <small class="req"> *</small>
                               <input type="hidden" id="FEE_ID" name="FEE_ID" value="">
                               <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class"
@@ -193,7 +165,7 @@
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="">Class</label> 
+                        <label for="">Class</label>
                            <small class="req"> *</small>
                            <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                               id="editCLASS_ID">
@@ -209,7 +181,7 @@
                   </div>
                   <div class="col-md-3">
                         <div class="form-group">
-                           <label for="">Section</label> 
+                           <label for="">Section</label>
                               <small class="req"> *</small>
                               <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="editSECTION_ID" >
                            </select>
@@ -218,7 +190,7 @@
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="">Fee Category</label> 
+                        <label for="">Fee Category</label>
                            <small class="req"> *</small>
                            <select name="FEE_CAT_ID" class="form-control category_id required" placeholder="Select Category"
                               id="editFEE_CAT_ID">
@@ -233,19 +205,13 @@
                      </div>
                   </div>
                </div>
-               
+
                <div class="row">
-<<<<<<< HEAD
-                  <div class="col">
-||||||| merged common ancestors
-                  <div class="col-4">
-=======
                   <div class="col-md-4">
->>>>>>> 7d909bb3248f710c31e777ecd3f16b60f4ec3d9d
                      <div class="form-group">
-                        <label for="SHIFT"> Shift:</label><br> 
+                        <label for="SHIFT"> Shift:</label><br>
                         <label class="radio-inline">
-                        
+
                         <input type="radio" id="editmorning" name="SHIFT" value="1" style=" margin: 10px;" checked > Morning
                         <input type="radio" id="editevening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
                         </label>
@@ -258,22 +224,16 @@
                            <label for="exampleInputclass1">Type</label><small class="req"> *</small>
                            <input autofocus="" id="editFEE_TYPE" name="FEE_TYPE" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                            <small id="FEE_AMOUNT_err" class="form-text text-danger"></small>
-                        </div>                  
+                        </div>
                      </div>
                   </div>
-<<<<<<< HEAD
-                  <div class="col">
-||||||| merged common ancestors
-                  <div class="col-4">
-=======
                   <div class="col-md-4">
->>>>>>> 7d909bb3248f710c31e777ecd3f16b60f4ec3d9d
                      <div class="form-group">
                      <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
                      </div>
                   </div>
-                 
+
                </div>
             @csrf
             </form>
@@ -301,7 +261,7 @@
  $(document).ready( function () {
       $('#DataTables_Table_0').DataTable();
         } );
-     </script> 
+     </script>
 <script>
    $(document).ready(function(){
     $('#class_id').on('change', function () {
@@ -313,7 +273,7 @@
                 url: 'getsection/' + id,
                 success: function (response) {
                //  var response = JSON.parse(response);
-                //console.log(response);   
+                //console.log(response);
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
@@ -331,7 +291,7 @@
                 url: 'getsections/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
-                //console.log(response);   
+                //console.log(response);
                 $('#editSECTION_ID').empty();
                 $('#editSECTION_ID').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
@@ -341,7 +301,7 @@
             });
         });
    });
-</script>    
+</script>
 <Script>
     $.ajaxSetup({
   headers: {
@@ -391,7 +351,7 @@ $('body').on('submit','#add-fee-type',function(e){
             type: "GET",
             data: {
                FEE_ID:FEE_ID
-            }, 
+            },
             dataType:"json",
             success: function(data)
          {
@@ -433,12 +393,12 @@ $('body').on('submit','#add-fee-type',function(e){
                   $("#update-fee-type").get(0).reset();
                   $('#feeTypeEditModal').modal('hide');
                   setTimeout(function(){location.reload();},1000);
-             
+
                   }
                   else
                   {
                      toastr.error(data,'Notice');
-                  }  
+                  }
               },
               error: function(error){
                 console.log(error);
@@ -453,5 +413,5 @@ $('body').on('submit','#add-fee-type',function(e){
 
 </script>
 
-   
-@endsection 
+
+@endsection
