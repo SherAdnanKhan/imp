@@ -22,13 +22,20 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Application <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
+<<<<<<< HEAD
+                                    <li><a href="{{route('get-employee-details',['employeeid' =>  Crypt::encryptString(Session::get('EMP_ID')) ])}}"> Teacher Details</a></li>
+||||||| merged common ancestors
+                                
+                                    <li><a href="{{route('get-employee-details',['course_id' =>  Crypt::encryptString(Session::get('EMP_ID')) ])}}"> Teacher Details</a></li>
+=======
                                
                                     <li><a href=" {{route('TeacherApplication')}}"> Add New Application</a></li>
                                     <li><a href=" {{route('Teacher_View_Application')}}"> View Application Status</a></li>
+>>>>>>> 89c6eed2df1574185a32430e5c31ed3332f627e1
                                 </ul>
                             </li>
 
-                    
+
                         </ul>
 
                     </div>

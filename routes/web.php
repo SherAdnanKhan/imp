@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\GeneralController; 
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\StudentLoginController;
@@ -25,21 +25,21 @@ use App\Http\Controllers\TeacherAttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () 
+Route::get('/', function ()
 {
 
     return view('auth.kelexlogin');
 });
 
 Route::prefix('admin')->group(function () {
-   
+
 Route::match(['get', 'post'],'/login',[AdminLoginController::class,'login_Admin'])->name('login');
 
 Route::match(['get', 'post'],'/logout',[AdminloginController::class,'logout_Admin'])->name('logout');
 
 Route::post('/passwordreset',[AdminLoginController::class,'resetpassword_Admin'])->name('password.request');
 
- 
+
 });
 
 Route::prefix('student')->group(function () {
@@ -51,7 +51,7 @@ Route::match(['get', 'post'],'/logout_student',[StudentLoginController::class,'l
 Route::post('/password_reset_student',[StudentLoginController::class,'resetpassword_student'])->name('passwordstudent');
 
 Route::group([ 'middleware' => 'Student'], function()
-{  
+{
 Route::match(['get', 'post'],'/dashboard',[StudentLoginController::class,'dashboard'])->name('dashboard');
 Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
@@ -74,7 +74,7 @@ Route::match(['get', 'post'],'/logout_teacher',[TeacherLoginController::class,'l
 Route::post('/passwordreset_teacher',[TeacherLoginController::class,'resetpassword_employee'])->name('passwordteacher');
 
 Route::group([ 'middleware' => 'Teacher'], function()
-{  
+{
 Route::match(['get', 'post'],'/dashboard',[TeacherLoginController::class,'dashboard'])->name('dashboard');
 
 Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
@@ -112,7 +112,7 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
 
 Route::group([ 'middleware' => 'Admin'], function()
 {
-    
+
 Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
 // Academics Route Start
 
@@ -174,7 +174,7 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::get('/showstudent', [StudentController::class, 'showstudent'])->name('showstudent');
     Route::get('/editstudent/{id}', [StudentController::class, 'getstudentdata'])->name('editstudent');
     Route::match(['get', 'post'], '/updatestudent', [StudentController::class, 'update_student'])->name("updatestudent");
-    
+
     Route::get('/showstudent', [StudentController::class, 'show'])->name('showstudent');
     Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
     Route::get('/getsection/{id}',  [GeneralController::class, 'getSections']);
@@ -187,9 +187,9 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
 
 
 
-    
 
-/// Student Attendance start 
+
+/// Student Attendance start
     Route::get('/student-attendance', [StudentAttendanceController::class, 'student_attendance'])->name('student-attendance');
     Route::post('/get-abscent-list', [StudentAttendanceController::class, 'getNonPresentStudents'])->name('get-abscent-list');
     Route::post('/get-std-for-attendance', [StudentAttendanceController::class, 'get_stds_for_attendance'])->name('get-std-for-attendance');
@@ -198,8 +198,16 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'],'/ViewApplicationAdmin',[StudentAttendanceController::class,'ViewApplicationbyadmin'])->name('Admin_View_Application');
     Route::match(['get', 'post'],'/actionApplicationAdmin',[StudentAttendanceController::class,'actionApplicationbyadmin'])->name('Admin_action_Application');
     /// Student Attendance end..
- 
-/// Teacher Attendance start 
+
+
+/// Teacher Attendance start
+
+/// Teacher Attendance start
+    Route::match(['get', 'post'],'/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
+    Route::match(['get', 'post'],'/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
+    Route::match(['get', 'post'],'/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
+
+/// Teacher Attendance start
     Route::match(['get', 'post'],'/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
     Route::match(['get', 'post'],'/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
     Route::match(['get', 'post'],'/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
@@ -213,13 +221,16 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'], '/addfeecategory', [FeeController::class, 'add_feecategory'])->name("addfeecategory");
     Route::match(['get', 'post'], '/editfeecategory', [FeeController::class, 'edit_feecategory'])->name("editfeecategory");
     Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'update_feecategory'])->name("updatefeecategory");
-
+     Route::match(['get', 'post'], '/get-fee-categories/{class_id}/{section_id}', [FeeController::class, 'get_fee_categories'])->name("get-fee-categories");
 
 //Fee type Routes Start
     Route::match(['get', 'post'], '/fee-type', [FeeController::class, 'fee_type'])->name("fee-type");
     Route::match(['get', 'post'], '/add-fee-type', [FeeController::class, 'add_fee_type'])->name("add-fee-type");
     Route::match(['get', 'post'], '/edit-fee-type', [FeeController::class, 'edit_fee_type'])->name("edit-fee-type");
     Route::match(['get', 'post'], '/update-fee-type', [FeeController::class, 'update_subjectgroup'])->name("update-fee-type");
+    Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_structure'])->name("fee-structure");
+    Route::match(['get', 'post'], '/add-fee-structure', [FeeController::class, 'add_fee_structure'])->name("add-fee-structure");
+    Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 
 //Employee Routes Start

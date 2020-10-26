@@ -5,12 +5,13 @@
 <link href="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+
 <div class="row">
-      <div class="card m-b-30 card-body">
+         <div class="card m-b-30 card-body">
             <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
-            <form action="{{ route('add-fee-type')}}" id="add-fee-type" name="add-fee-type" method="post" accept-charset="utf-8">
+            <form action="{{ route('add-fee-structreu')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
                <div class="row">
-                  <div class="col-md-3">
+                  <div class="col">
                       <div class="form-group">
                            <label for="">session</label>
                               <small class="req"> *</small>
@@ -25,7 +26,8 @@
                            <small id="SESSION_ID_error" class="form-text text-danger"></small>
                         </div>
                   </div>
-                  <div class="col-md-3">
+
+                  <div class="col-sm">
                      <div class="form-group">
                         <label for="">Class</label>
                            <small class="req"> *</small>
@@ -41,55 +43,64 @@
                         <small id="CLASS_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-md-3">
+
+                  <div class="col-sm">
                         <div class="form-group">
                            <label for="">Section</label>
                               <small class="req"> *</small>
                               <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
+                                 <option value="" disabled selected>Select</option>
                            </select>
                            <small id="SECTION_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-md-3">
+
+                  <div class="col-sm">
                      <div class="form-group">
                         <label for="">Fee Category</label>
                            <small class="req"> *</small>
                            <select name="FEE_CAT_ID" class="form-control category_id required" placeholder="Select Category"
                               id="FEE_CAT_ID">
-                              <option value="0" disabled selected>
-                                 Fee Category *</option>
-                              @foreach($feecategory as $row)
-                              <option  value="{{ $row->FEE_CAT_ID}}">
-                                 {{ ucfirst($row->CATEGORY) }}</option>
-                              @endforeach
+                              <option value="">select</option>
                         </select>
                         <small id="FEE_CAT_ID_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col">
+                  <div class="col-sm">
                      <div class="form-group">
-                        <label for="SHIFT"> Shift:</label><br>
-                        <label class="radio-inline">
-
-                        <input type="radio" id="morning" name="SHIFT" value="1" style=" margin: 10px;" checked > Morning
-                        <input type="radio" id="evening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
-                        </label>
+                        <label for="SHIFT"> Shift:</label>
+                        <select name="SHIFT" id="" class="form-control">
+                           <option value="0" disabled >Select</option>
+                           <option value="1">Morning</option>
+                           <option value="2">Evening</option>
+                        </select>
+                        <!-- <input type="radio" id="morning" name="SHIFT" value="1" style="" checked > Morning
+                        <input type="radio" id="evening" name="SHIFT" value="0" style=""> Evening -->
                         <small id="SHIFT_error" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-md-3">
-                     <div class="col">
+               </div>
+
+               <div class="row">
+                     <div class="col-sm">
                         <div class="form-group" >
-                           <label for="exampleInputclass1">TYPE</label><small class="req"> *</small>
-                           <input autofocus="" id="FEE_TYPE" name="FEE_TYPE" placeholder="" type="text" class="form-control" value="" autocomplete="off">
+                             <label for="exampleInputclass1">FEE TYPE</label><small class="req"> *</small>
+                            <select name="" id="FEE_TYPE_ID" class="form-control">
+                                <option value="" disabled>Select Fee Type</option>
+                            </select>
+                        </div>
+                     </div>
+                     <div class="col-sm">
+                        <div class="form-group" >
+                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
+                           <input autofocus="" id="FEE_AMOUNT" name="FEE_AMOUNT" placeholder="" type="number" class="form-control" value="" autocomplete="off">
                            <small id="FEE_AMOUNT_error" class="form-text text-danger"></small>
                         </div>
                      </div>
-                  </div>
-                  <div class="col-md-3">
-                     <div class="form-group">
-                     <br><br>
-                         <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
+
+                  <div class="col-sm">
+                     <div class="form-group"><br><br>
+                         <button type="submit" class="btn btn-primary btn-rounded  waves-effect waves-light">Save</button>
                      </div>
                   </div>
 
@@ -97,13 +108,12 @@
             @csrf
             </form>
       </div>
+
    </div>
-</div>
-<div class="row">
-   <div class="col-sm-11">
+   <div class="row">
+   <div class="col-sm-9">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Fee Type List</h3>
-         <div class="table-responsive">
+         <h3 class="card-title font-16 mt-0">Fee List</h3>
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
             <tr role="row">
@@ -112,12 +122,12 @@
                <th>Sections</th>
                <th>Category</th>
                <th>Shift</th>
-               <th>Type</th>
+               <th>Amount</th>
                <th>Action</th>
                </tr>
             </thead>
             <tbody id="displaydata">
-            @foreach($getfeecat as $getfc)
+            @foreach($getfeeStructure as $getfc)
                <tr id="row{{$getfc->FEE_TYPE_ID}}">
                   <td> {{$getfc->SB_NAME}}</td>
                   <td> {{$getfc->Class_name}}</td>
@@ -130,7 +140,6 @@
                @endforeach
             </tbody>
          </table>
-         </div>
       </div>
    </div>
 </div>
@@ -144,10 +153,9 @@
                               </div>
                               <div class="modal-body">
 
-
+                     <form action="{{ route('update-fee-type')}}" id="update-fee-type" name="update-fee-type" method="post" accept-charset="utf-8">
                <div class="row">
-                  <div class="col-md-3">
-                  <form action="{{ route('update-fee-type')}}" id="update-fee-type" name="update-fee-type" method="post" accept-charset="utf-8">
+                  <div class="col">
                       <div class="form-group">
                            <label for="">session</label>
                               <small class="req"> *</small>
@@ -163,7 +171,7 @@
                            <small id="SESSION_ID_err" class="form-text text-danger"></small>
                         </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col">
                      <div class="form-group">
                         <label for="">Class</label>
                            <small class="req"> *</small>
@@ -179,7 +187,7 @@
                         <small id="CLASS_ID_err" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col">
                         <div class="form-group">
                            <label for="">Section</label>
                               <small class="req"> *</small>
@@ -188,7 +196,7 @@
                            <small id="SECTION_ID_err" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col">
                      <div class="form-group">
                         <label for="">Fee Category</label>
                            <small class="req"> *</small>
@@ -204,10 +212,26 @@
                         <small id="FEE_CAT_ID_err" class="form-text text-danger"></small>
                      </div>
                   </div>
+                <div class="col">
+                     <div class="form-group">
+                        <label for="">Fee Type</label>
+                           <small class="req"> *</small>
+                           <select name="FEE_TYPE_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="editFEE_TYPE_ID">
+                              <option value="0" disabled selected>
+                                 Fee Category *</option>
+                              @foreach($feecategory as $row)
+                              <option  value="{{ $row->FEE_CAT_ID}}">
+                                 {{ ucfirst($row->CATEGORY) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="FEE_CAT_ID_err" class="form-text text-danger"></small>
+                     </div>
+                  </div>
                </div>
 
                <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-4">
                      <div class="form-group">
                         <label for="SHIFT"> Shift:</label><br>
                         <label class="radio-inline">
@@ -218,16 +242,16 @@
                         <small id="SHIFT_err" class="form-text text-danger"></small>
                      </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-4">
                      <div class="col">
                         <div class="form-group" >
-                           <label for="exampleInputclass1">Type</label><small class="req"> *</small>
-                           <input autofocus="" id="editFEE_TYPE" name="FEE_TYPE" placeholder="" type="text" class="form-control" value="" autocomplete="off">
+                           <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
+                           <input autofocus="" id="editFEE_AMOUNT" name="FEE_AMOUNT" placeholder="" type="number" class="form-control" value="" autocomplete="off">
                            <small id="FEE_AMOUNT_err" class="form-text text-danger"></small>
                         </div>
                      </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-4">
                      <div class="form-group">
                      <br><br>
                          <button type="submit" class="btn btn-primary btn-rounded btn-block waves-effect waves-light">Save</button>
@@ -265,12 +289,12 @@
 <script>
    $(document).ready(function(){
     $('#class_id').on('change', function () {
-                let id = $(this).val();
+               class_id = $(this).val();
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
                 $.ajax({
                 type: 'GET',
-                url: 'getsection/' + id,
+                url: 'getsection/' + class_id,
                 success: function (response) {
                //  var response = JSON.parse(response);
                 //console.log(response);
@@ -301,6 +325,40 @@
             });
         });
    });
+
+   ////// Get Fee Types ///////////////////
+   $('body').on('change','#sectionid',function(){
+      section_id = $(this).val();
+     $.ajax({
+        url : 'get-fee-categories/'+class_id+'/'+section_id,
+        type: 'GET',
+        data:{class_id:class_id,section_id:section_id},
+        success : function(res){
+           var html = "<option value=''>Select</option>";
+           $.each(res,function(key,val){
+              html += '<option value="'+val.FEE_CAT_ID+'"> '+val.CATEGORY+' </option>'
+           });
+           $('#FEE_CAT_ID').html(html);
+        }
+     });
+   });
+   //// Get Fee Type ///////////////
+   $('body').on('change','#FEE_CAT_ID',function(){
+      fee_cat_id = $(this).val();
+      var session_id = $('#SESSION_ID').val();
+           $.ajax({
+            url : 'get-fee-type/'+session_id+'/'+class_id+'/'+section_id+'/'+fee_cat_id,
+            type: 'GET',
+            success : function(res){
+               var html = "<option value=''>Select Fee Type</option>";
+               $.each(res,function(key,val){
+                  html += '<option value="'+val.FEE_TYPE_ID+'"> '+val.FEE_TYPE+' </option>'
+               });
+               $('#FEE_TYPE_ID').html(html);
+
+            }
+         });
+   });
 </script>
 <Script>
     $.ajaxSetup({
@@ -308,7 +366,7 @@
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$('body').on('submit','#add-fee-type',function(e){
+$('body').on('submit','#add-fee-structure',function(e){
       e.preventDefault();
       $('#CLASS_ID_error').text('');
       $('#SECTION_ID_error').text('');
@@ -319,7 +377,7 @@ $('body').on('submit','#add-fee-type',function(e){
       var fdata = new FormData(this);
 
       $.ajax({
-        url: '{{url("add-fee-type")}}',
+        url: "{{ route('add-fee-structure')}},
             type:'POST',
             data: fdata,
             processData: false,

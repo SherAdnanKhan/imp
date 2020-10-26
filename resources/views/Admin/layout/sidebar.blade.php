@@ -47,7 +47,7 @@
                                 <ul class="submenu">
                                     <li><a href="{{route('feecategory')}}">Define Fee Category</a></li>
                                     <li><a href="{{route('fee-type')}}">Define Fee Type</a></li>
-                                    <li><a href="charts-chartjs.html">Apply Fee</a></li>
+                                    <li><a href="{{route('fee-structure')}}">Apply Fee Structure</a></li>
                                     <li><a href="charts-flot.html">Fee Collection</a></li>
                                     <li><a href="charts-c3.html">Print Fee Voucher</a></li>
                                     <li><a href="charts-morris.html">Fee register</a></li>

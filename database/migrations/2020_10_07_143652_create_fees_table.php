@@ -14,7 +14,7 @@ class CreateFeesTable extends Migration
     public function up()
     {
         Schema::create('kelex_fee_types', function (Blueprint $table) {
-            $table->id('FEE_ID');
+            $table->id('FEE_TYPE_ID');
             $table->bigInteger('CLASS_ID')->nullable();
             $table->bigInteger('SECTION_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
@@ -23,7 +23,7 @@ class CreateFeesTable extends Migration
             $table->enum('SHIFT',['1','2'])->nullable()->comments('1= Morning 2= Evening');
             $table->bigInteger('CREATED_BY')->nullable();
             $table->bigInteger('UPDATE_BY')->nullable();
-            $table->decimal('FEE_AMOUNT')->nullable();
+            $table->text('FEE_TYPE')->nullable();
             $table->timestamps();
         });
     }

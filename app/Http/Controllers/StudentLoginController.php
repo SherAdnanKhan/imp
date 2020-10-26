@@ -12,6 +12,23 @@ class StudentLoginController extends Controller
 {
     public function login_student(studentloginRequest $request)
     {
+<<<<<<< HEAD
+
+      $result=  Kelex_student::where(['REG_NO'=>$request->REG_NO,'STD_PASSWORD'=>$request->STD_PASSWORD])->
+      select('kelex_students.*')
+      ->get();
+
+
+      if(count($result)>0)
+||||||| merged common ancestors
+        
+      $result=  Kelex_student::where(['REG_NO'=>$request->REG_NO,'STD_PASSWORD'=>$request->STD_PASSWORD])->
+      select('kelex_students.*')
+      ->get();
+      
+     
+      if(count($result)>0)
+=======
      $REG_NO = $request->input('REG_NO');
      $password = $request->input('STD_PASSWORD');
 
@@ -22,6 +39,7 @@ class StudentLoginController extends Controller
         return response()->json();
     }
      if (!Hash::check($password, $student->STD_PASSWORD))
+>>>>>>> 89c6eed2df1574185a32430e5c31ed3332f627e1
       {
         return response()->json();
      }
@@ -43,7 +61,7 @@ class StudentLoginController extends Controller
         return redirect('/');
     }
     public function dashboard()
-    {   
+    {
         return view('student_dashboard');
     }
 

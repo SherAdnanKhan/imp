@@ -20,11 +20,11 @@ class StudentAttendanceController extends Controller
 {
     public function student_attendance()
     {
-        
+
         $campus_id = Auth::user()->CAMPUS_ID;
-        $class= Kelex_class::where('CAMPUS_ID',$campus_id)->get(); 
-        $section= kelex_section::where('CAMPUS_ID',$campus_id)->get(); 
-        $session= Kelex_sessionbatch::where('CAMPUS_ID',$campus_id)->get(); 
+        $class= Kelex_class::where('CAMPUS_ID',$campus_id)->get();
+        $section= kelex_section::where('CAMPUS_ID',$campus_id)->get();
+        $session= Kelex_sessionbatch::where('CAMPUS_ID',$campus_id)->get();
         // dd($class);
         return view("Admin.StudentsAttendance.std_Attendance_view")->with(['classes'=>$class,'sections'=>$section,'sessions'=>$session]);
     }
@@ -71,7 +71,7 @@ class StudentAttendanceController extends Controller
 
     public function save_students_attendance(Request $request)
     {
-        
+
        $student_ids = $request->student_ids;
        $attendance = $request->atten_status;
        $remarks = $request->remarks;
@@ -79,7 +79,7 @@ class StudentAttendanceController extends Controller
        $userid =  Auth::user()->id;
        $update = $request->update;
        $attendance_ids = $request->attendance_ids;
-       for ($i=0; $i <count($student_ids) ; $i++) { 
+       for ($i=0; $i <count($student_ids) ; $i++) {
            $data = [
                'STD_ID' => $student_ids[$i],
                'ATTEN_STATUS' => $attendance[$i],
@@ -92,7 +92,7 @@ class StudentAttendanceController extends Controller
                'USER_ID' =>$userid,
            ];
         //    $where = [
-               
+
         //    ];
 
            if($update == 0):
@@ -103,7 +103,7 @@ class StudentAttendanceController extends Controller
                 ];
                 Kelex_student_attendance::where($where)->update($data);
            endif;
-           
+
        }
        return ['status'=> 'Students Attendance record Saved Successfully'];
     }
@@ -111,9 +111,9 @@ class StudentAttendanceController extends Controller
     public function non_present_students()
     {
         $campus_id = Auth::user()->CAMPUS_ID;
-        $class= Kelex_class::where('CAMPUS_ID',$campus_id)->get(); 
-        $section= kelex_section::where('CAMPUS_ID',$campus_id)->get(); 
-        $session= Kelex_sessionbatch::where('CAMPUS_ID',$campus_id)->get(); 
+        $class= Kelex_class::where('CAMPUS_ID',$campus_id)->get();
+        $section= kelex_section::where('CAMPUS_ID',$campus_id)->get();
+        $session= Kelex_sessionbatch::where('CAMPUS_ID',$campus_id)->get();
         // dd($class);
         return view("Admin.StudentsAttendance.non_present_students")->with(['classes'=>$class,'sections'=>$section,'sessions'=>$session]);
     }
@@ -190,10 +190,12 @@ public function ViewApplication(Request $request)
 }
 public function ViewApplicationbyadmin(Request $request)
 {
-    
+    // dd($this->twoDatesRange('2020-01-01','2020-02-07'));
+    $application=Kelex_student_application::where('APPLICATION_STATUS',null)->get();
+
 
     $todayapplicationlog=Kelex_student_application::orderBy('START_DATE', 'ASC')->get();
-        
+
     $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
     where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
 
@@ -202,7 +204,8 @@ public function ViewApplicationbyadmin(Request $request)
 }
 public function actionApplicationbyadmin(Request $request)
 {
-    
+
+
     $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
     where('STD_APPLICATION_ID',$request->STD_APPLICATION_ID)
     ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
@@ -244,21 +247,21 @@ public function actionApplicationbyadmin(Request $request)
 
 
 }
+    function twoDatesRange($start, $end, $format = 'Y-m-d')
+    {
+        $arr = array();
+        $interval = new DateInterval('P1D');
 
-function twoDatesRange($start, $end, $format = 'Y-m-d') {
-    $arr = array();
-    $interval = new DateInterval('P1D');
+        $realEnd = new DateTime($end);
+        $realEnd->add($interval);
 
-    $realEnd = new DateTime($end);
-    $realEnd->add($interval);
+        $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
 
-    $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+        foreach ($period as $date) {
+            $arr[] = $date->format($format);
+        }
 
-    foreach($period as $date) { 
-        $arr[] = $date->format($format); 
+        return $arr;
     }
-
-    return $arr;
-}
 
 }
