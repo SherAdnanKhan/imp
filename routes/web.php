@@ -206,6 +206,11 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'],'/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
     Route::match(['get', 'post'],'/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
     Route::match(['get', 'post'],'/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
+
+/// Teacher Attendance start
+    Route::match(['get', 'post'],'/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
+    Route::match(['get', 'post'],'/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
+    Route::match(['get', 'post'],'/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
     Route::match(['get', 'post'],'/TeacherViewApplicationAdmin',[TeacherAttendanceController::class,'ViewApplicationbyadmin'])->name('Teacher-View-Application-by-admin');
     Route::match(['get', 'post'],'/TeacteractionApplicationAdmin',[TeacherAttendanceController::class,'actionApplicationbyadmin'])->name('Teacher-Action-Application-by-admin');
   /// Teacher Attendance end..
