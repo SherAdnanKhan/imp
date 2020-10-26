@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\GeneralController; 
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\StudentAttendanceController;
@@ -24,21 +24,21 @@ use App\Http\Controllers\TeacherLoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () 
+Route::get('/', function ()
 {
 
     return view('auth.kelexlogin');
 });
 
 Route::prefix('admin')->group(function () {
-   
+
 Route::match(['get', 'post'],'/login',[AdminLoginController::class,'login_Admin'])->name('login');
 
 Route::match(['get', 'post'],'/logout',[AdminloginController::class,'logout_Admin'])->name('logout');
 
 Route::post('/passwordreset',[AdminLoginController::class,'resetpassword_Admin'])->name('password.request');
 
- 
+
 });
 
 Route::prefix('student')->group(function () {
@@ -50,7 +50,7 @@ Route::match(['get', 'post'],'/logout_student',[StudentLoginController::class,'l
 Route::post('/password_reset_student',[StudentLoginController::class,'resetpassword_student'])->name('passwordstudent');
 
 Route::group([ 'middleware' => 'Student'], function()
-{  
+{
 Route::match(['get', 'post'],'/dashboard',[StudentLoginController::class,'dashboard'])->name('dashboard');
 Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
@@ -73,7 +73,7 @@ Route::match(['get', 'post'],'/logout_teacher',[TeacherLoginController::class,'l
 Route::post('/passwordreset_teacher',[TeacherLoginController::class,'resetpassword_employee'])->name('passwordteacher');
 
 Route::group([ 'middleware' => 'Teacher'], function()
-{  
+{
 Route::match(['get', 'post'],'/dashboard',[TeacherLoginController::class,'dashboard'])->name('dashboard');
 
 Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
@@ -106,7 +106,7 @@ Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'dele
 
 Route::group([ 'middleware' => 'Admin'], function()
 {
-    
+
 Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
 // Academics Route Start
 
@@ -168,7 +168,7 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::get('/showstudent', [StudentController::class, 'showstudent'])->name('showstudent');
     Route::get('/editstudent/{id}', [StudentController::class, 'getstudentdata'])->name('editstudent');
     Route::match(['get', 'post'], '/updatestudent', [StudentController::class, 'update_student'])->name("updatestudent");
-    
+
     Route::get('/showstudent', [StudentController::class, 'show'])->name('showstudent');
     Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
     Route::get('/getsection/{id}',  [GeneralController::class, 'getSections']);
@@ -181,9 +181,9 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
 
 
 
-    
 
-/// Student Attendance start 
+
+/// Student Attendance start
     Route::get('/student-attendance', [StudentAttendanceController::class, 'student_attendance'])->name('student-attendance');
     Route::post('/get-abscent-list', [StudentAttendanceController::class, 'getNonPresentStudents'])->name('get-abscent-list');
     Route::post('/get-std-for-attendance', [StudentAttendanceController::class, 'get_stds_for_attendance'])->name('get-std-for-attendance');
@@ -192,7 +192,7 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'],'/ViewApplicationAdmin',[StudentAttendanceController::class,'ViewApplicationbyadmin'])->name('Admin_View_Application');
     Route::match(['get', 'post'],'/actionApplicationAdmin',[StudentAttendanceController::class,'actionApplicationbyadmin'])->name('Admin_action_Application');
     /// Student Attendance end..
- 
+
 
 // Fee Catergory Routes Start
 
@@ -208,7 +208,8 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'], '/edit-fee-type', [FeeController::class, 'edit_fee_type'])->name("edit-fee-type");
     Route::match(['get', 'post'], '/update-fee-type', [FeeController::class, 'update_subjectgroup'])->name("update-fee-type");
     Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_structure'])->name("fee-structure");
-    Route::get('/get-fee-type/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
+    Route::match(['get', 'post'], '/add-fee-structure', [FeeController::class, 'add_fee_structure'])->name("add-fee-structure");
+    Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 
 //Employee Routes Start

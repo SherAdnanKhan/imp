@@ -108,18 +108,26 @@ class FeeController extends Controller
         $data = ['sessions' => $sessions,'classes'=>$class,'getfeecat'=>$getfeecat,'feecategory'=> $feecategory];
         return view('Admin.FeesManagement.fee_type')->with($data);
     }
-    public function get_fee_type($class_id,$section_id,$fee_cat_id)
+    public function get_fee_type($session_id,$class_id,$section_id,$fee_cat_id)
     {
-              $getfeecat = DB::table('kelex_fee_types')
-                            ->join('kelex_fee_categories', 'kelex_fee_categories.FEE_CAT_ID', '=', 'kelex_fee_types.FEE_CAT_ID')
+        // dd($session_id);
+        $getfeecat = DB::table('kelex_fee_types')
+                        ->join('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_fee_types.SESSION_ID')
                             ->where('kelex_fee_types.CAMPUS_ID','=',Auth::user()->CAMPUS_ID)
                             ->where('kelex_fee_types.CLASS_ID','=',$class_id)
                             ->where('kelex_fee_types.SECTION_ID','=',$section_id)
                             ->where('kelex_fee_types.FEE_CAT_ID','=',$fee_cat_id)
                             ->select('kelex_fee_types.*')
-                            ->get()->toArray();
+                            ->get()
+                            ->toArray();
                             return $getfeecat;
     }
+
+    public function add_fee_structure(Request $request)
+    {
+        // dd
+    }
+
 
     public function add_fee_type(FeetypeRequest $request)
     {

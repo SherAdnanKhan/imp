@@ -9,7 +9,7 @@
 <div class="row">
          <div class="card m-b-30 card-body">
             <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
-            <form action="{{ route('add-fee-type')}}" id="add-fee-type" name="add-fee-type" method="post" accept-charset="utf-8">
+            <form action="{{ route('add-fee-structreu')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
                <div class="row">
                   <div class="col">
                       <div class="form-group">
@@ -82,9 +82,15 @@
                </div>
 
                <div class="row">
-
-                  <div class="col-sm-6"></div>
-                     <div class="col-sm-3">
+                     <div class="col-sm">
+                        <div class="form-group" >
+                             <label for="exampleInputclass1">FEE TYPE</label><small class="req"> *</small>
+                            <select name="" id="FEE_TYPE_ID" class="form-control">
+                                <option value="" disabled>Select Fee Type</option>
+                            </select>
+                        </div>
+                     </div>
+                     <div class="col-sm">
                         <div class="form-group" >
                            <label for="exampleInputclass1">Amount</label><small class="req"> *</small>
                            <input autofocus="" id="FEE_AMOUNT" name="FEE_AMOUNT" placeholder="" type="number" class="form-control" value="" autocomplete="off">
@@ -196,6 +202,22 @@
                            <small class="req"> *</small>
                            <select name="FEE_CAT_ID" class="form-control category_id required" placeholder="Select Category"
                               id="editFEE_CAT_ID">
+                              <option value="0" disabled selected>
+                                 Fee Category *</option>
+                              @foreach($feecategory as $row)
+                              <option  value="{{ $row->FEE_CAT_ID}}">
+                                 {{ ucfirst($row->CATEGORY) }}</option>
+                              @endforeach
+                        </select>
+                        <small id="FEE_CAT_ID_err" class="form-text text-danger"></small>
+                     </div>
+                  </div>
+                <div class="col">
+                     <div class="form-group">
+                        <label for="">Fee Type</label>
+                           <small class="req"> *</small>
+                           <select name="FEE_TYPE_ID" class="form-control category_id required" placeholder="Select Category"
+                              id="editFEE_TYPE_ID">
                               <option value="0" disabled selected>
                                  Fee Category *</option>
                               @foreach($feecategory as $row)
@@ -323,16 +345,17 @@
    //// Get Fee Type ///////////////
    $('body').on('change','#FEE_CAT_ID',function(){
       fee_cat_id = $(this).val();
+      var session_id = $('#SESSION_ID').val();
            $.ajax({
-            url : 'get-fee-type/'+class_id+'/'+section_id+'/'+fee_cat_id,
+            url : 'get-fee-type/'+session_id+'/'+class_id+'/'+section_id+'/'+fee_cat_id,
             type: 'GET',
             success : function(res){
-               // var html = "<option value=''>Select</option>";
-               // $.each(res,function(key,val){
-               //    html += '<option value="'+val.FEE_CAT_ID+'"> '+val.CATEGORY+' </option>'
-               // });
-               // $('#FEE_CAT_ID').html(html);
-               alert(res);
+               var html = "<option value=''>Select Fee Type</option>";
+               $.each(res,function(key,val){
+                  html += '<option value="'+val.FEE_TYPE_ID+'"> '+val.FEE_TYPE+' </option>'
+               });
+               $('#FEE_TYPE_ID').html(html);
+
             }
          });
    });
@@ -343,7 +366,7 @@
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-$('body').on('submit','#add-fee-type',function(e){
+$('body').on('submit','#add-fee-structure',function(e){
       e.preventDefault();
       $('#CLASS_ID_error').text('');
       $('#SECTION_ID_error').text('');
@@ -354,7 +377,7 @@ $('body').on('submit','#add-fee-type',function(e){
       var fdata = new FormData(this);
 
       $.ajax({
-        url: '{{url("add-fee-type")}}',
+        url: "{{ route('add-fee-structure')}},
             type:'POST',
             data: fdata,
             processData: false,
