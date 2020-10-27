@@ -27,7 +27,7 @@ class campusrequest extends FormRequest
             'schoolname' => 'required|max:255',
             'schooladdress' => 'required|max:255',
             'phoneno' => 'required|max:255',
-            'city' =>   'required|max:255',
+            // 'city' =>   'required|max:255',
             'instuition'=> 'required|max:255',
             'status'=>  'required|max:10',
             'smsstatus'=>  'required|max:10',
@@ -35,7 +35,7 @@ class campusrequest extends FormRequest
             'discount' => 'required|max:255',
             'billingdate' => 'required',
             'schoollogo'=>'mimes:jpeg,jpg,png,gif|max:10000',
-            'schoolemail' => 'required|email:strict,dns,filter'
+            'schoolemail' => 'required|email'
         ];
     }
 

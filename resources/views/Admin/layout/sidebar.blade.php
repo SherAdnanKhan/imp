@@ -8,12 +8,20 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
+                            <?php 
+                            $permission=session::get('permissions');
+                            $permissions= json_decode($permission);  
+                            dd($permissions);       
+                            ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
-                                    <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span> Dashboard </span>
+                                    <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
+                                    <?php
+                                    ?>
+                                     Dashboard </span>
                                 </a>
                             </li>
-                      
-
+                            
+                            @if($permissions->usermanagment->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Students <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
@@ -21,7 +29,8 @@
                                     <li><a href="{{route('showstudent')}}">Student Details</a></li>
                                 </ul>
                             </li>
-
+                            @endif
+                            @if($permissions->acadamics->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span> Academics <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
@@ -34,6 +43,8 @@
                                  
                                 </ul>
                             </li>
+                            @endif
+                            @if($permissions->hr_managment->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-album"></i> <span> HR Managment  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span> </a>
                                 <ul class="submenu">
@@ -42,6 +53,8 @@
                                     <li><a href="icons-fontawesome.html">Employee Attendance</a></li>
                                 </ul>
                             </li>
+                            @endif
+                            @if($permissions->fee_managament->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-finance"></i><span> Fee Management <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
@@ -54,7 +67,8 @@
                                     <li><a href="charts-other.html">Family Accounts</a></li>
                                 </ul>
                             </li>
-
+                            @endif
+                            @if($permissions->std_attendance->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-table-settings"></i><span> Student Attendance <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
@@ -63,7 +77,8 @@
                                     <li><a href="{{route('non-present-students')}}">Non-Present Report</a></li>
                                 </ul>
                             </li>
-                            
+                            @endif
+                            @if($permissions->hr_managment->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-table-settings"></i><span> Teacher Attendance <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
@@ -72,7 +87,8 @@
                                     <li><a href="{{route('non-present-students')}}">Non-Present Report</a></li>
                                 </ul>
                             </li>
-
+                            @endif
+                            @if($permissions->admissionwithdraw->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
@@ -81,7 +97,8 @@
                                 </ul>
                             </li>
                             <li>
-
+                            @endif
+                            @if($permissions->correspondence->status=="1")
                             <li>
 
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-clipboard"></i><span> Correspondence <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
@@ -92,8 +109,8 @@
 
                                 </ul>
                             </li>
-
-                            
+                            @endif
+                            @if($permissions->accounts->status=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-maps"></i><span> Accounts  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span></a>
                                 <ul class="submenu">
@@ -101,7 +118,8 @@
                                     <li><a href="maps-vector.html"> Assets Managamnet</a></li>
                                 </ul>
                             </li>
-                            
+                            @endif
+                            @if($permissions->certificate->status=="1")
                             <li>
                  
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
@@ -111,12 +129,13 @@
                                     <li><a href="layouts-collapsed.html">Curricular </a></li>
                                 </ul>
                             </li>
+                            @endif
                             <li class="menu-title">Settings</li>
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>System Settings <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
                                     <li><a href="pages-login.html">General Settings</a></li>
-                                    <li><a href="pages-register.html">Roles/Permission</a></li>
+                                    <li><a href="{{route('staff')}}">Roles/Permission</a></li>
                                 </ul>
                             </li>
                         </ul>

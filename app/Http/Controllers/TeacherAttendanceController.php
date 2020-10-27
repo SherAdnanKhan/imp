@@ -147,11 +147,13 @@ class TeacherAttendanceController extends Controller
     }
     public function actionApplicationbyadmin(Request $request)
     {
+     
         $application=Kelex_staff_application::where('APPLICATION_STATUS',"0")->
         where('STAFF_APP_ID',$request->STAFF_APP_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
-        if(count($application)!=="0"){
+        if(count($application)!=='0'){
        $result= Kelex_staff_application::find($request->STAFF_APP_ID);
+       dd($request->STAFF_APP_ID);
        $result->APPLICATION_STATUS= $request->APPLICATION_STATUS;
        $result->APPROVED_AT=date('Y-m-d');
        $result->USER_ID = Session::get('user_id');

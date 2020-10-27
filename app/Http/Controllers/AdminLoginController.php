@@ -25,7 +25,8 @@ class AdminLoginController extends Controller
                     'CAMPUS'=>$campus,
                     'is_admin'=>true,
                     'user_id'=>$user['id'],
-                    'CAMPUS_ID'=>$user['CAMPUS_ID']
+                    'CAMPUS_ID'=>$user['CAMPUS_ID'],
+                    'permissions'=>$user['permissions']
                 ]);
                 return response()->json(['url'=>url('/admin')]);
             }

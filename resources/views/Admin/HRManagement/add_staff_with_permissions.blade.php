@@ -5,165 +5,51 @@
 @endsection
 @section("content")
 <div class="page-content-wrapper">
+    
     <div class="row">   
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="card m-b-20">
+                        
                         <div class="row">
                             <div class="col-2">
-                                <a href='/showcampus' class="btn btn-primary">Show Existing Campus</a>
+                                <a href='/showcampus' class="btn btn-primary">Show Existing Non Teaching Employee</a>
                             
                             </div>
-                        </div>
-                        <div class="card-body"> <h4 class="mt-0 header-title">Add Campus</h4>
-                            <p class="text-muted m-b-30 ">Parsley is a javascript form validation
-                            library. It helpsss you provide your users with feedback on their form
-                            submission before sending it to your server.</p>
+                        </div>    
 
-                            <h4 class="register-heading">Enter Campus Details</h4>
                         
-                            <form method="post" action="{{ route('addcampus')}}" id="insertcampus" enctype="multipart/form-data">
+
+                            <h4 class="register-heading">Enter Staff Details</h4>
+                        
+                            <form method="post" action="{{ route('add-staff')}}" id="insertcampus" enctype="multipart/form-data">
                                @csrf
                                 <div class="row register-form">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                        <label for="Sname">School Name:</label> 
-                                        <small id="schoolname_error" class="form-text text-danger"></small>
-                                            <input type="text" class="form-control" name="schoolname" placeholder="Enter School name *" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="Saddress">School Address:</label> 
-                                        <small id="schooladdress_error" class="form-text text-danger"></small>
-                                            <input type="text" class="form-control" name="schooladdress" placeholder="Enter School Address *" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="pno">Phone No:</label> 
-                                        <small id="phoneno_error" class="form-text text-danger"></small>
-                                            <input type="text" class="form-control"  name="phoneno" placeholder="Enter Phone No *" value="" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row register-form">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="Sname">Mobile No:</label> 
-                                        <small id="mobileno_error" class="form-text text-danger"></small>
-                                            <input type="text" class="form-control"  name="mobileno" placeholder="Enter Mobile No *" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="Sreg">School Reg:</label>
-                                        <small id="schoolregistration_error" class="form-text text-danger"></small> 
-                                            <input type="text" class="form-control"  name="schoolregistration" placeholder="Enter School Registration *" value="" />
+                                        <label for="Sname">Staff User Name:</label> 
+                                        <small id="username_error" class="form-text text-danger"></small>
+                                            <input type="text" class="form-control" name="username" placeholder="Enter user name *" value="" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                         <label for="SEmail">Email</label> 
-                                        <small id="schoolemail_error" class="form-text text-danger"></small>
-                                            <input type="text" class="form-control"  name="schoolemail" placeholder="Enter School Website *" value="" />
+                                        <small id="email_error" class="form-text text-danger"></small>
+                                            <input type="text" class="form-control"  name="email" placeholder="Enter Email *" value="" />
                                         </div>
-                                    </div>
+                                    </div> 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                        <label for="SEmail">Password</label> 
+                                        <small id="password_error" class="form-text text-danger"></small>
+                                            <input type="text" class="form-control"  name="password" placeholder="Enter Password *" value="" />
+                                        </div>
+                                    </div>                                
+                            
                                 </div>
-                                <div class="row register-form">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                        <label for="myfile">Upload School Logo:</label><br>
-                                        <small id="schoollogo_error" class="form-text text-danger"></small>
-                                                                    
-                                        <input type="file" id="myfile" name="schoollogo"  accept="image/*"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Cid">City id:</label> 
-                                            <small id="city_error" class="form-text text-danger"></small>
-                                            <select name="city" id="city">
-                                            @foreach($cities as $city)
-                                            <option value="{{$city->city_id}}">{{$city->city_name}}</option>
-                                            @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Sins">Please Select Instuition type:</label><br> 
-                                            <small id="instuition_error" class="form-text text-danger"></small>
-                                            <label class="radio-inline">
-                                            <input type="radio" name="instuition" value="school" style=" margin: 10px;" > School
-                                            <input type="radio" name="instuition" value="L_instuition" style=" margin: 10px;"> Learning Instution
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row register-form">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Agt">Agreement:</label><br> 
-                                            <small id="Aggreement_error" class="form-text text-danger"></small>
-                                            <label class="radio-inline">
-                                            <input type="radio" name="Aggreement" value="1"style=" margin: 10px;"> Yes
-                                            <input type="radio" name="Aggreement" value="0"style=" margin: 10px;"> No
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for=agreement>  Agreement date</label>
-                                            <small id="agreementdate_error" class="form-text text-danger"></small>
-                                            <input type="date" class="form-control" name="agreementdate" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for=agreement>  Enter Status:</label><br>
-                                            <small id="status_error" class="form-text text-danger"></small>
-                                            <label class="radio-inline">
-                                            <input type="radio" name="status" value="1" style=" margin: 10px;"  checked> Active 
-                                            <input type="radio" name="status" value="0" style=" margin: 10px;"> Not Active
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row ">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for=agreement>SMS</label><br>
-                                            <small id="smsstatus_error" class="form-text text-danger"></small>
-                                            <label class="radio-inline">
-                                            <input type="radio" name="smsstatus" value="1"style=" margin: 10px;"> Allowed
-                                            <input type="radio" name="smsstatus" value="0"style=" margin: 10px;" checked> Not Allowed
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label> Enter Billing Details</label>
-                                            <small id="billingcharges_error" class="form-text text-danger"></small>
-                                            <input type="number" class="form-control" name="billingcharges" placeholder="Enter charges *" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label for="">Enter Discount</label>
-                                            <small id="discount_error" class="form-text text-danger"></small>
-                                            <input type="number" class="form-control" name="discount" placeholder="Enter Discount *" value="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label> Please Select Billing Date </label>
-                                            <small id="billingdate_error" class="form-text text-danger"></small>
-                                            <input type="date" class="form-control" name="billingdate" placeholder="Enter Agreement date *" value="" />
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class="col-md-2"><h5>Permssions</h5></div>
                                 </div>
@@ -173,7 +59,11 @@
                                             <div class="col-sm-12">
                                             <div class="card">
                                         </div>
-                                        
+                            <?php 
+                            $permissions= json_decode($permission); 
+                            //dd($permissions); 
+                            ?>
+                                        @if($permissions->usermanagment->status=="1")
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -188,6 +78,9 @@
                                                         </div>
                                                 </div>
                                             </div>
+                                       
+                                        
+                                       
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <span class="button-checkbox">
@@ -208,8 +101,12 @@
                                                     </span>  
                                                 </div>
                                             </div>
-                                            </div> 
+                                       
+                                        </div> 
+                                        @endif
+                                        @if($permissions->acadamics->status=="1")
                                                 <div class="row">
+                                                
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                     <div class="input-group mb-6">
@@ -227,6 +124,8 @@
 
                                                 </div>
                                             </div>
+                                            @endif
+                                        @if($permissions->acadamics->student_manage->view=="1")
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -262,6 +161,8 @@
                                                     </div>
                                                 </div>
                                             </div>  
+                                        @endif
+                                        @if($permissions->acadamics->session->status=="1")
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -297,6 +198,8 @@
                                                     </div>
                                                 </div>
                                             </div> 
+                                            @endif
+                                        @if($permissions->acadamics->classess->status=="1")   
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -332,6 +235,8 @@
                                                     </div>
                                                 </div>
                                             </div> 
+                                            @endif
+                                        @if($permissions->acadamics->sections->status=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -367,6 +272,8 @@
                                                     </div>
                                                 </div>
                                             </div> 
+                                            @endif
+                                        @if($permissions->acadamics->subjects->status=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -402,6 +309,9 @@
                                                     </div>
                                                 </div>
                                             </div> 
+                                            @endif
+                                        @if($permissions->admissionwithdraw->status=="1")  
+                                              
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -421,6 +331,9 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->admissionwithdraw->withdraw_register->status=="1")  
+                                            
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -457,6 +370,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->registermanagment->status=="1")      
                                             
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -494,6 +409,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->correspondence->status=="1") 
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -513,6 +430,8 @@
                                                 </div>
                                                 
                                             </div>
+                                        @endif
+                                        @if($permissions->complaintletter->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -549,6 +468,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->showcause->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -586,6 +507,8 @@
                                                 
                                             </div>
                                             
+                                        @endif
+                                        @if($permissions->notification->status=="1")       
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -622,6 +545,9 @@
                                                 </div>
                                                 
                                             </div>
+                                           
+                                        @endif
+                                        @if($permissions->fee_managament->status=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -641,6 +567,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->fee_managament->fee_category->status=="1")   
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -677,6 +605,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->fee_managament->define_fee->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -713,6 +643,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->fee_managament->fee_collection->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -749,6 +681,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->fee_managament->fee_voucher->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -785,6 +719,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->fee_managament->fee_register->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -821,6 +757,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->fee_managament->family_accounts->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -857,6 +795,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->std_attendance->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -876,6 +816,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->std_attendance->application->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -912,6 +854,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->std_attendance->std_attendance_manage->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -948,6 +892,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->std_attendance->non_present->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -984,6 +930,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->hr_managment->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1004,6 +952,8 @@
                                                 
                                             </div>
 
+                                            @endif
+                                        @if($permissions->hr_managment->emp_categories->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1040,6 +990,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->hr_managment->emp_manage->status=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1077,6 +1029,8 @@
                                                 
                                             </div>
 
+                                            @endif
+                                        @if($permissions->hr_managment->emp_attendance->status=="1")       
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1114,6 +1068,8 @@
                                                 
                                             </div>
 
+                                            @endif
+                                        @if($permissions->accounts->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1134,6 +1090,8 @@
                                                 
                                             </div>
 
+                                            @endif
+                                        @if($permissions->accounts->asset_category->status=="1")
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1171,6 +1129,9 @@
                                                 
                                             </div>
 
+                                        
+                                            @endif
+                                        @if($permissions->accounts->asset_managment->status=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1208,6 +1169,8 @@
                                                 
                                             </div>
 
+                                            @endif
+                                        @if($permissions->certificate->status=="1")        
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1228,6 +1191,8 @@
                                                 
                                             </div>
 
+                                            @endif
+                                        @if($permissions->certificate->slc->status=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1264,6 +1229,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->certificate->experience->status=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1300,6 +1267,8 @@
                                                 </div>
                                                 
                                             </div>
+                                            @endif
+                                        @if($permissions->certificate->curricular->status=="1")          
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1336,6 +1305,8 @@
                                                 </div>
                                                 
                                             </div>
+
+                                    @endif
 
 
                                             
@@ -1441,40 +1412,18 @@ $(function () {
 
 $('body').on('submit','#insertcampus',function(e){
       e.preventDefault();
-      $('#schoolname_error').text('');
-      $('#schooladdress_error').text('');
-      $('#phoneno_error').text('');
-      $('#mobileno_error').text('');
-      $('#schoolregistration_error').text('');
-      $('#schoolwebsite_error').text('');
-      $('#schoollogo_error').text('');
-      $('#city_error').text('');
-      $('#instuition_error').text('');
-      $('#Aggreement_error').text('');
-      $('#agreementdate_error').text('');
-      $('#status_error').text('');
-      $('#mdsstatus_error').text('');
-      $('#billingcharges_error').text('');
-      $('#discount_error').text('');
-      $('#billingdate_error').text('');
-      $('#schoolemail_error').text('');
+      $('#username_error').text('');
+      $('#password_error').text('');
+      $('#email_error').text('');
       var formData = new FormData(this);
-      formData.append('key1', 'value1');
-formData.append('key2', 'value2');
-
-// Display the key/value pairs
-for (var pair of formData.entries()) {
-    console.log(pair[0]+ ', ' + pair[1]); 
-}
-
       $.ajax({
-        url: '{{url("addcampus")}}',
+        url: '{{url("addstaff")}}',
             type:'POST',
             data: formData,
             processData: false,
             contentType: false,
             success: function(data){
-                toastr.success('success added campus', 'Notice');
+                toastr.success('success added staff', 'Notice');
               },
             error: function(error){
                 console.log(error);

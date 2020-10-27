@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\campusrequest;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\campusrequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +15,7 @@ class CampusController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+       // $this->middleware(['auth','verified']);
     }
     /**
      * Display a listing of the resource.
@@ -36,9 +37,9 @@ class CampusController extends Controller
     }
 
 
-    public function store(campusrequest $request)
+    public function store(Request $request)
     {
-    //    dd($request->all);
+       $permission= json_encode($request->role_per);
         $image = $request->file('schoollogo');
         $my_image =null;
         if(!empty($image)):
@@ -57,6 +58,7 @@ class CampusController extends Controller
         $kelexcampus->LOGO_IMAGE=  $my_image;
         $kelexcampus->SCHOOL_REG=   $request->input("schoolregistration");
         $kelexcampus->SCHOOL_WEBSITE=   $request->input("schoolwebsite");
+        $kelexcampus->SCHOOL_EMAIL= $request->input("schoolemail");
         $kelexcampus->CONTROLLLER=  "abc";
         $kelexcampus->USER_ID= Auth::user()->id;
         $kelexcampus->CITY_ID=  $request->input("city");
@@ -68,14 +70,16 @@ class CampusController extends Controller
         $kelexcampus->SMS_ALLOWED=	$request->input("smsstatus");
         $kelexcampus->AGREEMENT=   $request->input("Aggreement");
         $kelexcampus->AGREEMENT_DATE= $agreementdate;
-       
         if ($kelexcampus->save()) {
             $campusID = $kelexcampus->CAMPUS_ID;
-            // $login_array = array( 'CAMPUS_ID' =>  $campusID,
-            //                       'username'  => $request->input('schoolemail'),
-            //                       'password' => Hash::make(12345)  
-            //                 );
-            //                 dd($login_array);
+            $user= new User();
+            $user->username="admin";
+            $user->password=Hash::Make("admin");
+            $user->CAMPUS_ID=$kelexcampus->CAMPUS_ID;
+            $user->isadmin=true;
+            $user->email=$kelexcampus->SCHOOL_EMAIL;
+            $user->permissions=$permission;
+            $user->save();
             return response()->json(array('status' => 1,'response' => 'Campus Created Sucessfully..'));
         }
     }

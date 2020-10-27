@@ -10,6 +10,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\NonTeachingController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
@@ -97,7 +98,7 @@ Route::get('/superadmin',[App\Http\Controllers\AdminController::class,'index'])-
 // Campus Routes
 Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus");
 
-Route::match(['post'],'/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
+Route::match(['get','post'],'/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
 
 Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showcampus'])->name('showcampus');
 
@@ -115,6 +116,7 @@ Route::group([ 'middleware' => 'Admin'], function()
 
 Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
 // Academics Route Start
+
 
     //section route
     Route::match(['get', 'post'], '/section', [AcademicsController::class, 'index_section'])->name("section");
@@ -239,6 +241,10 @@ Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'
 Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
 Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
 Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
+
+//Add Non Teaching Staff
+Route::match(['get', 'post'], '/staff', [NonTeachingController::class, 'index_staff'])->name("staff");
+Route::match(['get', 'post'], '/addstaff', [NonTeachingController::class, 'store_staff'])->name("add-staff");
 
 
 });

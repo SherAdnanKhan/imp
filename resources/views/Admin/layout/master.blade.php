@@ -14,7 +14,7 @@
         
      
    
-      
+        <script src="{{asset('assets/js/jquery.min.js')}}"></script>
       <!-- Start Global Mandatory Style
          =====================================================================-->
       <!-- jquery-ui css -->

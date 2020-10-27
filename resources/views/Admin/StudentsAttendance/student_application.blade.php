@@ -82,7 +82,7 @@ if(month < 10)
 if(day < 10)
     day = '0' + day.toString();
 var maxDate = year + '-' + month + '-' + day;
-var minDate = dtToday.setMonth( dtToday.getMonth() + 2 );
+var minDate = maxDate.setMonth( maxDate.getMonth() + 2 );
 $('#txtDate').attr('min', maxDate);
 $('#txtDate').attr('mnax', minDate);
 $('#txtDate1').attr('min', maxDate);
