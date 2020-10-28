@@ -27,8 +27,9 @@ class campusrequest extends FormRequest
             'schoolname' => 'required|max:255',
             'schooladdress' => 'required|max:255',
             'phoneno' => 'required|max:255',
-            // 'city' =>   'required|max:255',
+            'city' =>   'required|max:255',
             'instuition'=> 'required|max:255',
+            'schoolemail'=>'required|',
             'status'=>  'required|max:10',
             'smsstatus'=>  'required|max:10',
             'billingcharges' => 'required|max:255',
@@ -48,7 +49,6 @@ class campusrequest extends FormRequest
   
             'schooladdress.required' => "School Address is required",
             'schooladdress.max' => "School Address can not be greater than 255 characters",
-
             'phoneno.required' => "Phone Number is required",
             'phoneno.max' => "Phone Number can not be greater than 255 characters",
 

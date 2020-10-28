@@ -151,7 +151,7 @@ public function AddApplication(StudentApplicationRequest $request)
 {
     $matchdates=0;
     $result= Kelex_student_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
-    where('STUDENT_ID',Session::get('STUDENT_ID'))->first();
+    where('STUDENT_ID',Session::get('STUDENT_ID'))->get()->toArray();
     if(count($result))
     {
     $requestdates=$this->twoDatesRange($request->START_DATE, $request->END_DATE);
@@ -198,7 +198,6 @@ public function ViewApplicationbyadmin(Request $request)
 
     $application=Kelex_student_application::where('APPLICATION_STATUS',"0")->
     where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
-
     return view('Admin.StudentsAttendance.check_application_admin')->with(['applications'=>$application,'todayapplog'=>$todayapplicationlog]);
 
 }

@@ -26,7 +26,6 @@
                       </tr>
                     </thead>
                     <tbody id="displaydata">
-                    
                     @if(isset($applications) && count($applications)>0)
                     @foreach($applications as $application)
                       
@@ -113,7 +112,7 @@ $('body').on('click', '.btnapp',function () {
             url: '{{url("TeacteractionApplicationAdmin")}}',
             type: "GET",
             data: {
-              EMP_ID:EMP_ID,
+                EMP_ID:EMP_ID,
                APPLICATION_STATUS:APPLICATION_STATUS,
                STAFF_APP_ID:STAFF_APP_ID
             }, 
@@ -147,6 +146,7 @@ $('body').on('click', '.btnapp',function () {
             dataType:"json",
             success: function(data){
               if(data){
+                return false;
                 toastr.success('Action Performed Successfully','Notice')
                 setTimeout(function(){location.reload();},1000);
               }

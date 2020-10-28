@@ -29,7 +29,7 @@
                         <th scope="col">School Name</th>
                         <th scope="col">School Adresss</th>
                         <th scope="col">School Contact</th>
-                        <th scope="col">School Website</th>
+                        <th scope="col">School Email</th>
                         <th scope="col">School Status</th>
                         <th scope="col">City</th>
                         <th scope="col">Agreement</th>
@@ -48,7 +48,7 @@
                         <td>{{$campus->SCHOOL_NAME}}</td>
                         <td>{{$campus->SCHOOL_ADDRESS}}</td>
                         <td>{{$campus->PHONE_NO}}</td>
-                        <td>{{$campus->SCHOOL_WEBSITE}}</td>
+                        <td>{{$campus->SCHOOL_EMAIL}}</td>
                         <td>{{$campus->STATUS==1?'Yes':'No'}}</td>
                         <td>{{$campus->CITY_ID}}</td>
                         <td>{{$campus->AGREEMENT==1?'Yes':'No'}}</td>
@@ -242,34 +242,18 @@
             processData: false,
             contentType: false,
             success: function(data){ 
-            for(i=0;i<data.length;i++){
-                location.reload();
-            console.log(data);
-             var status = data[i].STATUS==1?'Yes':'No';
-             var aggreement = data[i].STATUS==1?'Yes':'No';
-
-            $('#row' + data[i].CAMPUS_ID).replaceWith(`
-            <tr id="row`+data[i].CAMPUS_ID+`">
-            <td>` + data[i].CAMPUS_ID + `</td>
-            <td>` + data[i].SCHOOL_NAME+`</td>
-                        <td>` + data[i].SCHOOL_ADDRESS+`</td>
-                        <td>` + data[i].PHONE_NO+`</td>
-                        <td>` + data[i].SCHOOL_WEBSITE+`</td>
-                        <td>` + status+`</td>
-                        <td>` + data[i].CITY_ID+`</td>
-                        <td>` + aggreement +`</td>
-                        <td>` + data[i].AGREEMENT_DATE+`</td>
-                        <td><img src="{{ asset('upload') }}/` + data[i].LOGO_IMAGE+`" alt="" style="width: 50px;height:50px;"></td>
-                        <td>
-                            <button class="btn btn-success editbtn" value="`+ data[i].CAMPUS_ID+`">Edit</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger deletebtn" value="` + data[i].CAMPUS_ID+`">Delete</button>
-                        </td>
-                </tr>`);
+              if(data){
+                $("#editcampus").get(0).reset();
+                $('#campusEditModal').modal('hide');
+                toastr.success('Action Performed Successfully','Notice')
+                setTimeout(function(){location.reload();},1000);
               }
-              $("#editcampus").get(0).reset();
-            $('#campusEditModal').modal('hide');
+              else
+              {
+                toastr.warning('Email Already Exist In Other Campuses','Notice')
+              }
+        
+            
             }
               
               ,

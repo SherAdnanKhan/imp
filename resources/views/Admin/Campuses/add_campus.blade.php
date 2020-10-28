@@ -1474,7 +1474,13 @@ for (var pair of formData.entries()) {
             processData: false,
             contentType: false,
             success: function(data){
+                if(data.status==1){
                 toastr.success('success added campus', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+                }
+                else{
+                    toastr.error(data.response, 'Notice');
+                }
               },
             error: function(error){
                 console.log(error);

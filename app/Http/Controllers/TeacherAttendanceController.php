@@ -141,7 +141,6 @@ class TeacherAttendanceController extends Controller
             
         $application=Kelex_staff_application::where('APPLICATION_STATUS',"0")->
         where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
-    
         return view('Admin.TeacherAttendance.check_application_admin')->with(['applications'=>$application,'todayapplog'=>$todayapplicationlog]);
     
     }
@@ -153,7 +152,6 @@ class TeacherAttendanceController extends Controller
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->get();
         if(count($application)!=='0'){
        $result= Kelex_staff_application::find($request->STAFF_APP_ID);
-       dd($request->STAFF_APP_ID);
        $result->APPLICATION_STATUS= $request->APPLICATION_STATUS;
        $result->APPROVED_AT=date('Y-m-d');
        $result->USER_ID = Session::get('user_id');

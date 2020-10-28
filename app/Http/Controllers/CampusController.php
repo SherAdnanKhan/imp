@@ -37,8 +37,10 @@ class CampusController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(campusrequest $request)
     {
+       $result= Kelex_campus::where('SCHOOL_EMAIL',$request->input("schoolemail"))->get()->Toarray();
+       if(count($result)==0){
        $permission= json_encode($request->role_per);
         $image = $request->file('schoollogo');
         $my_image =null;
@@ -73,7 +75,7 @@ class CampusController extends Controller
         if ($kelexcampus->save()) {
             $campusID = $kelexcampus->CAMPUS_ID;
             $user= new User();
-            $user->username="admin";
+            $user->username=$kelexcampus->SCHOOL_EMAIL;
             $user->password=Hash::Make("admin");
             $user->CAMPUS_ID=$kelexcampus->CAMPUS_ID;
             $user->isadmin=true;
@@ -82,6 +84,12 @@ class CampusController extends Controller
             $user->save();
             return response()->json(array('status' => 1,'response' => 'Campus Created Sucessfully..'));
         }
+    }
+        else
+        {
+            return response()->json(array('status' => 0,'response' => 'Email Already Exist..'));
+        }
+
     }
     public function getcampusdata(Request $request){
         $currentcampus = DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->campusid])
@@ -93,6 +101,10 @@ class CampusController extends Controller
     }
     public function updatecampusdata(campusrequest $request)
     {
+        $result= Kelex_campus::where('SCHOOL_EMAIL',$request->input("schoolemail"))
+        ->where('CAMPUS_ID','!=',$request->input('campusid'))->get()->Toarray();
+        if(count($result)==0){ 
+
         if($request->hasFile('schoollogo'))
         {
         $image = $request->file('schoollogo');
@@ -114,6 +126,7 @@ class CampusController extends Controller
               "MOBILE_NO"=>$request->input("mobileno"),
               "SCHOOL_REG"=>$request->input("schoolregistration"),
               "SCHOOL_WEBSITE"=>   $request->input("schoolwebsite"),
+              "SCHOOL_EMAIL"=>   $request->input("schoolemail"),
               "CONTROLLLER"=>  "abc",
               "USER_ID"=> Auth::user()->id,
               "CITY_ID"=>  $request->input("city"),
@@ -128,11 +141,14 @@ class CampusController extends Controller
               ]);
 
         if (!is_null( $affected)) {
-            $getchanges = DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->input('campusid')])
-            ->get();
-          return response()->json($getchanges);
+          return response()->json(true);
         }
     }
+    else
+    {
+        return response()->json(false);
+    }
+}
     public function deletecampusdata(Request $request)
     {
         $id=$request->input('dcampusid');
