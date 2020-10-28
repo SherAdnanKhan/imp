@@ -60,10 +60,10 @@
                                             <div class="card">
                                         </div>
                             <?php 
-                            $permissions= json_decode($permission); 
+                             $permissions= json_decode($permissionstaff); 
                             //dd($permissions); 
                             ?>
-                                        @if($permissions->usermanagment->status=="1")
+                                        @if(isset($permissions->usermanagment->status)=="1")
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -71,7 +71,7 @@
                                                         <div class="input-group-prepend">
                                                         <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="USER MANAGMENT">
                                                             <div class="input-group-text">
-                                                            <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[usermanagment][status]" value="1">
+                                                            <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[usermanagment][status)]" value="1">
                                                             </div>
                                                         </div>
                                                         
@@ -104,7 +104,7 @@
                                        
                                         </div> 
                                         @endif
-                                        @if($permissions->acadamics->status=="1")
+                                        @if(isset($permissions->acadamics->status)=="1")
                                                 <div class="row">
                                                 
                                                 <div class="col-md-4">
@@ -113,7 +113,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Acadamics">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -125,7 +125,7 @@
                                                 </div>
                                             </div>
                                             @endif
-                                        @if($permissions->acadamics->student_manage->view=="1")
+                                        @if(isset($permissions->acadamics->student_manage->view)=="1")
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -133,7 +133,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="STUDENT MANAGAMENT">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][student_manage]status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][student_manage]status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -162,7 +162,7 @@
                                                 </div>
                                             </div>  
                                         @endif
-                                        @if($permissions->acadamics->session->status=="1")
+                                        @if(isset($permissions->acadamics->session->status)=="1")
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -170,7 +170,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SESSION / BATCH">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][session][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][session][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -199,7 +199,7 @@
                                                 </div>
                                             </div> 
                                             @endif
-                                        @if($permissions->acadamics->classess->status=="1")   
+                                        @if(isset($permissions->acadamics->classess->status)=="1")   
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -207,7 +207,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="CLASSES / PROGRAM">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][classess][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][classess][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -236,7 +236,7 @@
                                                 </div>
                                             </div> 
                                             @endif
-                                        @if($permissions->acadamics->sections->status=="1")    
+                                        @if(isset($permissions->acadamics->sections->status)=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -244,7 +244,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SECTION /SEMESTER">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][sections][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][sections][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -273,7 +273,7 @@
                                                 </div>
                                             </div> 
                                             @endif
-                                        @if($permissions->acadamics->subjects->status=="1")    
+                                        @if(isset($permissions->acadamics->subjects->status)=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -281,7 +281,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Subjects">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][subjects][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][subjects][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -310,7 +310,7 @@
                                                 </div>
                                             </div> 
                                             @endif
-                                        @if($permissions->admissionwithdraw->status=="1")  
+                                        @if(isset($permissions->admissionwithdraw->status)=="1")  
                                               
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -319,7 +319,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Admission Withdraw">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[admissionwithdraw][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[admissionwithdraw][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -332,7 +332,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->admissionwithdraw->withdraw_register->status=="1")  
+                                        @if(isset($permissions->admissionwithdraw->withdraw_register->status)=="1")  
                                             
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -341,7 +341,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="With-Draw Register">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[admissionwithdraw][withdraw_register][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[admissionwithdraw][withdraw_register][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -371,7 +371,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->registermanagment->status=="1")      
+                                        @if(isset($permissions->registermanagment->status)=="1")      
                                             
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -380,7 +380,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Register Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[registermanagment][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[registermanagment][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -410,7 +410,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->correspondence->status=="1") 
+                                        @if(isset($permissions->correspondence->status)=="1") 
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -418,7 +418,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="correspondence">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[correspondence][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[correspondence][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -431,7 +431,7 @@
                                                 
                                             </div>
                                         @endif
-                                        @if($permissions->complaintletter->status=="1")     
+                                        @if(isset($permissions->complaintletter->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -439,7 +439,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Complaint Letter Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[complaintletter][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[complaintletter][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -469,7 +469,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->showcause->status=="1")      
+                                        @if(isset($permissions->showcause->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -477,7 +477,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Showcause Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[showcause][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[showcause][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -508,7 +508,7 @@
                                             </div>
                                             
                                         @endif
-                                        @if($permissions->notification->status=="1")       
+                                        @if(isset($permissions->notification->status)=="1")       
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -516,7 +516,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Notification">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[notification][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[notification][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -547,7 +547,7 @@
                                             </div>
                                            
                                         @endif
-                                        @if($permissions->fee_managament->status=="1")    
+                                        @if(isset($permissions->fee_managament->status)=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -555,7 +555,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Fee Managnent">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -568,7 +568,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->fee_managament->fee_category->status=="1")   
+                                        @if(isset($permissions->fee_managament->fee_category->status)=="1")   
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -576,7 +576,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Define Fee Category">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_category][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_category][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -606,7 +606,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->fee_managament->define_fee->status=="1")      
+                                        @if(isset($permissions->fee_managament->define_fee->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -614,7 +614,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Define Fee">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][define_fee][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][define_fee][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -644,7 +644,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->fee_managament->fee_collection->status=="1")     
+                                        @if(isset($permissions->fee_managament->fee_collection->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -652,7 +652,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Fee Collection">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_collection][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_collection][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -682,7 +682,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->fee_managament->fee_voucher->status=="1")     
+                                        @if(isset($permissions->fee_managament->fee_voucher->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -690,7 +690,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Print Fee Voucher">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_voucher][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_voucher][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -720,7 +720,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->fee_managament->fee_register->status=="1")      
+                                        @if(isset($permissions->fee_managament->fee_register->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -728,7 +728,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Fee register">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_register][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][fee_register][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -758,7 +758,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->fee_managament->family_accounts->status=="1")      
+                                        @if(isset($permissions->fee_managament->family_accounts->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -766,7 +766,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Family Accounts">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][family_accounts][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[fee_managament][family_accounts][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -796,7 +796,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->std_attendance->status=="1")     
+                                        @if(isset($permissions->std_attendance->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -804,7 +804,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Student Attendance">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -817,7 +817,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->std_attendance->application->status=="1")     
+                                        @if(isset($permissions->std_attendance->application->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -825,7 +825,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Applications">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][application][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][application][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -855,7 +855,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->std_attendance->std_attendance_manage->status=="1")      
+                                        @if(isset($permissions->std_attendance->std_attendance_manage->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -863,7 +863,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Attendance Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][std_attendance_manage][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][std_attendance_manage][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -893,7 +893,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->std_attendance->non_present->status=="1")     
+                                        @if(isset($permissions->std_attendance->non_present->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -901,7 +901,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Non-Present Report">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][non_present][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[std_attendance][non_present][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -931,7 +931,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->hr_managment->status=="1")     
+                                        @if(isset($permissions->hr_managment->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -939,7 +939,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="HR Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -953,7 +953,7 @@
                                             </div>
 
                                             @endif
-                                        @if($permissions->hr_managment->emp_categories->status=="1")     
+                                        @if(isset($permissions->hr_managment->emp_categories->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -961,7 +961,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Employee Categories">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_categories][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_categories][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -991,7 +991,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->hr_managment->emp_manage->status=="1")     
+                                        @if(isset($permissions->hr_managment->emp_manage->status)=="1")     
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -999,7 +999,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Employee Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_manage][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_manage][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1030,7 +1030,7 @@
                                             </div>
 
                                             @endif
-                                        @if($permissions->hr_managment->emp_attendance->status=="1")       
+                                        @if(isset($permissions->hr_managment->emp_attendance->status)=="1")       
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1038,7 +1038,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Employee Attendance">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_attendance][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[hr_managment][emp_attendance][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1069,7 +1069,7 @@
                                             </div>
 
                                             @endif
-                                        @if($permissions->accounts->status=="1")      
+                                        @if(isset($permissions->accounts->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1077,7 +1077,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Accounts">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1091,7 +1091,7 @@
                                             </div>
 
                                             @endif
-                                        @if($permissions->accounts->asset_category->status=="1")
+                                        @if(isset($permissions->accounts->asset_category->status)=="1")
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1099,7 +1099,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Assets Category">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][asset_category][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][asset_category][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1131,7 +1131,7 @@
 
                                         
                                             @endif
-                                        @if($permissions->accounts->asset_managment->status=="1")    
+                                        @if(isset($permissions->accounts->asset_managment->status)=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1139,7 +1139,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Assets Managamnet">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][asset_managment][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[accounts][asset_managment][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1170,7 +1170,7 @@
                                             </div>
 
                                             @endif
-                                        @if($permissions->certificate->status=="1")        
+                                        @if(isset($permissions->certificate->status)=="1")        
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1178,7 +1178,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Certificate Managment">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1192,7 +1192,7 @@
                                             </div>
 
                                             @endif
-                                        @if($permissions->certificate->slc->status=="1")    
+                                        @if(isset($permissions->certificate->slc->status)=="1")    
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1200,7 +1200,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SLC">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][slc][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][slc][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1230,7 +1230,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->certificate->experience->status=="1")      
+                                        @if(isset($permissions->certificate->experience->status)=="1")      
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1238,7 +1238,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Experience">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][experience][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][experience][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             
@@ -1268,7 +1268,7 @@
                                                 
                                             </div>
                                             @endif
-                                        @if($permissions->certificate->curricular->status=="1")          
+                                        @if(isset($permissions->certificate->curricular->status)=="1")          
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -1276,7 +1276,7 @@
                                                             <div class="input-group-prepend">
                                                             <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="Curricular ">
                                                                 <div class="input-group-text">
-                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][curricular][status]" value="1">
+                                                                <input type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[certificate][curricular][status)]" value="1">
                                                                 </div>
                                                             </div>
                                                             

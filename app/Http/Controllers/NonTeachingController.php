@@ -15,7 +15,7 @@ class NonTeachingController extends Controller
             $user=User::where('isadmin',true)->
             select('permissions')->first();
             $currentpermission=$user['permissions'];
-            return view('Admin/Hrmanagement/add_staff_with_permissions')->with('permission',$currentpermission);
+            return view('Admin/Hrmanagement/add_staff_with_permissions')->with('permissionstaff',$currentpermission);
     }
 
 
