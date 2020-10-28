@@ -7,7 +7,7 @@
                     <img src="{{asset('assets/images/logo.png')}}" alt="" height="24">
                 </span>
                 <i>
-                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
+                    <img src="{{asset('assets/images/logo-sm1.png')}}" alt="" height="22">
                 </i>
             </a>
         </div>
@@ -17,11 +17,11 @@
             <ul class="navbar-right d-flex list-inline float-right mb-0">
                 <li class="dropdown notification-list d-none d-sm-block">
                     <form role="search" class="app-search">
-                        <div class="form-group mb-0"> 
+                        <div class="form-group mb-0">
                             <input type="text" class="form-control" placeholder="Search..">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </div>
-                    </form> 
+                    </form>
                 </li>
 
                 <li class="dropdown notification-list">
@@ -29,7 +29,7 @@
                         <i class="mdi mdi-bell noti-icon"></i>
                         <span class="badge badge-pill badge-info noti-icon-badge">3</span>
                     </a>
-                   
+
                 </li>
                 <li class="dropdown notification-list">
                     <div class="dropdown notification-list nav-pro-img">
@@ -42,7 +42,7 @@
                             <a class="dropdown-item" href="#"><i class="mdi mdi-wallet m-r-5"></i> My Wallet</a>
                             <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings m-r-5"></i> Settings</a>
                             <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5"></i> Lock screen</a>
-                            <div class="dropdown-divider"></div>  
+                            <div class="dropdown-divider"></div>
 
                             @if(Session::get('is_teacher'))
                             <a class="dropdown-item text-danger" href="{{ route('logoutteacher') }}"
@@ -77,7 +77,7 @@
                                         @csrf
                                     </form>
                             @endif
-                        </div>                                                                    
+                        </div>
                     </div>
                 </li>
 
@@ -88,8 +88,8 @@
                     <button class="button-menu-mobile open-left waves-effect waves-light">
                         <i class="mdi mdi-menu"></i>
                     </button>
-                </li>                        
-               
+                </li>
+
             </ul>
 
         </nav>
@@ -109,4 +109,3 @@
 
 
 
-    

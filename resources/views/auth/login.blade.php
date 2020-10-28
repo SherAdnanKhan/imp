@@ -7,12 +7,12 @@
     <div class="card-body">
 
         <h3 class="text-center m-0">
-            <a href="{{ route('login') }}" class="logo logo-admin"><img src="assets/images/logo.png" height="30" alt="logo"></a>
+            <a href="{{ route('login') }}" class="logo logo-admin"><img src="assets/images/collabs_logo.png" height="30" alt="logo"></a>
         </h3>
 
         <div class="p-3">
             <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
-            <p class="text-muted text-center">Sign in to continue to Kelex School.</p>
+            <p class="text-muted text-center">Sign in to continue.</p>
 
             <form class="form-horizontal m-t-30" method='Post'action="{{ route('login') }}">
 
@@ -26,7 +26,7 @@
                     @enderror
                 </div>
                     @csrf
-              
+
                 <div class="form-group">
                     <label for="userpassword">Password</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter password">
