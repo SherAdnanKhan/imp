@@ -7,12 +7,12 @@
     <div class="card-body">
 
         <h3 class="text-center m-0">
-            <a href="{{ route('login') }}" class="logo logo-admin"><img src="assets/images/logo.png" height="30" alt="logo"></a>
+            <a href="{{ route('login') }}" class="logo logo-admin"><img src="assets/images/collabs_logo.png" height="30" alt="logo" style=" width: 24%; height: 24%;"></a>
         </h3>
 
         <div class="p-3">
             <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
-            <p class="text-muted text-center">Sign in to continue to Kelex School.</p>
+            <p class="text-muted text-center">Sign in to continue.</p>
       <ul class="nav nav-pills nav-justified" role="tablist">
                                                 <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link active border border-danger"  data-toggle="tab" href="#activity" role="tab">Admin</a>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-6 text-right">
                         <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
-                       
+
                         </div>
                         </div>
 
@@ -86,11 +86,11 @@
                         <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="customControlInlineT" {{ old('remember') ? 'checked' : '' }}>
                         <label class="custom-control-label" for="customControlInlineT">Remember me</label>
-                    
+
                         </div>
                         </div>
                         <div class="col-6 text-right">
-                       
+
                         <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
                         </div>
                         </div>
@@ -140,7 +140,7 @@
                </div>
                </div>
             </div>
-         </div>        
+         </div>
         </div>
 
     </div>
@@ -182,7 +182,7 @@ $('body').on('submit','#Adminloginform',function(e){
                   {
 
                   window.location=data.url;
-                     
+
                   }
               },
               error: function(error){
@@ -191,7 +191,7 @@ $('body').on('submit','#Adminloginform',function(e){
                     $.each(response.errors, function (key, val) {
                         $("#" + key + "_error").text(val[0]);
                     });
-    }         
+    }
       });
     });
     $('body').on('submit','#Teacherloginform',function(e){
@@ -214,7 +214,7 @@ $('body').on('submit','#Adminloginform',function(e){
                   else
                   {
                     window.location=data.url;
-                     
+
                   }
               },
               error: function(error){
@@ -224,9 +224,9 @@ $('body').on('submit','#Adminloginform',function(e){
                         $("#" + key + "_error").text(val[0]);
                     });
     }
-      
 
-              
+
+
       });
     });
     $('body').on('submit','#Studentloginform',function(e){
@@ -249,7 +249,7 @@ $('body').on('submit','#Adminloginform',function(e){
                   else
                   {
                     window.location=data.url;
-                     
+
                   }
               },
               error: function(error){
@@ -259,9 +259,9 @@ $('body').on('submit','#Adminloginform',function(e){
                         $("#" + key + "_error").text(val[0]);
                     });
     }
-      
 
-              
+
+
       });
     });
 </script>
