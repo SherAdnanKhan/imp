@@ -14,7 +14,7 @@ class CreateFeesTable extends Migration
     public function up()
     {
         Schema::create('kelex_fee_types', function (Blueprint $table) {
-            $table->id('FEE_TYPE_ID');
+            $table->id('FEE_ID');
             $table->bigInteger('CLASS_ID')->nullable();
             $table->bigInteger('SECTION_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();

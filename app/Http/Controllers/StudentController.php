@@ -24,8 +24,8 @@ class StudentController extends Controller
    
     public function index_student()
     {
-        $class= Kelex_class::all(); 
-        $session= Kelex_sessionbatch::all(); 
+        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get(); 
+        $session= Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get(); 
         return view("Admin.Students.addstudent")->with(['classes'=>$class,'sessions'=>$session]);
     }
     public function add_student(studentrequest $request)
@@ -89,7 +89,7 @@ class StudentController extends Controller
     public function showstudent()
     {
 
-    $student= Kelex_student::all();
+    $student= Kelex_student::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
     
 
     return view('Admin.Students.view')->with('students',$student);
@@ -158,7 +158,7 @@ class StudentController extends Controller
     public function show()
     {
 
-    $class= Kelex_class::all();
+    $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
     return view('Admin.Students.view')->with('classes',$class);
     }
     
@@ -213,11 +213,11 @@ class StudentController extends Controller
         $data = Kelex_student::find($id)->toArray();
         $std_session_data= Kelex_students_session::where('STUDENT_ID',$id)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
-        $class= Kelex_class::all(); 
+        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get(); 
         $sectionid= $std_session_data['SECTION_ID'];
         $section= kelex_section::where('Section_id',$sectionid)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
-        $session=Kelex_sessionbatch::all();
+        $session=Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         return array($data,$class,$section,$session,$std_session_data);
     }
 

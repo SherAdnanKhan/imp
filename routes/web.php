@@ -245,6 +245,9 @@ Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'up
 //Add Non Teaching Staff
 Route::match(['get', 'post'], '/staff', [NonTeachingController::class, 'index_staff'])->name("staff");
 Route::match(['get', 'post'], '/addstaff', [NonTeachingController::class, 'store_staff'])->name("add-staff");
+Route::match(['get', 'post'], '/showstaff', [NonTeachingController::class, 'show_all_staff'])->name("show-staff");
+Route::match(['get', 'post'], '/editstaff/{id}', [NonTeachingController::class, 'edit_staff'])->name("edit-staff");
+Route::match(['get', 'post'], '/updatestaff', [NonTeachingController::class, 'update_staff'])->name("update-staff");
 
 
 });

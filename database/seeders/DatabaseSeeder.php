@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\Kelex_campus::factory(10)->create();
+       //  \App\Models\Kelex_campus::factory(10)->create();
         // \App\Models\Kelex_class::factory(10)->create();
         // \App\Models\kelex_section::factory(10)->create();
        // \App\Models\Kelex_sessionbatch::factory(10)->create();

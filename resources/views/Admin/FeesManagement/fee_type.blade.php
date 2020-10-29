@@ -117,17 +117,19 @@
                </tr>
             </thead>
             <tbody id="displaydata">
+            @if(isset($getfeecat))
             @foreach($getfeecat as $getfc)
-               <tr id="row{{$getfc->FEE_TYPE_ID}}">
+               <tr id="row{{$getfc->FEE_ID}}">
                   <td> {{$getfc->SB_NAME}}</td>
                   <td> {{$getfc->Class_name}}</td>
                   <td> {{$getfc->Section_name}}</td>
                   <td> {{$getfc->CATEGORY}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
                   <td> {{$getfc->FEE_TYPE}}</td>
-                  <td><button value="{{$getfc->FEE_TYPE_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button> </td>
+                  <td><button value="{{$getfc->FEE_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button> </td>
                </tr>
                @endforeach
+            @endif
             </tbody>
          </table>
          </div>

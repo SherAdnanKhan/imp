@@ -9,7 +9,7 @@
 <div class="row">
          <div class="card m-b-30 card-body">
             <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
-            <form action="{{ route('add-fee-structreu')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
+            <form action="{{ route('add-fee-structure')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
                <div class="row">
                   <div class="col">
                       <div class="form-group">
@@ -128,14 +128,14 @@
             </thead>
             <tbody id="displaydata">
             @foreach($getfeeStructure as $getfc)
-               <tr id="row{{$getfc->FEE_TYPE_ID}}">
+               <tr id="row{{$getfc->FEE_ID}}">
                   <td> {{$getfc->SB_NAME}}</td>
                   <td> {{$getfc->Class_name}}</td>
                   <td> {{$getfc->Section_name}}</td>
                   <td> {{$getfc->CATEGORY}}</td>
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
                   <td> {{$getfc->FEE_TYPE}}</td>
-                  <td><button value="{{$getfc->FEE_TYPE_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button> </td>
+                  <td><button value="{{$getfc->FEE_ID}}" class="btn btn-primary btn-xs editbtn" > edit </button> </td>
                </tr>
                @endforeach
             </tbody>

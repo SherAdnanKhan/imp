@@ -9,14 +9,10 @@
                             <li class="menu-title">Main</li>
                             <li>
                             <?php 
-                            if(isset($permissions)){
-                            $permissions= json_decode($permissionstaff);
-                            }
-                            else{
-                            $permission=session::get('permissions');
-                            $permissions= json_decode($permission);  
-                            }
-                                
+                            $permission=Session::get('permissions');
+                            $permissions= json_decode($permission); 
+                 
+                              //  dd($permissions);
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
