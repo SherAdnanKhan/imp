@@ -9,7 +9,7 @@
 <div class="row">
          <div class="card m-b-30 card-body">
             <h3 class="card-title font-16 mt-0">Define Fee Type</h3>
-            <form action="{{ route('add-fee-structreu')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
+            <form action="{{ route('add-fee-structure')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
                <div class="row">
                   <div class="col">
                       <div class="form-group">
