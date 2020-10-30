@@ -24,7 +24,7 @@ class kelex_sectionFactory extends Factory
         return [
             'Section_name'=> $this->faker->name,
             'Class_id'=> $this->faker->numberBetween($min = 1, $max = 10),
-            'CAMPUS_ID'=> $this->faker->numberBetween($min = 1, $max = 50),
+            'CAMPUS_ID'=> $this->faker->numberBetween($min = 1, $max = 10),
             'USER_ID'=> $this->faker->numberBetween($min = 1, $max = 10),
         ];
     }

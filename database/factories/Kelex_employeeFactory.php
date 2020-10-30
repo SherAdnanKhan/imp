@@ -39,7 +39,7 @@ class Kelex_employeeFactory extends Factory
             'EMP_DOB'=>  $this->faker->date($format = 'Y-m-d', $max = 'now')  ,
             'ALLOWANCESS'=> $this->faker->randomNumber(3) ,
             'ADDED_BY'=> $this->faker->numberBetween($min = 1, $max = 10),
-            'CAMPUS_ID' => $this->faker->numberBetween($min = 1, $max = 50),
+            'CAMPUS_ID' => $this->faker->numberBetween($min = 1, $max = 10),
         ];
     }
 }

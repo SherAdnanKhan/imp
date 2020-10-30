@@ -220,6 +220,7 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     // Fee Catergory Routes Start
 
     Route::match(['get', 'post'], '/feecategory', [FeeController::class, 'index_feecategory'])->name("feecategory");
+    Route::match(['get', 'post'], '/get-sections-by-session/{session_id}', [FeeController::class, 'fee_define_new'])->name("get-sections-by-session");
     Route::match(['get', 'post'], '/addfeecategory', [FeeController::class, 'add_feecategory'])->name("addfeecategory");
     Route::match(['get', 'post'], '/editfeecategory', [FeeController::class, 'edit_feecategory'])->name("editfeecategory");
     Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'update_feecategory'])->name("updatefeecategory");
@@ -230,8 +231,10 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'], '/add-fee-type', [FeeController::class, 'add_fee_type'])->name("add-fee-type");
     Route::match(['get', 'post'], '/edit-fee-type', [FeeController::class, 'edit_fee_type'])->name("edit-fee-type");
     Route::match(['get', 'post'], '/update-fee-type', [FeeController::class, 'update_subjectgroup'])->name("update-fee-type");
-    Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_structure'])->name("fee-structure");
+    // Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_structure'])->name("fee-structure");
+    Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_define_new'])->name("fee-structure");
     Route::match(['get', 'post'], '/add-fee-structure', [FeeController::class, 'add_fee_structure'])->name("add-fee-structure");
+    Route::match(['get', 'post'], '/apply-fee-structure', [FeeController::class, 'apply_fee_structure'])->name("apply-fee-structure");
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 

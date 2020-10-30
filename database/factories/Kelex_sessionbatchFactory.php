@@ -26,7 +26,7 @@ class Kelex_sessionbatchFactory extends Factory
            'START_DATE'=>$this->faker->date($format = 'Y-m-d', $max = 'now') ,
            'END_DATE'=>$this->faker->date($format = 'Y-m-d', $max = 'now') ,
            'TYPE'=> $this->faker->boolean($chanceOfGettingTrue = 50) ,
-           'CAMPUS_ID'=>$this->faker->numberBetween($min = 1, $max = 50),
+           'CAMPUS_ID'=>$this->faker->numberBetween($min = 1, $max = 10),
            'USER_ID'=>$this->faker->numberBetween($min = 1, $max = 10),
         ];
     }
