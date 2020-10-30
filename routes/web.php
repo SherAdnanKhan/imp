@@ -115,6 +115,11 @@ Route::group([ 'middleware' => 'Admin'], function()
 {
 
 Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
+Route::get('/comingsoon', function ()
+{
+
+    return view('Coming_Soon');
+});
 // Academics Route Start
 
 

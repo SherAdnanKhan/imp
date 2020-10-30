@@ -35,7 +35,7 @@
                <div class="form-group"><br>
                   <label for="exampleInputEmail1">TO Date</label>
                   <small id="END_DATE_error" class="form-text text-danger"></small>
-                  <input  name="END_DATE" placeholder="" id="txtDate1" type="date"  max="2020-11-02" class="form-control" value="" autocomplete="off">
+                  <input  name="END_DATE" placeholder="" id="txtDate1" type="date"  class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
                </div>
                <div class="m-t-20">
@@ -82,9 +82,7 @@ if(month < 10)
 if(day < 10)
     day = '0' + day.toString();
 var maxDate = year + '-' + month + '-' + day;
-var minDate = maxDate.setMonth( maxDate.getMonth() + 2 );
 $('#txtDate').attr('min', maxDate);
-$('#txtDate').attr('mnax', minDate);
 $('#txtDate1').attr('min', maxDate);
 });
 

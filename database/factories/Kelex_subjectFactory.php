@@ -27,7 +27,7 @@ class Kelex_subjectFactory extends Factory
         return [
             'SUBJECT_NAME'=> $faker->name,
             'SUBJECT_CODE'=> $faker->hexcolor,
-            'CAMPUS_ID'=>$this->faker->numberBetween($min = 1, $max = 50),
+            'CAMPUS_ID'=>$this->faker->numberBetween($min = 1, $max = 10),
             'USER_ID'=>$this->faker->numberBetween($min = 1, $max = 10),
 
         ];

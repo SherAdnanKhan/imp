@@ -150,23 +150,26 @@ class StudentAttendanceController extends Controller
 public function AddApplication(StudentApplicationRequest $request)
 {
     $matchdates=0;
-    $result= Kelex_student_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
+    $results= Kelex_student_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
     where('STUDENT_ID',Session::get('STUDENT_ID'))->get()->toArray();
-    if(count($result))
+    // dd($result-);
+    if(count($results))
     {
+    foreach($results as $result){
     $requestdates=$this->twoDatesRange($request->START_DATE, $request->END_DATE);
-    $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+    $dates = $this->twoDatesRange($result['START_DATE'], $result['END_DATE']);
     for($i=0;$i<count($dates);$i++)
     {
         for($j=0;$j<count($requestdates);$j++)
         {
-        if($dates[$i]==$requestdates[$j])
+        if($dates[$i]==$requestdates[$j] && $result['APPLICATION_STATUS']!=='2')
         {
         $matchdates+=1;
         }
     }
     }
     }
+}
     if($matchdates==0)
     {
        Kelex_student_application::create(['STUDENT_ID'=>Session::get('STUDENT_ID'),'APPLICATION_STATUS'=>'0',

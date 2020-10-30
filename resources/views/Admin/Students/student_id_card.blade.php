@@ -1,13 +1,20 @@
 @extends('Admin.layout.master')
 
 @section("content")
+<div class="page-content-wrapper">
+<div class="row">
+<div class="col-12">
+   <div class="card m-b-20">
+         <div class="card-body">
+         <a href="{{route('showstudent')}}" class="btn btn-primary">View All Students</a>
+      <br><br>
 	<div class="container">
-     	<div class="row d-flex justify-content-center">
+     	<div class="row d-flex justify-content-center" >
             <div class="col-md-10 mt-5 pt-5">
-             	<div class="row z-depth-3">
+             	<div class="row z-depth-3" style="border-style: solid;border-color: #f16c69;">
                  	<div class="col-sm-4 bg-info rounded-left">
         		        <div class="card-block text-center text-white ">
-                		    <div class="mt-4 text-center ">
+                		    <div class="mt-4 text-center " >
                                 <img src="{{asset('upload')}}/{{$student['IMAGE']}}" 
                                     class="card-img ml-6 img-fluid border-primary rounded"  
                                    style=" width:200px; height:200px;"
@@ -65,6 +72,10 @@
                 	    </div>  
               		</div>
              	</div>
+            </div>
+        </div>
+	</div>
+	</div>
             </div>
         </div>
     </div>

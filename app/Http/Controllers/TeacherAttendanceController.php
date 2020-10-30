@@ -93,12 +93,14 @@ class TeacherAttendanceController extends Controller
     public function AddApplication(TeacherApplicationRequest $request)
     {
         $matchdates=0;
-        $result= Kelex_staff_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
-        where('EMP_ID',Session::get('EMP_ID'))->first();
-        if(!empty($result))
-    {
+        $results= Kelex_staff_application::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
+        where('EMP_ID',Session::get('EMP_ID'))->get()->toArray();
+        if(count($results))
+        {
+        foreach($results as $result){
+
         $requestdates=$this->twoDatesRange($request->START_DATE, $request->END_DATE);
-        $dates = $this->twoDatesRange($result->START_DATE, $result->END_DATE);
+        $dates = $this->twoDatesRange($result['START_DATE'], $result['END_DATE']);
         for($i=0;$i<count($dates);$i++)
         {
             for($j=0;$j<count($requestdates);$j++)
@@ -110,6 +112,7 @@ class TeacherAttendanceController extends Controller
          }
         }
     }
+}
         if($matchdates==0)
         {
            Kelex_staff_application::create(['EMP_ID'=>Session::get('EMP_ID'),'APPLICATION_STATUS'=>'0',

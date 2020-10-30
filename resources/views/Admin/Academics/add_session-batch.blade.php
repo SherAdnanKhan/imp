@@ -31,11 +31,15 @@
                   <span class="text-danger"></span>
                </div>
                <div class="form-group">
-                <label for="Sins">Please Session/Batch:</label><br> 
+                <label for="Sins">Please Select:</label><br> 
                 <small id="type_error" class="form-text text-danger"></small>
                 <label class="radio-inline">
+                <?php $campus=Session::get('CAMPUS');?>
+                @if($campus->TYPE=='school')
                 <input type="radio" name="type" value="1" style=" margin: 10px;" > Session
+                @else
                 <input type="radio" name="type" value="0" style=" margin: 10px;"> Batch
+                @endif
                 </label>
                 </div>
             </div>

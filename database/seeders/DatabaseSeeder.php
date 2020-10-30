@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\kelex_section::factory(10)->create();
        // \App\Models\Kelex_sessionbatch::factory(10)->create();
        // \App\Models\Kelex_subject::factory(10)->create();
-      // \App\Models\Kelex_employee::factory(10)->create();
+       \App\Models\Kelex_employee::factory(10)->create();
       \App\Models\Kelex_student::factory(10)->create();
     }
 }

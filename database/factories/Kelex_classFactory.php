@@ -23,7 +23,7 @@ class Kelex_classFactory extends Factory
     {
         return [
             'class_name'=> $this->faker->name,
-            'CAMPUS_ID'=> $this->faker->numberBetween($min = 1, $max = 50),
+            'CAMPUS_ID'=> $this->faker->numberBetween($min = 1, $max = 10),
             'USER_ID'=> $this->faker->numberBetween($min = 1, $max = 10),
 
         ];

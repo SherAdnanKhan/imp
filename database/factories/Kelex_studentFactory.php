@@ -46,7 +46,7 @@ class Kelex_studentFactory extends Factory
             'PREV_BOARD_UNI'=> $faker->colorName,
             'PASSING_YEAR'=>  $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'REG_NO'=> $this->faker->numberBetween($min = 50, $max = 1000),
-            'CAMPUS_ID'=> $this->faker->numberBetween($min = 1, $max = 50),
+            'CAMPUS_ID'=> $this->faker->numberBetween($min = 1, $max = 10),
             'USER_ID'=> $this->faker->numberBetween($min = 1, $max = 10),
         ];
     }

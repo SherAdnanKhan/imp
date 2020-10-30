@@ -1,44 +1,9 @@
 @extends('Admin.layout.master')
 @section("page-css")
-<!-- <style>
-  
-td:nth-child(even) {color: white; background-color: #009B77;}
-  * {
-  box-sizing: border-box;
-}
-
-form.example input[type=text] {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
-}
-
-form.example button {
-  float: left;
-  width: 20%;
-  padding: 10px;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
-}
-
-form.example button:hover {
-  background: #0b7dda;
-}
-
-form.example::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-</style> -->
-
+<link href="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+<link href="{{asset('admin_assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section("content")
 <div class="row">
@@ -144,6 +109,21 @@ form.example::after {
 
 @endsection
 @section('customscript')
+<script>  
+</script>
+        <script src="{{asset('admin_assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <!-- Buttons examples -->
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/jszip.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/pdfmake.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/vfs_fonts.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
 <script>
         $(document).ready(function () {
           $('#class_id').on('change', function () {
@@ -178,17 +158,14 @@ form.example::after {
                   else
                   {
                     html += ' <div class="table-responsive">';
-                    html += '<table class="table table-bordered dt-responsive nowrap">';
+                    html += '<table id="DataTables_Table_0" class="table table-bordered">';
                     html += '<thead>';
                     html += ' <tr>';
                     html += '   <th scope="col">Student ID</th>';
                     html += '    <th scope="col">Student Name</th>';
                     html += '   <th scope="col">FATHER NAME</th>';
                     html += '    <th scope="col">FATHER Contact</th>';
-                    html += '    <th scope="col">PREVIOUS CLASS</th>';
                     html += '    <th scope="col">PRESENT ADDRESS</th>';
-                    html += '    <th scope="col">SHIFT</th>';
-                    html += '   <th scope="col">Date Of Birth </th>';
                     html += '    <th scope="col">Student Picture</th>';
                     html += '     <th scope="col">Edit</th>';
                     html += '     <th scope="col">View Details</th>';
@@ -202,10 +179,7 @@ form.example::after {
                       html += '  <td>' + data[i].NAME+ '</td>';
                       html += '  <td>' + data[i].FATHER_NAME+ '</td>';
                       html += '  <td>' + data[i].FATHER_CONTACT+ '</td>';
-                      html += '  <td>'+ data[i].PREV_CLASS+ '</td>';
                       html += '  <td>' + data[i].PRESENT_ADDRESS + '</td>';
-                      html += ' <td>' + data[i].SHIFT + '</td>';
-                      html += '  <td>' + data[i].DOB + '</td>';
                       html += '  <td><img src="'+image+'" style="width:50px;height:50px;" alt=""></td>';
                       html += '   <td>';
                       html += '     <a href="editstudent/'+ data[i].STUDENT_ID+'" class="btn btn-success editbtn">Edit</a>';
@@ -218,9 +192,9 @@ form.example::after {
                    html += '</div>';
 
                   }
-                 
                   $("#displaydata").empty();
                 $('#displaydata').html(html);
+                $('#DataTables_Table_0').DataTable();
                 }
                 
               });

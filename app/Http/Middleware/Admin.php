@@ -34,6 +34,10 @@ class Admin
         {
             return redirect('/teacher/dashboard');
         }
+        else 
+        {
+            return redirect('/');
+        }
 
         
     }
