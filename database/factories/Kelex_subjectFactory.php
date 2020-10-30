@@ -20,7 +20,7 @@ class Kelex_subjectFactory extends Factory
      *
      * @return array
      */
-    
+
     public function definition()
     {
         $faker = Faker::create();

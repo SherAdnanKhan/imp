@@ -8,6 +8,7 @@ use App\Models\kelex_section;
 use App\Models\Kelex_fee_type;
 use App\Models\Kelex_fee_category;
 use App\Models\Kelex_sessionbatch;
+use App\Models\KelexFee_structure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\FeetypeRequest;
@@ -225,6 +226,60 @@ class FeeController extends Controller
         // dd($getfeecat);
           $data = ['sessions' => $sessions,'classes'=>$class, 'getfeeStructure'=> $getfeeStructure,'feecategory'=> $feecategory];
         return view('Admin.FeesManagement.fee_structure')->with($data);
+    }
+
+    public function fee_define_new($session_id = null)
+    {
+
+        $fee_cat = Kelex_fee_category::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $record = DB::table('kelex_sections')
+        ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_sections.Class_id')
+        ->LeftJoin('kelex_fee_structures', 'kelex_fee_structures.SECTION_ID', '=', 'kelex_sections.Section_id')
+        ->where('kelex_sections.CAMPUS_ID', '=', Auth::user()->CAMPUS_ID)
+        ->select(
+            'kelex_classes.Class_name',
+            'kelex_classes.Class_id',
+            'kelex_sections.Section_name',
+            'kelex_sections.Section_id',
+            'kelex_fee_structures.*'
+        )
+        ->get()->toArray();
+        $data = ['sessions' => $sessions,  'record' => $record,'fee_cat' => $fee_cat,'sessionID' => $record[0]->SESSION_ID];
+        // $data = json_decode(json_encode($data,true));
+        return view('Admin.FeesManagement.fee_define_new')->with($data);
+    }
+
+    public function apply_fee_structure(Request $request)
+    {
+        $session_id = $request->SESSION_ID;
+        $record = $request->record; //dd($record);
+
+       foreach ($record as $key => $value) {
+            $ammount_array = [];
+        if(!empty($value['cat_amount']) OR $value['cat_amount'] != null):
+            for ($i=0; $i < count($value['cat_amount']); $i++) {
+              array_push($ammount_array,[$value['cat_id'][$i] => $value['cat_amount'][$i] ]);
+            }
+
+        endif;
+         $data = [
+             'SESSION_ID' => $session_id,
+             'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+             'USER_ID' => Auth::user()->id,
+             'CLASS_ID' => $value['class_id'],
+             'SECTION_ID' => $value['section_id'],
+             'FEE_CATEGORY_ID' => isset($value['cat_id']) ? json_encode($value['cat_id']) : null ,
+             'CATEGORY_AMOUNT' => json_encode($ammount_array)
+         ];
+         if($value['fee_structure_id'] == null OR $value['fee_structure_id'] == ""):
+             KelexFee_structure::create($data);
+         else:
+             KelexFee_structure::where('FEE_STRUCTURE_ID',$value['fee_structure_id'])->update($data);
+         endif;
+         unset($ammount_array);
+       }
+       return array('type' => 1,'response' => 'Fee Structure record Saved Successfully.');
     }
 
 }

@@ -167,7 +167,7 @@ $('body').on('submit','#Adminloginform',function(e){
       $('#Adminlogin_error').text('');
       var fdata = new FormData(this);
       $.ajax({
-        url: '{{route("login")}}',
+        url: '{{route("adminlogin")}}',
             type:'POST',
             data: fdata,
             processData: false,

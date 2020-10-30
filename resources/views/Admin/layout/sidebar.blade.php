@@ -8,11 +8,15 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
-                            <?php 
-                            $permission=Session::get('permissions');
-                            $permissions= json_decode($permission); 
-                 
-                              //  dd($permissions);
+                            <?php
+                            if(isset($permissions)){
+                            $permissions= json_decode($permissionstaff);
+                            }
+                            else{
+                            $permission=session::get('permissions');
+                            $permissions= json_decode($permission);
+                            }
+
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
@@ -21,7 +25,7 @@
                                      Dashboard </span>
                                 </a>
                             </li>
-                            
+
                             @if(isset($permissions->registermanagment->status)=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Students <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
@@ -46,7 +50,7 @@
                                 @if(isset($permissions->acadamics->sections->status)=="1")
                                     <li><a href="{{route('section')}}">Section</a></li>
                                 @endif
-                                @if(isset($permissions->acadamics->subjects->status)=="1")    
+                                @if(isset($permissions->acadamics->subjects->status)=="1")
                                     <li><a href="{{route('subject')}}">Subject</a></li>
                                     <li><a href="{{route('sgroup')}}">Subject Group Name</a></li>
                                     <li><a href="{{route('subjectgroup')}}">Subject Group</a></li>
@@ -63,7 +67,7 @@
                                     <li><a href="{{route('showemployee')}}">Employee Managment</a></li>
                                 @endif
                                 </ul>
-                                
+
                             </li>
                             @endif
                             @if(isset($permissions->fee_managament->status)=="1")
@@ -74,11 +78,11 @@
                                     <li><a href="{{route('feecategory')}}">Define Fee Category</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->define_fee->status)=="1")
-                                    <li><a href="{{route('fee-type')}}">Define Fee Type</a></li>
+                                    {{-- <li><a href="{{route('fee-type')}}">Define Fee Type</a></li> --}}
                             @endif
                             @if(isset($permissions->fee_managament->define_fee->status)=="1")
                                     <li><a href="{{route('fee-structure')}}">Apply Fee Structure</a></li>
-                                    
+
                             @endif
                             @if(isset($permissions->fee_managament->fee_collection->status)=="1")
                                     <li><a href="charts-flot.html">Fee Collection</a></li>
@@ -169,7 +173,7 @@
                             @endif
                             @if(isset($permissions->certificate->status)=="1")
                             <li>
-                 
+
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
                             @if(isset($permissions->certificate->slc->status)=="1")
@@ -192,7 +196,7 @@
                                     @if(isset($permissions->usermanagment->status)=="1")
                                     <li><a href="{{route('staff')}}">Roles/Permission</a></li>
                                     @endif
-                                    
+
                                 </ul>
                             </li>
                         </ul>
@@ -204,7 +208,7 @@
                 </div>
                 <!-- Sidebar -left -->
 
-    </div> 
+    </div>
 <div class="content-page">
     <!-- Start content -->
     <div class="content">
