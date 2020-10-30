@@ -56,7 +56,7 @@ class EmployeeController extends Controller
     public function showemployee()
     {
 
-    $employee= Kelex_employee::all();
+    $employee= Kelex_employee::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
     return view('Admin.HRManagement.viewemployeecategory')->with('employees',$employee);
     }
 
@@ -70,7 +70,7 @@ class EmployeeController extends Controller
     }
     public function update_employee(Request $request)
     {
-        $res = Kelex_employee::find($request->id);
+        $res = Kelex_employee::find($request->id)->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $image = $request->file('EMP_IMAGE');
         if(!empty($image))
         {

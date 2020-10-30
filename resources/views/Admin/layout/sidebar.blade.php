@@ -8,6 +8,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
+<<<<<<< HEAD
                             <?php
                             if(isset($permissions)){
                             $permissions= json_decode($permissionstaff);
@@ -17,6 +18,23 @@
                             $permissions= json_decode($permission);
                             }
 
+||||||| merged common ancestors
+                            <?php 
+                            if(isset($permissions)){
+                            $permissions= json_decode($permissionstaff);
+                            }
+                            else{
+                            $permission=session::get('permissions');
+                            $permissions= json_decode($permission);  
+                            }
+                                
+=======
+                            <?php 
+                            $permission=Session::get('permissions');
+                            $permissions= json_decode($permission); 
+                 
+                              //  dd($permissions);
+>>>>>>> 8b13e8d8e55af8cf4b9c329fe8625a612ad2333f
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
