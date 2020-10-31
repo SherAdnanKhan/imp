@@ -205,7 +205,6 @@ class AcademicsController extends Controller
         {
             $subjects[$row['SUBJECT_ID']] = $row['SUBJECT_NAME'];
         }
-
         $data['subjects'] =  $subject;
         $data['subjectgroupnames'] = Kelex_subjectgroupname::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $data['sessions'] = Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
@@ -361,9 +360,19 @@ class AcademicsController extends Controller
      }
      public function add_subject(subjectrequest $request)
      {
+            $campus=Session::get('CAMPUS');
+
             $subject= new Kelex_subject();
             $subject->SUBJECT_NAME=$request->input('subject_name');
             $subject->SUBJECT_CODE=$request->input('subject_code');
+            if($campus->TYPE=='L_instuition'){
+            $subject->TYPE='0';
+            }
+            else
+            {
+            $subject->TYPE='1';
+            }
+
             $subject->CAMPUS_ID= Auth::user()->CAMPUS_ID;
             $subject->USER_ID = Auth::user()->id;
             if ($subject->save()) {

@@ -4,10 +4,15 @@
 
 @endsection
 @section("content")
-<section class="content">
+
+<div class="page-content-wrapper">
+<div class="row">
+<div class="col-12">
+   <div class="card m-b-20">
+         <div class="card-body"> 
+         <a href="{{route('showemployee')}}" class="btn btn-primary">View All Employees</a>
+      <br><br>
    <div class="row">
-      
-      <h2></h2>
       <div class="col-md-3">
          <div class="box box-primary">
             <div class="box-body box-profile">
@@ -120,6 +125,9 @@
          </div>
       </div>
    </div>
-   
+   </div>
+         </div>
+      </div>
+   </div> 
 </section>
 @endsection

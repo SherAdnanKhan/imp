@@ -10,7 +10,7 @@
       <form action="" method="post">
           <div class="row">
            @csrf
-            <div class="col-md-3">
+            <!-- <div class="col-md-3">
               <div class="form-group">                          
               <label for="exampleInputclass1">Employee Name</label>
               <input autofocus="" id="EMP_NAME" name="EMP_NAME" placeholder="" type="text" class="form-control" value="" autocomplete="off">
@@ -28,9 +28,9 @@
               <button class="btn btn-primary search " type="submit" id="searchbtn"> Search <i class="fa fa-search"></i></button>
               </div>
               </form>
-            </div>
-           
-            <div class="col-md-2">
+            </div> -->
+            <div class="col-md-1"> </div>
+            <div class="col-md-4">
             <form action="" id="searchallemp">
               <div class="form-group">
               <small id="alldate_err" class="form-text text-danger"></small>
@@ -38,8 +38,8 @@
                   <input type="date" class="form-control" name="alldate" id="alldate">
               </div>
             </div>
-            <div class="col-md-1">
-              <div class="form-group" style="padding-top:10px;"><br>
+            <div class="col-md-">
+              <div class="form-group" style="padding-top:13px;"><br>
               <button class="btn btn-primary search " id="searchallbtn" type="submit" > Search All <i class="fa fa-search"></i></button>
               </div>
               </form>

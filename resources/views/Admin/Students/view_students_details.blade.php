@@ -4,9 +4,15 @@
 
 @endsection
 @section("content")
-<section class="content">
-   <div class="row">
-      <div class="col-md-3">
+<div class="page-content-wrapper">
+<div class="row">
+<div class="col-12">
+   <div class="card m-b-20">
+         <div class="card-body">
+         <a href="{{route('showstudent')}}" class="btn btn-primary">View All Students</a>
+      <br><br>
+      <div class="row">
+         <div class="col-md-3">
          <div class="box box-primary">
             <div class="box-body box-profile">
                <img class="profile-user-img img-responsive img-circle" src="{{asset('upload')}}/{{$student['IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="User profile picture" style="height: 250px; width:250px">
@@ -481,5 +487,8 @@
          </div>
       </div>
    </div>
+   </div>
+</div>
+</div>
 </section>
 @endsection

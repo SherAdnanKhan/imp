@@ -6,33 +6,27 @@
 @endsection
 @section('content')
 
-<div class="row col-9">
+<div class="row col-12">
     <div class="card m-b-20 card-body">
         <h3 class="card-title font-16 mt-0">Define Fee Strcuture</h3>
         <form action="{{ route('add-fee-structure')}}" id="add-fee-structure" name="add-fee-structure" method="post" accept-charset="utf-8">
 
             <div class="row">
-               <div class="col-sm">
-                   @php
-                        if(empty($sessions)):
-                    @endphp
+               <div class="col-md-12">
+                  
+                        @if(empty($sessions)):
+                    
                         <div class="alert alert-primary">Please create Session First</div>
-                    @php
-                        endif;
-                   @endphp
-                   @php
-                        if(empty($record)):
-                    @endphp
+                        @endif;
+                        @if(empty($record)):
+       
                         <div class="alert alert-primary">Please define classes and sections first.</div>
-                    @php
-                        endif;
-                   @endphp
+                        @endif;
+             
                     {{-- Display data section --}}
-                   @php
-                        if(!empty($record)):
-                    @endphp
+                        @if(!empty($record)):
                      <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Select Session</label>
                                 <small class="req"> *</small>
@@ -53,7 +47,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-md-12">
                             <table class="table ">
                                  <thead>
                                      <tr>
@@ -85,8 +79,8 @@
                                                             if(in_array($row->FEE_CAT_ID,$fee_cat_array)) :
                                                                  $checked = "checked";
                                                                  $index = $row->FEE_CAT_ID;
-
                                                                  if ($k < count($cat_amount)):
+                                                                  
                                                                      $amount = $cat_amount[$k][$index];
                                                                  endif;
                                                             else:
@@ -97,7 +91,9 @@
                                                         if($cat_amount):
                                                             $disabled = (in_array($row->FEE_CAT_ID,$fee_cat_array)) ? "" : "disabled";
                                                         endif;
+                                                      
                                                     @endphp
+                                                   
                                                     <input {{$checked}} type="checkbox" name="record[{{$i}}][cat_id][]" value ="{{$row->FEE_CAT_ID}}" class="cat_id" data-targetclass="render-{{$item->Class_id}}-{{$item->Section_id}}-{{$row->FEE_CAT_ID}}"></span>
                                                     <span class="input-group-text">{{$row->CATEGORY}}</span>
                                                 </div>
@@ -184,9 +180,14 @@
                 success: function(data) {
                      if(data.type == '1'){
                             toastr.success(data.response,'Success');
+<<<<<<< HEAD
                             setTimeout(() => {
                                 location.reload();
                             }, 1000);
+||||||| merged common ancestors
+=======
+                            setTimeout(function(){location.reload();},1000);
+>>>>>>> 1ed5414349a902aac3c434b1df0a349872b9f49a
                         }else{
                             alert(data);
                         }

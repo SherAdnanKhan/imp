@@ -20,7 +20,7 @@ class AdminLoginController extends Controller
         if($authSuccess) {
             $request->session()->regenerate();
             $user = User::where('username',$request->username)->first();
-            $campus = Kelex_campus::all()->where('CAMPUS_ID',$user['CAMPUS_ID']);
+            $campus = Kelex_campus::where('CAMPUS_ID',$user['CAMPUS_ID'])->first();
             Session::put([
                     'CAMPUS'=>$campus,
                     'is_admin'=>true,

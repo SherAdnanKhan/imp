@@ -34,6 +34,7 @@
                         <option  value="{{$subjectgroupname->GROUP_ID}}">
                            {{ ucfirst($subjectgroupname->GROUP_NAME) }}</option>
                         @endforeach
+                      
                   </select>
                   <small id="GROUP_ID_error" class="form-text text-danger"></small>
                </div>
@@ -60,9 +61,11 @@
                      <small id="SECTION_ID_error" class="form-text text-danger"></small>
                </div>
                <div class="form-group">
+             
                   <label for="exampleInputEmail1">Subject</label>
                   @foreach($subjects as $subject => $key)
                   <div class="checkbox">
+                
                   <input type="checkbox" id="subjectgroup[{{ $subject }}]" name="subjectgroup[]" value="{{ $subject }}">
                         <label for="subjectgroup[{{ $subject }}]">{{$key}} </label><br>
                

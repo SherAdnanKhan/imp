@@ -1,4 +1,11 @@
 @extends('Admin.layout.master')
+@section("page-css")
+<link href="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+<link href="{{asset('admin_assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+
+@endsection
 @section('content')
 
                         <div class="page-content-wrapper">
@@ -15,8 +22,8 @@
                 <div class="table-responsive">
                 <small id="APPLICATION_STATUS_error" class="form-text text-danger"></small>
                 <small id="APPROVED_AT_error" class="form-text text-danger"></small>
-                <table class="table table-hover">
-                    <thead>
+                <table id="DataTables_Table_1" class="table table-striped table-bordered table-hover " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                   <thead>
                       <tr>
                         <th scope="col">Application Type</th>
                         <th scope="col">From date</th>
@@ -55,8 +62,8 @@
            
                 </div>
                 <div class="table-responsive">
-                <table class="table table-dark">
-                    <thead>
+                <table id="DataTables_Table_0" class="table table-striped table-bordered table-hover " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                   <thead>
                       <tr>
                         <th scope="col">Application Type</th>
                         <th scope="col">From date</th>
@@ -100,10 +107,25 @@
         </div>
         </div>
 @endsection
-
-
 @section('customscript')
+<script src="{{asset('admin_assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <!-- Buttons examples -->
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/jszip.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/pdfmake.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/vfs_fonts.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
 <script>
+  $(document).ready( function () {
+      $('#DataTables_Table_0').DataTable();
+      $('#DataTables_Table_1').DataTable();
+        } );
 $('body').on('click', '.btnapp',function () {
         var APPLICATION_STATUS = $(this).val();
         var STD_APPLICATION_ID  = $(this).attr('approveid');

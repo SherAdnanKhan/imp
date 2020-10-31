@@ -46,7 +46,7 @@
                            <tr id="row{{$subject->SUBJECT_ID}}">
                               <td class="mailbox-name"> {{$subject->SUBJECT_NAME}}</td>
                               <td class="mailbox-name"> {{$subject->SUBJECT_CODE}}</td>
-                              <td class="mailbox-name"> {{$subject->TYPE}} </td>
+                              <td class="mailbox-name"> <?= $subject->TYPE=='0'?'Learning Instution':'School' ?></td>
                               <td class="mailbox-date pull-right">
                                  <button value="{{$subject->SUBJECT_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
                               </td>
@@ -142,12 +142,13 @@ $('body').on('submit','#addsubject',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+               var type= data.TYPE==0?'Learning Instution':'School';
                console.log(data)
                 $('#displaydata').append(`
                      <tr id="row`+data.SUBJECT_ID+`">
                         <td class="mailbox-name">` + data.SUBJECT_NAME + `</td>
                         <td class="mailbox-name">` + data.SUBJECT_CODE + `</td>
-                        <td class="mailbox-name">` + data.TYPE + `</td>
+                        <td class="mailbox-name">` + type + `</td>
                         
                               <td class="mailbox-date pull-right">
                               <button value="`+data.SUBJECT_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>

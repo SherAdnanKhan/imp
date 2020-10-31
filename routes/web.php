@@ -30,11 +30,11 @@ Route::get('/', function ()
 {
 
     return view('auth.kelexlogin');
-});
+})->name('login');
 
 Route::prefix('admin')->group(function () {
 
-Route::match(['get', 'post'],'/login',[AdminLoginController::class,'login_Admin'])->name('login');
+Route::match(['get', 'post'],'/login',[AdminLoginController::class,'login_Admin'])->name('adminlogin');
 
 Route::match(['get', 'post'],'/logout',[AdminloginController::class,'logout_Admin'])->name('logout');
 
@@ -115,6 +115,11 @@ Route::group([ 'middleware' => 'Admin'], function()
 {
 
 Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
+Route::get('/comingsoon', function ()
+{
+
+    return view('Coming_Soon');
+});
 // Academics Route Start
 
 

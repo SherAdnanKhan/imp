@@ -12,7 +12,28 @@
                             $permission=Session::get('permissions');
                             $permissions= json_decode($permission);
 
+<<<<<<< HEAD
                               //  dd($permissions);
+||||||| merged common ancestors
+||||||| merged common ancestors
+                            <?php 
+                            if(isset($permissions)){
+                            $permissions= json_decode($permissionstaff);
+                            }
+                            else{
+                            $permission=session::get('permissions');
+                            $permissions= json_decode($permission);  
+                            }
+                                
+=======
+                            <?php 
+                            $permission=Session::get('permissions');
+                            $permissions= json_decode($permission); 
+                 
+                              //  dd($permissions);
+>>>>>>> 8b13e8d8e55af8cf4b9c329fe8625a612ad2333f
+=======
+>>>>>>> 1ed5414349a902aac3c434b1df0a349872b9f49a
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
@@ -118,7 +139,7 @@
                             @if(isset($permissions->hr_managment->emp_attendance->status)=="1")
                                     <li><a href="{{route('Teacher-View-Application-by-admin')}}">Applications</a></li>
                                     <li><a href="{{route('teacher-attendance')}}">Attendance Managment</a></li>
-                                    <li><a href="{{route('non-present-students')}}">Non-Present Report</a></li>
+                                    <!-- <li><a href="{{route('non-present-students')}}">Non-Present Report</a></li> -->
                             @endif
                                 </ul>
                             </li>
@@ -127,9 +148,10 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
+                                    
                             @if(isset($permissions->admissionwithdraw->withdraw_register->status)=="1")
-                                    <li><a href="components-lightbox.html">With-Draw Register</a></li>
-                                    <li><a href="components-rangeslider.html">Register Managment</a></li>
+                                    <li><a href="comingsoon">With-Draw Register</a></li>
+                                    <li><a href="comingsoon">Register Managment</a></li>
                             @endif
                                 </ul>
                             </li>
@@ -141,13 +163,13 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-clipboard"></i><span> Correspondence <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
                                 @if(isset($permissions->complaintletter->status)=="1")
-                                    <li><a href="form-elements.html">Complaint Letter Managment</a></li>
+                                    <li><a href="comingsoon">Complaint Letter Managment</a></li>
                                 @endif
                                 @if(isset($permissions->showcause->status)=="1")
-                                    <li><a href="form-validation.html">Showcause Managment</a></li>
+                                    <li><a href="comingsoon">Showcause Managment</a></li>
                                 @endif
                                 @if(isset($permissions->notification->status)=="1")
-                                    <li><a href="form-advanced.html">Notification</a></li>
+                                    <li><a href="comingsoon">Notification</a></li>
                                 @endif
 
                                 </ul>
@@ -158,10 +180,10 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-maps"></i><span> Accounts  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span></a>
                                 <ul class="submenu">
                                 @if(isset($permissions->accounts->asset_category->status)=="1")
-                                    <li><a href="maps-google.html"> Assets Category</a></li>
+                                    <li><a href="comingsoon"> Assets Category</a></li>
                                 @endif
                                 @if(isset($permissions->accounts->asset_managment->status)=="1")
-                                    <li><a href="maps-vector.html"> Assets Managamnet</a></li>
+                                    <li><a href="comingsoon"> Assets Managamnet</a></li>
                                 @endif
                                 </ul>
                             </li>
@@ -172,13 +194,13 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
                             @if(isset($permissions->certificate->slc->status)=="1")
-                                    <li><a href="layouts-dark-sidebar.html">SLC</a></li>
+                                    <li><a href="comingsoon">SLC</a></li>
                             @endif
                             @if(isset($permissions->certificate->experience->status)=="1")
-                                    <li><a href="layouts-sidebar-user.html">Experience</a></li>
+                                    <li><a href="comingsoon">Experience</a></li>
                             @endif
                             @if(isset($permissions->certificate->curricular->status)=="1")
-                                    <li><a href="layouts-collapsed.html">Curricular </a></li>
+                                    <li><a href="comingsoon">Curricular </a></li>
                             @endif
                                 </ul>
                             </li>
@@ -187,7 +209,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>System Settings <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
-                                    <li><a href="pages-login.html">General Settings</a></li>
+                                    <li><a href="comingsoon">General Settings</a></li>
                                     @if(isset($permissions->usermanagment->status)=="1")
                                     <li><a href="{{route('staff')}}">Roles/Permission</a></li>
                                     @endif

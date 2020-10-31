@@ -1,5 +1,11 @@
 @extends('Admin.layout.master')
-@section('content')
+@section("page-css")
+<link href="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+<link href="{{asset('admin_assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+
+@endsection
 @section("content")
 
                         <div class="page-content-wrapper">
@@ -16,8 +22,8 @@
                 <div class="table-responsive">
                 <small id="APPLICATION_STATUS_error" class="form-text text-danger"></small>
                 <small id="APPROVED_AT_error" class="form-text text-danger"></small>
-                <table class="table table-dark">
-                    <thead>
+                <table id="DataTables_Table_1" class="table table-striped table-bordered table-hover " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead>
                       <tr>
                         <th scope="col">Application Type</th>
                         <th scope="col">From date</th>
@@ -55,8 +61,8 @@
            
                 </div>
                 <div class="table-responsive">
-                <table class="table table-dark">
-                    <thead>
+                <table id="DataTables_Table_0" class="table table-striped table-bordered table-hover " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead>
                       <tr>
                         <th scope="col">Application Type</th>
                         <th scope="col">From date</th>
@@ -103,7 +109,24 @@
 
 
 @section('customscript')
+<script src="{{asset('admin_assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <!-- Buttons examples -->
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/jszip.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/pdfmake.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/vfs_fonts.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('admin_assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
 <script>
+  $(document).ready( function () {
+      $('#DataTables_Table_0').DataTable();
+      $('#DataTables_Table_1').DataTable();
+        } );
 $('body').on('click', '.btnapp',function () {
        var EMP_ID  = $(this).attr('teacherid');
         var APPLICATION_STATUS = $(this).val();
@@ -133,20 +156,18 @@ $('body').on('click', '.btnapp',function () {
    $('body').on('click', '.btnrej',function () {
         var APPLICATION_STATUS = $(this).val();
         var EMP_ID  = $(this).attr('teacherid');
-       var STD_APPLICATION_ID  = $(this).attr('approveid');
-        var TeacteractionApplicationAdmin =$(this).attr('rejectid');
+       var STAFF_APP_ID  = $(this).attr('rejectid');
         $.ajax({
             url: '{{url("TeacteractionApplicationAdmin")}}',
             type: "GET",
             data: {
               EMP_ID:EMP_ID,
                APPLICATION_STATUS:APPLICATION_STATUS,
-               TeacteractionApplicationAdmin:TeacteractionApplicationAdmin
+               STAFF_APP_ID:STAFF_APP_ID
             }, 
             dataType:"json",
             success: function(data){
               if(data){
-                return false;
                 toastr.success('Action Performed Successfully','Notice')
                 setTimeout(function(){location.reload();},1000);
               }
