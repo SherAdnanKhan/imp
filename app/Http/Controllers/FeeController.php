@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use KelexClass;
 use App\Models\Kelex_class;
+use App\Models\Kelex_month;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
 use App\Models\Kelex_fee_type;
@@ -12,8 +15,11 @@ use App\Models\KelexFee_structure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\FeetypeRequest;
+use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FeeCategoryRequest;
+use App\Models\Kelex_fee;
+use App\Models\Kelex_student_fee;
 
 class FeeController extends Controller
 {
@@ -131,7 +137,7 @@ class FeeController extends Controller
                             return $getfeecat;
     }
 
-   
+
 
     public function add_fee_type(FeetypeRequest $request)
     {
@@ -236,6 +242,7 @@ class FeeController extends Controller
         $record = DB::table('kelex_sections')
         ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_sections.Class_id')
         ->LeftJoin('kelex_fee_structures', 'kelex_fee_structures.SECTION_ID', '=', 'kelex_sections.Section_id')
+        ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_fee_structures.SESSION_ID')
         ->where('kelex_sections.CAMPUS_ID', '=', Auth::user()->CAMPUS_ID)
         ->select(
             'kelex_classes.Class_name',
@@ -245,6 +252,7 @@ class FeeController extends Controller
             'kelex_fee_structures.*'
         )
         ->get()->toArray();
+        // dd($record);
         $data = ['sessions' => $sessions,  'record' => $record,'fee_cat' => $fee_cat,'sessionID' => $record[0]->SESSION_ID];
         // $data = json_decode(json_encode($data,true));
         return view('Admin.FeesManagement.fee_define_new')->with($data);
@@ -257,9 +265,9 @@ class FeeController extends Controller
 
        foreach ($record as $key => $value) {
             $ammount_array = [];
-        if(!empty($value['cat_amount']) OR $value['cat_amount'] != null):
+        if(isset($value['cat_amount']) AND !empty($value['cat_amount']) OR $value['cat_amount'] != null):
             for ($i=0; $i < count($value['cat_amount']); $i++) {
-              array_push($ammount_array,[$value['cat_id'][$i] => $value['cat_amount'][$i] ]);
+              $ammount_array[][$value['cat_id'][$i]] = $value['cat_amount'][$i] ;
             }
 
         endif;
@@ -280,6 +288,152 @@ class FeeController extends Controller
          unset($ammount_array);
        }
        return array('type' => 1,'response' => 'Fee Structure record Saved Successfully.');
+    }
+
+    public function apply_fee()
+    {
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $months = Kelex_month::where('CAMPUS_ID', Auth::user()->CAMPUS_ID)->orderBy('NUMBER','ASC')->get(); //print_r($months); die;
+        $months = json_decode(json_encode($months,true));
+        $months = array_chunk($months,6);
+        $data = ['sessions' => $sessions,  'classes' => $classes,'months'=>$months];
+        return view('Admin.FeesManagement.apply_fee_view')->with($data);
+
+    }
+    public function get_section_fee_category($session_id,$class_id,$section_id)
+    {
+        $record = KelexFee_structure::select('CATEGORY_AMOUNT','FEE_CATEGORY_ID')->where(['CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'SECTION_ID' => $section_id])->first();
+        $cat_ids = json_decode($record->FEE_CATEGORY_ID,true);// dd($cat_ids);
+        $category = Kelex_fee_category::whereIn('FEE_CAT_ID',$cat_ids)->select('CATEGORY')->get();
+        $checkWhere = ['CAMPUS_ID' => Auth::user()->CAMPUS_ID,'SESSION_ID'=> $session_id,'CLASS_ID' => $class_id, 'section_id' => $section_id];
+        $check_record = Kelex_fee::where($checkWhere)->select('FEE_ID','FEE_DATA','MONTHS')->get();
+        $old_record = [];
+        // dd($check_record);
+        if(count($check_record) > 0 ):
+            $check_record = json_decode(json_encode($check_record, true));
+            $old_record['fee_id'] = $check_record[0]->FEE_ID;
+            $old_record['months'] = json_decode($check_record[0]->MONTHS);
+            $old_record['feedata'] = json_decode($check_record[0]->FEE_DATA);
+        endif;
+        $data['check_record'] = $old_record;
+        $data['FEE_AMOUNT'] = json_decode($record->CATEGORY_AMOUNT, true); //dd($old_record);
+        $data['category'] = json_decode(json_encode($category,true));
+        $data['category'] = array_column($data['category'],'CATEGORY');
+        return $data;
+
+    }
+    public function apply_fee_on_sections(Request $request)
+    {
+        $section_id = $request->section_id; //dd($request->all());
+        $class_id = $request->class_id;
+        $session_id = $request->session_id;
+        $fee_category = $request->category;
+        $months = $request->months;
+        $due_date = $request->due_date;
+        $where = ['SESSION_ID' => $session_id, 'CLASS_ID' => $class_id, 'SECTION_ID' => $section_id];
+        $student_ids = Kelex_students_session::where($where)
+                            ->select('STUDENT_ID')
+                            ->get();
+        $student_ids = json_decode(json_encode($student_ids,true));
+        $student_ids = array_column($student_ids,'STUDENT_ID');
+        $fee_structure = KelexFee_structure::where($where)->select('FEE_CATEGORY_ID','CATEGORY_AMOUNT')->get();
+        $fee_structure = json_decode(json_encode($fee_structure,true));
+        // $fee_cat_ids_from_structure = json_decode(array_column($fee_structure, "FEE_CATEGORY_ID")[0]);
+        $fee_cat_amount_from_structure = json_decode(array_column($fee_structure, "CATEGORY_AMOUNT")[0],true);
+        $fee_structure_data = [];
+        $fee_detail_array = [];
+        foreach($fee_cat_amount_from_structure as $key => $value):
+            foreach($value as $k => $val):
+                $fee_structure_data[$k] = $val;
+            endforeach;
+        endforeach;
+        foreach($fee_category as $key => $value):
+            array_push($fee_detail_array,['FEE_CATEGORY_ID' => $value, 'FEE_CATEGORY_AMOUNT'=> $fee_structure_data[$value] ]);
+        endforeach;
+        $fee_data = [
+            'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+            'USER_ID' => Auth::user()->id,
+            // 'STUDENT_ID' => $student_ids[$i],
+            'SESSION_ID' => $session_id,
+            'CLASS_ID' => $class_id,
+            'SECTION_ID' => $section_id,
+            'MONTHS' => json_encode($months),
+            'FEE_DATA' => json_encode($fee_detail_array),
+            'FEE_AMOUNT' => array_sum(array_column($fee_detail_array, 'FEE_CATEGORY_AMOUNT')),
+            'DUE_DATE' => $due_date,
+        ];
+         Kelex_fee::create($fee_data);
+         $fee_id  = Kelex_fee::orderBy('FEE_ID', 'DESC')->first()->FEE_ID; //dd($student_ids);
+        for($i = 0; $i<count($student_ids);$i++):
+            $student_fee = [
+                'FEE_ID' => $fee_id,
+                'STUDENT_ID' => $student_ids[$i],
+                'STATUS' => '0',
+            ];
+            // echo "<pre>";print_r($student_fee);
+            Kelex_student_fee::create($student_fee);
+        endfor;
+        return ['type' =>1,'response' => 'Fee Applied Successfully..'];
+        // dd($data);
+    }
+
+    public function fee_voucher()
+    {
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+
+        $data = ['sessions' => $sessions,  'classes' => $classes];
+        return view('Admin.FeesManagement.print_fee_voucher')->with($data);
+    }
+    public function get_section_fee($session_id,$class_id,$section_id)
+    {
+        $record = Kelex_fee::where(['STATUS' => '0','SESSION_ID' =>$session_id,'CLASS_ID' => $class_id,'SECTION_id'=> $section_id,'CAMPUS_ID' => Auth::user()->CAMPUS_ID])
+                            ->select('FEE_DATA','MONTHS')
+                            ->get();
+        $record = json_decode(json_encode($record,true));
+        if(empty($record)):
+            return redirect()->route('fee-voucher')->with('msg', 'No Fee Record Found for required Selections');
+            die;
+        endif;
+        $fee_data_months_arr = [];
+        $fee_data = [];
+        $complete_fee_details = [];
+        foreach($record as $key => $value):
+            $fee_data[] = $value->FEE_DATA;
+            $fee_data_months_arr[] =  json_decode($value->MONTHS);
+        endforeach;
+        $months = DB::table('kelex_months')
+                                ->whereIn('NUMBER',$fee_data_months_arr[0])
+                                ->orderBy('NUMBER','ASC')
+                                ->pluck('MONTH');
+        $fee_details = [];
+        foreach($fee_data as $key => $val):
+            $fee_details[] = json_decode($val);
+            // print_r(json_decode($val) );
+        endforeach;
+        foreach($fee_details as $k => $v):
+            foreach($v as  $n => $m):
+                $fee_category = Kelex_fee_category::select('CATEGORY')
+                                                            ->where(['FEE_CAT_ID' => $m->FEE_CATEGORY_ID])
+                                                            ->get()[0]->CATEGORY;
+                $complete_fee_details['fee_category'] = $fee_category;
+                $complete_fee_details['fee_amount'] = $m->FEE_CATEGORY_AMOUNT;
+            endforeach;
+        endforeach;
+        $std_record = DB::table('kelex_student_fees')
+                            ->join('kelex_fees','kelex_fees.FEE_ID','=', 'kelex_student_fees.FEE_ID')
+                            ->join('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+                            ->get();
+        $std_record = json_decode(json_encode($std_record),true);
+        // echo "<pre>";print_r($std_record);
+        for ($i=0;$i<count($std_record); $i++):
+            // print_r($std_record[$i]);
+            $std_record[$i]['student_fee_months'] = $months;
+            $std_record[$i]['student_fees'] = $complete_fee_details;
+        endfor;
+        return view('Admin.FeesManagement.print_fee_slip')->with($data['record'] = $std_record);
+
     }
 
 }

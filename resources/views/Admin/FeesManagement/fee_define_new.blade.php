@@ -111,7 +111,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th colspan=""><button type="submit" class="btn btn-primary">Save fee Structure</button></th>
+                                        <th colspan=""><button type="submit" class="btn submit btn-primary">Save fee Structure</button></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -172,6 +172,7 @@
             toastr.error('Please select a session first');
             return false;
         }
+        $('.submit').prop('disabled',true);
         var fdata = new FormData($(this)[0]);;
         try {
             $.ajax({
@@ -183,11 +184,15 @@
                 success: function(data) {
                      if(data.type == '1'){
                             toastr.success(data.response,'Success');
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
                         }else{
                             alert(data);
                         }
                 }
             });
+            $('.submit').prop('disabled',false);
         } catch (error) {
             alert(error);
         }

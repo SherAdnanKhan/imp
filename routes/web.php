@@ -235,6 +235,11 @@ Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name(
     Route::match(['get', 'post'], '/fee-structure', [FeeController::class, 'fee_define_new'])->name("fee-structure");
     Route::match(['get', 'post'], '/add-fee-structure', [FeeController::class, 'add_fee_structure'])->name("add-fee-structure");
     Route::match(['get', 'post'], '/apply-fee-structure', [FeeController::class, 'apply_fee_structure'])->name("apply-fee-structure");
+    Route::match(['get', 'post'], '/apply-fee', [FeeController::class, 'apply_fee'])->name("Apply-Fee");
+    Route::match(['get', 'post'], '/get-section-fee-category/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_section_fee_category'])->name("get-section-fee-category");
+    Route::match(['get', 'post'], '/get-section-fee/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_section_fee'])->name("get-section-fee");
+    Route::match(['get', 'post'], '/print-fee-voucher', [FeeController::class, 'fee_voucher'])->name("fee-voucher");
+    Route::match(['get', 'post'], '/apply-fee-on-sections', [FeeController::class, 'apply_fee_on_sections'])->name("apply-fee-on-sections");
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 

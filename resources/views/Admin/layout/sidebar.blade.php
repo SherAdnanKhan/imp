@@ -8,33 +8,11 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
-<<<<<<< HEAD
                             <?php
-                            if(isset($permissions)){
-                            $permissions= json_decode($permissionstaff);
-                            }
-                            else{
-                            $permission=session::get('permissions');
-                            $permissions= json_decode($permission);
-                            }
-
-||||||| merged common ancestors
-                            <?php 
-                            if(isset($permissions)){
-                            $permissions= json_decode($permissionstaff);
-                            }
-                            else{
-                            $permission=session::get('permissions');
-                            $permissions= json_decode($permission);  
-                            }
-                                
-=======
-                            <?php 
                             $permission=Session::get('permissions');
-                            $permissions= json_decode($permission); 
-                 
+                            $permissions= json_decode($permission);
+
                               //  dd($permissions);
->>>>>>> 8b13e8d8e55af8cf4b9c329fe8625a612ad2333f
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
@@ -96,17 +74,17 @@
                                     <li><a href="{{route('feecategory')}}">Define Fee Category</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->define_fee->status)=="1")
-                                    {{-- <li><a href="{{route('fee-type')}}">Define Fee Type</a></li> --}}
+                                    {{-- <li><a href="{{route('fee-type')}}">Define Fee Type</a></fee> --}}
                             @endif
                             @if(isset($permissions->fee_managament->define_fee->status)=="1")
-                                    <li><a href="{{route('fee-structure')}}">Apply Fee Structure</a></li>
-
+                                    <li><a href="{{route('fee-structure')}}">Define Fee Structure</a></li>
+                                    <li><a href="{{route('Apply-Fee')}}">Apply Fee</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->fee_collection->status)=="1")
                                     <li><a href="charts-flot.html">Fee Collection</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->fee_voucher->status)=="1")
-                                    <li><a href="charts-c3.html">Print Fee Voucher</a></li>
+                                    <li><a href="{{route('fee-voucher')}}">Print Fee Voucher</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->fee_register->status)=="1")
                                     <li><a href="charts-morris.html">Fee register</a></li>
