@@ -12,23 +12,46 @@
                   <div class="row">
                      <div class="col-md-2">
                           <a href="{{route('showstudent')}}" class="btn btn-info">Show Existing Students</a>
-                        
+
                      </div>
                   </div>
-                  <div class="card-body"> <h4 class="register-heading">Student Admission</h4>
-                     <p class="text-muted m-b-30 ">Please fill all the mandaortey fields .</p>
+                  <form id="addstudent" action="{{route('addstudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
+
+                  <div class="card-body">
+                     <div class="clearfix p-1">
+
+                        <span class="float-left ">
+                             <h4 class="register-heading">Student Admission</h4>
+                                <p class="text-muted m-b-30 ">Please fill all the mandaortey fields .</p>
+                        </span>
+                        <span class="float-right ">
+                             <label for="upload">Upload Student picture</label>
+                                    {{-- <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
+                                    <small id="IMAGE_error" class="form-text text-danger"></small> --}}
+                                <div class="bootstrap-filestyle input-group">
+                                    <span class="group-span-filestyle " tabindex="0">
+                                        <label for="filestyle-1" class="btn btn-primary ">
+                                            <span class="icon-span-filestyle fas fa-folder-open"></span>
+                                            <span class="buttonText">Choose file</span>
+                                        </label>
+                                    </span>
+                                </div>
+                        </span>
+
+                    </div>
+
                      <!-- student form start -->
-                        <form id="addstudent" action="{{route('addstudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
-                        @csrf
-                              <div class="row">
-                                <div class="col-md-3">
-                                    <label for="upload">Upload Student picture</label>
-                                    <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
-                                    <small id="IMAGE_error" class="form-text text-danger"></small>
+                         @csrf
+                            {{-- <div class="row">
+                                 <div class="col-md-3">
+
                                  </div>
+                            </div> --}}
+                            <div class="row">
+
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="">Class</label> 
+                                    <label for="">Class</label>
                                        <small class="req"> *</small>
                                        <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                           id="class_id">
@@ -44,7 +67,7 @@
                               </div>
                                  <div class="col-md-3">
                                      <div class="form-group">
-                                       <label for="">Section</label> 
+                                       <label for="">Section</label>
                                           <small class="req"> *</small>
                                           <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                                        </select>
@@ -53,7 +76,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <div class="form-group">
-                                       <label for="">Session</label> 
+                                       <label for="">Session</label>
                                           <small class="req"> *</small>
                                           <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Section" id="SESSION_ID" >
                               <option value="">Select</option>
@@ -65,11 +88,11 @@
                                     </div>
                                  </div>
                               </div>
-                           
+
                               <div class="row">
                                  <div class="col-md-3">
                                     <div class="form-group">
-                                       <label for="exampleInputNAME1">Student Name </label> 
+                                       <label for="exampleInputNAME1">Student Name </label>
                                        <small class="req"> *</small>
                                        <input id="NAME" name="NAME" placeholder="" type="text" class="form-control">
                                        <small id="NAME_error" class="form-text text-danger"></small>
@@ -80,7 +103,7 @@
                                        <label for="exampleInpUTFNAME1">FATHER NAME</label>
                                        <small class="req"> *</small>
                                        <input id="FATHER_NAME" name="FATHER_NAME" placeholder="" type="text" class="form-control">
-                                       <small id="FATHER_NAME_error" class="form-text text-danger"></small> 
+                                       <small id="FATHER_NAME_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                                  <div class="col-md-3">
@@ -173,7 +196,7 @@
                                        <label for="exampleInpUTFNAME1">GUARDIAN NAME</label>
                                        <small class="req"> *</small>
                                        <input id="GUARDIAN" name="GUARDIAN" placeholder="" type="text" class="form-control">
-                                       <small id="GUARDIAN_error" class="form-text text-danger"></small> 
+                                       <small id="GUARDIAN_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                               </div>
@@ -212,7 +235,7 @@
                                  </div>
                               </div>
                               <div class="row">
-                               
+
                                   <div class="col-md-4">
                                     <div class="form-group">
                                        <label for="exampleInputsection1">Previous Class :  </label>
@@ -240,19 +263,20 @@
                                           <input id="FATHER_CNIC" name="FATHER_CNIC" placeholder="" type="text" class="form-control" >
                                           <small id="FATHER_CNIC_error" class="form-text text-danger"></small>
                                        </div>
-                                   
+
                                  </div>
-                                
-                              </div>  
-                              
+
+                              </div>
+
                               <div class="box-footer text-center">
-                                 
+
                                     <div class=" ">
                                        <button type="submit" class="btn btn-info btn-rounded align-items-right waves-effect waves-light">Save Student</button>
                                     </div>
                               </div>
-                        </form>
+
                      <!-- student form end -->
+                     </form>
                   </div>
                </div>
             </div>
@@ -260,12 +284,13 @@
       </div>
    </div>
 </div>
-                                  
+
 
 
 
 @endsection
 @section("customscript")
+ <link href="{{asset('admin_assets/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js')}}" rel="stylesheet" type="text/css"/>
 <script>
    $(document).ready(function(){
     $('.dropify').dropify();
@@ -278,7 +303,7 @@
                 url: 'getsections/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
-                //console.log(response);   
+                //console.log(response);
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
@@ -296,7 +321,7 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-                
+
 $('body').on('submit','#addstudent',function(e){
       e.preventDefault();
       $('#NAME_error').text('');
@@ -342,9 +367,9 @@ $('body').on('submit','#addstudent',function(e){
                         $("#" + key + "_error").text(val[0]);
                     });
     }
-      
 
-              
+
+
       });
     });
 </script>
