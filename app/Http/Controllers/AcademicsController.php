@@ -40,7 +40,7 @@ class AcademicsController extends Controller
 
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
 
-        return view('admin.Academics.add_section')->with(['gsection'=>$data,'classes'=>$class]);
+        return view('Admin.Academics.add_section')->with(['gsection'=>$data,'classes'=>$class]);
 
     }
     public function add_section(sectionrequest $request)
@@ -103,7 +103,7 @@ class AcademicsController extends Controller
         {
             $getclass = Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
 
-                return view('admin.Academics.add_class')->with('gclass',$getclass);
+                return view('Admin.Academics.add_class')->with('gclass',$getclass);
 
         }
         public function add_class(classrequest $request)
@@ -156,7 +156,7 @@ class AcademicsController extends Controller
     {
         $subjectgroup = Kelex_subjectgroupname::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
 
-            return view('admin.Academics.add_groupname')->with('subjectgroup',$subjectgroup);
+            return view('Admin.Academics.add_groupname')->with('subjectgroup',$subjectgroup);
 
     }
     public function add_sgroup(sbnrequest $request)
@@ -241,7 +241,7 @@ class AcademicsController extends Controller
             ;
         endforeach;
         $data['subjectgroup'] = $record;
-        return view('admin.Academics.add_subject_group',$data);
+        return view('Admin.Academics.add_subject_group',$data);
     }
 
 
@@ -355,7 +355,7 @@ class AcademicsController extends Controller
 
          $getsubject = Kelex_subject::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
 
-             return view('admin.Academics.add_subject')->with('gsubject',$getsubject);
+             return view('Admin.Academics.add_subject')->with('gsubject',$getsubject);
 
      }
      public function add_subject(subjectrequest $request)
@@ -420,7 +420,7 @@ class AcademicsController extends Controller
 
         $getsession = Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
 
-            return view('admin.Academics.add_session_batch')->with('gsession',$getsession);
+            return view('Admin.Academics.add_session_batch')->with('gsession',$getsession);
 
     }
     public function add_sessionbatch(session_batchrequest $request)

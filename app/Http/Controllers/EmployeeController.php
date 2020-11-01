@@ -65,7 +65,7 @@ class EmployeeController extends Controller
         $data= Kelex_employee::where('EMP_ID',$id)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
         ->first();
-        return view('Admin.HRManagement.editemployeecategory')->with('employee',$data,);
+        return view('Admin.HRManagement.editemployeecategory')->with('employee',$data);
        
     }
     public function update_employee(Request $request)
