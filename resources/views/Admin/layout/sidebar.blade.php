@@ -9,31 +9,11 @@
                             <li class="menu-title">Main</li>
                             <li>
                             <?php
+
                             $permission=Session::get('permissions');
                             $permissions= json_decode($permission);
 
-<<<<<<< HEAD
-                              //  dd($permissions);
-||||||| merged common ancestors
-||||||| merged common ancestors
-                            <?php 
-                            if(isset($permissions)){
-                            $permissions= json_decode($permissionstaff);
-                            }
-                            else{
-                            $permission=session::get('permissions');
-                            $permissions= json_decode($permission);  
-                            }
-                                
-=======
-                            <?php 
-                            $permission=Session::get('permissions');
-                            $permissions= json_decode($permission); 
-                 
-                              //  dd($permissions);
->>>>>>> 8b13e8d8e55af8cf4b9c329fe8625a612ad2333f
-=======
->>>>>>> 1ed5414349a902aac3c434b1df0a349872b9f49a
+
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
@@ -148,7 +128,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
-                                    
+
                             @if(isset($permissions->admissionwithdraw->withdraw_register->status)=="1")
                                     <li><a href="comingsoon">With-Draw Register</a></li>
                                     <li><a href="comingsoon">Register Managment</a></li>

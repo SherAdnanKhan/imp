@@ -412,18 +412,23 @@ class FeeController extends Controller
             $fee_details[] = json_decode($val);
             // print_r(json_decode($val) );
         endforeach;
+        $i = 0;
         foreach($fee_details as $k => $v):
             foreach($v as  $n => $m):
                 $fee_category = Kelex_fee_category::select('CATEGORY')
                                                             ->where(['FEE_CAT_ID' => $m->FEE_CATEGORY_ID])
                                                             ->get()[0]->CATEGORY;
-                $complete_fee_details['fee_category'] = $fee_category;
-                $complete_fee_details['fee_amount'] = $m->FEE_CATEGORY_AMOUNT;
+                $complete_fee_details[$i]['fee_category'] = $fee_category;
+                $complete_fee_details[$i]['fee_amount'] = $m->FEE_CATEGORY_AMOUNT;
+                $i++;
             endforeach;
         endforeach;
         $std_record = DB::table('kelex_student_fees')
                             ->join('kelex_fees','kelex_fees.FEE_ID','=', 'kelex_student_fees.FEE_ID')
                             ->join('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+                            // ->join('kelex_students_sessions', 'kelex_students_sessions.SESSION_ID', '=', 'kelex_fees.SESSION_ID') //temporary off
+                            ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fees.CLASS_ID')
+                            ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fees.SECTION_ID')
                             ->get();
         $std_record = json_decode(json_encode($std_record),true);
         // echo "<pre>";print_r($std_record);
@@ -432,7 +437,8 @@ class FeeController extends Controller
             $std_record[$i]['student_fee_months'] = $months;
             $std_record[$i]['student_fees'] = $complete_fee_details;
         endfor;
-        return view('Admin.FeesManagement.print_fee_slip')->with($data['record'] = $std_record);
+        // echo "<pre>";print_r($std_record); die;
+        return view('Admin.FeesManagement.print_fee_slip')->with(['record' => $std_record]);
 
     }
 

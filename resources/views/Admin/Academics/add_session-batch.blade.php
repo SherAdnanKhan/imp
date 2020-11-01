@@ -11,7 +11,7 @@
          <h3 class="card-title font-16 mt-0">Add Session/Batch</h3>
          <form  action="{{ route('addsession-batch')}}" id="addsession-batch" method="post" accept-charset="utf-8">
             <div class="box-body">
-              @csrf                           
+              @csrf
                <div class="form-group">
                   <label for="exampleInputSB1">Session/Batch Name</label><small class="req"> *</small>
                   <small id="sb_name_error" class="form-text text-danger"></small>
@@ -31,14 +31,14 @@
                   <span class="text-danger"></span>
                </div>
                <div class="form-group">
-                <label for="Sins">Please Select:</label><br> 
+                <label for="Sins">Please Select:</label><br>
                 <small id="type_error" class="form-text text-danger"></small>
                 <label class="radio-inline">
                 <?php $campus=Session::get('CAMPUS');?>
-                @if($campus->TYPE=='school')
-                <input type="radio" name="type" value="1" style=" margin: 10px;" > Session
+                @if($campus[0]->TYPE=='school')
+                    <input type="radio" name="type" value="1" style=" margin: 10px;" > Session
                 @else
-                <input type="radio" name="type" value="0" style=" margin: 10px;"> Batch
+                    <input type="radio" name="type" value="0" style=" margin: 10px;"> Batch
                 @endif
                 </label>
                 </div>
@@ -96,7 +96,7 @@
                      </div>
                      <div class="modal-body">
             <form action="{{route('updatesession-batch')}}" id="editsession" name="classform" method="post" accept-charset="utf-8">
-         @csrf     
+         @csrf
          <div class="box-body">
             <div class="form-group">
             <input  id="sb_id"type="hidden" name="sb_id" value="">
@@ -118,7 +118,7 @@
                   <span class="text-danger"></span>
                </div>
                <div class="form-group">
-                <label for="Sins">Please Session/Batch:</label><br> 
+                <label for="Sins">Please Session/Batch:</label><br>
                 <label class="radio-inline">
                 <small id="type_err" class="form-text text-danger"></small>
                 <input type="radio" id="session" name="type" value="1" style=" margin: 10px;" > Session
@@ -133,8 +133,8 @@
                            @csrf
                      </form>
 
-                  
-                   
+
+
                </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
          </div><!-- /.modal -->
@@ -158,7 +158,7 @@
  $(document).ready( function () {
       $('#DataTables_Table_0').DataTable();
         } );
-     </script> 
+     </script>
 <Script>
     $.ajaxSetup({
   headers: {
@@ -188,13 +188,13 @@ $('body').on('submit','#addsession-batch',function(e){
                         <td class="mailbox-name">` + data.START_DATE + `</td>
                         <td class="mailbox-name">` + data.END_DATE + `</td>
                         <td class="mailbox-name">` + type + `</td>
-                        
+
                               <td class="mailbox-date pull-right">
                               <button value="`+data.SB_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
                               </td>
                               <td>
                               <button value="`+data.SB_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
+
                               </td>
                       </tr>`)
                       $("#addsession-batch").get(0).reset();
@@ -215,11 +215,11 @@ $('body').on('submit','#addsession-batch',function(e){
             type: "GET",
             data: {
                sessionid:sessionid
-            }, 
+            },
             dataType:"json",
             success: function(data){
              //  console.log(data);
-               
+
           for(i=0;i<data.length;i++){
             $('#sb_id').val(data[i].SB_ID);
             $('#sb_name').val(data[i].SB_NAME);
@@ -246,7 +246,7 @@ $('body').on('submit','#addsession-batch',function(e){
             contentType: false,
             success: function(data){
                console.log(data)
-               
+
                for(i=0;i<data.length;i++){
                   var type = data[i].TYPE==1?'Session':'Batch';
                $('#row' + data[i].SB_ID).replaceWith(`
@@ -255,11 +255,11 @@ $('body').on('submit','#addsession-batch',function(e){
                         <td class="mailbox-name">` + data[i].START_DATE + `</td>
                         <td class="mailbox-name">` + data[i].END_DATE + `</td>
                         <td class="mailbox-name">` + type+ `</td>
-                        
+
                               <td class="mailbox-date pull-right">
                               <button value="`+data[i].SB_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
                               <button value="`+data[i].SB_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
+
                               </td>
                       </tr>`)
                       $("#editsession").get(0).reset();
@@ -281,13 +281,13 @@ $('body').on('submit','#addsession-batch',function(e){
             type: "GET",
             data: {
                sessionid:sessionid
-            }, 
+            },
             dataType:"json",
             success: function(data){
                alert("deleted");
                $('#row' + data).remove();
-               
-              
+
+
             }
         });
       });
