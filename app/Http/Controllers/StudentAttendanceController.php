@@ -23,10 +23,10 @@ class StudentAttendanceController extends Controller
 
         $campus_id = Auth::user()->CAMPUS_ID;
         $class= Kelex_class::where('CAMPUS_ID',$campus_id)->get();
-        $section= kelex_section::where('CAMPUS_ID',$campus_id)->get();
+        $section= Kelex_section::where('CAMPUS_ID',$campus_id)->get();
         $session= Kelex_sessionbatch::where('CAMPUS_ID',$campus_id)->get();
         // dd($class);
-        return view("Admin.StudentsAttendance.std_Attendance_view")->with(['classes'=>$class,'sections'=>$section,'sessions'=>$session]);
+        return view("Admin.StudentsAttendance.std_attendance_view")->with(['classes'=>$class,'sections'=>$section,'sessions'=>$session]);
     }
     public function get_stds_for_attendance(Request $request)
     {

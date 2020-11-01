@@ -13,7 +13,7 @@ class NonTeachingController extends Controller
 {
     public function index_staff()
     {
-            return view('Admin/Hrmanagement/add_staff_with_permissions');
+            return view('Admin/HRManagement/add_staff_with_permissions');
     }
 
 
@@ -44,14 +44,14 @@ class NonTeachingController extends Controller
     {
             $user=User::where('isadmin',false)->
             where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
-            return view('Admin/Hrmanagement/view_staff_with_permissions')->with('staffs',$user);
+            return view('Admin/HRManagement/view_staff_with_permissions')->with('staffs',$user);
     }
     public function edit_staff(Request $request)
     {
             $edituser=User::where('id',$request->id)->
             where('CAMPUS_ID',Session::get('CAMPUS_ID'))->first();
 
-            return view('Admin/Hrmanagement/edit_staff_with_permissions')->with(['staff'=>$edituser]);
+            return view('Admin/HRManagement/edit_staff_with_permissions')->with(['staff'=>$edituser]);
     }
     public function update_staff(Request $request)
     {

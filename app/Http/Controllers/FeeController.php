@@ -252,8 +252,9 @@ class FeeController extends Controller
             'kelex_fee_structures.*'
         )
         ->get()->toArray();
+        $sessionID =  isset($record[0]->SESSION_ID) ?  $record[0]->SESSION_ID : null;
         // dd($record);
-        $data = ['sessions' => $sessions,  'record' => $record,'fee_cat' => $fee_cat,'sessionID' => $record[0]->SESSION_ID];
+        $data = ['sessions' => $sessions,  'record' => $record,'fee_cat' => $fee_cat,'sessionID' =>$sessionID];
         // $data = json_decode(json_encode($data,true));
         return view('Admin.FeesManagement.fee_define_new')->with($data);
     }
