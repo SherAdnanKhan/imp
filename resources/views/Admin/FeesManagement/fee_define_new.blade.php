@@ -180,14 +180,9 @@
                 success: function(data) {
                      if(data.type == '1'){
                             toastr.success(data.response,'Success');
-<<<<<<< HEAD
                             setTimeout(() => {
                                 location.reload();
                             }, 1000);
-||||||| merged common ancestors
-=======
-                            setTimeout(function(){location.reload();},1000);
->>>>>>> 1ed5414349a902aac3c434b1df0a349872b9f49a
                         }else{
                             alert(data);
                         }

@@ -14,6 +14,10 @@
                           <a href="{{route('showstudent')}}" class="btn btn-info">Show Existing Students</a>
 
                      </div>
+                     <div class="col-md-2">
+                          <a href="{{route('import')}}" class="btn btn-info">Add Students in Bulk Using Csv File</a>
+
+                     </div>
                   </div>
                   <form id="addstudent" action="{{route('addstudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
@@ -26,8 +30,8 @@
                         </span>
                         <span class="float-right ">
                              <label for="upload">Upload Student picture</label>
-                                    {{-- <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
-                                    <small id="IMAGE_error" class="form-text text-danger"></small> --}}
+                                     <input type="file" name="IMAGE" id="IMAGE" size="10" class="dropify"  accept="image/*"/>
+                                    <small id="IMAGE_error" class="form-text text-danger"></small> 
                                 <div class="bootstrap-filestyle input-group">
                                     <span class="group-span-filestyle " tabindex="0">
                                         <label for="filestyle-1" class="btn btn-primary ">

@@ -182,13 +182,17 @@ $('body').on('change','#sectionid',function(){
                 $('#FEE_LABEL').text('Select Fee Category To be Applied.');
                 $('.FEE_CATEGORY').html(html);
                 console.log(check);
-                if(check.months.length > 0 )
+                if(check.length > 0)
                 {
-                   $('.hidden-div').html('<input type="hidden" name="fee_id" value="'+check.fee_id+'">');
-                   $.each(check.months,function(key,val){
-                      $('input[value="'+val+'"]').prop('disabled',true);
-                   });
+                    if(check.months.length > 0 )
+                    {
+                        $('.hidden-div').html('<input type="hidden" name="fee_id" value="'+check.fee_id+'">');
+                        $.each(check.months,function(key,val){
+                            $('input[value="'+val+'"]').prop('disabled',true);
+                        });
+                    }
                 }
+ 
             }
         });
     } catch (error) {

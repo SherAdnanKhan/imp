@@ -16,6 +16,7 @@ class KelexStudentsFeesTable extends Migration
         Schema::create('kelex_student_fees', function (Blueprint $table) {
             $table->id('STUDENT_FEE_ID');
             $table->bigInteger('FEE_ID')->nullable();
+            $table->enum('STATUS',['0','1'])->nullable();
             $table->bigInteger('STUDENT_ID')->nullable();
             $table->timestamps();
         });

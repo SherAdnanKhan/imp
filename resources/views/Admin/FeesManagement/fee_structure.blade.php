@@ -377,7 +377,7 @@ $('body').on('submit','#add-fee-structure',function(e){
       var fdata = new FormData(this);
 
       $.ajax({
-        url: "{{ route('add-fee-structure')}},
+        url: "{{ route('add-fee-structure')}}",
             type:'POST',
             data: fdata,
             processData: false,

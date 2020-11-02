@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\NonTeachingController;
@@ -192,7 +193,11 @@ Route::get('/comingsoon', function ()
 
     Route::get('/getidcard/{id}', [StudentController::class, 'get_student_data_for_id_card'])->name('getidcard');
 
+// Student Add Through Csv Start here
 
+Route::get('/import', [StudentController::class, 'getImport'])->name('import');
+Route::get('/download', [StudentController::class, 'getDownload']);
+Route::post('/import_process', [StudentController::class, 'processImport'])->name('import_process');
 
 
 

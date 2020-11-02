@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
 use App\Models\Kelex_student;
+use App\Models\Kelex_fee_discount;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +15,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\studentrequest;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Kelex_students_session;
+use App\Http\Requests\CsvImportRequest;
 use Illuminate\Support\Facades\Session;
-use App\Models\Kelex_student_application;
-use App\Http\Requests\StudentApplicationRequest;
-use App\Models\Kelex_fee_discount;
+use Illuminate\Support\Facades\Response;
+
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class StudentController extends Controller
@@ -29,6 +31,92 @@ class StudentController extends Controller
         $session= Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         return view("Admin.Students.addstudent")->with(['classes'=>$class,'sessions'=>$session]);
     }
+    public function getImport()
+    {
+        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        $session= Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        return view("Admin.Students.import")->with(['classes'=>$class,'sessions'=>$session]);
+    }
+    
+    public function processImport(CsvImportRequest $request)
+    {
+        $count=0;
+        $success=true;
+        try {
+           
+    $row = $this->csvToArray($request->csv_file);
+
+    $image = $request->file('IMAGE');
+    $my_image =null;
+    if(!empty($image)):
+        $my_image = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('upload'), $my_image);
+    endif;
+              // $regno = 0;
+        $regno= DB::table('kelex_students')
+        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
+        ->select('REG_NO')
+        ->latest('created_at')
+        ->first();
+        // dd($regno['']);
+        $rollno= DB::table('kelex_students_sessions')
+        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
+        ->select('ROLL_NO')
+        ->latest('created_at')
+        ->first();
+       
+            for ($i = 0; $i < count($row); $i ++)
+            {
+                $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
+                $rollno = ( $rollno == NULL) ? 1 : $rollno->ROLL_NO+1;
+                $recent_entry_student=   Kelex_student::create([
+                    "NAME" => $row[$i]["NAME"], "FATHER_NAME" => $row[$i]["FATHER_NAME"],
+                    "FATHER_CONTACT" => $row[$i]["FATHER_CONTACT"],"SECONDARY_CONTACT"  => $row[$i]["SECONDARY_CONTACT"],
+                    "GENDER" => $row[$i]["GENDER"],"DOB"  => $row[$i]["DOB"],
+                    "CNIC" => $row[$i]["CNIC"],"RELIGION" => $row[$i]["RELIGION"],
+                    "FATHER_CNIC" => $row[$i]["FATHER_CNIC"],"SHIFT" => $row[$i]["SHIFT"],
+                    "PRESENT_ADDRESS"  => $row[$i]["PRESENT_ADDRESS"],"PERMANENT_ADDRESS" => $row[$i]["PERMANENT_ADDRESS"],
+                    "GUARDIAN" => $row[$i]["GUARDIAN"],"STD_PASSWORD" => Hash::make('123456'),
+                    "GUARDIAN_CNIC" => $row[$i]["GUARDIAN_CNIC"], "IMAGE" => $my_image,
+                    "PREV_CLASS" => $row[$i]["PREV_CLASS"],"SLC_NO" => $row[$i]["SLC_NO"],
+                    "PREV_CLASS_MARKS" => $row[$i]["PREV_CLASS_MARKS"],"PREV_BOARD_UNI" => $row[$i]["PREV_BOARD_UNI"],
+                    "PASSING_YEAR" => $row[$i]["PASSING_YEAR"],'REG_NO'=> $regno,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'USER_ID'=>Auth::user()->id
+                ]);
+                $studentid= $recent_entry_student->STUDENT_ID;
+                Kelex_students_session::Create([
+                    'SESSION_ID'=>$request->SESSION_ID,
+                    'CLASS_ID'=>$request->CLASS_ID,
+                    'IS_ACTIVE'=>'1',
+                    'SECTION_ID'=>$request->SECTION_ID,
+                    'STUDENT_ID'=>$studentid,
+                    'ROLL_NO'=> $rollno,
+                    'CAMPUS_ID'=>Auth::user()->CAMPUS_ID,
+                    'USER_ID'=> Auth::user()->id
+                 ]);
+                 $count++;
+
+            }
+        } 
+        catch (\Exception $e) {
+            $success=false; 
+        }
+
+        return response()->json(array('status' => $success,'totalstudents'=>$count,'url'=>url('/showstudent')));
+    }
+
+
+    public function getDownload()
+{
+    //PDF file is stored under project/public/download/info.pdf
+    $file= public_path(). "/kelex_students.csv";
+
+    $headers = array(
+              'Content-Type: application/csv',
+            );
+
+    return Response::download($file, 'SampleStudent.csv', $headers);
+}
+
     public function add_student(studentrequest $request)
     {
         // dd($request->all());
@@ -267,6 +355,30 @@ class StudentController extends Controller
                                 // dd($fee_discount);
         return array($data,$class,$section,$session,$std_session_data,$fee_discount);
     }
+
+//Supporting Function here
+
+    function csvToArray($filename = '', $delimiter = ',')
+{
+    if (!file_exists($filename) || !is_readable($filename))
+        return false;
+
+    $header = null;
+    $data = array();
+    if (($handle = fopen($filename, 'r')) !== false)
+    {
+        while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+        {
+            if (!$header)
+                $header = $row;
+            else
+                $data[] = array_combine($header, $row);
+        }
+        fclose($handle);
+    }
+
+    return $data;
+}
 
 
 

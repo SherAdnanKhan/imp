@@ -821,7 +821,9 @@
                             Class
                         </td>
                         <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
-                            {{$value['Class_name']}}</td>
+                        @foreach($class as $clas)
+                            {{ $clas['Class_id']==$value['CLASS_ID']?$clas['Class_name']:''}}</td>
+                         @endforeach
                     </tr>
                 </table>
                 <table style="width:563px; height: 20px; border-bottom: 0px solid black;border-left: 0px solid black; border-right: 0px solid black;">
@@ -830,7 +832,10 @@
                             &nbsp Section
                         </td>
                         <td colspan="2" style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
-                           {{$value['Section_name']}}
+                        @foreach($Section as $sec)
+                            {{ $sec['Section_id']==$value['SESSION_ID']?$sec['Section_name']:''}}</td>
+                         @endforeach
+                       
                           </td>
                         <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
                             &nbsp
@@ -1021,7 +1026,9 @@
                             Class
                         </td>
                         <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
-                            {{$value['Class_name']}}</td>
+                        @foreach($class as $clas)
+                            {{ $clas['Class_id']==$value['CLASS_ID']?$clas['Class_name']:''}}</td>
+                         @endforeach
                     </tr>
                 </table>
                 <table style="width:563px; height: 20px; border-bottom: 0px solid black;border-left: 0px solid black; border-right: 0px solid black;">
@@ -1030,7 +1037,9 @@
                             &nbsp Section
                         </td>
                         <td colspan="2" style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
-                           {{$value['Section_name']}}
+                        @foreach($Section as $sec)
+                            {{ $sec['Section_id']==$value['SESSION_ID']?$sec['Section_name']:''}}</td>
+                         @endforeach
                           </td>
                         <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
                             &nbsp
@@ -1058,7 +1067,7 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php var_dump($v['discount']['DISCOUNT']); $total += ($v['fee_amount'] * $monthsTotal )  @endphp
+                            @php  $total += ($v['fee_amount'] * $monthsTotal )  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}
