@@ -16,7 +16,7 @@ class CreateFeeDiscountsTable extends Migration
         Schema::create('kelex_fee_discounts', function (Blueprint $table) {
             $table->id('DISCOUNT_ID');
             $table->bigInteger('STUDENT_ID')->nullable();
-            $table->bigInteger('FEE_ID')->nullable();
+            $table->bigInteger('FEE_CAT_ID')->nullable();
             $table->bigInteger('DISCOUNT')->nullable();
             $table->bigInteger('USER_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();

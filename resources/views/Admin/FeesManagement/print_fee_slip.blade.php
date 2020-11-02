@@ -1058,7 +1058,7 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php $total += ($v['fee_amount'] * $monthsTotal )  @endphp
+                            @php var_dump($v['discount']['DISCOUNT']); $total += ($v['fee_amount'] * $monthsTotal )  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}

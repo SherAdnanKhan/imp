@@ -48,23 +48,35 @@
                                  </div>
                             </div> --}}
                             <div class="row">
-
-                              <div class="col-md-3">
-                                 <div class="form-group">
-                                    <label for="">Class</label>
-                                       <small class="req"> *</small>
-                                       <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
-                                          id="class_id">
-                                          <option value="0" disabled selected>Select
-                                             Class*</option>
-                                          @foreach($classes as $class)
-                                          <option  value="{{ $class->Class_id }}">
-                                             {{ ucfirst($class->Class_name) }}</option>
-                                          @endforeach
-                                    </select>
-                                    <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                                 <div class="col-md-3">
+                                    <div class="form-group">
+                                       <label for="">Session</label>
+                                          <small class="req"> *</small>
+                                          <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Section" id="SESSION_ID" >
+                                            <option value="">Select</option>
+                                            @foreach($sessions as $session)
+                                            <option value="{{$session->SB_ID}}">{{$session->SB_NAME}}</option>
+                                                @endforeach
+                                            </select>
+                                            <small id="SESSION_ID_error" class="form-text text-danger"></small>
+                                    </div>
                                  </div>
-                              </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Class</label>
+                                        <small class="req"> *</small>
+                                        <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
+                                            id="class_id">
+                                            <option value="0" disabled selected>Select
+                                                Class*</option>
+                                            @foreach($classes as $class)
+                                            <option  value="{{ $class->Class_id }}">
+                                                {{ ucfirst($class->Class_name) }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small id="CLASS_ID_error" class="form-text text-danger"></small>
+                                    </div>
+                                </div>
                                  <div class="col-md-3">
                                      <div class="form-group">
                                        <label for="">Section</label>
@@ -74,21 +86,17 @@
                                        <small id="SECTION_ID_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label for="">Session</label>
-                                          <small class="req"> *</small>
-                                          <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Section" id="SESSION_ID" >
-                              <option value="">Select</option>
-                              @foreach($sessions as $session)
-                              <option value="{{$session->SB_ID}}">{{$session->SB_NAME}}</option>
-                                   @endforeach
-                             </select>
-                             <small id="SESSION_ID_error" class="form-text text-danger"></small>
-                                    </div>
-                                 </div>
-                              </div>
 
+
+                            </div>
+                                <div class="row fee-div" style="display: none">
+                                    <div class="form-group">
+                                        <label>Fee Discount</label>
+                                        <div class="dis-div">
+
+                                        </div>
+                                    </div>
+                                </div>
                               <div class="row">
                                  <div class="col-md-3">
                                     <div class="form-group">
@@ -296,6 +304,7 @@
     $('.dropify').dropify();
     $('#class_id').on('change', function () {
                 let id = $(this).val();
+                class_id = id;
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Processing...</option>`);
                 $.ajax({
@@ -312,6 +321,46 @@
                 }
             });
         });
+   });
+   $('body').on('change','#sectionid',function(){
+       session_id = $('#SESSION_ID').val();
+       section_id = $(this).val();
+       var html = "";
+       try {
+        $.ajax({
+            type:"GET",
+            url: '/get-student-fee/'+session_id+'/'+class_id+'/'+section_id,
+            success:function(res){
+                if(res.length>0){
+                    // for (let i = 0; i < res.length; i++) {
+                    //     for (let j = 0; j < res[i].length; j++) {
+                    //         console.log(res[i][j]['FEE_CATEGORY']);
+                    //     }
+                    // }
+                    html += '<ul class="list-inline">';
+                    $.each(res,function(key,value){
+                        // $.each(value,function(k,val){
+                            html +=  '<li>';
+                            html +='<div class="input-group mb-3">';
+                            html +='<div class="input-group-prepend">';
+                            html += '<span class="input-group-text" id="basic-addon3">'+value['FEE_CATEGORY']+ ' = '+value['CATEGORY_AMOUNT']+'</span>';
+                            html +='</div>';
+                            html +='<input type="text" name="fee_discount['+value['FEE_CATEGORY_ID']+']" class="form-control col-sm-2" id="basic-url" aria-describedby="basic-addon3" placeholder="Discount">';
+                            html +='</div>';
+                            html +='</li>';
+                        // });
+                    });
+
+                    html += '</ul>';
+                    $('.dis-div').html(html);
+                    $('.fee-div').css('display','block');
+                }
+
+            }
+        });
+       } catch (error) {
+        alert(error);
+       }
    });
 </script>
 <script>

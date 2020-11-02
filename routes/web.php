@@ -231,7 +231,8 @@ Route::get('/comingsoon', function ()
     Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'update_feecategory'])->name("updatefeecategory");
      Route::match(['get', 'post'], '/get-fee-categories/{class_id}/{section_id}', [FeeController::class, 'get_fee_categories'])->name("get-fee-categories");
 
-//Fee type Routes Start
+    //Fee type Routes Start
+    Route::match(['get', 'post'], '/get-student-fee/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_student_fee'])->name("get-student-fee");
     Route::match(['get', 'post'], '/fee-type', [FeeController::class, 'fee_type'])->name("fee-type");
     Route::match(['get', 'post'], '/add-fee-type', [FeeController::class, 'add_fee_type'])->name("add-fee-type");
     Route::match(['get', 'post'], '/edit-fee-type', [FeeController::class, 'edit_fee_type'])->name("edit-fee-type");

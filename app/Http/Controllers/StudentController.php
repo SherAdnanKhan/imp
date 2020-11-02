@@ -16,20 +16,24 @@ use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Models\Kelex_student_application;
 use App\Http\Requests\StudentApplicationRequest;
+use App\Models\Kelex_fee_discount;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class StudentController extends Controller
 {
-   
-   
+
+
     public function index_student()
     {
-        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get(); 
-        $session= Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get(); 
+        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        $session= Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         return view("Admin.Students.addstudent")->with(['classes'=>$class,'sessions'=>$session]);
     }
     public function add_student(studentrequest $request)
     {
+        // dd($request->all());
+
+
         $image = $request->file('IMAGE');
         $my_image =null;
         if(!empty($image)):
@@ -57,31 +61,51 @@ class StudentController extends Controller
             'FATHER_CONTACT' => $request->FATHER_CONTACT,
             'SECONDARY_CONTACT' => $request->SECONDARY_CONTACT,
             'GENDER' => $request->GENDER,
-            'DOB' => $request->DOB, 
+            'DOB' => $request->DOB,
             'CNIC' => $request->CNIC,
             'RELIGION' => $request->RELIGION,
             'FATHER_CNIC' => $request->FATHER_CNIC,
-            'SHIFT' => $request->SHIFT, 
+            'SHIFT' => $request->SHIFT,
             'PRESENT_ADDRESS' => $request->PRESENT_ADDRESS,
             'PERMANENT_ADDRESS' => $request->PERMANENT_ADDRESS,
              'GUARDIAN' => $request->GUARDIAN,
-             'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC, 
+             'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC,
              'IMAGE' => $my_image,
              'STD_PASSWORD'=> Hash::make("123456"),
               'PREV_CLASS' => $request->PREV_CLASS,
               'SLC_NO' => $request->SLC_NO,
              'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
              'PREV_BOARD_UNI' => $request->PREV_BOARD_UNI,
-             'PASSING_YEAR' => $request->PASSING_YEAR, 
+             'PASSING_YEAR' => $request->PASSING_YEAR,
              'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
              'REG_NO'=> $regno,
-              'USER_ID' => Auth::user()->id, 
-        ]);  
+              'USER_ID' => Auth::user()->id,
+        ]);
         $studentid= $recent_entry_student->STUDENT_ID;
-        Kelex_students_session::Create(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
-        'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID,'STUDENT_ID'=>$studentid,
-        'ROLL_NO'=> $rollno,'CAMPUS_ID'=>Auth::user()->CAMPUS_ID,
-         'USER_ID'=> Auth::user()->id]);
+        Kelex_students_session::Create([
+            'SESSION_ID'=>$request->SESSION_ID,
+            'CLASS_ID'=>$request->CLASS_ID,
+            'IS_ACTIVE'=>'1',
+            'SECTION_ID'=>$request->SECTION_ID,
+            'STUDENT_ID'=>$studentid,
+            'ROLL_NO'=> $rollno,
+            'CAMPUS_ID'=>Auth::user()->CAMPUS_ID,
+            'USER_ID'=> Auth::user()->id
+         ]);
+        if (!empty($request->fee_discount)) :
+
+            foreach ($request->fee_discount as $key => $val) :
+                Kelex_fee_discount::create([
+                    'STUDENT_ID' => $studentid,
+                    'FEE_CAT_ID' => $key,
+                    'DISCOUNT' => $val,
+                    'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+                    'USER_ID' => Auth::user()->id,
+                ]);
+            endforeach;
+        endif;
+
+
 
         $msg='Student Record inserted successfully';
         return response()->json($msg);
@@ -90,15 +114,17 @@ class StudentController extends Controller
     {
 
     $student= Kelex_student::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
-    
+
 
     return view('Admin.Students.view')->with('students',$student);
     }
 
     public function getstudentdata($id){
-        list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
-        return view('Admin.Students.editstudent')->with(['student'=>$data,'classes'=>$class,'sessions'=>$session,'sections'=>$section,'std_session_data'=>$std_session_data]);
-       
+        list($data,$class,$section,$session,$std_session_data,$fee_discount) =  $this->getstudentdetails($id);
+        $record = (['student'=>$data,'fee_discount' => $fee_discount,'classes'=>$class,'sessions'=>$session,'sections'=>$section,'std_session_data'=>$std_session_data]);
+        // dd($record);
+        return view('Admin.Students.editstudent')->with($record);
+
     }
     public function get_student_data_for_id_card($id){
         list($data,$class,$section,$session,$std_session_data)=  $this->getstudentdetails($id);
@@ -108,11 +134,13 @@ class StudentController extends Controller
         $sessionid= $std_session_data['SESSION_ID'];
         $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+
         return view('Admin.Students.student_id_card')->with(['student'=>$data,'classes'=>$selectedclass,'sessions'=>$sessionid,'sections'=>$section]);
-       
+
     }
     public function update_student(studentrequest $request)
     {
+        // dd($request->all());
         $image = $request->file('IMAGE');
         $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
@@ -128,28 +156,40 @@ class StudentController extends Controller
             'FATHER_CONTACT' => $request->FATHER_CONTACT,
             'SECONDARY_CONTACT' => $request->SECONDARY_CONTACT,
             'GENDER' => $request->GENDER,
-            'DOB' => $request->DOB, 
+            'DOB' => $request->DOB,
             'CNIC' => $request->CNIC,
             'RELIGION' => $request->RELIGION,
             'FATHER_CNIC' => $request->FATHER_CNIC,
-            'SHIFT' => $request->SHIFT, 
+            'SHIFT' => $request->SHIFT,
             'PRESENT_ADDRESS' => $request->PRESENT_ADDRESS,
             'PERMANENT_ADDRESS' => $request->PERMANENT_ADDRESS,
              'GUARDIAN' => $request->GUARDIAN,
-             'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC, 
+             'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC,
              'IMAGE' => $my_image,
               'PREV_CLASS' => $request->PREV_CLASS,
               'SLC_NO' => $request->SLC_NO,
              'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
              'PREV_BOARD_UNI' => $request->PREV_BOARD_UNI,
-             'PASSING_YEAR' => $request->PASSING_YEAR, 
+             'PASSING_YEAR' => $request->PASSING_YEAR,
              'CAMPUS_ID' => '1',
-              'USER_ID' => '1', 
+              'USER_ID' => '1',
         ]);
         Kelex_students_session::where('STUDENT_ID',$request->STUDENT_ID)->
         where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
         update(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
         'IS_ACTIVE'=>'1','SECTION_ID'=>$request->SECTION_ID]);
+        if(!empty($request->fee_discount)):
+            Kelex_fee_discount::where('STUDENT_ID', $request->STUDENT_ID)->delete();
+            foreach ($request->fee_discount as $key => $val) :
+                Kelex_fee_discount::create([
+                    'STUDENT_ID' => $request->STUDENT_ID,
+                    'FEE_CAT_ID' => $key,
+                    'DISCOUNT' => $val,
+                    'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+                    'USER_ID' => Auth::user()->id,
+                ]);
+            endforeach;
+        endif;
         $msg='Student Record Updated successfully';
         return response()->json($msg);
     }
@@ -161,7 +201,7 @@ class StudentController extends Controller
     $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
     return view('Admin.Students.view')->with('classes',$class);
     }
-    
+
     public function fetch($id)
     {
         echo json_encode(DB::table('kelex_sections')->where('Class_id',$id)->
@@ -170,7 +210,7 @@ class StudentController extends Controller
 
     public function fetchstudentdata($id)
     {
-      
+
      $explode_id = array_map('intval', explode('.', $id));
      $SECTION_ID=$explode_id[0];
      $CLASS_ID=$explode_id[1];
@@ -181,9 +221,10 @@ class StudentController extends Controller
         ->where('kelex_students_sessions.CAMPUS_ID','=', Session::get('CAMPUS_ID'))
         ->select('kelex_students.*')
         ->get()->toArray();
+
         return response()->json($result);
     }
-    
+
     public function showdetails($id)
     {
         try {
@@ -199,7 +240,7 @@ class StudentController extends Controller
       $selectedsession= Kelex_sessionbatch::where('SB_ID',$sessionid)
       ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
       return view('Admin.Students.view_students_details')->with(['student'=>$data,'class'=>$selectedclass,'session'=>$selectedsession,'section'=>$section]);
-    
+
     }
 
     public function searchstudent(Request $request)
@@ -212,13 +253,19 @@ class StudentController extends Controller
     {
         $data = Kelex_student::find($id)->toArray();
         $std_session_data= Kelex_students_session::where('STUDENT_ID',$id)
-        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
-        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get(); 
+                                                    ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $sectionid= $std_session_data['SECTION_ID'];
         $section= kelex_section::where('Section_id',$sectionid)
-        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+                                        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $session=Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
-        return array($data,$class,$section,$session,$std_session_data);
+        $fee_discount = DB::table('kelex_fee_discounts')
+                                ->leftJoin('kelex_fee_categories', 'kelex_fee_categories.FEE_CAT_ID','=', 'kelex_fee_discounts.FEE_CAT_ID')
+                                ->where('kelex_fee_discounts.STUDENT_ID',$id)
+                                ->select('kelex_fee_categories.FEE_CAT_ID','kelex_fee_categories.CATEGORY','kelex_fee_discounts.DISCOUNT')
+                                ->get()->toArray();
+                                // dd($fee_discount);
+        return array($data,$class,$section,$session,$std_session_data,$fee_discount);
     }
 
 

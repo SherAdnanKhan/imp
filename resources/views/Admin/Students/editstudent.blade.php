@@ -12,24 +12,58 @@
                   <div class="row">
                      <div class="col-2">
                           <a href="{{route('showstudent')}}" class="btn btn-info">Show Existing Students</a>
-                        
+
                      </div>
                   </div>
-                  <div class="card-body"> <h4 class="register-heading">Student Admission</h4>
-                     <p class="text-muted m-b-30 ">Please fill all the mandaortey fields .</p>
-                     <!-- student form start -->
-                        <form id="updatestudent" action="{{route('updatestudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                <form id="updatestudent" action="{{route('updatestudent')}}"  method="post" accept-charset="utf-8" enctype="multipart/form-data">
                         @csrf
+                  <div class="card-body">
+                      <div class="clearfix p-1">
+
+                        <span class="float-left ">
+                             <h4 class="register-heading">Student Admission</h4>
+                                <p class="text-muted m-b-30 ">Please fill all the mandaortey fields .</p>
+                        </span>
+                        <span class="float-right ">
+                             <label for="upload">Upload Student picture</label>
+                                    {{-- <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
+                                    <small id="IMAGE_error" class="form-text text-danger"></small> --}}
+                                <div class="bootstrap-filestyle input-group">
+                                    <span class="group-span-filestyle " tabindex="0">
+                                        <label for="filestyle-1" class="btn btn-primary ">
+                                            <span class="icon-span-filestyle fas fa-folder-open"></span>
+                                            <span class="buttonText">Choose file</span>
+                                        </label>
+                                    </span>
+                                </div>
+                        </span>
+
+                    </div>
+                     <!-- student form start -->
+
                               <div class="row">
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <label for="upload">Upload Student picture</label>
                                     <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
                                     <img src="{{ asset('upload')}}/{{$student['IMAGE']}}" alt="No image Found" style="width: 50px;height:50px;">
                                     <small id="IMAGE_error" class="form-text text-danger"></small>
-                                 </div>
+                                 </div> --}}
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Session</label>
+                                            <small class="req"> *</small>
+                                            <select name="SESSION_ID" class="form-control formselect required" id="SESSION_ID" >
+                                            <option value="">Select</option>
+                                            @foreach($sessions as $session)
+                                            <option value="{{$session->SB_ID}}" <?php if($std_session_data->SESSION_ID==$session->SB_ID) echo 'selected="selected"'; ?>>{{$session->SB_NAME}}</option>
+                                                @endforeach
+                                            </select>
+                                            <small id="SESSION_ID_error" class="form-text text-danger"></small>
+                                    </div>
+                                </div>
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="">Class</label> 
+                                    <label for="">Class</label>
                                        <small class="req"> *</small>
                                        <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                           id="class_id">
@@ -43,36 +77,48 @@
                                     <small id="CLASS_ID_error" class="form-text text-danger"></small>
                                  </div>
                               </div>
-                                 <div class="col-md-3">
-                                     <div class="form-group">
-                                       <label for="">Section</label> 
-                                          <small class="req"> *</small>
-                                          <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" > 
-                                          <option  value="{{ $sections->Section_id }}" selected>
-                                          {{ $sections->Section_name }}</option>
-                                     </select>
-                                       <small id="SECTION_ID_error" class="form-text text-danger"></small>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <label for="">Section</label>
+                                            <small class="req"> *</small>
+                                            <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
+                                            <option  value="{{ $sections->Section_id }}" selected>
+                                            {{ $sections->Section_name }}</option>
+                                        </select>
+                                        <small id="SECTION_ID_error" class="form-text text-danger"></small>
                                     </div>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                       <label for="">Session</label> 
-                                          <small class="req"> *</small>
-                                          <select name="SESSION_ID" class="form-control formselect required" id="SESSION_ID" >
-                              <option value="">Select</option>
-                              @foreach($sessions as $session)
-                              <option value="{{$session->SB_ID}}" <?php if($std_session_data->SESSION_ID==$session->SB_ID) echo 'selected="selected"'; ?>>{{$session->SB_NAME}}</option>
-                                   @endforeach
-                             </select>
-                             <small id="SESSION_ID_error" class="form-text text-danger"></small>
-                                    </div>
-                                 </div>
+                            </div>
+
                               </div>
-                           
+
+                                <div class="row fee-div" style="display: block">
+                                    <div class="form-group">
+                                        <label>Fee Discount</label>
+                                        <div class="dis-div">
+
+                                            <ul class="list-inline">
+                                                   @if(!empty($fee_discount))
+                                                <li>
+                                                    @foreach ($fee_discount as $item)
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon3">{{$item->CATEGORY}}</span>
+                                                            </div>
+                                                            <input type="text" name="fee_discount[{{$item->FEE_CAT_ID}}]" class="form-control col-sm-2" id="basic-url" aria-describedby="basic-addon3" value="{{$item->DISCOUNT}}">
+                                                        </div>
+                                                    @endforeach
+
+                                                </li>
+                                                 @endif
+                                            <ul>
+                                        </div>
+                                    </div>
+                                </div>
+
                               <div class="row">
                                  <div class="col-md-3">
                                     <div class="form-group">
-                                       <label for="exampleInputNAME1">Student Name </label> 
+                                       <label for="exampleInputNAME1">Student Name </label>
                                        <small class="req"> *</small>
                                        <input id="STUDENT_ID" name="STUDENT_ID" placeholder="" type="hidden" value="{{$student['STUDENT_ID']}}" class="form-control">
                                        <input id="NAME" name="NAME" placeholder="" type="text" value="{{$student['NAME']}}"  class="form-control">
@@ -84,7 +130,7 @@
                                        <label for="exampleInpUTFNAME1">FATHER NAME</label>
                                        <small class="req"> *</small>
                                        <input id="FATHER_NAME" name="FATHER_NAME" placeholder="" type="text" value="{{$student['FATHER_NAME']}}"  class="form-control">
-                                       <small id="FATHER_NAME_error" class="form-text text-danger"></small> 
+                                       <small id="FATHER_NAME_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                                  <div class="col-md-3">
@@ -177,7 +223,7 @@
                                        <label for="exampleInpUTFNAME1">GUARDIAN NAME</label>
                                        <small class="req"> *</small>
                                        <input id="GUARDIAN" name="GUARDIAN" placeholder="" type="text" value="{{$student['GUARDIAN']}}" class="form-control">
-                                       <small id="GUARDIAN_error" class="form-text text-danger"></small> 
+                                       <small id="GUARDIAN_error" class="form-text text-danger"></small>
                                     </div>
                                  </div>
                               </div>
@@ -216,7 +262,7 @@
                                  </div>
                               </div>
                               <div class="row">
-                               
+
                                   <div class="col-md-4">
                                     <div class="form-group">
                                        <label for="exampleInputsection1">Previous Class :  </label>
@@ -239,22 +285,23 @@
                                  </div>
                                  <div class="col-4">
                                     <div class="form-group">
-         
+
                                     </div>
-                                   
+
                                  </div>
-                                
-                              </div>  
-                              
+
+                              </div>
+
                               <div class="box-footer text-center">
-                                 
+
                                     <div class=" ">
                                        <button type="submit" class="btn btn-info btn-rounded align-items-right waves-effect waves-light">Update Student</button>
                                     </div>
                               </div>
-                        </form>
+
                      <!-- student form end -->
                   </div>
+                  </form>
                </div>
             </div>
          </div>
@@ -275,7 +322,7 @@
                 url: '/getsections/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
-                //console.log(response);   
+                //console.log(response);
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
@@ -284,6 +331,48 @@
                 }
             });
         });
+   });
+
+    $('body').on('change','#sectionid',function(){
+       session_id = $('#SESSION_ID').val();
+       class_id = $('#class_id').val();
+       section_id = $(this).val();
+       var html = "";
+       try {
+        $.ajax({
+            type:"GET",
+            url: '/get-student-fee/'+session_id+'/'+class_id+'/'+section_id,
+            success:function(res){
+                if(res.length>0){
+                    // for (let i = 0; i < res.length; i++) {
+                    //     for (let j = 0; j < res[i].length; j++) {
+                    //         console.log(res[i][j]['FEE_CATEGORY']);
+                    //     }
+                    // }
+                    html += '<ul class="list-inline">';
+                    $.each(res,function(key,value){
+                        // $.each(value,function(k,val){
+                            html +=  '<li>';
+                            html +='<div class="input-group mb-3">';
+                            html +='<div class="input-group-prepend">';
+                            html += '<span class="input-group-text" id="basic-addon3">'+value['FEE_CATEGORY']+ ' = '+value['CATEGORY_AMOUNT']+'</span>';
+                            html +='</div>';
+                            html +='<input type="text" name="fee_discount['+value['FEE_CATEGORY_ID']+']" class="form-control col-sm-2" id="basic-url" aria-describedby="basic-addon3" placeholder="Discount">';
+                            html +='</div>';
+                            html +='</li>';
+                        // });
+                    });
+
+                    html += '</ul>';
+                    $('.dis-div').html(html);
+                    $('.fee-div').css('display','block');
+                }
+
+            }
+        });
+       } catch (error) {
+        alert(error);
+       }
    });
 </script>
 </script>
@@ -330,7 +419,10 @@ $('body').on('submit','#updatestudent',function(e){
                console.log(data)
                toastr.success(data,'Notice');
                $("#updatestudent").get(0).reset();
-               location.reload();
+               setTimeout(function() {
+                location.reload();
+               }, 1000);
+
               },
               error: function(error){
                console.log(error);
@@ -340,9 +432,9 @@ $('body').on('submit','#updatestudent',function(e){
                         $("#" + key + "_error").text(val[0]);
                     });
     }
-      
 
-              
+
+
       });
     });
 </script>

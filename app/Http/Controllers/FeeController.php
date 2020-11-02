@@ -19,6 +19,7 @@ use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FeeCategoryRequest;
 use App\Models\Kelex_fee;
+use App\Models\Kelex_fee_discount;
 use App\Models\Kelex_student_fee;
 
 class FeeController extends Controller
@@ -389,6 +390,7 @@ class FeeController extends Controller
     }
     public function get_section_fee($session_id,$class_id,$section_id)
     {
+
         $record = Kelex_fee::where(['STATUS' => '0','SESSION_ID' =>$session_id,'CLASS_ID' => $class_id,'SECTION_id'=> $section_id,'CAMPUS_ID' => Auth::user()->CAMPUS_ID])
                             ->select('FEE_DATA','MONTHS')
                             ->get();
@@ -411,36 +413,80 @@ class FeeController extends Controller
         $fee_details = [];
         foreach($fee_data as $key => $val):
             $fee_details[] = json_decode($val);
-            // print_r(json_decode($val) );
+
         endforeach;
-        $i = 0;
-        foreach($fee_details as $k => $v):
-            foreach($v as  $n => $m):
-                $fee_category = Kelex_fee_category::select('CATEGORY')
-                                                            ->where(['FEE_CAT_ID' => $m->FEE_CATEGORY_ID])
-                                                            ->get()[0]->CATEGORY;
-                $complete_fee_details[$i]['fee_category'] = $fee_category;
-                $complete_fee_details[$i]['fee_amount'] = $m->FEE_CATEGORY_AMOUNT;
-                $i++;
-            endforeach;
-        endforeach;
+
+
         $std_record = DB::table('kelex_student_fees')
                             ->join('kelex_fees','kelex_fees.FEE_ID','=', 'kelex_student_fees.FEE_ID')
                             ->join('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
                             // ->join('kelex_students_sessions', 'kelex_students_sessions.SESSION_ID', '=', 'kelex_fees.SESSION_ID') //temporary off
                             ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fees.CLASS_ID')
                             ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fees.SECTION_ID')
+                            // ->leftJoin('kelex_fee_discounts', 'kelex_fee_discounts.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+                            // ->select('*')
                             ->get();
         $std_record = json_decode(json_encode($std_record),true);
-        // echo "<pre>";print_r($std_record);
+
+        $i = 0;
+        foreach ($fee_details as $k => $v) :
+            foreach ($v as  $n => $m) :
+                $fee_category_data = Kelex_fee_category::select('CATEGORY','FEE_CAT_ID')
+                ->where(['FEE_CAT_ID' => $m->FEE_CATEGORY_ID])
+                    ->get();
+                $fee_category = $fee_category_data[0]->CATEGORY;
+                $complete_fee_details[$i]['fee_category_id'] = $fee_category_data[0]->FEE_CAT_ID;
+                $complete_fee_details[$i]['fee_category'] = $fee_category;
+                $complete_fee_details[$i]['fee_amount'] = $m->FEE_CATEGORY_AMOUNT;
+                $i++;
+            endforeach;
+        endforeach;
         for ($i=0;$i<count($std_record); $i++):
             // print_r($std_record[$i]);
+            for ($j =0; $j <count($complete_fee_details);$j++) {
+               $discount =  DB::table('kelex_fee_discounts')
+                                    ->where(['STUDENT_ID'=> $std_record[$i]['STUDENT_ID'],'FEE_CAT_ID' =>  $complete_fee_details[$j]['fee_category_id']  ])
+                                    // ->select('DISCOUNT')
+                                    ->first();
+                $discount = json_decode(json_encode($discount),true);
+                // var_dump($discount);
+                $complete_fee_details[$j]['discount'] = $discount;
+            // echo $complete_fee_details[$j]['fee_category_id']."<br>";
+            }
             $std_record[$i]['student_fee_months'] = $months;
             $std_record[$i]['student_fees'] = $complete_fee_details;
         endfor;
         // echo "<pre>";print_r($std_record); die;
         return view('Admin.FeesManagement.print_fee_slip')->with(['record' => $std_record]);
 
+    }
+
+    public function get_student_fee($session_id,$class_id,$section_id)
+    {
+        $where = [
+            'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+            'SESSION_ID' => $session_id,
+            'CLASS_ID' => $class_id,
+            'SECTION_ID' => $section_id
+        ];
+        // dd($where);
+       $data = KelexFee_structure::where($where)->select('CATEGORY_AMOUNT')->get()[0]->CATEGORY_AMOUNT;
+       $data = json_decode(json_encode($data,true),true);
+       $data = json_decode($data); //dd($data);
+       $fee_data = [];
+        $i = 0;
+       foreach($data as $k => $v):
+
+           foreach($v as $key => $val):
+               $category = Kelex_fee_category::where('FEE_CAT_ID', $key)->select('CATEGORY')->get()[0]->CATEGORY;
+                $fee_data[$i]['FEE_CATEGORY_ID'] =  $key;
+                $fee_data[$i]['FEE_CATEGORY'] = $category;
+                $fee_data[$i]['CATEGORY_AMOUNT'] =  $val;
+            // echo $i;
+                $i++;
+           endforeach;
+       endforeach;
+       return $fee_data;
     }
 
 }
