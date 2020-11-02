@@ -474,7 +474,7 @@ class FeeController extends Controller
         // dd($std_record);
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $Section= Kelex_Section::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
-        $Session= Kelex_students_session::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        $Session= kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
 
         return view('Admin.FeesManagement.print_fee_slip')->with(['record' => $std_record,'class'=>$class,'Section'=>$Section,'Session'=>$Session]);
 

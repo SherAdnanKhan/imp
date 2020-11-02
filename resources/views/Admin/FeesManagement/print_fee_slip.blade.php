@@ -842,7 +842,10 @@
                             Session
                         </td>
                         <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
-
+                                 
+                        @foreach($Session as $ses)
+                            {{ $ses['SB_ID']==$value['SESSION_ID']?$ses['SB_NAME']:''}}</td>
+                         @endforeach
                          </td>
                     </tr>
                 </table>
@@ -1046,7 +1049,9 @@
                             Session
                         </td>
                         <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
-
+                        @foreach($Session as $ses)
+                            {{ $ses['SB_ID']==$value['SESSION_ID']?$ses['SB_NAME']:''}}</td>
+                         @endforeach
                          </td>
                     </tr>
                 </table>
