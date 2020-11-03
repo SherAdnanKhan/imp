@@ -151,7 +151,7 @@ $('body').on('submit','#csvform',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-                return false;
+               
                 if(data.status)
                 {
                 toastr.success('Student Data Uploaded Successfully  '+data.totalstudents,'Notice')
