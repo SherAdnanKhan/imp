@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 
 use Illuminate\Contracts\Encryption\DecryptException;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -45,6 +46,7 @@ class StudentController extends Controller
         // try {
            
     $row = $this->csvToArray($request->csv_file);
+    // dd($row);
     $image = $request->file('IMAGE');
     $my_image =null;
     if(!empty($image)):
@@ -53,7 +55,7 @@ class StudentController extends Controller
     endif;
              
             $regno=0;
-       
+                $date=0;
             for ($i = 0; $i < count($row); $i ++)
             {
                 $regno= DB::table('kelex_students')
@@ -66,20 +68,22 @@ class StudentController extends Controller
                 ->select('ROLL_NO')
                 ->latest('created_at')
                 ->first();
-               
+                
+                $myDate =  date("Y/n/j",strtotime(str_replace('/','-',$row[$i]["DOB"])));
+    
                 $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
-              
                 $rollno = ( $rollno == NULL) ? 1 : $rollno->ROLL_NO+1;
                 $recent_entry_student=   Kelex_student::create([
                     "NAME" => $row[$i]["NAME"], "FATHER_NAME" => $row[$i]["FATHER_NAME"],
                     "FATHER_CONTACT" => $row[$i]["FATHER_CONTACT"],"SECONDARY_CONTACT"  => $row[$i]["SECONDARY_CONTACT"],
-                    "GENDER" => $row[$i]["GENDER"],"DOB"  => $row[$i]["DOB"],
+                    "GENDER" => $row[$i]["GENDER"],"DOB"  => Carbon::parse($myDate)->format('Y-m-d'),
                     "RELIGION" => $row[$i]["RELIGION"],
                     "SHIFT" => $row[$i]["SHIFT"],
                     "PRESENT_ADDRESS"  => $row[$i]["PRESENT_ADDRESS"],"PERMANENT_ADDRESS" => $row[$i]["PERMANENT_ADDRESS"],
                     "STD_PASSWORD" => Hash::make('123456'),
                     'REG_NO'=> $regno,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'USER_ID'=>Auth::user()->id
                 ]);
+              
                 $studentid= $recent_entry_student->STUDENT_ID;
                 Kelex_students_session::Create([
                     'SESSION_ID'=>$request->SESSION_ID,
