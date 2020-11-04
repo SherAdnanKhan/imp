@@ -21,7 +21,7 @@ class TimetableController extends Controller
     }
     public function Searchtimetable(Request $request){
         // dd($request->all());
-        $data = DB::table('kelex_subjectgroups')
+        $data['data'] = DB::table('kelex_subjectgroups')
         ->leftJoin('kelex_sections', 'kelex_subjectgroups.SECTION_ID', '=', 'kelex_sections.Section_id')
         ->leftJoin('kelex_classes', 'kelex_subjectgroups.CLASS_ID', '=', 'kelex_classes.Class_id')
         ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_subjectgroups.SUBJECT_ID')
@@ -32,6 +32,7 @@ class TimetableController extends Controller
         ->select('kelex_sections.Section_name', 'kelex_classes.Class_name','kelex_subjectgroups.*' ,'kelex_subjects.SUBJECT_NAME')
         ->orderBy('kelex_sections.section_id', 'asc')
         ->get()->toArray();
+        $data['teacher']=DB::table('kelex_employees')->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
        return response()->json($data);
     
     }

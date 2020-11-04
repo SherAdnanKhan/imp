@@ -180,24 +180,8 @@ $('body').on('submit','#addsession-batch',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-              //console.log(data)
-              var type = data.TYPE==1?'Session':'Batch';
-                $('#displaydata').append(`
-                     <tr id="row`+data.SB_ID+`">
-                        <td class="mailbox-name">` + data.SB_NAME + `</td>
-                        <td class="mailbox-name">` + data.START_DATE + `</td>
-                        <td class="mailbox-name">` + data.END_DATE + `</td>
-                        <td class="mailbox-name">` + type + `</td>
-
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data.SB_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
-                              </td>
-                              <td>
-                              <button value="`+data.SB_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-
-                              </td>
-                      </tr>`)
-                      $("#addsession-batch").get(0).reset();
+               toastr.success('success added', 'Notice');
+                setTimeout(function(){location.reload();},1000);
               },
               error: function(error){
                 console.log(error);
@@ -247,24 +231,9 @@ $('body').on('submit','#addsession-batch',function(e){
             success: function(data){
                console.log(data)
 
-               for(i=0;i<data.length;i++){
-                  var type = data[i].TYPE==1?'Session':'Batch';
-               $('#row' + data[i].SB_ID).replaceWith(`
-               <tr id="row`+data[i].SB_ID+`">
-                        <td class="mailbox-name">` + data[i].SB_NAME + `</td>
-                        <td class="mailbox-name">` + data[i].START_DATE + `</td>
-                        <td class="mailbox-name">` + data[i].END_DATE + `</td>
-                        <td class="mailbox-name">` + type+ `</td>
-
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data[i].SB_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
-                              <button value="`+data[i].SB_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-
-                              </td>
-                      </tr>`)
-                      $("#editsession").get(0).reset();
-                $('#sessionEditModal').modal('hide');
-             } },
+               toastr.success('success updated', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+              },
               error: function(error){
                 console.log(error);
                 var response = $.parseJSON(error.responseText);
