@@ -222,7 +222,7 @@ class AcademicsController extends Controller
         ->groupBy('kelex_subjectgroups.SECTION_ID')
         ->get()->toArray();
    $record = json_decode(json_encode($record), true);
-        // dd($record);
+        
          $subjectArr = [];
         foreach($record as $key => $row):
                 $subjectArr=  DB::table('kelex_subjectgroups')
@@ -240,6 +240,7 @@ class AcademicsController extends Controller
                 $record[$key]['subjects'] =  implode("<br>",array_column($subjectArr,'SUBJECT_NAME'));
             ;
         endforeach;
+        //dd($data);
         $data['subjectgroup'] = $record;
         return view('Admin.Academics.add_subject_group',$data);
     }

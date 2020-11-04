@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 
 use Illuminate\Contracts\Encryption\DecryptException;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -42,46 +43,47 @@ class StudentController extends Controller
     {
         $count=0;
         $success=true;
-        try {
+        // try {
            
     $row = $this->csvToArray($request->csv_file);
-
+    // dd($row);
     $image = $request->file('IMAGE');
     $my_image =null;
     if(!empty($image)):
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload'), $my_image);
     endif;
-              // $regno = 0;
-        $regno= DB::table('kelex_students')
-        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-        ->select('REG_NO')
-        ->latest('created_at')
-        ->first();
-        // dd($regno['']);
-        $rollno= DB::table('kelex_students_sessions')
-        ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-        ->select('ROLL_NO')
-        ->latest('created_at')
-        ->first();
-       
+             
+            $regno=0;
+                $date=0;
             for ($i = 0; $i < count($row); $i ++)
             {
+                $regno= DB::table('kelex_students')
+                ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
+                ->select('REG_NO')
+                ->latest('created_at')
+                ->first();
+                $rollno= DB::table('kelex_students_sessions')
+                ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
+                ->select('ROLL_NO')
+                ->latest('created_at')
+                ->first();
+                
+                $myDate =  date("Y/n/j",strtotime(str_replace('/','-',$row[$i]["DOB"])));
+    
                 $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
                 $rollno = ( $rollno == NULL) ? 1 : $rollno->ROLL_NO+1;
                 $recent_entry_student=   Kelex_student::create([
                     "NAME" => $row[$i]["NAME"], "FATHER_NAME" => $row[$i]["FATHER_NAME"],
                     "FATHER_CONTACT" => $row[$i]["FATHER_CONTACT"],"SECONDARY_CONTACT"  => $row[$i]["SECONDARY_CONTACT"],
-                    "GENDER" => $row[$i]["GENDER"],"DOB"  => $row[$i]["DOB"],
-                    "CNIC" => $row[$i]["CNIC"],"RELIGION" => $row[$i]["RELIGION"],
-                    "FATHER_CNIC" => $row[$i]["FATHER_CNIC"],"SHIFT" => $row[$i]["SHIFT"],
+                    "GENDER" => $row[$i]["GENDER"],"DOB"  => Carbon::parse($myDate)->format('Y-m-d'),
+                    "RELIGION" => $row[$i]["RELIGION"],
+                    "SHIFT" => $row[$i]["SHIFT"],
                     "PRESENT_ADDRESS"  => $row[$i]["PRESENT_ADDRESS"],"PERMANENT_ADDRESS" => $row[$i]["PERMANENT_ADDRESS"],
-                    "GUARDIAN" => $row[$i]["GUARDIAN"],"STD_PASSWORD" => Hash::make('123456'),
-                    "GUARDIAN_CNIC" => $row[$i]["GUARDIAN_CNIC"], "IMAGE" => $my_image,
-                    "PREV_CLASS" => $row[$i]["PREV_CLASS"],"SLC_NO" => $row[$i]["SLC_NO"],
-                    "PREV_CLASS_MARKS" => $row[$i]["PREV_CLASS_MARKS"],"PREV_BOARD_UNI" => $row[$i]["PREV_BOARD_UNI"],
-                    "PASSING_YEAR" => $row[$i]["PASSING_YEAR"],'REG_NO'=> $regno,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'USER_ID'=>Auth::user()->id
+                    "STD_PASSWORD" => Hash::make('123456'),
+                    'REG_NO'=> $regno,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'USER_ID'=>Auth::user()->id
                 ]);
+              
                 $studentid= $recent_entry_student->STUDENT_ID;
                 Kelex_students_session::Create([
                     'SESSION_ID'=>$request->SESSION_ID,
@@ -96,10 +98,10 @@ class StudentController extends Controller
                  $count++;
 
             }
-        } 
-        catch (\Exception $e) {
-            $success=false; 
-        }
+        // } 
+        // catch (\Exception $e) {
+        //     $success=false; 
+        // }
 
         return response()->json(array('status' => $success,'totalstudents'=>$count,'url'=>url('/showstudent')));
     }

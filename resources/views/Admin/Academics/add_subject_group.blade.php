@@ -62,19 +62,18 @@
                      <small id="SECTION_ID_error" class="form-text text-danger"></small>
                </div>
                <div class="form-group">
-                    @php if(!empty($subjects)): @endphp
+                    @if(!empty($subjects))
                         <label for="exampleInputEmail1">Subject</label>
-                        @foreach($subjects as $subject => $key)
+                        @for($i=0;$i<count($subjects);$i++)
                         <div class="checkbox">
-
-                        <input type="checkbox" id="subjectgroup[{{ $subject }}]" name="subjectgroup[]" value="{{ $subject }}">
-                                <label for="subjectgroup[{{ $subject }}]"> {{$key}} </label><br>
+                        <input type="checkbox" id="subjectgroup[{{$subjects[$i]['SUBJECT_ID'] }}]" name="subjectgroup[]" value="{{ $subjects[$i]['SUBJECT_ID'] }}">
+                                <label for="subjectgroup[{{ $subjects[$i]['SUBJECT_ID']}}]"> {{ $subjects[$i]['SUBJECT_NAME'] }} </label><br>
 
                         </div>
-                        @endforeach
+                        @endfor
                         <small id="subject_error" class="form-text text-danger"></small>
 
-                    @php endif; @endphp
+                    @endif
                </div>
 
 
@@ -105,6 +104,8 @@
                         </tr>
                      </thead>
                      <tbody id="displaydata">
+                        
+                    @if(!empty($subjectgroup))
                      @foreach($subjectgroup as $sb => $val)
 
                      <tr id="{{ $val['id'] }}">
@@ -123,6 +124,7 @@
                     </tr>
 
                     @endforeach
+                    @endif
                     </tbody>
                   </table>
                   <!-- /.table -->
