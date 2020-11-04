@@ -13,16 +13,16 @@
 
             <div class="row">
                <div class="col-md-12">
-                  
+
                         @if(empty($sessions)):
-                    
+
                         <div class="alert alert-primary">Please create Session First</div>
                         @endif;
                         @if(empty($record)):
-       
+
                         <div class="alert alert-primary">Please define classes and sections first.</div>
                         @endif;
-             
+
                     {{-- Display data section --}}
                         @if(!empty($record)):
                      <div class="row">
@@ -80,7 +80,7 @@
                                                                  $checked = "checked";
                                                                  $index = $row->FEE_CAT_ID;
                                                                  if ($k < count($cat_amount)):
-                                                                  
+
                                                                      $amount = $cat_amount[$k][$index];
                                                                  endif;
                                                             else:
@@ -91,9 +91,9 @@
                                                         if($cat_amount):
                                                             $disabled = (in_array($row->FEE_CAT_ID,$fee_cat_array)) ? "" : "disabled";
                                                         endif;
-                                                      
+
                                                     @endphp
-                                                   
+
                                                     <input {{$checked}} type="checkbox" name="record[{{$i}}][cat_id][]" value ="{{$row->FEE_CAT_ID}}" class="cat_id" data-targetclass="render-{{$item->Class_id}}-{{$item->Section_id}}-{{$row->FEE_CAT_ID}}"></span>
                                                     <span class="input-group-text">{{$row->CATEGORY}}</span>
                                                 </div>
@@ -173,7 +173,7 @@
         try {
             $.ajax({
                 type: 'POST',
-                url: 'apply-fee-structure/',
+                url: '{{url("apply-fee-structure")}}',
                 data:fdata,
                 processData: false,
                 contentType: false,
