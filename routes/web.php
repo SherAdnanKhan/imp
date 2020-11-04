@@ -10,6 +10,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AcademicsController;
+use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\NonTeachingController;
 use App\Http\Controllers\StudentLoginController;
@@ -32,6 +33,10 @@ Route::get('/', function ()
 
     return view('auth.kelexlogin');
 })->name('login');
+
+Route::match(['get', 'post'],'/timetable',[TimetableController::class,'index'])->name('timetable');
+
+Route::match(['get', 'post'],'/Searchtimetable',[TimetableController::class,'Searchtimetable'])->name('Searchtimetable');
 
 Route::prefix('admin')->group(function () {
 
