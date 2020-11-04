@@ -289,7 +289,7 @@ class FeeController extends Controller
          endif;
          unset($ammount_array);
        }
-       return array('type' => 1,'response' => 'Fee Structure record Saved Successfully.');
+       return response()->json(array('type' => 1,'response' => 'Fee Structure record Saved Successfully.'));
     }
 
     public function apply_fee()
@@ -392,7 +392,7 @@ class FeeController extends Controller
     }
     public function get_section_fee($session_id,$class_id,$section_id)
     {
-                
+
         $record = Kelex_fee::
         where('SESSION_ID',$session_id)
         ->where('CLASS_ID' , $class_id)
@@ -449,14 +449,14 @@ class FeeController extends Controller
         for ($i=0;$i<count($std_record); $i++):
             // print_r($std_record[$i]);
             for ($j =0; $j <count($complete_fee_details);$j++) {
-               
+
                $checkdiscount =  DB::table('kelex_fee_discounts')
                                     ->where(['STUDENT_ID'=> $std_record[$i]['STUDENT_ID'],'FEE_CAT_ID' =>  $complete_fee_details[$j]['fee_category_id']  ])
                                      ->select('DISCOUNT')
                                     ->first();
                  if($checkdiscount!=null){
 
-                            
+
                 $getdis=$checkdiscount->DISCOUNT;
 
                 // $discount = json_decode(json_encode($discount),true);
@@ -464,12 +464,12 @@ class FeeController extends Controller
                 // $complete_fee_details[$j]['discount'] =$getdis;
                 $complete_fee_details[$j]['fee_amount'] = $complete_fee_details[$j]['fee_amount'] -$getdis  ;
             // echo $complete_fee_details[$j]['fee_category_id']."<br>";
-        }  
+        }
             }
             // dd($complete_fee_details) ;
             $std_record[$i]['student_fee_months'] = $months;
             $std_record[$i]['student_fees'] = $complete_fee_details;
-            
+
         endfor;
         // dd($std_record);
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
