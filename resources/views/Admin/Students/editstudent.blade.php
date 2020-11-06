@@ -26,9 +26,10 @@
                         </span>
                         <span class="float-right ">
                              <label for="upload">Upload Student picture</label>
-                                    {{-- <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
-                                    <small id="IMAGE_error" class="form-text text-danger"></small> --}}
-                                <div class="bootstrap-filestyle input-group">
+                                    <input type="file" name="IMAGE" id="IMAGE" class="form-control-file"  accept="image/*"/>
+                                    
+                                    {{-- <small id="IMAGE_error" class="form-text text-danger"></small>
+                                {{-- <div class="bootstrap-filestyle input-group">
                                     <span class="group-span-filestyle " tabindex="0">
                                         <label for="filestyle-1" class="btn btn-primary ">
                                             <input type="file" name="IMAGE" id="IMAGE" >
@@ -36,7 +37,7 @@
                                             <span class="buttonText">Choose file</span>
                                         </label>
                                     </span>
-                                </div>
+                                </div> --}}
                         </span>
 
                     </div>
