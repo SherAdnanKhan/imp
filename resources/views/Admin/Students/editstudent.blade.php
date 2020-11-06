@@ -31,6 +31,7 @@
                                 <div class="bootstrap-filestyle input-group">
                                     <span class="group-span-filestyle " tabindex="0">
                                         <label for="filestyle-1" class="btn btn-primary ">
+                                            <input type="file" name="IMAGE" id="IMAGE" >
                                             <span class="icon-span-filestyle fas fa-folder-open"></span>
                                             <span class="buttonText">Choose file</span>
                                         </label>
