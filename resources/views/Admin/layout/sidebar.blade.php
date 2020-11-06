@@ -23,17 +23,7 @@
                                 </a>
                             </li>
 
-                            @if(isset($permissions->registermanagment->status)=="1")
-                            <li>
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Students <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
-                                @if(isset($permissions->acadamics->student_manage->view)=="1")
-                                <ul class="submenu">
-                                    <li><a href="{{route('student')}}">Student Admission</a></li>
-                                    <li><a href="{{route('showstudent')}}">Student Details</a></li>
-                                </ul>
-                                @endif
-                            </li>
-                           @endif
+                        
                             @if(isset($permissions->acadamics->status)=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span> Academics <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
@@ -55,6 +45,17 @@
                                 </ul>
                             </li>
                             @endif
+                            @if(isset($permissions->registermanagment->status)=="1")
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Students <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                                @if(isset($permissions->acadamics->student_manage->view)=="1")
+                                <ul class="submenu">
+                                    <li><a href="{{route('student')}}">Student Admission</a></li>
+                                    <li><a href="{{route('showstudent')}}">Student Details</a></li>
+                                </ul>
+                                @endif
+                            </li>
+                           @endif
                             @if(isset($permissions->hr_managment->status)=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-album"></i> <span> HR Managment  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span> </a>

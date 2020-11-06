@@ -103,11 +103,11 @@
                      <div class="row clearfix">
                         <div class="col-md-12 column">
                            <a id="add_row" class="addrow addbtnright btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add New</a>
-                           <form method="POST" action="https://demo.smart-school.in/admin/timetable/savetimetable" id="form_Monday" class="commentForm autoscroll" novalidate="novalidate">
-                              <input type="hidden" name="day" value="Monday">
-                              <input type="hidden" name="class_id" value="1">
-                              <input type="hidden" name="section_id" value="1">
-                              <input type="hidden" name="subject_group_id" value="1">
+                           <form method="POST" action="" id="form_Monday" class="commentForm autoscroll" novalidate="novalidate">
+                            @csrf
+                            <div id="inputfields">
+                           <input type="hidden" name="day" value="1">
+                            </div>
                               <div class="">
                                  <table class="table table-bordered table-hover order-list tablewidthRS" id="tab_logic">
                                     <thead>
@@ -124,15 +124,15 @@
                                           <th>
                                              Time To                        
                                           </th>
-                                          <th>
-                                             Room No                        
-                                          </th>
                                           <th class="text-right">
                                              Action                        
                                           </th>
                                        </tr>
                                     </thead>
-                                    <tbody id="tabledata">
+                                    <tbody>
+                                    <tr id="tabledata">
+                                 
+                                    </tr>
                                     </tbody>
                                  </table>
                               </div>
@@ -149,11 +149,11 @@
                      <div class="row clearfix">
                         <div class="col-md-12 column">
                            <a id="add_row" class="addrow addbtnright btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add New</a>
-                           <form method="POST" action="https://demo.smart-school.in/admin/timetable/savetimetable" id="form_Tuesday" class="commentForm autoscroll" novalidate="novalidate">
-                              <input type="hidden" name="day" value="Tuesday">
-                              <input type="hidden" name="class_id" value="1">
-                              <input type="hidden" name="section_id" value="1">
-                              <input type="hidden" name="subject_group_id" value="1">
+                           <form method="POST" action="" id="form_Tuesday" class="commentForm autoscroll" novalidate="novalidate">
+                            @csrf
+                            <div id="inputfields">
+                           <input type="hidden" name="day" value="1">
+                            </div>
                               <div class="">
                                  <table class="table table-bordered table-hover order-list tablewidthRS" id="tab_logic">
                                     <thead>
@@ -170,69 +170,15 @@
                                           <th>
                                              Time To                        
                                           </th>
-                                          <th>
-                                             Room No                        
-                                          </th>
                                           <th class="text-right">
                                              Action                        
                                           </th>
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <input type="hidden" name="prev_array[]" value="6">
-                                       <tr id="addr0">
-                                          <td>
-                                             <input type="hidden" name="total_row[]" value="1">
-                                             <input type="hidden" name="prev_id_1" value="6">
-                                             <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="subject_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="1" selected="selected">
-                                                                                                                                   
-                                                </option>
-                                                <option value="2">
-                                                   Hindi (211)                                                                                    
-                                                </option>
-                                                <option value="3">
-                                                   Mathematics (110)                                                                                    
-                                                </option>
-                                                <option value="4">
-                                                   Science (112)                                                                                    
-                                                </option>
-                                                <option value="19">
-                                                   Social Studies (111)                                                                                    
-                                                </option>
-                                             </select>
-                               
-                                                                                                                             </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                          </td>
-                                          <td>
-                                             <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="staff_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="2" selected="selected"></option>
-                                                <option value="5">Jason Sharlton (9001)</option>
-                                             </select>
-                                            </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_from_1" class="form-control time_from time" id="time_from_1" value="9:00 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_to_1" class="form-control time_to time" id="time_to_1" value="9:45 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <input type="text" name="room_no_1" value="101" placeholder="Room no" class="form-control room_no" id="room_no_1">
-                                          </td>
-                                          <td class="text-right"><button class="ibtnDel btn btn-danger btn-sm btn-danger"> <i class="fa fa-trash"></i></button></td>
-                                       </tr>
+                                    <tr id="tabledata">
+                                 
+                                    </tr>
                                     </tbody>
                                  </table>
                               </div>
@@ -249,11 +195,11 @@
                      <div class="row clearfix">
                         <div class="col-md-12 column">
                            <a id="add_row" class="addrow addbtnright btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add New</a>
-                           <form method="POST" action="https://demo.smart-school.in/admin/timetable/savetimetable" id="form_Wednesday" class="commentForm autoscroll" novalidate="novalidate">
-                              <input type="hidden" name="day" value="Wednesday">
-                              <input type="hidden" name="class_id" value="1">
-                              <input type="hidden" name="section_id" value="1">
-                              <input type="hidden" name="subject_group_id" value="1">
+                           <form method="POST" action="" id="form_Wednesday" class="commentForm autoscroll" novalidate="novalidate">
+                            @csrf
+                            <div id="inputfields">
+                           <input type="hidden" name="day" value="1">
+                            </div>
                               <div class="">
                                  <table class="table table-bordered table-hover order-list tablewidthRS" id="tab_logic">
                                     <thead>
@@ -270,69 +216,15 @@
                                           <th>
                                              Time To                        
                                           </th>
-                                          <th>
-                                             Room No                        
-                                          </th>
                                           <th class="text-right">
                                              Action                        
                                           </th>
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <input type="hidden" name="prev_array[]" value="11">
-                                       <tr id="addr0">
-                                          <td>
-                                             <input type="hidden" name="total_row[]" value="1">
-                                             <input type="hidden" name="prev_id_1" value="11">
-                                             <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="subject_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="1" selected="selected">
-                                                                                                                                   
-                                                </option>
-                                                <option value="2">
-                                                   Hindi (211)                                                                                    
-                                                </option>
-                                                <option value="3">
-                                                   Mathematics (110)                                                                                    
-                                                </option>
-                                                <option value="4">
-                                                   Science (112)                                                                                    
-                                                </option>
-                                                <option value="19">
-                                                   Social Studies (111)                                                                                    
-                                                </option>
-                                             </select>
-                               
-                                                                                                                             </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                          </td>
-                                          <td>
-                                             <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="staff_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="2" selected="selected"></option>
-                                                <option value="5">Jason Sharlton (9001)</option>
-                                             </select>
-                                            </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_from_1" class="form-control time_from time" id="time_from_1" value="9:00 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_to_1" class="form-control time_to time" id="time_to_1" value="9:45 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <input type="text" name="room_no_1" value="101" placeholder="Room no" class="form-control room_no" id="room_no_1">
-                                          </td>
-                                          <td class="text-right"><button class="ibtnDel btn btn-danger btn-sm btn-danger"> <i class="fa fa-trash"></i></button></td>
-                                       </tr>
+                                    <tr id="tabledata">
+                                 
+                                    </tr>
                                     </tbody>
                                  </table>
                               </div>
@@ -349,11 +241,11 @@
                      <div class="row clearfix">
                         <div class="col-md-12 column">
                            <a id="add_row" class="addrow addbtnright btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add New</a>
-                           <form method="POST" action="https://demo.smart-school.in/admin/timetable/savetimetable" id="form_Thursday" class="commentForm autoscroll" novalidate="novalidate">
-                              <input type="hidden" name="day" value="Thursday">
-                              <input type="hidden" name="class_id" value="1">
-                              <input type="hidden" name="section_id" value="1">
-                              <input type="hidden" name="subject_group_id" value="1">
+                           <form method="POST" action="" id="form_Wednesday" class="commentForm autoscroll" novalidate="novalidate">
+                            @csrf
+                            <div id="inputfields">
+                           <input type="hidden" name="day" value="1">
+                            </div>
                               <div class="">
                                  <table class="table table-bordered table-hover order-list tablewidthRS" id="tab_logic">
                                     <thead>
@@ -370,69 +262,15 @@
                                           <th>
                                              Time To                        
                                           </th>
-                                          <th>
-                                             Room No                        
-                                          </th>
                                           <th class="text-right">
                                              Action                        
                                           </th>
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <input type="hidden" name="prev_array[]" value="16">
-                                       <tr id="addr0">
-                                          <td>
-                                             <input type="hidden" name="total_row[]" value="1">
-                                             <input type="hidden" name="prev_id_1" value="16">
-                                             <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="subject_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="1" selected="selected">
-                                                                                                                                   
-                                                </option>
-                                                <option value="2">
-                                                   Hindi (211)                                                                                    
-                                                </option>
-                                                <option value="3">
-                                                   Mathematics (110)                                                                                    
-                                                </option>
-                                                <option value="4">
-                                                   Science (112)                                                                                    
-                                                </option>
-                                                <option value="19">
-                                                   Social Studies (111)                                                                                    
-                                                </option>
-                                             </select>
-                               
-                                                                                                                             </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                          </td>
-                                          <td>
-                                             <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="staff_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="2" selected="selected"></option>
-                                                <option value="5">Jason Sharlton (9001)</option>
-                                             </select>
-                                            </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_from_1" class="form-control time_from time" id="time_from_1" value="9:00 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_to_1" class="form-control time_to time" id="time_to_1" value="9:45 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <input type="text" name="room_no_1" value="101" placeholder="Room no" class="form-control room_no" id="room_no_1">
-                                          </td>
-                                          <td class="text-right"><button class="ibtnDel btn btn-danger btn-sm btn-danger"> <i class="fa fa-trash"></i></button></td>
-                                       </tr>
+                                    <tr id="tabledata">
+                                 
+                                    </tr>
                                     </tbody>
                                  </table>
                               </div>
@@ -449,12 +287,13 @@
                      <div class="row clearfix">
                         <div class="col-md-12 column">
                            <a id="add_row" class="addrow addbtnright btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add New</a>
-                           <form method="POST" action="https://demo.smart-school.in/admin/timetable/savetimetable" id="form_Friday" class="commentForm autoscroll" novalidate="novalidate">
-                              <input type="hidden" name="day" value="Friday">
-                              <input type="hidden" name="class_id" value="1">
-                              <input type="hidden" name="section_id" value="1">
-                              <input type="hidden" name="subject_group_id" value="1">
+                           <form method="POST" action="" id="form_Wednesday" class="commentForm autoscroll" novalidate="novalidate">
+                            @csrf
+                            <div id="inputfields">
+                           <input type="hidden" name="day" value="1">
+                            </div>
                               <div class="">
+                                 
                                  <table class="table table-bordered table-hover order-list tablewidthRS" id="tab_logic">
                                     <thead>
                                        <tr>
@@ -470,69 +309,15 @@
                                           <th>
                                              Time To                        
                                           </th>
-                                          <th>
-                                             Room No                        
-                                          </th>
                                           <th class="text-right">
                                              Action                        
                                           </th>
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <input type="hidden" name="prev_array[]" value="21">
-                                       <tr id="addr0">
-                                          <td>
-                                             <input type="hidden" name="total_row[]" value="1">
-                                             <input type="hidden" name="prev_id_1" value="21">
-                                             <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="subject_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="1" selected="selected">
-                                                                                                                                   
-                                                </option>
-                                                <option value="2">
-                                                   Hindi (211)                                                                                    
-                                                </option>
-                                                <option value="3">
-                                                   Mathematics (110)                                                                                    
-                                                </option>
-                                                <option value="4">
-                                                   Science (112)                                                                                    
-                                                </option>
-                                                <option value="19">
-                                                   Social Studies (111)                                                                                    
-                                                </option>
-                                             </select>
-                               
-                                                                                                                             </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                          </td>
-                                          <td>
-                                             <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="staff_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="2" selected="selected"></option>
-                                                <option value="5">Jason Sharlton (9001)</option>
-                                             </select>
-                                            </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_from_1" class="form-control time_from time" id="time_from_1" value="9:00 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_to_1" class="form-control time_to time" id="time_to_1" value="9:45 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <input type="text" name="room_no_1" value="101" placeholder="Room no" class="form-control room_no" id="room_no_1">
-                                          </td>
-                                          <td class="text-right"><button class="ibtnDel btn btn-danger btn-sm btn-danger"> <i class="fa fa-trash"></i></button></td>
-                                       </tr>
+                                    <tr id="tabledata">
+                                 
+                                    </tr>
                                     </tbody>
                                  </table>
                               </div>
@@ -549,11 +334,11 @@
                      <div class="row clearfix">
                         <div class="col-md-12 column">
                            <a id="add_row" class="addrow addbtnright btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add New</a>
-                           <form method="POST" action="https://demo.smart-school.in/admin/timetable/savetimetable" id="form_Saturday" class="commentForm autoscroll" novalidate="novalidate">
-                              <input type="hidden" name="day" value="Saturday">
-                              <input type="hidden" name="class_id" value="1">
-                              <input type="hidden" name="section_id" value="1">
-                              <input type="hidden" name="subject_group_id" value="1">
+                           <form method="POST" action="" id="form_Wednesday" class="commentForm autoscroll" novalidate="novalidate">
+                            @csrf
+                            <div id="inputfields">
+                           <input type="hidden" name="day" value="1">
+                            </div>
                               <div class="">
                                  <table class="table table-bordered table-hover order-list tablewidthRS" id="tab_logic">
                                     <thead>
@@ -570,69 +355,15 @@
                                           <th>
                                              Time To                        
                                           </th>
-                                          <th>
-                                             Room No                        
-                                          </th>
                                           <th class="text-right">
                                              Action                        
                                           </th>
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <input type="hidden" name="prev_array[]" value="26">
-                                       <tr id="addr0">
-                                          <td>
-                                             <input type="hidden" name="total_row[]" value="1">
-                                             <input type="hidden" name="prev_id_1" value="26">
-                                             <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="subject_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="1" selected="selected">
-                                                                                                                                   
-                                                </option>
-                                                <option value="2">
-                                                   Hindi (211)                                                                                    
-                                                </option>
-                                                <option value="3">
-                                                   Mathematics (110)                                                                                    
-                                                </option>
-                                                <option value="4">
-                                                   Science (112)                                                                                    
-                                                </option>
-                                                <option value="19">
-                                                   Social Studies (111)                                                                                    
-                                                </option>
-                                             </select>
-                               
-                                                                                                                             </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                          </td>
-                                          <td>
-                                             <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="staff_1" tabindex="-1" aria-hidden="true">
-                                                <option value="">Select</option>
-                                                <option value="2" selected="selected"></option>
-                                                <option value="5">Jason Sharlton (9001)</option>
-                                             </select>
-                                            </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_from_1" class="form-control time_from time" id="time_from_1" value="9:00 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <div class="input-group">
-                                                <input type="text" name="time_to_1" class="form-control time_to time" id="time_to_1" value="9:45 AM">
-                                                <div class="input-group-addon">
-                                                   <span class="fa fa-clock-o"></span>
-                                                </div>
-                                             </div>
-                                          </td>
-                                          <td>
-                                             <input type="text" name="room_no_1" value="101" placeholder="Room no" class="form-control room_no" id="room_no_1">
-                                          </td>
-                                          <td class="text-right"><button class="ibtnDel btn btn-danger btn-sm btn-danger"> <i class="fa fa-trash"></i></button></td>
-                                       </tr>
+                                    <tr id="tabledata">
+                                 
+                                    </tr>
                                     </tbody>
                                  </table>
                               </div>
@@ -777,8 +508,10 @@
 
 $('body').on('submit','#searching',function(e){
    e.preventDefault();
+   $('#inputfields').empty();  
    var fdata = new FormData(this);
-   let html="";
+    html="";
+   let inputfield="";
    $.ajax({
         url: '{{url("Searchtimetable")}}',
             type:'POST',
@@ -786,15 +519,20 @@ $('body').on('submit','#searching',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               console.log(data);
-               html+='  <input type="hidden" name="prev_array[]" value="1">';
-               html+='                       <tr id="addr0">';
+               subject=data.subject;
+               teacher=data.teacher;
+               console.log(data.subject);
+                inputfield+='<h4>'+subject[0]['Class_name']+' '+subject[0]['Section_name'] +'  TimeTable  </h4>';
+                inputfield+=' <input type="hidden" name="CLASS_ID" value="'+subject[0]['CLASS_ID']+'">';
+                inputfield+=' <input type="hidden" name="SECTION_ID" value="'+subject[0]['SECTION_ID']+'">';
+                inputfield+=' <input type="hidden" name="GROUP_ID" value="'+subject[0]['GROUP_ID']+'">';
+               
                html+='                           <td>';
-               html+='                              <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="subject_1" tabindex="-1" aria-hidden="true">';
+               html+='                              <select class="form-control subject select2-hidden-accessible" id="subject_id_1" name="SUBJECT_ID[]" tabindex="-1" aria-hidden="true">';
                html+='                        <option value="" disabled> Please Select Subject </option>';
-                      for(var i=0;i<data.length;i++){
-                  html+='                              <option value="'+data[i]["SUBJECT_ID"]+'" selected="selected">';
-                  html+=                   data[i]["SUBJECT_NAME"];                                                   
+                      for(var i=0;i<subject.length;i++){
+                  html+='                              <option value="'+subject[i]["SUBJECT_ID"]+'" selected="selected">';
+                  html+=                   subject[i]["SUBJECT_NAME"];                                                   
                   html+='                              </option>';
                       }
                html+='                        </select>';
@@ -802,41 +540,66 @@ $('body').on('submit','#searching',function(e){
                html+='                          </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>';
                html+='                     </td>';
                html+='                     <td>';
-               html+='                        <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="staff_1" tabindex="-1" aria-hidden="true">';
+               html+='                        <select class="form-control staff select2-hidden-accessible" id="staff_id_1" name="EMP_ID[]" tabindex="-1" aria-hidden="true">';
                html+='                            <option value="">Select</option>';
-               html+='                    <option value="2" selected="selected"></option>';
-               html+='                           <option value="5">Jason Sharlton (9001)</option>';
+                                             for(var i=0;i<teacher.length;i++){
+                  html+='                              <option value="'+teacher[i]["EMP_ID"]+'" selected="selected">';
+                  html+=                   teacher[i]["EMP_NAME"];                                                   
+                  html+='                              </option>';
+                                                      }
                html+='                              </select>';
                html+='                       </td>';
                html+='                     <td>';
                html+='                        <div class="input-group">';
-               html+='                           <input type="text" name="time_from_1" class="form-control time_from time" id="time_from_1" value="9:00 AM">';
+               html+='                           <input type="time" name="TIMEFROM[]" class="form-control time_from time" id="time_from_1" value="9:00 AM">';
                html+='                           <div class="input-group-addon">';
-               html+='                              <span class="fa fa-clock-o"></span>';
                html+='                           </div>';
                html+='                        </div>';
                html+='                     </td>';
                html+='                     <td>';
                html+='                        <div class="input-group">';
-               html+='                           <input type="text" name="time_to_1" class="form-control time_to time" id="time_to_1" value="9:45 AM">';
+               html+='                           <input type="time" name="TIMETO[]" class="form-control time_to time" id="time_to_1" value="9:45 AM">';
                html+='                           <div class="input-group-addon">';
-               html+='                              <span class="fa fa-clock-o"></span>';
                html+='                           </div>';
                html+='                        </div>';
                html+='                     </td>';
-               html+='                     <td>';
-               html+='                        <input type="text" name="room_no_1" value="101" placeholder="Room no" class="form-control room_no" id="room_no_1">';
-               html+='                     </td>';
                html+='                     <td class="text-right"><button class="ibtnDel btn btn-danger btn-sm btn-danger"> <i class="fa fa-trash"></i></button></td>';
-               html+='                  </tr>';
+   
          
-               console.log(html);   $('#tabledata').html(html);               
+            $('#tabledata').html(html);  
+            $('#inputfields').append(inputfield);               
             },
           
           
   });
 
 });
+$('body').on('click', '#add_row',function () {
+  $('#tab_logic tbody:last-child').append('<tr> '+html+'</tr>')  
+      });
+
+$('body').on('submit','#form_Monday',function(e){
+   e.preventDefault();
+   var fdata = new FormData(this);
+   $.ajax({
+        url: '{{url("Savetimetable")}}',
+            type:'POST',
+            data :fdata,
+            processData: false,
+            contentType: false,
+            success: function(data){
+               if(data){
+                
+                toastr.success('Timetable for Monday added', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+                }
+                else{
+                    toastr.error("Record Already exist please refresh", 'Notice');
+                }
+            },
+   });
+});
+      
 </script>
 
 @endsection

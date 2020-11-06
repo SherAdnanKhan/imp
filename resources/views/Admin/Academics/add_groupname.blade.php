@@ -128,17 +128,8 @@ $('body').on('submit','#addsgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               console.log(data)
-                $('#displaydata').append(`
-                     <tr id="row`+data.id+`">
-                        <td class="mailbox-name">` + data.GROUP_NAME + `</td>
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data.id+`" class="btn btn-default btn-xs editbtn"> edit </button>
-                                 
-                              </td>
-                      </tr>`)
-                      $("#addsgroup").get(0).reset();
-                       toastr.success('Record Added..','Notice');
+               toastr.success('success added', 'Notice');
+                setTimeout(function(){location.reload();},1000);
               },
               error: function(error){
                console.log(error);
@@ -184,20 +175,8 @@ $('body').on('submit','#addsgroup',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               console.log(data);
-               for(i=0;i<data.length;i++){
-               $('#row' + data[i].GROUP_ID).replaceWith(`
-                     <tr id="row`+data[i].GROUP_ID+`">
-                     <td class="mailbox-name">` + data[i].GROUP_NAME + `</td>
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data[i].GROUP_ID+`" class="btn btn-default btn-xs editbtn" > edit </button>
-                              </td>
-                      </tr>`);
-            
-               } 
-               $("#editsgroup").get(0).reset();
-               $('#subjectgEditModal').modal('hide');
-                toastr.warning('Record Saved..','Notice');
+               toastr.success('success updated', 'Notice');
+                setTimeout(function(){location.reload();},1000);
              },
               error: function(error){
                 console.log(error);

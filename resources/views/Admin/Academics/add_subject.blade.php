@@ -142,23 +142,8 @@ $('body').on('submit','#addsubject',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               var type= data.TYPE==0?'Learning Instution':'School';
-               console.log(data)
-                $('#displaydata').append(`
-                     <tr id="row`+data.SUBJECT_ID+`">
-                        <td class="mailbox-name">` + data.SUBJECT_NAME + `</td>
-                        <td class="mailbox-name">` + data.SUBJECT_CODE + `</td>
-                        <td class="mailbox-name">` + type + `</td>
-                        
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data.SUBJECT_ID+`" class="btn btn-default btn-xs editbtn"> edit </button>
-                              </td>
-                              <td>
-                              <button value="`+data.SUBJECT_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
-                              </td>
-                      </tr>`)
-                      $("#addsubject").get(0).reset();
+               toastr.success('success added', 'Notice');
+                setTimeout(function(){location.reload();},1000);
               },
               error: function(error){
                 console.log(error);
@@ -202,24 +187,9 @@ $('body').on('submit','#addsubject',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-              // console.log(data)
-               
-               for(i=0;i<data.length;i++){
-               $('#row' + data[i].SUBJECT_ID).replaceWith(`
-                     <tr id="row`+data[i].SUBJECT_ID+`">
-                     <td class="mailbox-name">` + data[i].SUBJECT_NAME + `</td>
-                     <td class="mailbox-name">` + data[i].SUBJECT_CODE + `</td>
-                     <td class="mailbox-name">` + data[i].TYPE + `</td>
-                 
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data[i].SUBJECT_ID+`" class="btn btn-default btn-xs editbtn" > edit </button>
-                              <button value="`+data[i].SUBJECT_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
-                              </td>
-                      </tr>`)
-                      $("#editsubject").get(0).reset();
-                $('#SubjectEditModal').modal('hide');
-             } },
+               toastr.success('success updated', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+              },
               error: function(error){
                 console.log(error);
                 var response = $.parseJSON(error.responseText);

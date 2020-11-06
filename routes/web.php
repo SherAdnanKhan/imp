@@ -37,6 +37,7 @@ Route::get('/', function ()
 Route::match(['get', 'post'],'/timetable',[TimetableController::class,'index'])->name('timetable');
 
 Route::match(['get', 'post'],'/Searchtimetable',[TimetableController::class,'Searchtimetable'])->name('Searchtimetable');
+Route::match(['get', 'post'],'/Savetimetable',[TimetableController::class,'Savetimetable'])->name('Savetimetable');
 
 Route::prefix('admin')->group(function () {
 

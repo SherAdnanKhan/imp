@@ -145,25 +145,9 @@ $('body').on('submit','#addsection',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               //console.log(data)
-               
-          for(i=0;i<data.length;i++){
-                $('#displaydata').append(`
-                     <tr id="row`+data[i].Section_id+`">
-                        <td class="mailbox-name">` + data[i].Section_name + `</td>
-                        <td>
-                        <div>` + data[i].Class_name + ` </div>
-                         </td>
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs editbtn"> edit </button>
-                              </td>
-                              <td>
-                              <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
-                              </td>
-                      </tr>`)
-                      $("#addsection").get(0).reset();
-              }},
+               toastr.success('success added', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+              },
               error: function(error){
                 console.log(error);
                 var response = $.parseJSON(error.responseText);
@@ -207,25 +191,9 @@ $('body').on('submit','#addsection',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               console.log(data)
-               
-               for(i=0;i<data.length;i++){
-               $('#row' + data[i].Section_id).replaceWith(`
-                     <tr id="row`+data[i].Section_id+`">
-                     <td class="mailbox-name">` + data[i].Section_name + `</td>
-                     <td>
-                        <div>` + data[i].Class_name + ` </div>
-                         </td>
-                 
-                              <td class="mailbox-date pull-right">
-                              <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs editbtn" > edit </button>
-                              <button value="`+data[i].Section_id+`" class="btn btn-default btn-xs deletebtn"> delete </button>
-                                 
-                              </td>
-                      </tr>`)
-                      $("#editsection").get(0).reset();
-                $('#sectionEditModal').modal('hide');
-             } },
+               toastr.success('success updated', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+              },
               error: function(error){
                 console.log(error);
                 var response = $.parseJSON(error.responseText);
