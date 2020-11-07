@@ -42,7 +42,7 @@
                                                 <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link active" data-toggle="tab" href="#activity" role="tab">Profile</a>
                                                 </li>
-                                                <li class="nav-item waves-effect waves-light">
+                                                <!-- <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link" data-toggle="tab" href="#fee" role="tab">Fees</a>
                                                 </li>
                                                 <li class="nav-item waves-effect waves-light">
@@ -57,7 +57,7 @@
                                                             <li><a class="dropdown-item" onclick="send_password()"> Send Student Password</a></li>
                                                             <li><a class="dropdown-item" onclick="send_parent_password()">  Send Parent Password</a></li>
                                                       </ul>
-                                                </li>
+                                                </li> -->
                                                 
       </ul>
             <div class="tab-content" style="padding:20px;">

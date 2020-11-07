@@ -40,10 +40,10 @@
                                                 <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link active" data-toggle="tab" href="#activity" role="tab">Profile</a>
                                                 </li>
-                                                <li class="nav-item waves-effect waves-light">
+                                                <!-- <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link" data-toggle="tab" href="#documents" role="tab">Salary Information</a>
                                                 </li>
-                                                
+                                                 -->
       </ul>
             <div class="tab-content" style="padding:20px;">
                <div class="tab-pane active" id="activity">
