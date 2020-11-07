@@ -125,6 +125,16 @@
                                 </ul>
                             </li>
                             @endif
+                            <li>
+
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Exam Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
+                            <ul class="submenu">
+                             
+                                <li><a href="{{route('exam')}}">Add Exam</a></li>
+                                <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
+                                <li><a href="comingsoon">Assign Exam </a></li>
+                            </ul>
+                             </li>
                             @if(isset($permissions->admissionwithdraw->status)=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>

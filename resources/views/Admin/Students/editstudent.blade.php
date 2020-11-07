@@ -26,8 +26,9 @@
                         </span>
                         <span class="float-right ">
                              <label for="upload">Upload Student picture</label>
-                                    {{-- <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
-                                    <small id="IMAGE_error" class="form-text text-danger"></small> --}}
+                                  <input type="file" name="IMAGE" id="IMAGE" size="20" class="dropify"  accept="image/*"/>
+                                  <img src="{{ asset('upload')}}/{{$student['IMAGE']}}" alt="No image Found" style="width: 50px;height:50px;">
+                                    <small id="IMAGE_error" class="form-text text-danger"></small> 
                                 <div class="bootstrap-filestyle input-group">
                                     <span class="group-span-filestyle " tabindex="0">
                                         <label for="filestyle-1" class="btn btn-primary ">

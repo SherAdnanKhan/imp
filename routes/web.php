@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeeController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ImportController;
@@ -274,5 +275,22 @@ Route::match(['get', 'post'], '/showstaff', [NonTeachingController::class, 'show
 Route::match(['get', 'post'], '/editstaff/{id}', [NonTeachingController::class, 'edit_staff'])->name("edit-staff");
 Route::match(['get', 'post'], '/updatestaff', [NonTeachingController::class, 'update_staff'])->name("update-staff");
 
+// Add Exam Routes Start Here
+Route::match(['get', 'post'], '/exam', [ExamController::class, 'index_exam'])->name("exam");
+Route::match(['get', 'post'], '/addexam', [ExamController::class, 'add_exam'])->name("addexam");
+Route::match(['get', 'post'], '/editexam', [ExamController::class, 'edit_exam'])->name("editexam");
+Route::match(['get', 'post'], '/updateexam', [ExamController::class, 'update_exam'])->name("updateexam");
+Route::match(['get', 'post'], '/deleteexam', [ExamController::class, 'delete_exam'])->name("deleteexam");
+
+// Add Exam paper routes start here
+
+Route::match(['get', 'post'], '/exampaper', [ExamController::class, 'index_exampaper'])->name("exampaper");
+Route::match(['get', 'post'], '/view_exam_paper', [ExamController::class, 'view_exam_paper'])->name("view_exam_paper");
+Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_exam_paper'])->name("add_exam_paper");
+Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
+Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
+
+// Assign Teacher to Paper Exam Start here
+Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
 
 });
