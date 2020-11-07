@@ -31,7 +31,7 @@ class studentrequest extends FormRequest
             'GUARDIAN'=>'required',
             'SLC_NO'=>'required',
             'PASSING_YEAR'=>'required',
-            'IMAGE'=>'mimes:jpeg,jpg,png,gif,jfif|max:10000',
+            'IMAGE'=>'mimes:jpeg,jpg,png,gif,jfif,JFIF|max:10000',
             'SESSION_ID'=>'required',
             'CLASS_ID'=>'required',
             'SECTION_ID'=>'required',
