@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Excel;
+use Carbon\Carbon;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
@@ -11,16 +12,16 @@ use App\Models\Kelex_fee_discount;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\studentrequest;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Kelex_students_session;
 use App\Http\Requests\CsvImportRequest;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
-
 use Illuminate\Contracts\Encryption\DecryptException;
-use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -50,6 +51,7 @@ class StudentController extends Controller
     $image = $request->file('IMAGE');
     $my_image =null;
     if(!empty($image)):
+        
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload'), $my_image);
     endif;
@@ -230,14 +232,23 @@ class StudentController extends Controller
     }
     public function update_student(studentrequest $request)
     {
+      
         // dd($request->all());
         $image = $request->file('IMAGE');
         $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $my_image =$img['IMAGE'];
         if(!empty($image)):
+
+        $image_path =public_path()."/upload/".$my_image;  // Value is not URL but directory file path
+        
+        if(File::exists($image_path)) {  
+                File::delete($image_path);
+        }
+        
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);
+
         endif;
         Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))

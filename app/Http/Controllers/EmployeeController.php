@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kelex_employee;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\EmployeeRequest;
@@ -71,9 +72,19 @@ class EmployeeController extends Controller
     public function update_employee(Request $request)
     {
         $res = Kelex_employee::find($request->id)->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        $img=Kelex_employee::where('STUDENT_ID',$request->STUDENT_ID)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+        $my_image =$img['EMP_IMAGE'];
         $image = $request->file('EMP_IMAGE');
         if(!empty($image))
         {
+            
+        $image_path =public_path()."/upload/".$my_image;  // Value is not URL but directory file path
+        
+        if(File::exists($image_path)) {  
+                File::delete($image_path);
+        }
+        
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('upload'), $my_image);
                 $res->EMP_IMAGE = $my_image;

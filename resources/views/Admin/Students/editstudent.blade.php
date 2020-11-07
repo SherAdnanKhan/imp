@@ -411,6 +411,7 @@ $('body').on('submit','#updatestudent',function(e){
             contentType: false,
             success: function(data){
                console.log(data)
+               return false;
                toastr.success(data,'Notice');
                $("#updatestudent").get(0).reset();
                setTimeout(function() {
