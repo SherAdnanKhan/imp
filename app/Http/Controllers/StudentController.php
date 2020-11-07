@@ -271,8 +271,6 @@ class StudentController extends Controller
             'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
             'PREV_BOARD_UNI' => $request->PREV_BOARD_UNI,
             'PASSING_YEAR' => $request->PASSING_YEAR,
-            'CAMPUS_ID' => '1',
-            'USER_ID' => '1',
         ];
         Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
