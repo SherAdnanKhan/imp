@@ -38,13 +38,13 @@ class StudentController extends Controller
         $session= Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         return view("Admin.Students.import")->with(['classes'=>$class,'sessions'=>$session]);
     }
-    
+
     public function processImport(CsvImportRequest $request)
     {
         $count=0;
         $success=true;
         // try {
-           
+
     $row = $this->csvToArray($request->csv_file);
     // dd($row);
     $image = $request->file('IMAGE');
@@ -53,7 +53,7 @@ class StudentController extends Controller
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload'), $my_image);
     endif;
-             
+
             $regno=0;
                 $date=0;
             for ($i = 0; $i < count($row); $i ++)
@@ -68,9 +68,9 @@ class StudentController extends Controller
                 ->select('ROLL_NO')
                 ->latest('created_at')
                 ->first();
-                
+
                 $myDate =  date("Y/n/j",strtotime(str_replace('/','-',$row[$i]["DOB"])));
-    
+
                 $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
                 $rollno = ( $rollno == NULL) ? 1 : $rollno->ROLL_NO+1;
                 $recent_entry_student=   Kelex_student::create([
@@ -83,7 +83,7 @@ class StudentController extends Controller
                     "STD_PASSWORD" => Hash::make('123456'),
                     'REG_NO'=> $regno,'CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'USER_ID'=>Auth::user()->id
                 ]);
-              
+
                 $studentid= $recent_entry_student->STUDENT_ID;
                 Kelex_students_session::Create([
                     'SESSION_ID'=>$request->SESSION_ID,
@@ -98,9 +98,9 @@ class StudentController extends Controller
                  $count++;
 
             }
-        // } 
+        // }
         // catch (\Exception $e) {
-        //     $success=false; 
+        //     $success=false;
         // }
 
         return response()->json(array('status' => $success,'totalstudents'=>$count,'url'=>url('/showstudent')));
@@ -354,6 +354,7 @@ class StudentController extends Controller
                                 ->where('kelex_fee_discounts.STUDENT_ID',$id)
                                 ->select('kelex_fee_categories.FEE_CAT_ID','kelex_fee_categories.CATEGORY','kelex_fee_discounts.DISCOUNT')
                                 ->get()->toArray();
+        $fee_discount = (empty($fee_discount)) ? [] :  $fee_discount;
                                 // dd($fee_discount);
         return array($data,$class,$section,$session,$std_session_data,$fee_discount);
     }
