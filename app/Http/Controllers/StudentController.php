@@ -51,7 +51,7 @@ class StudentController extends Controller
     $image = $request->file('IMAGE');
     $my_image =null;
     if(!empty($image)):
-        
+
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload'), $my_image);
     endif;
@@ -232,27 +232,26 @@ class StudentController extends Controller
     }
     public function update_student(studentrequest $request)
     {
-      
+
         // dd($request->all());
         $image = $request->file('IMAGE');
         $img=Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
-        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+                                ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $my_image =$img['IMAGE'];
         if(!empty($image)):
 
-        $image_path =public_path()."/upload/".$my_image;  // Value is not URL but directory file path
-        
-        if(File::exists($image_path)) {  
-                File::delete($image_path);
-        }
-        
+            $image_path =public_path()."/upload/".$my_image;  // Value is not URL but directory file path
+
+            if(File::exists($image_path)) {
+                    File::delete($image_path);
+            }
+
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);
 
         endif;
-        Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
-        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
-          ->update([ 'NAME' => $request->NAME,
+        $where = [
+            'NAME' => $request->NAME,
             'FATHER_NAME' => $request->FATHER_NAME,
             'FATHER_CONTACT' => $request->FATHER_CONTACT,
             'SECONDARY_CONTACT' => $request->SECONDARY_CONTACT,
@@ -264,17 +263,21 @@ class StudentController extends Controller
             'SHIFT' => $request->SHIFT,
             'PRESENT_ADDRESS' => $request->PRESENT_ADDRESS,
             'PERMANENT_ADDRESS' => $request->PERMANENT_ADDRESS,
-             'GUARDIAN' => $request->GUARDIAN,
-             'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC,
-             'IMAGE' => $my_image,
-              'PREV_CLASS' => $request->PREV_CLASS,
-              'SLC_NO' => $request->SLC_NO,
-             'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
-             'PREV_BOARD_UNI' => $request->PREV_BOARD_UNI,
-             'PASSING_YEAR' => $request->PASSING_YEAR,
-             'CAMPUS_ID' => '1',
-              'USER_ID' => '1',
-        ]);
+            'GUARDIAN' => $request->GUARDIAN,
+            'GUARDIAN_CNIC' => $request->GUARDIAN_CNIC,
+            'IMAGE' => $my_image,
+            'PREV_CLASS' => $request->PREV_CLASS,
+            'SLC_NO' => $request->SLC_NO,
+            'PREV_CLASS_MARKS' => $request->PREV_CLASS_MARKS,
+            'PREV_BOARD_UNI' => $request->PREV_BOARD_UNI,
+            'PASSING_YEAR' => $request->PASSING_YEAR,
+            'CAMPUS_ID' => '1',
+            'USER_ID' => '1',
+        ];
+        dd($where);
+        Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
+          ->update($where);
         Kelex_students_session::where('STUDENT_ID',$request->STUDENT_ID)->
         where('CAMPUS_ID', Session::get('CAMPUS_ID'))->
         update(['SESSION_ID'=>$request->SESSION_ID,'CLASS_ID'=>$request->CLASS_ID,
