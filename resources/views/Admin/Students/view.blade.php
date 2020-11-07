@@ -173,7 +173,7 @@
                     html += ' </thead>';
                     html += ' <tbody>';
                     for (i = 0; i < data.length; i++) {
-                     let image = (!data[i].IMAGE == "") ? '{{asset("upload")}}/'+data[i].IMAGE : 'https://via.placeholder.com/200';
+                     let image = (!data[i].IMAGE == "") ? '{{asset("upload")}}/{{Auth::user()->CAMPUS_ID}}/'+data[i].IMAGE : 'https://via.placeholder.com/200';
                       html += '<tr id="row'+data[i].STUDENT_ID+'">';
                       html += '  <td>'+ data[i].STUDENT_ID+' </td>';
                       html += '  <td>' + data[i].NAME+ '</td>';

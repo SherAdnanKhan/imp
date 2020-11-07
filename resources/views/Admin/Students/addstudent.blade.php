@@ -410,6 +410,9 @@ $('body').on('submit','#addstudent',function(e){
             success: function(data){
                console.log(data)
                toastr.success(data,'Notice');
+               setTimeout(function() {
+                location.reload();
+               }, 1000);
                $("#addstudent").get(0).reset();
               },
               error: function(error){

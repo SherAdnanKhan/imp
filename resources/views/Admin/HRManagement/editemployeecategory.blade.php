@@ -19,11 +19,11 @@
                            @csrf
                                  <div class="row">
                                    <div class="col-md-3">
-                                      <input type="hidden" name="id" value="{{$employee['EMP_ID']}}" id="id">
+                                      <input type="hidden" name="EMP_ID" value="{{$employee['EMP_ID']}}" id="id">
                                        <label for="upload">Upload EMPLOYEE picture</label>
                                        <input type="file" name="EMP_IMAGE" id="EMP_IMAGE" size="20" class="dropify"  accept="image/*"/>
                                        <small id="EMP_IMAGE_error" class="form-text text-danger"></small>
-                                       <img src="{{asset('upload')}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;">
+                                       <img src="{{asset('upload/employee')}}{{Auth::user()->CAMPUS_ID}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;">
                                     </div>
                                     <div class="col-md-3">
                                        <div class="form-group">
@@ -188,6 +188,7 @@ $('body').on('submit','#updateemployee',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+              // return false;
                console.log(data)
                toastr.success(data,'Notice');
                $("#updateemployee").get(0).reset();

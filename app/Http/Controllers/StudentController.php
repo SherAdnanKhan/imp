@@ -53,7 +53,7 @@ class StudentController extends Controller
     if(!empty($image)):
         
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('upload'), $my_image);
+        $image->move(public_path('upload/'.Auth::user()->CAMPUS_ID), $my_image);
     endif;
 
             $regno=0;
@@ -130,7 +130,7 @@ class StudentController extends Controller
         $my_image =null;
         if(!empty($image)):
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('upload'), $my_image);
+            $image->move(public_path('upload/'.Auth::user()->CAMPUS_ID), $my_image);
         endif;
         // $regno = 0;
         $regno= DB::table('kelex_students')
@@ -240,14 +240,14 @@ class StudentController extends Controller
         $my_image =$img['IMAGE'];
         if(!empty($image)):
 
-        $image_path =public_path()."/upload/".$my_image;  // Value is not URL but directory file path
+        $image_path =public_path()."/upload/".Auth::user()->CAMPUS_ID.'/'.$my_image;  // Value is not URL but directory file path
         
         if(File::exists($image_path)) {  
                 File::delete($image_path);
         }
         
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('upload'), $my_image);
+            $image->move(public_path('upload/'.Auth::user()->CAMPUS_ID), $my_image);
 
         endif;
         Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)

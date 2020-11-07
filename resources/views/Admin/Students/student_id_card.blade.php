@@ -15,7 +15,7 @@
                  	<div class="col-sm-4 bg-info rounded-left">
         		        <div class="card-block text-center text-white ">
                 		    <div class="mt-4 text-center " >
-                                <img src="{{asset('upload')}}/{{$student['IMAGE']}}" 
+                                <img src="{{asset('upload')}}/{{Auth::user()->CAMPUS_ID}}/{{$student['IMAGE']}}" 
                                     class="card-img ml-6 img-fluid border-primary rounded"  
                                    style=" width:200px; height:200px;"
                                     alt="student image">

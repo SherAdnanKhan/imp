@@ -28,7 +28,7 @@ class EmployeeController extends Controller
         $my_image =null;
         if(!empty($image)):
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('upload'), $my_image);
+            $image->move(public_path('upload/employee'.Auth::user()->CAMPUS_ID), $my_image);
         endif;
 
         $recent_entry_student= Kelex_employee::create([
@@ -71,22 +71,22 @@ class EmployeeController extends Controller
     }
     public function update_employee(Request $request)
     {
-        $res = Kelex_employee::find($request->id)->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
-        $img=Kelex_employee::where('STUDENT_ID',$request->STUDENT_ID)
+
+        $res=Kelex_employee::where('EMP_ID',$request->EMP_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
-        $my_image =$img['EMP_IMAGE'];
+        $my_image =$res['EMP_IMAGE'];
         $image = $request->file('EMP_IMAGE');
         if(!empty($image))
         {
             
-        $image_path =public_path()."/upload/".$my_image;  // Value is not URL but directory file path
+        $image_path =public_path()."/upload/employee".Auth::user()->CAMPUS_ID.'/'.$my_image;  // Value is not URL but directory file path
         
         if(File::exists($image_path)) {  
                 File::delete($image_path);
         }
         
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('upload'), $my_image);
+                $image->move(public_path('upload/employee'.Auth::user()->CAMPUS_ID), $my_image);
                 $res->EMP_IMAGE = $my_image;
         }
         $res->EMP_NAME = $request->input('EMP_NAME');
@@ -102,8 +102,7 @@ class EmployeeController extends Controller
         $res->LEAVING_DATE = $request->input('LEAVING_DATE');
         $res->EMP_DOB = $request->input('EMP_DOB');
         $res->ALLOWANCESS = $request->input('ALLOWANCESS');
-        $res->ADDED_BY = $request->input('ADDED_BY');
-        $res->CAMPUS_ID = $request->input('CAMPUS_ID');
+
         $res->save();
 
         return response()->json('success fully updated');
