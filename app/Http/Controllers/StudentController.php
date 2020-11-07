@@ -274,7 +274,6 @@ class StudentController extends Controller
             'CAMPUS_ID' => '1',
             'USER_ID' => '1',
         ];
-        dd($where);
         Kelex_student::where('STUDENT_ID',$request->STUDENT_ID)
         ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))
           ->update($where);
