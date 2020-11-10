@@ -9,7 +9,7 @@
                             <li class="menu-title">Main</li>
                             <li>
                                 <a href="#" class="waves-effect">
-                                    <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span> Dashboard </span>
+                                    <i class="mdi mdi-home"></i><span class="badge badge-primary float-right"></span> <span> Dashboard </span>
                                 </a>
                             </li>
                             <li>
@@ -25,6 +25,14 @@
                                
                                     <li><a href=" {{route('TeacherApplication')}}"> Add New Application</a></li>
                                     <li><a href=" {{route('Teacher_View_Application')}}"> View Application Status</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Papers <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                                <ul class="submenu">
+                               
+                                    <li><a href=" {{route('Paper')}}"> Add Marks</a></li>
+                                    <li><a href=" {{route('View_marks')}}"> View Marks</a></li>
                                 </ul>
                             </li>
 
@@ -47,24 +55,6 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="page-title-box">
-                        <h4 class="page-title">Blank page</h4>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
-                            <li class="breadcrumb-item active">Blank page</li>
-                        </ol>
 
-                        <div class="state-information d-none d-sm-block">
-                            <div class="state-graph">
-                                <div id="header-chart-1"></div>
-                                <div class="info">Balance $ 2,317</div>
-                            </div>
-                            <div class="state-graph">
-                                <div id="header-chart-2"></div>
-                                <div class="info">Item Sold 1230</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>

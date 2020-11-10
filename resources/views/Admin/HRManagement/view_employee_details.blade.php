@@ -16,7 +16,7 @@
       <div class="col-md-3">
          <div class="box box-primary">
             <div class="box-body box-profile">
-               <img class="profile-user-img img-responsive img-circle" src="{{asset('upload/employee')}}{{Auth::user()->CAMPUS_ID}}/{{$empdata['EMP_IMAGE']}}" alt="User profile picture" style="margin-left:20px; height: 250px; width:250px">
+               <img class="profile-user-img img-responsive img-circle" src="{{asset('upload/employee')}}{{Session::get('CAMPUS_ID')}}/{{$empdata['EMP_IMAGE']}}" alt="User profile picture" style="margin-left:20px; height: 250px; width:250px">
                <h3 class="profile-username text-center">{{ucfirst($empdata->EMP_NAME)}}</h3>
                <ul class="list-group list-group-unbordered">
                   <li class="list-group-item listnoback">
@@ -38,7 +38,7 @@
       <div class="col-md-9">
       <ul class="nav nav-pills nav-justified" role="tablist">
                                                 <li class="nav-item waves-effect waves-light">
-                                                    <a class="nav-link active" data-toggle="tab" href="#activity" role="tab">Profile</a>
+                                                    <a class="nav-link active" data-toggle="tab" style="width: 300px;" href="#activity" role="tab">Profile</a>
                                                 </li>
                                                 <!-- <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link" data-toggle="tab" href="#documents" role="tab">Salary Information</a>

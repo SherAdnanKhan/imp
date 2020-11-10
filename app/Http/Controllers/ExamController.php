@@ -10,7 +10,9 @@ use App\Models\Kelex_exam;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
 use App\Models\Kelex_subject;
+use App\Models\Kelex_employee;
 use App\Models\Kelex_exam_paper;
+use App\Models\Kelex_exam_assign;
 use App\Http\Requests\Kelex_exams;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Exam_paperRequest;
 use App\Http\Requests\Exam_SearchRequest;
-use App\Models\Kelex_employee;
+use App\Http\Requests\ExamPaperRequest;
 
 class ExamController extends Controller
 {
@@ -196,6 +198,7 @@ class ExamController extends Controller
         $matchdates=0;
         $data= DB::table('Kelex_exam_papers')
         ->where('DATE', '=',$request->DATE)
+        ->Orwhere('SUBJECT_ID','=',$request->SUBJECT_ID)
         ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
 
         if(count($data)>0)
@@ -284,11 +287,41 @@ class ExamController extends Controller
 
 
     }
+   
+    public function get_assign_exam_paper(ExamPaperRequest $request)
+    {
+    $status= Kelex_exam_assign::where('PAPER_ID',$request->PAPER_IDs)->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->first();
+// dd($status);
+    return response()->json($status);
+      
+    }
     public function assign_exam_paper(Request $request)
     {
-       
-        return response()->json();
+      //  dd($request->PAPER_ID);
+       $status= Kelex_exam_assign::where('PAPER_ID',$request->PAPER_ID)->where('CAMPUS_ID',Session::get('CAMPUS_ID'))
+       ->select('STATUS')->first();
+     
+       if($status!=null)
+       {
+       if($status['STATUS']=='2')
+       {
+        return response()->json(false);
+       }
     }
+   $Result= Kelex_exam_assign::updateOrCreate(
+        ['PAPER_ID' => $request->PAPER_ID],
+        ['PAPER_ID' => $request->PAPER_ID,
+        'EMP_ID'=>$request->EMP_ID,
+        'DUEDATE'=>$request->DUEDATE,
+        'STATUS'=>'1',
+        'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+        'USER_ID' =>Session::get('user_id'),
+    ]);
+    //dd($Result);
+
+    
+         return response()->json(true);
+       }
 
 
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\NonTeachingController;
+use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
@@ -92,6 +93,14 @@ Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'gete
 Route::match(['get', 'post'],'/Application',[TeacherAttendanceController::class,'TeacherApplication'])->name('TeacherApplication');
 Route::match(['get', 'post'],'/AddApplication',[TeacherAttendanceController::class,'AddApplication'])->name('Teacher_Add_Application');
 Route::match(['get', 'post'],'/ViewApplication',[TeacherAttendanceController::class,'ViewApplication'])->name('Teacher_View_Application');
+// Teahcer Mark Paper Routes
+Route::match(['get', 'post'],'/Paper',[PaperMarksController::class,'Paper'])->name('Paper');
+Route::match(['get', 'post'],'/getsubjects',[PaperMarksController::class,'getsubjects'])->name('getsubjects');
+Route::match(['get', 'post'],'/Search_Student',[PaperMarksController::class,'Search_Student'])->name('Search_Student');
+Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_marks'])->name('Add_marks');
+Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
+Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
+
 
 });
 
@@ -292,5 +301,7 @@ Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'upd
 
 // Assign Teacher to Paper Exam Start here
 Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
+Route::match(['get', 'post'], '/get_assign_exam_paper', [ExamController::class, 'get_assign_exam_paper'])->name("get_assign_exam_paper");
+
 
 });

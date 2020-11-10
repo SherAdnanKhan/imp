@@ -23,7 +23,7 @@
                                        <label for="upload">Upload EMPLOYEE picture</label>
                                        <input type="file" name="EMP_IMAGE" id="EMP_IMAGE" size="20" class="dropify"  accept="image/*"/>
                                        <small id="EMP_IMAGE_error" class="form-text text-danger"></small>
-                                       <img src="{{asset('upload/employee')}}{{Auth::user()->CAMPUS_ID}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;">
+                                       <img src="{{asset('upload/employee')}}{{Session::get('CAMPUS_ID')}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;">
                                     </div>
                                     <div class="col-md-3">
                                        <div class="form-group">

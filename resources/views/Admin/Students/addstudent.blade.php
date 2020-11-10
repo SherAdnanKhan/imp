@@ -283,7 +283,7 @@
                               <div class="box-footer text-center">
 
                                     <div class=" ">
-                                       <button type="submit" class="btn btn-info btn-rounded align-items-right waves-effect waves-light">Save Student</button>
+                                       <button type="submit" class="btn btn-info btn-rounded submitbtn align-items-right waves-effect waves-light">Save Student</button>
                                     </div>
                               </div>
 
@@ -400,6 +400,7 @@ $('body').on('submit','#addstudent',function(e){
       $('#SESSION_ID_error').text('');
       $('#CLASS_ID_error').text('');
       $('#SECTION_ID_error').text('');
+      $(".submitbtn").prop('disabled', true); 
       var fdata = new FormData(this);
       $.ajax({
         url: '{{url("addstudent")}}',
@@ -414,8 +415,10 @@ $('body').on('submit','#addstudent',function(e){
                 location.reload();
                }, 1000);
                $("#addstudent").get(0).reset();
+               $(".submitbtn").prop('disabled', false); 
               },
               error: function(error){
+               $(".submitbtn").prop('disabled', false); 
                console.log(error);
                toastr.error('Please Fill the Required Fields','Notice');
                var response = $.parseJSON(error.responseText);

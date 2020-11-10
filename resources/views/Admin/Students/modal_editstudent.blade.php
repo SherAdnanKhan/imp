@@ -17,7 +17,7 @@
         <br>
         <input type="file"  name="IMAGE"  id="IMAGE" accept="image/*">
         <div>
-          <img src="{{ asset('upload') }}/{{Auth::user()->CAMPUS_ID}}/{{$student['IMAGE']}}" width="100px" height="100px">
+          <img src="{{ asset('upload') }}/{{Session::get('CAMPUS_ID')}}/{{$student['IMAGE']}}" width="100px" height="100px">
         </div>
       </div>
 
