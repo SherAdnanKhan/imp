@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <title>Title</title>
         <meta content="Admin Dashboard" name="description" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta content="Themesbrand" name="author" />
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
         <link rel="shortcut icon" href="{{asset('admin_assets/dist/img/ico/favicon.png')}}" type="image/x-icon">

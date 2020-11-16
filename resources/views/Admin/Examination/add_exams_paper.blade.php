@@ -14,7 +14,6 @@
               <div class="form-group">
                <form action="" id="searching" method="post">
                   @csrf
-                 
                 <label for="">Session *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class"
                    name="SESSION_ID">
@@ -76,7 +75,7 @@
       <div class="card m-b-30 card-body">
             <div class="row">
             <div class="col-md-12" id="displaydata">
-
+         
             </div>
           </div>
         </div>
@@ -272,6 +271,7 @@
       </div><!-- /.modal-dialog -->
 </div>
 
+<!-- Edit Assinn teacher To Exam -->
 
 <div id="assignteacher" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -281,14 +281,14 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                      </div>
                      <div class="modal-body">
-                     <form action="{{route('updateclass')}}" id="editclass" name="classform" method="post" accept-charset="utf-8">
+                     <form action="{{route('assign_exam_paper')}}" id="assign" name="classform" method="post" accept-charset="utf-8">
 
                         <div class="box-body">
                            
                         <div class="form-group">
-                           <input type="hidden" id='PAPER_IDs' name="PAPER_IDs" value="">
+                           <input type="hidden" id='PAPER_IDs' name="PAPER_ID" value="">
                            <label>Select Teacher*</label>
-                        <select class="form-control formselect required" placeholder="Select Exam" name="EMP_ID">
+                        <select class="form-control formselect required" placeholder="Select Exam" id="EMP_ID" name="EMP_ID">
                         @foreach($teachers as $teacher)
                            <option  value="{{ $teacher->EMP_ID}}">
                               {{ ucfirst($teacher->EMP_NAME) }}</option>
@@ -298,7 +298,7 @@
                      </div>
                      <div class="form-group">
                      <label>Due Date*</label>
-                              <input type="date" class="form-control" name="DUEDATE" placeholder="Enter Date *" value="" />
+                              <input type="date" class="form-control" id="DUEDATE" name="DUEDATE" placeholder="Enter Date *" value="" />
                               <small id="DATE_err" class="form-text text-danger"></small>
                            </div>
                         </div>
@@ -389,6 +389,7 @@
             // return false;
             if (record.length>0)
             { 
+          html+='<small id="PAPER_IDs_err" class="form-text text-danger"></small>';
           html+='  <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">Add New Paper</button>';
           html += ' <div class="table-responsive">';
                     html += '<table id="DataTables_Table_0" class="table table-bordered">';
@@ -516,11 +517,6 @@ var fdata = new FormData(this);
        $('#editexam').modal('show');
    });
 
-   $('body').on('click', '.assignbtn',function () {
-             $('#PAPER_IDs').val(PAPER_ID);
-       $('#assignteacher').modal('show');
-   });
-
 $('body').on('submit','#update_exam_paper',function(e){
 e.preventDefault();
 $('#EXAM_ID_err').text('');
@@ -557,6 +553,73 @@ var fdata = new FormData(this);
                var response = $.parseJSON(error.responseText);
                     $.each(response.errors, function (key, val) {
                         $("#" + key + "_err").text(val[0]);
+                    });
+    }
+
+   });
+   });
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+   $('body').on('click', '.assignbtn',function () {
+      $('#PAPER_ID_err').text('');
+      $('#assign').get(0).reset();
+      var PAPER_IDs = $(this).val();
+      //alert(PAPER_IDs);
+   $.ajax({
+        url: '{{url("get_assign_exam_paper")}}',
+            type:'POST',
+            data:{PAPER_IDs:PAPER_IDs} ,
+            // processData: false,
+            // contentType: false,
+            success: function(data){
+            console.log(data);
+            if(data!=null){
+               $('#EMP_ID').val(data['EMP_ID']);
+               $('#DUEDATE').val(data['DUEDATE']);
+            }
+             $('#PAPER_IDs').val(PAPER_IDs);
+
+       $('#assignteacher').modal('show');
+            },
+            error: function(error){
+               console.log(error);
+               var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_err").text(val[0]);
+                    });
+    }
+   });
+});
+$('body').on('submit','#assign',function(e){
+e.preventDefault();
+$('#EMP_ID_error').text('');
+$('#DUEDATE_error').text(''); 
+var fdata = new FormData(this);
+   $.ajax({
+        url: '{{url("assign_exam_paper")}}',
+            type:'POST',
+            data :fdata,
+            processData: false,
+            contentType: false,
+            success: function(data){
+            console.log(data);
+            //return false;
+            if(data==true){
+                toastr.success('success added Paper', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+                }
+            else {
+               toastr.warning('Already Paper Checked', 'Notice');
+            }
+            },
+            error: function(error){
+               console.log(error);
+               var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
                     });
     }
 

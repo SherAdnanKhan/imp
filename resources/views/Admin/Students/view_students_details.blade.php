@@ -15,7 +15,7 @@
          <div class="col-md-3">
          <div class="box box-primary">
             <div class="box-body box-profile">
-               <img class="profile-user-img img-responsive img-circle" src="{{asset('upload')}}/{{Auth::user()->CAMPUS_ID}}/{{$student['IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="User profile picture" style="height: 250px; width:250px">
+               <img class="profile-user-img img-responsive img-circle" src="{{asset('upload')}}/{{Session::get('CAMPUS_ID')}}/{{$student['IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="User profile picture" style="height: 250px; width:250px">
                <h3 class="profile-username text-center">{{ucfirst($student['NAME'])}}</h3>
                <ul class="list-group list-group-unbordered">
                   <li class="list-group-item listnoback">

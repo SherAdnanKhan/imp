@@ -88,7 +88,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn submitbtn btn-primary">
                                         Submit CSV
                                     </button>
                                 </div>
@@ -138,6 +138,7 @@ $.ajaxSetup({
 });
 
 $('body').on('submit','#csvform',function(e){
+    $(".submitbtn").prop('disabled', true); 
     e.preventDefault();
       $('#csv_file_error').text('');
       $('#SESSION_ID_error').text('');
@@ -152,10 +153,11 @@ $('body').on('submit','#csvform',function(e){
             contentType: false,
             success: function(data){
                 // return false;
+                $(".submitbtn").prop('disabled', false);
                 if(data.status)
                 {
                 toastr.success('Student Data Uploaded Successfully  '+data.totalstudents,'Notice')
-                setTimeout(function(){ window.location=data.url;},1000);      
+                setTimeout(function(){ window.location=data.url;},1000);       
                 }
                 else
                 {
@@ -164,6 +166,7 @@ $('body').on('submit','#csvform',function(e){
                console.log(data) 
               },
               error: function(error){
+                $(".submitbtn").prop('disabled', false); 
                console.log(error);
                var response = $.parseJSON(error.responseText);
                     $.each(response.errors, function (key, val) {

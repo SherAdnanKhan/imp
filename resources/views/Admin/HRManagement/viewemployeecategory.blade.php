@@ -39,7 +39,7 @@
                                                   <td>{{$employee->QUALIFICATION}}</td>
                                                   <td><?= $employee->EMP_TYPE==1?'Teaching':'Non Teaching'?></td>
                       
-                                                  <td><img src="{{asset('upload/employee')}}{{Auth::user()->CAMPUS_ID}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;"></td>
+                                                  <td><img src="{{asset('upload/employee')}}{{Session::get('CAMPUS_ID')}}/{{$employee['EMP_IMAGE']}}" onerror="this.src='https://via.placeholder.com/200'" alt="" style="width: 50px;height:50px;"></td>
                                                   <td>
                                                       <a href="editemployee/{{$employee->EMP_ID}}" style="margin-right:10px;" class="btn btn-success editbtn"> Edit </a>
                                                   </td>
