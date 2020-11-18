@@ -13,6 +13,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\NonTeachingController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
@@ -94,7 +95,6 @@ Route::match(['get', 'post'],'/Paperattendance',[PaperMarksController::class,'Pa
         Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
         Route::match(['get', 'post'], '/ViewApplication', [TeacherAttendanceController::class, 'ViewApplication'])->name('Teacher_View_Application');
     });
-});
 
 
 
