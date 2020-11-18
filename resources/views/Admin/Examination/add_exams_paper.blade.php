@@ -473,6 +473,10 @@ var fdata = new FormData(this);
                 toastr.success('success added Paper', 'Notice');
                 setTimeout(function(){location.reload();},1000);
                 }
+            else if(data=='subjectexist')
+            {
+               toastr.warning('Paper Already Added Please Refresh', 'Notice');
+            }
             else if(data=='datematch')
             {
                toastr.warning('Already Paper Exist on Specifc Date', 'Notice');
@@ -540,6 +544,10 @@ var fdata = new FormData(this);
                 toastr.success('success updated Paper', 'Notice');
                 setTimeout(function(){location.reload();},1000);
                 }
+            else if(data=='subjectexist')
+            {
+               toastr.warning('Paper Already Added Please Refresh', 'Notice');
+            }
             else if(data=='datematch')
             {
                toastr.warning('Already Paper Exist on Specifc Date', 'Notice');

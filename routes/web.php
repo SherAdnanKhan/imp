@@ -77,11 +77,18 @@ Route::prefix('teacher')->group(function () {
 
     Route::post('/passwordreset_teacher', [TeacherLoginController::class, 'resetpassword_employee'])->name('passwordteacher');
 
-    Route::group(['middleware' => 'Teacher'], function () {
-        Route::match(['get', 'post'], '/dashboard', [TeacherLoginController::class, 'dashboard'])->name('dashboard');
-
-        Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
-        // Teacher Application routes
+Route::match(['get', 'post'],'/Application',[TeacherAttendanceController::class,'TeacherApplication'])->name('TeacherApplication');
+Route::match(['get', 'post'],'/AddApplication',[TeacherAttendanceController::class,'AddApplication'])->name('Teacher_Add_Application');
+Route::match(['get', 'post'],'/ViewApplication',[TeacherAttendanceController::class,'ViewApplication'])->name('Teacher_View_Application');
+// Teahcer Mark Paper Routes
+Route::match(['get', 'post'],'/Paper',[PaperMarksController::class,'Paper'])->name('Paper');
+Route::match(['get', 'post'],'/getsubjects',[PaperMarksController::class,'getsubjects'])->name('getsubjects');
+Route::match(['get', 'post'],'/Search_Student',[PaperMarksController::class,'Search_Student'])->name('Search_Student');
+Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_marks'])->name('Add_marks');
+Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
+Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
+// Teacher Paper Attendance routes start here
+Route::match(['get', 'post'],'/Paperattendance',[PaperMarksController::class,'Paperattendance'])->name('Paperattendance');
 
         Route::match(['get', 'post'], '/Application', [TeacherAttendanceController::class, 'TeacherApplication'])->name('TeacherApplication');
         Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
@@ -249,6 +256,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 
+<<<<<<< HEAD
     //Employee Routes Start
     Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
     Route::match(['post'], '/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
@@ -280,4 +288,52 @@ Route::group(['middleware' => 'Admin'], function () {
 
     // Assign Teacher to Paper Exam Start here
     Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
+=======
+//Employee Routes Start
+Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
+Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
+Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
+Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
+Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
+
+//Add Non Teaching Staff
+Route::match(['get', 'post'], '/staff', [NonTeachingController::class, 'index_staff'])->name("staff");
+Route::match(['get', 'post'], '/addstaff', [NonTeachingController::class, 'store_staff'])->name("add-staff");
+Route::match(['get', 'post'], '/showstaff', [NonTeachingController::class, 'show_all_staff'])->name("show-staff");
+Route::match(['get', 'post'], '/editstaff/{id}', [NonTeachingController::class, 'edit_staff'])->name("edit-staff");
+Route::match(['get', 'post'], '/updatestaff', [NonTeachingController::class, 'update_staff'])->name("update-staff");
+
+// Add Exam Routes Start Here
+Route::match(['get', 'post'], '/exam', [ExamController::class, 'index_exam'])->name("exam");
+Route::match(['get', 'post'], '/addexam', [ExamController::class, 'add_exam'])->name("addexam");
+Route::match(['get', 'post'], '/editexam', [ExamController::class, 'edit_exam'])->name("editexam");
+Route::match(['get', 'post'], '/updateexam', [ExamController::class, 'update_exam'])->name("updateexam");
+Route::match(['get', 'post'], '/deleteexam', [ExamController::class, 'delete_exam'])->name("deleteexam");
+
+// Add Exam paper routes start here
+
+Route::match(['get', 'post'], '/exampaper', [ExamController::class, 'index_exampaper'])->name("exampaper");
+Route::match(['get', 'post'], '/view_exam_paper', [ExamController::class, 'view_exam_paper'])->name("view_exam_paper");
+Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_exam_paper'])->name("add_exam_paper");
+Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
+Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
+
+// Assign Teacher to Paper Exam Start here
+Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
+Route::match(['get', 'post'], '/get_assign_exam_paper', [ExamController::class, 'get_assign_exam_paper'])->name("get_assign_exam_paper");
+
+//Add Grade Routes Start here
+
+Route::match(['get', 'post'], '/grade', [ExamController::class, 'index_grade'])->name("grade");
+Route::match(['get', 'post'], '/addgrade', [ExamController::class, 'add_grade'])->name("addgrade");
+Route::match(['get', 'post'], '/editgrade', [ExamController::class, 'edit_grade'])->name("editgrade");
+Route::match(['get', 'post'], '/updategrade', [ExamController::class, 'update_grade'])->name("updategrade");
+Route::match(['get', 'post'], '/deletegrade', [ExamController::class, 'delete_grade'])->name("deletegrade");
+
+//Publish Result Routes Start here
+Route::match(['get', 'post'], '/result', [ExamController::class, 'index_result'])->name("result");
+Route::match(['get', 'post'],'/getsubject',[PaperMarksController::class,'getsubjects'])->name('getsubject');
+Route::match(['get', 'post'],'/Search_result',[PaperMarksController::class,'Search_result'])->name('Search_result');
+Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'Add_marks'])->name('PublishResult');
+>>>>>>> 9c025705b537a3c1d66125ddd31f1271c4f31c4a
 });

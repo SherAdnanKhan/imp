@@ -23,6 +23,7 @@ class CreateExamPapers extends Migration
             $table->string('DATE')->nullable();
             $table->float('TOTAL_MARKS')->nullable();
             $table->float('PASSING_MARKS')->nullable();
+            $table->enum('PUBLISHED',['1','2'])->nullable()->comments('1= YES 2= NO ');
             $table->enum('VIVA',['1','2'])->nullable()->comments('1= YES 2= NO ');
             $table->float('VIVA_MARKS')->nullable();
             $table->unsignedBigInteger('SESSION_ID')->nullable();

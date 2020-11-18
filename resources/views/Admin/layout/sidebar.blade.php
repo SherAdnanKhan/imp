@@ -132,7 +132,8 @@
                              
                                 <li><a href="{{route('exam')}}">Add Exam</a></li>
                                 <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
-                                <li><a href="comingsoon">Assign Exam </a></li>
+                                <li><a href="{{route('grade')}}">Define Grade </a></li>
+                                <li><a href="{{route('result')}}">Publish Result </a></li>
                             </ul>
                              </li>
                             @if(isset($permissions->admissionwithdraw->status)=="1")

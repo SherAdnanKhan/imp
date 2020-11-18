@@ -58,11 +58,11 @@
                 <select class="form-control formselect required" placeholder="Select Exam" name="EXAM_ID" id="EXAM_ID">
                 <option value="0" disabled selected>Select
                               Exam*</option>
-               
                 @foreach($gexam as $exam)
+              
                     <option  value="{{ $exam->EXAM_ID}}">
                         {{ ucfirst($exam->EXAM_NAME) }}</option>
-                @endforeach
+                    @endforeach
                 </select>
                 <small id="EXAM_ID_err" class="form-text text-danger"></small>
             </div>
@@ -160,7 +160,6 @@ $.ajaxSetup({
             // contentType: false,
             success: function(data){
                 console.log(data);
-               
               section_idd=data[0]['SECTION_ID'];
               session_idd=data[0]['SESSION_ID'];
               class_idd=data[0]['CLASS_ID'];
@@ -194,8 +193,7 @@ $.ajaxSetup({
             success: function(data){
              var subject_idd=data.subjectid;
              var data=data.result;
-
-             console.log(data)
+             console.log(data);
              //return false;
                 if ($.trim(data) == '' ) {
                     html +='<p style="text-align:center;color:red;"> NO Result Match </p>';
@@ -223,18 +221,11 @@ $.ajaxSetup({
                     html+=' <input type="hidden" name="PAPER_ID" value="'+paper_idd+'">'
                     html+=' <input type="hidden" name="EXAM_ID" value="'+exam_idd+'">'
                     html+=' <input type="hidden" name="SUBJECT_ID" value="'+subject_idd+'">'
-                    for (i = 0; i < data.length; i++) 
-                    {
-                      var TOB_MARKS = typeof data[i].TOB_MARKS=='undefined' ? '' : data[i].TOB_MARKS;
-                      var VOB_MARKS = typeof data[i].VOB_MARKS=='undefined' ? '' : data[i].VOB_MARKS;
-                      var remarks = typeof data[i].REMARKS=='undefined' ? '' : data[i].REMARKS;
+                    for (i = 0; i < data.length; i++) {
                       html += '<tr id="row'+data[i].STUDENT_ID+'">';
                       html += '  <td>'+ data[i].REG_NO+' </td>';
                       html += '  <td>' + data[i].NAME+ '</td>';
-                      html += '  <td>' + data[i].FATHER_NAME+ '</td>';
-                      html += '  <td><input type="hidden" name="STUDENT_ID[]" value="'+data[i].STUDENT_ID+'"> <input type="number" step="0.01" value="'+TOB_MARKS+'" name="TOB_MARKS[]"> </td>';
-                      html += '  <td> <input type="number" step="0.01" name="VOB_MARKS[]" value="'+VOB_MARKS+'"> </td>';
-                      html += '  <td> <input type="textarea" name="REMARKS[]" value="'+remarks+'" > </td>';
+
                     }
                     html += '</tbody>';
                    html += '</table>';
@@ -258,31 +249,31 @@ $.ajaxSetup({
    });
    });
 
- $('body').on('submit','#check_mark',function(e){
-   e.preventDefault();
-   $(".submitbtn").prop('disabled', true); 
+//  $('body').on('submit','#check_mark',function(e){
+//    e.preventDefault();
+//    $(".submitbtn").prop('disabled', true); 
 
-      var fdata = new FormData(this);
-      $.ajax({
-        url: '{{url("teacher/Add_marks")}}',
-            type:'POST',
-            data :fdata,
-            processData: false,
-            contentType: false,
-            dataType:"json",
-            success: function(data){
-              $(".submitbtn").prop('disabled', false); 
-              if(data){
-                toastr.success('Action Performed Successfully','Notice')
-                setTimeout(function(){location.reload();},1000);
-              }
-              else
-              { 
-                toastr.warning('Already Action taken, Please Refresh Page','Notice')
-              }
-            }
-        });
-   });
+//       var fdata = new FormData(this);
+//       $.ajax({
+//         url: '{{url("teacher/Add_marks")}}',
+//             type:'POST',
+//             data :fdata,
+//             processData: false,
+//             contentType: false,
+//             dataType:"json",
+//             success: function(data){
+//               $(".submitbtn").prop('disabled', false); 
+//               if(data){
+//                 toastr.success('Action Performed Successfully','Notice')
+//                 setTimeout(function(){location.reload();},1000);
+//               }
+//               else
+//               { 
+//                 toastr.warning('Already Action taken, Please Refresh Page','Notice')
+//               }
+//             }
+//         });
+//    });
    
   </script>
 @endsection
