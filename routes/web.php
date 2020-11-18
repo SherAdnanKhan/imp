@@ -256,39 +256,6 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 
-<<<<<<< HEAD
-    //Employee Routes Start
-    Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
-    Route::match(['post'], '/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
-    Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
-    Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
-    Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
-
-    //Add Non Teaching Staff
-    Route::match(['get', 'post'], '/staff', [NonTeachingController::class, 'index_staff'])->name("staff");
-    Route::match(['get', 'post'], '/addstaff', [NonTeachingController::class, 'store_staff'])->name("add-staff");
-    Route::match(['get', 'post'], '/showstaff', [NonTeachingController::class, 'show_all_staff'])->name("show-staff");
-    Route::match(['get', 'post'], '/editstaff/{id}', [NonTeachingController::class, 'edit_staff'])->name("edit-staff");
-    Route::match(['get', 'post'], '/updatestaff', [NonTeachingController::class, 'update_staff'])->name("update-staff");
-
-    // Add Exam Routes Start Here
-    Route::match(['get', 'post'], '/exam', [ExamController::class, 'index_exam'])->name("exam");
-    Route::match(['get', 'post'], '/addexam', [ExamController::class, 'add_exam'])->name("addexam");
-    Route::match(['get', 'post'], '/editexam', [ExamController::class, 'edit_exam'])->name("editexam");
-    Route::match(['get', 'post'], '/updateexam', [ExamController::class, 'update_exam'])->name("updateexam");
-    Route::match(['get', 'post'], '/deleteexam', [ExamController::class, 'delete_exam'])->name("deleteexam");
-
-    // Add Exam paper routes start here
-
-    Route::match(['get', 'post'], '/exampaper', [ExamController::class, 'index_exampaper'])->name("exampaper");
-    Route::match(['get', 'post'], '/view_exam_paper', [ExamController::class, 'view_exam_paper'])->name("view_exam_paper");
-    Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_exam_paper'])->name("add_exam_paper");
-    Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
-    Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
-
-    // Assign Teacher to Paper Exam Start here
-    Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
-=======
 //Employee Routes Start
 Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
 Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
@@ -335,5 +302,4 @@ Route::match(['get', 'post'], '/result', [ExamController::class, 'index_result']
 Route::match(['get', 'post'],'/getsubject',[PaperMarksController::class,'getsubjects'])->name('getsubject');
 Route::match(['get', 'post'],'/Search_result',[PaperMarksController::class,'Search_result'])->name('Search_result');
 Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'Add_marks'])->name('PublishResult');
->>>>>>> 9c025705b537a3c1d66125ddd31f1271c4f31c4a
 });
