@@ -242,11 +242,11 @@ $.ajaxSetup({
                       html += '  <td>'+data[i].TOTAL_MARKS +' </td>';
                       html += '  <td>'+data[i].PASSING_MARKS +' </td>';
                       html += '  <td>' + data[i].REMARKS+ '</td>'
-                      for (j = 0; j < grades.length; j++) 
+                      for (var j = 0; j < grades.length; j++) 
                       {
-                        console.log(grades[j]['FROM_MARKS']);
-                        for (k = grades[j]['FROM_MARKS']; k <= grades[j]['TO_MARKS']; k++) {
-                          console.log(totalmarks==k);
+                       // console.log(grades[j]['FROM_MARKS']);
+                        for (var k = grades[j]['TO_MARKS']; k <= grades[j]['FROM_MARKS']; k++) {
+                          console.log(k);
                         if(totalmarks==k)
                         {
                         
