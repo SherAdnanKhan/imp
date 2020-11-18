@@ -100,7 +100,8 @@ Route::match(['get', 'post'],'/Search_Student',[PaperMarksController::class,'Sea
 Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_marks'])->name('Add_marks');
 Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
 Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
-
+// Teacher Paper Attendance routes start here
+Route::match(['get', 'post'],'/Paperattendance',[PaperMarksController::class,'Paperattendance'])->name('Paperattendance');
 
 });
 
@@ -303,5 +304,17 @@ Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'upd
 Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
 Route::match(['get', 'post'], '/get_assign_exam_paper', [ExamController::class, 'get_assign_exam_paper'])->name("get_assign_exam_paper");
 
+//Add Grade Routes Start here
 
+Route::match(['get', 'post'], '/grade', [ExamController::class, 'index_grade'])->name("grade");
+Route::match(['get', 'post'], '/addgrade', [ExamController::class, 'add_grade'])->name("addgrade");
+Route::match(['get', 'post'], '/editgrade', [ExamController::class, 'edit_grade'])->name("editgrade");
+Route::match(['get', 'post'], '/updategrade', [ExamController::class, 'update_grade'])->name("updategrade");
+Route::match(['get', 'post'], '/deletegrade', [ExamController::class, 'delete_grade'])->name("deletegrade");
+
+//Publish Result Routes Start here
+Route::match(['get', 'post'], '/result', [ExamController::class, 'index_result'])->name("result");
+Route::match(['get', 'post'],'/getsubject',[PaperMarksController::class,'getsubjects'])->name('getsubject');
+Route::match(['get', 'post'],'/Search_result',[PaperMarksController::class,'Search_result'])->name('Search_result');
+Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'Add_marks'])->name('PublishResult');
 });
