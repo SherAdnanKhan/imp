@@ -23,7 +23,6 @@
                         <div class="alert alert-primary">Please define classes and sections first.</div>
                         @endif;
 
-                    {{-- Display data section --}}
                         @if(!empty($record)):
                      <div class="row">
                         <div class="col-md-4">
@@ -56,7 +55,7 @@
                                      </tr>
                                  </thead>
                                  <tbody>
-                                     @php $i=0; @endphp
+                                     @php $i=0;  @endphp
                                      @foreach ($record as $key => $item)
                                         <tr>
                                         <td>{{$item->Class_name}} <span class="badge badge-primary">{{$item->Section_name}}</span></td>
@@ -64,7 +63,9 @@
                                         <input type="hidden" name="record[{{$i}}][section_id]" value="{{$item->Section_id}}">
                                         <input type="hidden" name="record[{{$i}}][class_id]" value="{{$item->Class_id}}">
                                         <input type="hidden" name="record[{{$i}}][fee_structure_id]" value="{{$item->FEE_STRUCTURE_ID}}">
+                                            @php $j=0; @endphp
                                             @foreach($fee_cat as $k => $row)
+
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -75,19 +76,19 @@
                                                         $disabled = 'disabled';
                                                         $amount = null;
                                                         $index = null;
+                                                    //    echo $cat_amount[0];
                                                         if($fee_cat_array):
                                                             if(in_array($row->FEE_CAT_ID,$fee_cat_array)) :
                                                                  $checked = "checked";
                                                                  $index = $row->FEE_CAT_ID;
-                                                                 if ($k < count($cat_amount)):
-
-                                                                     $amount = $cat_amount[$k][$index];
-                                                                 endif;
-                                                            else:
+                                                                 $fee = array_column($cat_amount,$index);
+                                                                 $amount = $fee[0];
+                                                               else:
                                                                 $checked = "";
                                                             endif;
 
                                                         endif;
+                                                        // var_dump($amount);
                                                         if($cat_amount):
                                                             $disabled = (in_array($row->FEE_CAT_ID,$fee_cat_array)) ? "" : "disabled";
                                                         endif;
@@ -99,6 +100,8 @@
                                                 </div>
                                             <input type="number" name="record[{{$i}}][cat_amount][]" value="{{$amount}}"  class="form-control col-3 render-{{$item->Class_id}}-{{$item->Section_id}}-{{$row->FEE_CAT_ID}}" {{$disabled}}>
                                             </div>
+
+                                            @php $j++; @endphp
                                             @endforeach
                                                 @php $i++; @endphp
                                         </td>

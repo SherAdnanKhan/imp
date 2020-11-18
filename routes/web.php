@@ -14,7 +14,6 @@ use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\NonTeachingController;
-use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
@@ -30,114 +29,94 @@ use App\Http\Controllers\TeacherAttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function ()
-{
+
+Route::get('/', function () {
 
     return view('auth.kelexlogin');
 })->name('login');
 
-Route::match(['get', 'post'],'/timetable',[TimetableController::class,'index'])->name('timetable');
+Route::match(['get', 'post'], '/timetable', [TimetableController::class, 'index'])->name('timetable');
 
-Route::match(['get', 'post'],'/Searchtimetable',[TimetableController::class,'Searchtimetable'])->name('Searchtimetable');
-Route::match(['get', 'post'],'/Savetimetable',[TimetableController::class,'Savetimetable'])->name('Savetimetable');
+Route::match(['get', 'post'], '/Searchtimetable', [TimetableController::class, 'Searchtimetable'])->name('Searchtimetable');
+Route::match(['get', 'post'], '/Savetimetable', [TimetableController::class, 'Savetimetable'])->name('Savetimetable');
 
 Route::prefix('admin')->group(function () {
 
-Route::match(['get', 'post'],'/login',[AdminLoginController::class,'login_Admin'])->name('adminlogin');
+    Route::match(['get', 'post'], '/login', [AdminLoginController::class, 'login_Admin'])->name('adminLogin');
 
-Route::match(['get', 'post'],'/logout',[AdminloginController::class,'logout_Admin'])->name('logout');
+    Route::match(['get', 'post'], '/logout', [AdminloginController::class, 'logout_Admin'])->name('logout');
 
-Route::post('/passwordreset',[AdminLoginController::class,'resetpassword_Admin'])->name('password.request');
-
-
+    Route::post('/passwordreset', [AdminLoginController::class, 'resetpassword_Admin'])->name('password.request');
 });
 
 Route::prefix('student')->group(function () {
 
-Route::match(['get', 'post'],'/login_student',[StudentLoginController::class,'login_student'])->name('loginstudent');
+    Route::match(['get', 'post'], '/login_student', [StudentLoginController::class, 'login_student'])->name('loginstudent');
 
-Route::match(['get', 'post'],'/logout_student',[StudentLoginController::class,'logout_student'])->name('logoutstudent');
+    Route::match(['get', 'post'], '/logout_student', [StudentLoginController::class, 'logout_student'])->name('logoutstudent');
 
-Route::post('/password_reset_student',[StudentLoginController::class,'resetpassword_student'])->name('passwordstudent');
+    Route::post('/password_reset_student', [StudentLoginController::class, 'resetpassword_student'])->name('passwordstudent');
 
-Route::group([ 'middleware' => 'Student'], function()
-{
-Route::match(['get', 'post'],'/dashboard',[StudentLoginController::class,'dashboard'])->name('dashboard');
-Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
+    Route::group(['middleware' => 'Student'], function () {
+        Route::match(['get', 'post'], '/dashboard', [StudentLoginController::class, 'dashboard'])->name('dashboard');
+        Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
-//Student application routes
-Route::match(['get', 'post'],'/Application',[StudentAttendanceController::class,'StudentApplication'])->name('StudentApplication');
-Route::match(['get', 'post'],'/AddApplication',[StudentAttendanceController::class,'AddApplication'])->name('Student_Add_Application');
-Route::match(['get', 'post'],'/ViewApplication',[StudentAttendanceController::class,'ViewApplication'])->name('Student_View_Application');
-
-});
-
+        //Student application routes
+        Route::match(['get', 'post'], '/Application', [StudentAttendanceController::class, 'StudentApplication'])->name('StudentApplication');
+        Route::match(['get', 'post'], '/AddApplication', [StudentAttendanceController::class, 'AddApplication'])->name('Student_Add_Application');
+        Route::match(['get', 'post'], '/ViewApplication', [StudentAttendanceController::class, 'ViewApplication'])->name('Student_View_Application');
+    });
 });
 
 
 Route::prefix('teacher')->group(function () {
 
-Route::match(['get', 'post'],'/login_teacher',[TeacherLoginController::class,'login_employee'])->name('loginteacher');
+    Route::match(['get', 'post'], '/login_teacher', [TeacherLoginController::class, 'login_employee'])->name('loginteacher');
 
-Route::match(['get', 'post'],'/logout_teacher',[TeacherLoginController::class,'logout_employee'])->name('logoutteacher');
+    Route::match(['get', 'post'], '/logout_teacher', [TeacherLoginController::class, 'logout_employee'])->name('logoutteacher');
 
-Route::post('/passwordreset_teacher',[TeacherLoginController::class,'resetpassword_employee'])->name('passwordteacher');
+    Route::post('/passwordreset_teacher', [TeacherLoginController::class, 'resetpassword_employee'])->name('passwordteacher');
 
-Route::group([ 'middleware' => 'Teacher'], function()
-{
-Route::match(['get', 'post'],'/dashboard',[TeacherLoginController::class,'dashboard'])->name('dashboard');
+    Route::group(['middleware' => 'Teacher'], function () {
+        Route::match(['get', 'post'], '/dashboard', [TeacherLoginController::class, 'dashboard'])->name('dashboard');
 
-Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
-// Teacher Application routes
+        Route::get('getemployeedetails/{employeeid}',  [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
+        // Teacher Application routes
 
-Route::match(['get', 'post'],'/Application',[TeacherAttendanceController::class,'TeacherApplication'])->name('TeacherApplication');
-Route::match(['get', 'post'],'/AddApplication',[TeacherAttendanceController::class,'AddApplication'])->name('Teacher_Add_Application');
-Route::match(['get', 'post'],'/ViewApplication',[TeacherAttendanceController::class,'ViewApplication'])->name('Teacher_View_Application');
-// Teahcer Mark Paper Routes
-Route::match(['get', 'post'],'/Paper',[PaperMarksController::class,'Paper'])->name('Paper');
-Route::match(['get', 'post'],'/getsubjects',[PaperMarksController::class,'getsubjects'])->name('getsubjects');
-Route::match(['get', 'post'],'/Search_Student',[PaperMarksController::class,'Search_Student'])->name('Search_Student');
-Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_marks'])->name('Add_marks');
-Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
-Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
-
-
-});
-
+        Route::match(['get', 'post'], '/Application', [TeacherAttendanceController::class, 'TeacherApplication'])->name('TeacherApplication');
+        Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
+        Route::match(['get', 'post'], '/ViewApplication', [TeacherAttendanceController::class, 'ViewApplication'])->name('Teacher_View_Application');
+    });
 });
 
 
 
 
-Route::group([ 'middleware' => 'SuperAdmin'], function()
-{
-Route::get('/superadmin',[App\Http\Controllers\AdminController::class,'index'])->name('superadmin');
-// Campus Routes
-Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus");
+Route::group(['middleware' => 'SuperAdmin'], function () {
+    Route::get('/superadmin', [App\Http\Controllers\AdminController::class, 'index'])->name('superadmin');
+    // Campus Routes
+    Route::match(['get', 'post'], '/campus', [CampusController::class, 'index'])->name("campus");
 
-Route::match(['get','post'],'/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
+    Route::match(['get', 'post'], '/addcampus', [App\Http\Controllers\CampusController::class, 'store'])->name('addcampus');
 
-Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showcampus'])->name('showcampus');
+    Route::get('/showcampus', [App\Http\Controllers\CampusController::class, 'showcampus'])->name('showcampus');
 
-Route::get('/editcampus', [App\Http\Controllers\CampusController::class, 'getcampusdata'])->name('editcampus');
+    Route::get('/editcampus', [App\Http\Controllers\CampusController::class, 'getcampusdata'])->name('editcampus');
 
-Route::post('/updatecampus', [App\Http\Controllers\CampusController::class, 'updatecampusdata'])->name('updatecampus');
+    Route::post('/updatecampus', [App\Http\Controllers\CampusController::class, 'updatecampusdata'])->name('updatecampus');
 
-Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'deletecampusdata'])->name('deletecampus');
-
+    Route::get('/deletecampus', [App\Http\Controllers\CampusController::class, 'deletecampusdata'])->name('deletecampus');
 });
 
 
-Route::group([ 'middleware' => 'Admin'], function()
-{
+Route::group(['middleware' => 'Admin'], function () {
 
-Route::get('admin',[App\Http\Controllers\AdminController::class,'index'])->name('admin');
-Route::get('/comingsoon', function ()
-{
+    Route::get('admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::get('/comingsoon', function () {
 
-    return view('Coming_Soon');
-});
-// Academics Route Start
+        return view('Coming_Soon');
+    });
+    // Academics Route Start
 
 
     //section route
@@ -172,29 +151,29 @@ Route::get('/comingsoon', function ()
     Route::match(['get', 'post'], '/deletesession-batch', [AcademicsController::class, 'delete_sessionbatch'])->name("deletesession-batch");
     //end session-batch routes
 
-     //Subject Group NAME Routes
-     Route::match(['get', 'post'], '/sgroup', [AcademicsController::class, 'index_sgroup'])->name("sgroup");
-     Route::match(['get', 'post'], '/addsgroup', [AcademicsController::class, 'add_sgroup'])->name("addsgroup");
-     Route::match(['get', 'post'], '/editsgroup', [AcademicsController::class, 'edit_sgroup'])->name("editsgroup");
-     Route::match(['get', 'post'], '/updatesgroup', [AcademicsController::class, 'update_sgroup'])->name("updatesgroup");
-     //end Subject Group Routes
+    //Subject Group NAME Routes
+    Route::match(['get', 'post'], '/sgroup', [AcademicsController::class, 'index_sgroup'])->name("sgroup");
+    Route::match(['get', 'post'], '/addsgroup', [AcademicsController::class, 'add_sgroup'])->name("addsgroup");
+    Route::match(['get', 'post'], '/editsgroup', [AcademicsController::class, 'edit_sgroup'])->name("editsgroup");
+    Route::match(['get', 'post'], '/updatesgroup', [AcademicsController::class, 'update_sgroup'])->name("updatesgroup");
+    //end Subject Group Routes
 
-     //Subject Group Routes
-     Route::match(['get', 'post'], 'subjectgroup', [AcademicsController::class, 'index_subjectgroup'])->name("subjectgroup");
-     Route::match(['get', 'post'], '/addsubjectgroup', [AcademicsController::class, 'add_subjectgroup'])->name("addsubjectgroup");
-     Route::match(['get', 'post'], '/editsubjectgroup', [AcademicsController::class, 'edit_subjectgroup'])->name("editsubjectgroup");
-     Route::match(['get', 'post'], '/updatesubjectgroup', [AcademicsController::class, 'update_subjectgroup'])->name("updatesubjectgroup");
-     //end Subject route
-
-
-
-// Academatics Routes End
+    //Subject Group Routes
+    Route::match(['get', 'post'], 'subjectgroup', [AcademicsController::class, 'index_subjectgroup'])->name("subjectgroup");
+    Route::match(['get', 'post'], '/addsubjectgroup', [AcademicsController::class, 'add_subjectgroup'])->name("addsubjectgroup");
+    Route::match(['get', 'post'], '/editsubjectgroup', [AcademicsController::class, 'edit_subjectgroup'])->name("editsubjectgroup");
+    Route::match(['get', 'post'], '/updatesubjectgroup', [AcademicsController::class, 'update_subjectgroup'])->name("updatesubjectgroup");
+    //end Subject route
 
 
-// Student Routes Start
+
+    // Academatics Routes End
+
+
+    // Student Routes Start
 
     Route::match(['get', 'post'], '/student', [StudentController::class, 'index_student'])->name("student");
-    Route::match(['post'],'/addstudent', [StudentController::class, 'add_student'])->name('addstudent');
+    Route::match(['post'], '/addstudent', [StudentController::class, 'add_student'])->name('addstudent');
     Route::get('/showstudent', [StudentController::class, 'showstudent'])->name('showstudent');
     Route::get('/editstudent/{id}', [StudentController::class, 'getstudentdata'])->name('editstudent');
     Route::match(['get', 'post'], '/updatestudent', [StudentController::class, 'update_student'])->name("updatestudent");
@@ -209,39 +188,39 @@ Route::get('/comingsoon', function ()
 
     Route::get('/getidcard/{id}', [StudentController::class, 'get_student_data_for_id_card'])->name('getidcard');
 
-// Student Add Through Csv Start here
+    // Student Add Through Csv Start here
 
-Route::get('/import', [StudentController::class, 'getImport'])->name('import');
-Route::get('/download', [StudentController::class, 'getDownload']);
-Route::post('/import_process', [StudentController::class, 'processImport'])->name('import_process');
+    Route::get('/import', [StudentController::class, 'getImport'])->name('import');
+    Route::get('/download', [StudentController::class, 'getDownload']);
+    Route::post('/import_process', [StudentController::class, 'processImport'])->name('import_process');
 
 
 
-/// Student Attendance start
+    /// Student Attendance start
     Route::get('/student-attendance', [StudentAttendanceController::class, 'student_attendance'])->name('student-attendance');
     Route::post('/get-abscent-list', [StudentAttendanceController::class, 'getNonPresentStudents'])->name('get-abscent-list');
     Route::post('/get-std-for-attendance', [StudentAttendanceController::class, 'get_stds_for_attendance'])->name('get-std-for-attendance');
     Route::post('/save-students-attendance', [StudentAttendanceController::class, 'save_students_attendance'])->name('save-students-attendance');
-    Route::match(['post','get'],'/non-present-students', [StudentAttendanceController::class, 'non_present_students'])->name('non-present-students');
-    Route::match(['get', 'post'],'/ViewApplicationAdmin',[StudentAttendanceController::class,'ViewApplicationbyadmin'])->name('Admin_View_Application');
-    Route::match(['get', 'post'],'/actionApplicationAdmin',[StudentAttendanceController::class,'actionApplicationbyadmin'])->name('Admin_action_Application');
+    Route::match(['post', 'get'], '/non-present-students', [StudentAttendanceController::class, 'non_present_students'])->name('non-present-students');
+    Route::match(['get', 'post'], '/ViewApplicationAdmin', [StudentAttendanceController::class, 'ViewApplicationbyadmin'])->name('Admin_View_Application');
+    Route::match(['get', 'post'], '/actionApplicationAdmin', [StudentAttendanceController::class, 'actionApplicationbyadmin'])->name('Admin_action_Application');
     /// Student Attendance end..
 
 
-/// Teacher Attendance start
+    /// Teacher Attendance start
 
-/// Teacher Attendance start
-    Route::match(['get', 'post'],'/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
-    Route::match(['get', 'post'],'/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
-    Route::match(['get', 'post'],'/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
+    /// Teacher Attendance start
+    Route::match(['get', 'post'], '/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
+    Route::match(['get', 'post'], '/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
+    Route::match(['get', 'post'], '/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
 
-/// Teacher Attendance start
-    Route::match(['get', 'post'],'/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
-    Route::match(['get', 'post'],'/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
-    Route::match(['get', 'post'],'/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
-    Route::match(['get', 'post'],'/TeacherViewApplicationAdmin',[TeacherAttendanceController::class,'ViewApplicationbyadmin'])->name('Teacher-View-Application-by-admin');
-    Route::match(['get', 'post'],'/TeacteractionApplicationAdmin',[TeacherAttendanceController::class,'actionApplicationbyadmin'])->name('Teacher-Action-Application-by-admin');
-  /// Teacher Attendance end..
+    /// Teacher Attendance start
+    Route::match(['get', 'post'], '/teacher-attendance', [teacherAttendanceController::class, 'teacher_attendance'])->name('teacher-attendance');
+    Route::match(['get', 'post'], '/get-tchrall-for-attendance', [teacherAttendanceController::class, 'get_tchrall_for_attendance'])->name('get-tchrall-for-attendance');
+    Route::match(['get', 'post'], '/save-teachers-attendance', [teacherAttendanceController::class, 'save_teachers_attendance'])->name('save-teachers-attendance');
+    Route::match(['get', 'post'], '/TeacherViewApplicationAdmin', [TeacherAttendanceController::class, 'ViewApplicationbyadmin'])->name('Teacher-View-Application-by-admin');
+    Route::match(['get', 'post'], '/TeacteractionApplicationAdmin', [TeacherAttendanceController::class, 'actionApplicationbyadmin'])->name('Teacher-Action-Application-by-admin');
+    /// Teacher Attendance end..
 
     // Fee Catergory Routes Start
 
@@ -250,7 +229,7 @@ Route::post('/import_process', [StudentController::class, 'processImport'])->nam
     Route::match(['get', 'post'], '/addfeecategory', [FeeController::class, 'add_feecategory'])->name("addfeecategory");
     Route::match(['get', 'post'], '/editfeecategory', [FeeController::class, 'edit_feecategory'])->name("editfeecategory");
     Route::match(['get', 'post'], '/updatefeecategory', [FeeController::class, 'update_feecategory'])->name("updatefeecategory");
-     Route::match(['get', 'post'], '/get-fee-categories/{class_id}/{section_id}', [FeeController::class, 'get_fee_categories'])->name("get-fee-categories");
+    Route::match(['get', 'post'], '/get-fee-categories/{class_id}/{section_id}', [FeeController::class, 'get_fee_categories'])->name("get-fee-categories");
 
     //Fee type Routes Start
     Route::match(['get', 'post'], '/get-student-fee/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_student_fee'])->name("get-student-fee");
@@ -270,38 +249,35 @@ Route::post('/import_process', [StudentController::class, 'processImport'])->nam
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
 
 
-//Employee Routes Start
-Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
-Route::match(['post'],'/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
-Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
-Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
-Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
+    //Employee Routes Start
+    Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
+    Route::match(['post'], '/addemployee', [EmployeeController::class, 'add_employee'])->name('addemployee');
+    Route::get('/showemployee', [EmployeeController::class, 'showemployee'])->name('showemployee');
+    Route::get('/editemployee/{id}', [EmployeeController::class, 'getemployeedata'])->name('editemployee');
+    Route::match(['get', 'post'], '/updateemployee', [EmployeeController::class, 'update_employee'])->name("updateemployee");
 
-//Add Non Teaching Staff
-Route::match(['get', 'post'], '/staff', [NonTeachingController::class, 'index_staff'])->name("staff");
-Route::match(['get', 'post'], '/addstaff', [NonTeachingController::class, 'store_staff'])->name("add-staff");
-Route::match(['get', 'post'], '/showstaff', [NonTeachingController::class, 'show_all_staff'])->name("show-staff");
-Route::match(['get', 'post'], '/editstaff/{id}', [NonTeachingController::class, 'edit_staff'])->name("edit-staff");
-Route::match(['get', 'post'], '/updatestaff', [NonTeachingController::class, 'update_staff'])->name("update-staff");
+    //Add Non Teaching Staff
+    Route::match(['get', 'post'], '/staff', [NonTeachingController::class, 'index_staff'])->name("staff");
+    Route::match(['get', 'post'], '/addstaff', [NonTeachingController::class, 'store_staff'])->name("add-staff");
+    Route::match(['get', 'post'], '/showstaff', [NonTeachingController::class, 'show_all_staff'])->name("show-staff");
+    Route::match(['get', 'post'], '/editstaff/{id}', [NonTeachingController::class, 'edit_staff'])->name("edit-staff");
+    Route::match(['get', 'post'], '/updatestaff', [NonTeachingController::class, 'update_staff'])->name("update-staff");
 
-// Add Exam Routes Start Here
-Route::match(['get', 'post'], '/exam', [ExamController::class, 'index_exam'])->name("exam");
-Route::match(['get', 'post'], '/addexam', [ExamController::class, 'add_exam'])->name("addexam");
-Route::match(['get', 'post'], '/editexam', [ExamController::class, 'edit_exam'])->name("editexam");
-Route::match(['get', 'post'], '/updateexam', [ExamController::class, 'update_exam'])->name("updateexam");
-Route::match(['get', 'post'], '/deleteexam', [ExamController::class, 'delete_exam'])->name("deleteexam");
+    // Add Exam Routes Start Here
+    Route::match(['get', 'post'], '/exam', [ExamController::class, 'index_exam'])->name("exam");
+    Route::match(['get', 'post'], '/addexam', [ExamController::class, 'add_exam'])->name("addexam");
+    Route::match(['get', 'post'], '/editexam', [ExamController::class, 'edit_exam'])->name("editexam");
+    Route::match(['get', 'post'], '/updateexam', [ExamController::class, 'update_exam'])->name("updateexam");
+    Route::match(['get', 'post'], '/deleteexam', [ExamController::class, 'delete_exam'])->name("deleteexam");
 
-// Add Exam paper routes start here
+    // Add Exam paper routes start here
 
-Route::match(['get', 'post'], '/exampaper', [ExamController::class, 'index_exampaper'])->name("exampaper");
-Route::match(['get', 'post'], '/view_exam_paper', [ExamController::class, 'view_exam_paper'])->name("view_exam_paper");
-Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_exam_paper'])->name("add_exam_paper");
-Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
-Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
+    Route::match(['get', 'post'], '/exampaper', [ExamController::class, 'index_exampaper'])->name("exampaper");
+    Route::match(['get', 'post'], '/view_exam_paper', [ExamController::class, 'view_exam_paper'])->name("view_exam_paper");
+    Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_exam_paper'])->name("add_exam_paper");
+    Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
+    Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
 
-// Assign Teacher to Paper Exam Start here
-Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
-Route::match(['get', 'post'], '/get_assign_exam_paper', [ExamController::class, 'get_assign_exam_paper'])->name("get_assign_exam_paper");
-
-
+    // Assign Teacher to Paper Exam Start here
+    Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
 });

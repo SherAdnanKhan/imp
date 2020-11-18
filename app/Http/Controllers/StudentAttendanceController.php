@@ -30,7 +30,7 @@ class StudentAttendanceController extends Controller
     }
     public function get_stds_for_attendance(Request $request)
     {
-        $update = null;
+        $update = null; 
         $sectionID = $request->section_id;
         $classID = $request->class_id;
         $sessionID = $request->session_id;
@@ -49,18 +49,19 @@ class StudentAttendanceController extends Controller
             ->leftJoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
             ->where('kelex_student_attendances.SECTION_ID', '=',$sectionID)
             ->where('kelex_student_attendances.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-            ->where('kelex_student_attendances.CLASS_ID', '=',$sessionID)
+            ->where('kelex_student_attendances.CLASS_ID', '=',$classID)
             ->where('kelex_student_attendances.ATTEN_DATE', '=',$date)
             ->select('kelex_students.*','kelex_student_attendances.ATTEN_STATUS','kelex_student_attendances.STD_ATTENDANCE_ID')
             ->get()->toArray();
             $data['update'] = 1;
             $data['record'] = $record;
         else:
-            $record = DB::table('kelex_students_sessions')
-            ->leftJoin('kelex_students', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
+            $record = DB::table('kelex_students')
+            ->leftJoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
             ->where('kelex_students_sessions.SECTION_ID', '=',$sectionID)
             ->where('kelex_students_sessions.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
-            ->where('kelex_students_sessions.CLASS_ID', '=',$sessionID)
+            ->where('kelex_students_sessions.CLASS_ID', '=',$classID)
+            ->where('kelex_students_sessions.SESSION_ID', '=', $sessionID)
             ->select('kelex_students.*')
             ->get()->toArray();
             $data['update'] = 0;
