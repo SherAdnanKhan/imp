@@ -160,12 +160,7 @@ $.ajaxSetup({
             // contentType: false,
             success: function(data){
                 console.log(data);
-               
-              section_idd=data[0]['SECTION_ID'];
-              session_idd=data[0]['SESSION_ID'];
-              class_idd=data[0]['CLASS_ID'];
-              exam_idd=data[0]['EXAM_ID'];
-              paper_idd=data[0]['SECTION_ID'];
+              paper_idd=data[0]['PAPER_ID'];
              
             $('#SUBJECT_ID').empty();
             $('#SUBJECT_ID').append(`<option value="0" disabled selected>Select Subject*</option>`);
@@ -222,12 +217,7 @@ $.ajaxSetup({
                     html += '   </tr>';
                     html += ' </thead>';
                     html += ' <tbody>';
-                    html+=' <input type="hidden" name="SECTION_ID" value="'+section_idd+'">'
-                    html+=' <input type="hidden" name="CLASS_ID" value="'+class_idd+'">'
-                    html+=' <input type="hidden" name="SESSION_ID" value="'+session_idd+'">'
                     html+=' <input type="hidden" name="PAPER_ID" value="'+paper_idd+'">'
-                    html+=' <input type="hidden" name="EXAM_ID" value="'+exam_idd+'">'
-                    html+=' <input type="hidden" name="SUBJECT_ID" value="'+subject_idd+'">'
                     for (i = 0; i < data.length; i++) 
                     {
                     var c=0;
@@ -290,7 +280,7 @@ $.ajaxSetup({
 
       var fdata = new FormData(this);
       $.ajax({
-        url: '{{url("teacher/Add_marks")}}',
+        url: '{{url("PublishResult")}}',
             type:'POST',
             data :fdata,
             processData: false,

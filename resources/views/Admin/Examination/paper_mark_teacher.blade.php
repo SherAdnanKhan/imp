@@ -165,7 +165,7 @@ $.ajaxSetup({
               session_idd=data[0]['SESSION_ID'];
               class_idd=data[0]['CLASS_ID'];
               exam_idd=data[0]['EXAM_ID'];
-              paper_idd=data[0]['SECTION_ID'];
+              paper_idd=data[0]['PAPER_ID'];
              
             $('#SUBJECT_ID').empty();
             $('#SUBJECT_ID').append(`<option value="0" disabled selected>Select Subject*</option>`);

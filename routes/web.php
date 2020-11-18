@@ -316,5 +316,5 @@ Route::match(['get', 'post'], '/deletegrade', [ExamController::class, 'delete_gr
 Route::match(['get', 'post'], '/result', [ExamController::class, 'index_result'])->name("result");
 Route::match(['get', 'post'],'/getsubject',[PaperMarksController::class,'getsubjects'])->name('getsubject');
 Route::match(['get', 'post'],'/Search_result',[PaperMarksController::class,'Search_result'])->name('Search_result');
-Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'Add_marks'])->name('PublishResult');
+Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'PublishResult'])->name('PublishResult');
 });

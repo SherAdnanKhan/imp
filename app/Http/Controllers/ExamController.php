@@ -242,7 +242,7 @@ class ExamController extends Controller
     {   
         $data= Kelex_exam_paper::create(['EXAM_ID'=>$request->EXAM_ID,'SECTION_ID'=>$request->SECTION_ID,'SUBJECT_ID'=>$request->SUBJECT_ID,'CLASS_ID'=>$request->CLASS_ID,'TIME'=>$request->TIME
         ,'DATE'=>$request->DATE,'TOTAL_MARKS'=>$request->TOTAL_MARKS,'PASSING_MARKS'=>$request->PASSING_MARKS,'VIVA'=>$request->VIVA,'VIVA_MARKS'=>$request->VIVA_MARKS,
-        'SESSION_ID'=>$request->SESSION_ID,'CAMPUS_ID'=>Session::get('CAMPUS_ID'),'USER_ID'=>Auth::user()->id]);
+        'SESSION_ID'=>$request->SESSION_ID,'PUBLISHED'=>'1','CAMPUS_ID'=>Session::get('CAMPUS_ID'),'USER_ID'=>Auth::user()->id]);
         
         return response()->json(true);
      }
