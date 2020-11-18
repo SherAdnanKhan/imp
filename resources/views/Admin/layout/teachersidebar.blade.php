@@ -33,6 +33,7 @@
                                
                                     <li><a href=" {{route('Paper')}}"> Add Marks</a></li>
                                     <li><a href=" {{route('View_marks')}}"> View Marks</a></li>
+                                    <li><a href=" {{route('Paperattendance')}}"> Paper Attendance</a></li>
                                 </ul>
                             </li>
 

@@ -10,8 +10,8 @@
       <div class="card m-b-30 card-body">
             <h3 class="card-title font-16 mt-0">Add Fee Category</h3>
             <form action="{{ route('addfeecategory')}}" id="addfeecategory" name="sectionform" method="post" accept-charset="utf-8">
-                                <div class="form-group">
-                                    <label for="">Class</label> 
+                                {{-- <div class="form-group">
+                                    <label for="">Class</label>
                                        <small class="req"> *</small>
                                        <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                           id="class_id">
@@ -23,37 +23,37 @@
                                           @endforeach
                                     </select>
                                     <small id="CLASS_ID_error" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                       <label for="">Section</label> 
+                                </div> --}}
+                                {{-- <div class="form-group">
+                                       <label for="">Section</label>
                                           <small class="req"> *</small>
                                           <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                                        </select>
                                        <small id="SECTION_ID_error" class="form-text text-danger"></small>
-                                </div>
+                                </div> --}}
                                 <div class="form-group" style="margin:10px">
-                                   
+
                                     <label for="exampleInputclass1">Fee Name</label><small class="req"> *</small>
                                     <input autofocus="" id="CATEGORY" name="CATEGORY" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                                     <small id="CATEGORY_error" class="form-text text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="SHIFT"> Shift:</label><br> 
+                                    <label for="SHIFT"> Shift:</label><br>
                                     <label class="radio-inline">
-                                    
-                                    <input type="radio" id="morning" name="SHIFT" value="1" style=" margin: 10px;" > Morning
+
+                                    <input type="radio" id="morning" name="SHIFT" value="1" style=" margin: 10px;" checked > Morning
                                     <input type="radio" id="evening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
                                     </label>
                                     <small id="SHIFT_error" class="form-text text-danger"></small>
                                 </div>
-                    
+
                         <button type="submit" class="btn btn-info btn-rounded btn-block waves-effect waves-light">Save</button>
-                
+
                      @csrf
             </form>
       </div>
    </div>
-   <div class="col-md-8">
+   <div class="col-sm-7">
       <div class="card m-b-30 card-body">
          <h3 class="card-title font-16 mt-0">Fee Catergory List</h3>
          <div class="table-responsive">
@@ -61,8 +61,8 @@
             <thead>
                <tr role="row">
                <th>Fee Name</th>
-               <th>Classes</th>
-               <th>Sections</th>
+               {{-- <th>Classes</th>
+               <th>Sections</th> --}}
                <th>Shift</th>
                <th>Action</th>
                </tr>
@@ -71,12 +71,12 @@
             @foreach($getfeecat as $getfc)
                <tr id="row{{$getfc->FEE_CAT_ID}}">
                   <td> {{$getfc->CATEGORY}}</td>
-                  <td> {{$getfc->Class_name}}</td>
-                  <td> {{$getfc->Section_name}}</td>
+                  {{-- <td> {{$getfc->Class_name}}</td>
+                  <td> {{$getfc->Section_name}}</td> --}}
                   <td> {{$getfc->SHIFT==1?'Morning':'Evening'}}</td>
                   <td>
                      <button value="{{$getfc->FEE_CAT_ID}}" class="btn btn-default pull-right btn-xs editbtn" > edit </button>
-               
+
                   </td>
                </tr>
                @endforeach
@@ -97,8 +97,8 @@
                      <div class="modal-body">
 
                      <form action="{{ route('updatefeecategory')}}" id="editfeecategory" name="sectionform" method="post" accept-charset="utf-8">
-                                <div class="form-group">
-                                    <label for="">Class</label> 
+                                {{-- <div class="form-group">
+                                    <label for="">Class</label>
                                        <small class="req"> *</small>
                                        <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                           id="editclass_id">
@@ -106,35 +106,35 @@
                                              Class*</option>
                                     </select>
                                     <small id="CLASS_ID_err" class="form-text text-danger"></small>
-                                </div>
-                                <div class="form-group">
-                                       <label for="">Section</label> 
+                                </div> --}}
+                                {{-- <div class="form-group">
+                                       <label for="">Section</label>
                                           <small class="req"> *</small>
                                           <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="editsectionid" >
                                           <option value="0" disabled selected>Select
                                              Class*</option>
                                        </select>
                                        <small id="SECTION_ID_err" class="form-text text-danger"></small>
-                                </div>
+                                </div> --}}
                                 <div class="form-group" style="margin:10px">
-                                   
+
                                     <label for="exampleInputclass1">Fee Name</label><small class="req"> *</small>
                                     <input type="hidden" id="editFEE_CAT_ID" name="FEE_CAT_ID" value="">
                                     <input autofocus="" id="editCATEGORY" name="CATEGORY" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                                     <small id="CATEGORY_err" class="form-text text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="SHIFT"> Shift:</label><br> 
+                                    <label for="SHIFT"> Shift:</label><br>
                                     <label class="radio-inline">
-                                    
-                                    <input type="radio" id="editmorning" name="SHIFT" value="1" style=" margin: 10px;" > Morning
+
+                                    <input type="radio" id="editmorning" name="SHIFT" value="1" style=" margin: 10px;"  > Morning
                                     <input type="radio" id="editevening" name="SHIFT" value="0" style=" margin: 10px;"> Evening
                                     </label>
                                     <small id="SHIFT_err" class="form-text text-danger"></small>
                                 </div>
-                    
+
                         <button type="submit" class="btn btn-info btn-rounded btn-block waves-effect waves-light">Update</button>
-                
+
                      @csrf
             </form>
                </div><!-- /.modal-content -->
@@ -159,9 +159,11 @@
         <script src="{{asset('admin_assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
 <script>
  $(document).ready( function () {
-      $('#DataTables_Table_0').DataTable();
+      $('#DataTables_Table_0').DataTable({
+          ordering : false
+      });
         } );
-     </script> 
+     </script>
 <script>
    $(document).ready(function(){
     $('#class_id').on('change', function () {
@@ -173,7 +175,7 @@
                 url: 'getsection/' + id,
                 success: function (response) {
                //  var response = JSON.parse(response);
-                //console.log(response);   
+                //console.log(response);
                 $('#sectionid').empty();
                 $('#sectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
@@ -191,7 +193,7 @@
                 url: 'getsection/' + id,
                 success: function (response) {
                 var response = JSON.parse(response);
-                //console.log(response);   
+                //console.log(response);
                 $('#editsectionid').empty();
                 $('#editsectionid').append(`<option value="0" disabled selected>Select Section*</option>`);
                 response.forEach(element => {
@@ -201,7 +203,7 @@
             });
         });
    });
-</script>    
+</script>
 <Script>
     $.ajaxSetup({
   headers: {
@@ -227,16 +229,18 @@ $('body').on('submit','#addfeecategory',function(e){
                 $('#displaydata').append(`
                      <tr id="row`+data.FEE_CAT_ID+`">
                         <td class="mailbox-name">` + data.CATEGORY + `</td>
-                        <td class="mailbox-name">` + data.CLASS_ID + `</td>
-                        <td class="mailbox-name">` + data.SECTION_ID + `</td>
                         <td class="mailbox-name">` + type + `</td>
-                        
+
                         <td class="mailbox-date pull-right">
                      <button value="`+data.FEE_CAT_ID+`" class="btn btn-primary btn-xs editbtn" > Edit </button>
                           </td>
                       </tr>`)
                       $("#addfeecategory").get(0).reset();
-                     location.reload();
+                      toastr.success('Fee category Added Successfully..');
+                      setTimeout(function() {
+                         location.reload();
+                      },1000)
+
                      //  $('#DataTables_Table_0').DataTable().destroy().draw();
               },
               error: function(error){
@@ -251,8 +255,8 @@ $('body').on('submit','#addfeecategory',function(e){
 
     $(document).on('click', '.editbtn',function () {
         var feecatid = $(this).val();
-        var classlist = "";  
-        var sectionlist = "";  
+        var classlist = "";
+        var sectionlist = "";
         var classId ;
         var class_selected;
         $.ajax({
@@ -260,7 +264,7 @@ $('body').on('submit','#addfeecategory',function(e){
             type: "GET",
             data: {
                feecatid:feecatid
-            }, 
+            },
             dataType:"json",
             success: function(data){
               // console.log(data);
@@ -282,9 +286,9 @@ $('body').on('submit','#addfeecategory',function(e){
                 }else{
                   class_selected = "";
                 }
-            classlist += '<option value="'+classes[k]['Class_id']+'" '+class_selected+'>'+classes[k]['Class_name']+'</option>';
+            // classlist += '<option value="'+classes[k]['Class_id']+'" '+class_selected+'>'+classes[k]['Class_name']+'</option>';
           }
-          sectionlist += '<option value="'+sections['Section_id']+'">'+sections['Section_name']+'</option>"';
+        //   sectionlist += '<option value="'+sections['Section_id']+'">'+sections['Section_name']+'</option>"';
           console.log(sectionlist);
           $('#editclass_id').html(classlist);
           $('#editsectionid').html(sectionlist);
@@ -307,23 +311,22 @@ $('body').on('submit','#addfeecategory',function(e){
             contentType: false,
             success: function(data){
                console.log(data)
-               
+
                for(i=0;i<data.length;i++){
                 var type = data.SHIFT==1?'Morning':'Evening';
                 $('#row' + +data[i].FEE_CAT_ID).replaceWith(`
                      <tr id="row`+data.FEE_CAT_ID+`">
                         <td class="mailbox-name">` + data[i].CATEGORY + `</td>
-                        <td class="mailbox-name">` + data[i].CLASS_ID + `</td>
-                        <td class="mailbox-name">` + data[i].SECTION_ID + `</td>
                         <td class="mailbox-name">` + type + `</td>
-                        
+
                         <td class="mailbox-date pull-right">
                      <button value="`+data[i].FEE_CAT_ID+`" class="btn btn-default btn-xs editbtn" > edit </button>
                      <button value="`+data[i].FEE_CAT_ID+`" class="btn btn-default btn-xs deletebtn"> delete </button>
                           </td>
-                      </tr>`)
+                      </tr>`);
                       $("#editfeecategory").get(0).reset();
                       $('#feecatEditModal').modal('hide');
+                      toastr.success('Updated Successfuyy','Success');
                }
               },
               error: function(error){
@@ -339,5 +342,5 @@ $('body').on('submit','#addfeecategory',function(e){
 
 </script>
 
-   
-@endsection 
+
+@endsection

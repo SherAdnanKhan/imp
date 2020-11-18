@@ -153,7 +153,7 @@ $.ajaxSetup({
         var CLASS_ID = $('#class_id').val();
         var SECTION_ID = $('#sectionid').val();
         $.ajax({
-        url: '{{url("teacher/getsubjects")}}',
+        url: '{{url("getsubject")}}',
             type:'POST',
             data :{EXAM_ID:exam_id,SESSION_ID:SESSION_ID,CLASS_ID:CLASS_ID,SECTION_ID:SECTION_ID},
             // processData: false,
@@ -186,34 +186,39 @@ $.ajaxSetup({
    var fdata = new FormData(this);
     html="";
    $.ajax({
-        url: '{{url("teacher/Search_Student")}}',
+        url: '{{url("Search_result")}}',
             type:'POST',
             data :fdata,
             processData: false,
             contentType: false,
             success: function(data){
              var subject_idd=data.subjectid;
+             var grades=data.grade;
              var data=data.result;
-
-             console.log(data)
+            // console.log(grade[0]['FROM_MARKS']);
              //return false;
                 if ($.trim(data) == '' ) {
-                    html +='<p style="text-align:center;color:red;"> NO Result Match </p>';
+                    html +='<h5 style="text-align:center;color:red;"> Paper Not Marked As Checked By Teacher </h5>';
                   }
                   else
                   {
+                    var status='Pass';
+                    var grade='';
+                    
 
-                    html += '<form action="" id="check_mark" method="post">';
+                    html += '<form action="" id="publish_result" method="post">';
                     html += ' <div class="table-responsive">';
                     html += '<table class="table table-bordered">';
                     html += '<thead>';
                     html += ' <tr>';
                     html += '   <th scope="col">Student Reg-No</th>';
                     html += '    <th scope="col">Student Name</th>';
-                    html += '   <th scope="col">FATHER NAME</th>';
                     html += '    <th scope="col">Total Obtained Marks</th>';
-                    html += '    <th scope="col">Viva Obtained Marks</th>';
+                    html += '    <th scope="col">Total Marks</th>';
+                    html += '    <th scope="col">Passing Marks</th>';
                     html += '    <th scope="col">Remarks</th>';
+                    html += '    <th scope="col">Grade</th>';
+                    html += '    <th scope="col">Status</th>';
                     html += '   </tr>';
                     html += ' </thead>';
                     html += ' <tbody>';
@@ -225,20 +230,41 @@ $.ajaxSetup({
                     html+=' <input type="hidden" name="SUBJECT_ID" value="'+subject_idd+'">'
                     for (i = 0; i < data.length; i++) 
                     {
-                      var TOB_MARKS = typeof data[i].TOB_MARKS=='undefined' ? '' : data[i].TOB_MARKS;
-                      var VOB_MARKS = typeof data[i].VOB_MARKS=='undefined' ? '' : data[i].VOB_MARKS;
-                      var remarks = typeof data[i].REMARKS=='undefined' ? '' : data[i].REMARKS;
+                    var c=0;
+                    var VOB_MARKS = data[i].VOB_MARKS==null ? 0 : data[i].VOB_MARKS;
+                    var totalmarks=parseInt(data[i].TOB_MARKS+VOB_MARKS);
+                    var status = totalmarks>=data[i].PASSING_MARKS ? 'PASS' : 'FAIL';      
+                   
                       html += '<tr id="row'+data[i].STUDENT_ID+'">';
                       html += '  <td>'+ data[i].REG_NO+' </td>';
                       html += '  <td>' + data[i].NAME+ '</td>';
-                      html += '  <td>' + data[i].FATHER_NAME+ '</td>';
-                      html += '  <td><input type="hidden" name="STUDENT_ID[]" value="'+data[i].STUDENT_ID+'"> <input type="number" step="0.01" value="'+TOB_MARKS+'" name="TOB_MARKS[]"> </td>';
-                      html += '  <td> <input type="number" step="0.01" name="VOB_MARKS[]" value="'+VOB_MARKS+'"> </td>';
-                      html += '  <td> <input type="textarea" name="REMARKS[]" value="'+remarks+'" > </td>';
+                      html += '  <td>'+ totalmarks +' </td>';
+                      html += '  <td>'+data[i].TOTAL_MARKS +' </td>';
+                      html += '  <td>'+data[i].PASSING_MARKS +' </td>';
+                      html += '  <td>' + data[i].REMARKS+ '</td>'
+                      for (var j = 0; j < grades.length; j++) 
+                      {
+                       // console.log(grades[j]['FROM_MARKS']);
+                        for (var k = grades[j]['TO_MARKS']; k <= grades[j]['FROM_MARKS']; k++) {
+                          console.log(k);
+                        if(totalmarks==k)
+                        {
+                        
+                        html += '  <td> '+ grades[j]['GRADE_NAME'] +'</td>';
+                        c+=1;
+                        }
+                        }
+                     
+                      }
+                      if(c==0)
+                      {
+                        html += '  <td>' + grade+ '</td>'
+                      }
+                      html += '  <td> '+ status+'</td>';
                     }
                     html += '</tbody>';
                    html += '</table>';
-                   html += '<input type="submit" class="btn pull-right btn-primary submitbtn">';
+                   html += '<input type="submit" value="Publish Result" class="btn pull-right btn-primary submitbtn">';
                     html += '</form>';
                    html += '</div>';
 
@@ -258,7 +284,7 @@ $.ajaxSetup({
    });
    });
 
- $('body').on('submit','#check_mark',function(e){
+ $('body').on('submit','#publish_result',function(e){
    e.preventDefault();
    $(".submitbtn").prop('disabled', true); 
 

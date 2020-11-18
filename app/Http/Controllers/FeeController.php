@@ -29,17 +29,20 @@ class FeeController extends Controller
     public function index_feecategory()
     {
         $getfeecat = DB::table('kelex_fee_categories')
-                                ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
-                                ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
-                                ->select('kelex_fee_categories.*','kelex_classes.*','kelex_sections.*')
+                                // ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
+                                // ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
+                                // ->select('kelex_fee_categories.*','kelex_classes.*','kelex_sections.*')
                                 ->where('kelex_fee_categories.CAMPUS_ID','=',Session::get('CAMPUS_ID'))
+                                -> orderBy('FEE_CAT_ID', 'desc')
                                 ->get()->toArray();
-        $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
-        return view('Admin.FeesManagement.add_feecaterogry')->with(['classes'=>$class,'getfeecat'=>$getfeecat]);
+        // $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        $data = ['getfeecat'=>$getfeecat];
+        return view('Admin.FeesManagement.add_feecaterogry')->with($data);
 
     }
     public function add_feecategory(FeeCategoryRequest $request)
     {
+        // dd($request);
            $feecategory = new Kelex_fee_category();
            $feecategory->CLASS_ID=$request->input('CLASS_ID');
            $feecategory->SECTION_ID=$request->input('SECTION_ID');
@@ -88,7 +91,7 @@ class FeeController extends Controller
          DB::table('kelex_fee_categories')
         ->where('FEE_CAT_ID', $request->input('FEE_CAT_ID'))
         ->where('CAMPUS_ID','=',Session::get('CAMPUS_ID'))->
-        update(['CLASS_ID' => $request->input('CLASS_ID'),
+        update([
         'SECTION_ID' => $request->input('SECTION_ID'),
         'SHIFT' => $request->input('SHIFT'),
         'CATEGORY' => $request->input('CATEGORY')
@@ -232,6 +235,7 @@ class FeeController extends Controller
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         // dd($getfeecat);
           $data = ['sessions' => $sessions,'classes'=>$class, 'getfeeStructure'=> $getfeeStructure,'feecategory'=> $feecategory];
+        //   dd($data);
         return view('Admin.FeesManagement.fee_structure')->with($data);
     }
 
@@ -256,22 +260,22 @@ class FeeController extends Controller
         $sessionID =  isset($record[0]->SESSION_ID) ?  $record[0]->SESSION_ID : null;
         // dd($record);
         $data = ['sessions' => $sessions,  'record' => $record,'fee_cat' => $fee_cat,'sessionID' =>$sessionID];
-        // $data = json_decode(json_encode($data,true));
+        // dd($data);
         return view('Admin.FeesManagement.fee_define_new')->with($data);
     }
 
     public function apply_fee_structure(Request $request)
     {
+        // error_reporting(E_ALL ^ E_NOTICE);
         $session_id = $request->SESSION_ID;
         $record = $request->record; //dd($record);
 
        foreach ($record as $key => $value) {
             $ammount_array = [];
-        if(isset($value['cat_amount']) AND !empty($value['cat_amount']) OR $value['cat_amount'] != null):
+        if(isset($value['cat_amount']) AND !empty($value['cat_amount']) AND $value['cat_amount'] != null):
             for ($i=0; $i < count($value['cat_amount']); $i++) {
               $ammount_array[][$value['cat_id'][$i]] = $value['cat_amount'][$i] ;
             }
-
         endif;
          $data = [
              'SESSION_ID' => $session_id,

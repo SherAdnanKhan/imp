@@ -24,8 +24,8 @@ class FeeCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'CLASS_ID'=>'required',
-            'SECTION_ID'=>'required',
+            // 'CLASS_ID'=>'required',
+            // 'SECTION_ID'=>'required',
             'CATEGORY' =>'required|max:255',
             'SHIFT'=>'required',
         ];
@@ -34,9 +34,9 @@ class FeeCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'CLASS_ID.required' => "Class ID is required",
+            // 'CLASS_ID.required' => "Class ID is required",
 
-            'SECTION_ID.required' => "Section ID is required",
+            // 'SECTION_ID.required' => "Section ID is required",
 
             'CATEGORY.required' => "Category Field is required",
 
@@ -44,6 +44,6 @@ class FeeCategoryRequest extends FormRequest
 
             'SHIFT.required' => "Shift Field is required",
         ];
-            
+
     }
 }
