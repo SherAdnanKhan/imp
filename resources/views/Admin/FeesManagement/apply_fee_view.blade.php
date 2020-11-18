@@ -59,7 +59,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="due_date">Due date</label>
-                            <input type="date" name="due_date" id="due-date" class="form-control">
+                            <input type="date" name="due_date" id="due_date" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@ $('body').on('change','#sectionid',function(){
                 $('#FEE_LABEL').text('Select Fee Category To be Applied.');
                 $('.FEE_CATEGORY').html(html);
                 console.log(check);
-                if(check.length > 0)
+                if(check.length !== 0)
                 {
                     if(check.months.length > 0 )
                     {
@@ -192,7 +192,7 @@ $('body').on('change','#sectionid',function(){
                         });
                     }
                 }
- 
+
             }
         });
     } catch (error) {
@@ -208,7 +208,7 @@ $('body').on('submit','#applyfeeform',function(e){
       var session_id = $('#session_id').val();
       var class_id = $('#class_id').val();
       var section_id = $('#sectionid').val();
-      var due_date = $('#due-date').val();
+      var due_date = $('#due_date').val();
       var month_arr = new Array();
       var cat_arr = new Array();
 
@@ -231,6 +231,10 @@ $('body').on('submit','#applyfeeform',function(e){
           toastr.error('Please Select at least single Fee Category to process','ERROR');
           return false;
       }
+    if(due_date == "" ){
+          toastr.error('Please Select Due Date','ERROR');
+          return false;
+      }
       $('.save-btn').prop('disabled',true);
     try {
         var data = {
@@ -241,6 +245,7 @@ $('body').on('submit','#applyfeeform',function(e){
             category:cat_arr,
             due_date : due_date,
             "_token": "{{ csrf_token() }}"};
+            console.log(data);
         $.ajax({
             url: '{{route("apply-fee-on-sections")}}',
                 type:'POST',
@@ -248,7 +253,10 @@ $('body').on('submit','#applyfeeform',function(e){
                 // processData: false,
                 // contentType: false,
                 success: function(data){
-
+                    toastr.success('Fee Applied Successfully..','Success');
+                    setTimeout(function() {
+                        $('#applyfeeform')[0].reset();
+                    }, 100);
                 }
         });
          $('.save-btn').prop('disabled',false);

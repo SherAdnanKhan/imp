@@ -302,6 +302,7 @@ class FeeController extends Controller
         $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
         // $months =
         $months = Kelex_month::where('CAMPUS_ID', Auth::user()->CAMPUS_ID)->orderBy('NUMBER','ASC')->get(); //print_r($months); die;
+        // dd(Auth::user());
         $months = json_decode(json_encode($months,true));
         $months = array_chunk($months,6);
         $data = ['sessions' => $sessions,  'classes' => $classes,'months'=>$months];
@@ -313,8 +314,14 @@ class FeeController extends Controller
         $record = KelexFee_structure::select('CATEGORY_AMOUNT','FEE_CATEGORY_ID')->where(['CAMPUS_ID'=> Auth::user()->CAMPUS_ID,'SECTION_ID' => $section_id])->first();
         $cat_ids = json_decode($record->FEE_CATEGORY_ID,true);// dd($cat_ids);
         $category = Kelex_fee_category::whereIn('FEE_CAT_ID',$cat_ids)->select('CATEGORY')->get();
-        $checkWhere = ['CAMPUS_ID' => Auth::user()->CAMPUS_ID,'SESSION_ID'=> $session_id,'CLASS_ID' => $class_id, 'section_id' => $section_id];
-        $check_record = Kelex_fee::where($checkWhere)->select('FEE_ID','FEE_DATA','MONTHS')->get();
+        $checkWhere = [
+            'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+            'SESSION_ID'=> $session_id,
+            'CLASS_ID' => $class_id,
+            'section_id' => $section_id,
+
+        ];
+        $check_record = Kelex_fee::select('FEE_ID','FEE_DATA','MONTHS')->whereYear('created_at','=',date('Y'))->where($checkWhere)->get();
         $old_record = [];
         // dd($checkWhere);
         if(count($check_record) > 0 ):
@@ -326,7 +333,7 @@ class FeeController extends Controller
         $data['check_record'] = $old_record;
         $data['FEE_AMOUNT'] = json_decode($record->CATEGORY_AMOUNT, true); //dd($old_record);
         $data['category'] = json_decode(json_encode($category,true));
-        $data['category'] = array_column($data['category'],'CATEGORY');
+        $data['category'] = array_column($data['category'],'CATEGORY'); //dd($data);
         return $data;
 
     }
@@ -369,6 +376,7 @@ class FeeController extends Controller
             'FEE_DATA' => json_encode($fee_detail_array),
             'FEE_AMOUNT' => array_sum(array_column($fee_detail_array, 'FEE_CATEGORY_AMOUNT')),
             'DUE_DATE' => $due_date,
+            'STATUS' => '0',
         ];
         // dd($fee_data);
          Kelex_fee::create($fee_data);
@@ -377,7 +385,7 @@ class FeeController extends Controller
             $student_fee = [
                 'FEE_ID' => $fee_id,
                 'STUDENT_ID' => $student_ids[$i],
-                'STATUS' => '0',
+
             ];
            // echo "<pre>";print_r($student_fee);
             Kelex_student_fee::create($student_fee);
