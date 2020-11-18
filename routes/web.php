@@ -13,6 +13,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\NonTeachingController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
@@ -94,7 +95,6 @@ Route::match(['get', 'post'],'/Paperattendance',[PaperMarksController::class,'Pa
         Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
         Route::match(['get', 'post'], '/ViewApplication', [TeacherAttendanceController::class, 'ViewApplication'])->name('Teacher_View_Application');
     });
-});
 
 
 
@@ -301,5 +301,5 @@ Route::match(['get', 'post'], '/deletegrade', [ExamController::class, 'delete_gr
 Route::match(['get', 'post'], '/result', [ExamController::class, 'index_result'])->name("result");
 Route::match(['get', 'post'],'/getsubject',[PaperMarksController::class,'getsubjects'])->name('getsubject');
 Route::match(['get', 'post'],'/Search_result',[PaperMarksController::class,'Search_result'])->name('Search_result');
-Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'Add_marks'])->name('PublishResult');
+Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'PublishResult'])->name('PublishResult');
 });

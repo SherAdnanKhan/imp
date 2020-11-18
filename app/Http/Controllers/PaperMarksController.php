@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelex_exam;
 use App\Models\Kelex_class;
 use Illuminate\Http\Request;
+use App\Models\Kelex_exam_paper;
 use App\Models\Kelex_paper_mark;
 use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
@@ -145,6 +146,16 @@ public function Search_result(Exam_MarkSearchRequest $request)
     $data['subjectid']=$request->SUBJECT_ID;
     return response()->json($data);
 }
-
+    public function PublishResult(Request $request)
+    {
+        
+        $data= Kelex_exam_paper::Where('PAPER_ID','=',$request->PAPER_ID)->update(['PUBLISHED'=>'2']);
+        
+        return response()->json(true);
      }
+
+
+    }
+
+
 
