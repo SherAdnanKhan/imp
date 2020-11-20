@@ -23,7 +23,7 @@
                                 </a>
                             </li>
 
-                        
+
                             @if(isset($permissions->acadamics->status)=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span> Academics <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
@@ -83,7 +83,7 @@
                                     <li><a href="{{route('Apply-Fee')}}">Apply Fee</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->fee_collection->status)=="1")
-                                    <li><a href="charts-flot.html">Fee Collection</a></li>
+                                    <li><a href="{{'fee-collection-view'}}">Fee Collection</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->fee_voucher->status)=="1")
                                     <li><a href="{{route('fee-voucher')}}">Print Fee Voucher</a></li>
@@ -129,7 +129,7 @@
 
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Exam Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                             <ul class="submenu">
-                             
+
                                 <li><a href="{{route('exam')}}">Add Exam</a></li>
                                 <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
                                 <li><a href="{{route('grade')}}">Define Grade </a></li>

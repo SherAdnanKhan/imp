@@ -254,7 +254,11 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::match(['get', 'post'], '/print-fee-voucher', [FeeController::class, 'fee_voucher'])->name("fee-voucher");
     Route::match(['get', 'post'], '/apply-fee-on-sections', [FeeController::class, 'apply_fee_on_sections'])->name("apply-fee-on-sections");
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
+    Route::get('/fee-collection-view',[FeeController::class, 'student_fee_collection_view'])->name('fee-collection-view');
+    Route::match(['get','post'],'/get-fee-collection-data/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_fee_collection_data'])->name('get-fee-collection-data');
+// Route::get('/get-fee-collection-data',function(){
 
+// });
 
 //Employee Routes Start
 Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");

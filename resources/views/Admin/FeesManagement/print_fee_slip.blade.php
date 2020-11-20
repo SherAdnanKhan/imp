@@ -643,9 +643,10 @@
                     <tr>
                         <td colspan="2" style="width:46%;padding:5px; border-top:double black;">
                             <span style="font-size:12px;"><b>Fees Slip</b></span><br>
-                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : $campus->LOGO_IMAGE @endphp
+                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : asset('upload/'.$campus->LOGO_IMAGE) @endphp
                             <img src="{{$logo}}"
                                     style="width:20%">
+
                         </td>
                         <td colspan="2" style="width:46%;text-align:right; border-top:double black; padding:5px;">
                             <input type="hidden" class="std_bcode" value="233110010127693119">
@@ -851,7 +852,7 @@
                     <tr>
                         <td colspan="2" style="width:46%;padding:5px; border-top:double black;">
                             <span style="font-size:12px;"><b>Fees Slip</b></span><br>
-                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : $campus->LOGO_IMAGE @endphp
+                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : asset('upload/'.$campus->LOGO_IMAGE) @endphp
                             <img src="{{$logo}}"
                                     style="width:20%">
                         </td>

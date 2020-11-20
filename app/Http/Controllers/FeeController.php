@@ -301,7 +301,8 @@ class FeeController extends Controller
         $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
         $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
         // $months =
-        $months = Kelex_month::where('CAMPUS_ID', Auth::user()->CAMPUS_ID)->orderBy('NUMBER','ASC')->get(); //print_r($months); die;
+        $type = (Session::get('CAMPUS')->TYPE == 'L_instuition') ? 2 : 1;
+        $months = Kelex_month::orderBy('NUMBER','ASC')->where('TYPE' ,$type)->get(); //print_r($months); die;
         // dd(Auth::user());
         $months = json_decode(json_encode($months,true));
         $months = array_chunk($months,6);
@@ -520,5 +521,31 @@ class FeeController extends Controller
        endforeach;
        return $fee_data;
     }
+/////////////// Fee Collection //////////////////////////
+    public function student_fee_collection_view()
+    {
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
 
+        $data = ['sessions' => $sessions,  'classes' => $classes];
+        return view('Admin.FeesManagement.fee_collection_view')->with($data);
+    }
+    public function get_fee_collection_data($sessionID,$class_id,$section_id)
+    {
+        $where  = [
+            'kelex_fees.SESSION_ID' => $sessionID,
+            'kelex_fees.CLASS_ID' => $class_id,
+            'kelex_fees.SECTION_ID' => $section_id,
+            'kelex_fees.CAMPUS_ID' => Session::get('CAMPUS_ID'),
+        ]; //dd($where);
+        $std_record = DB::table('kelex_student_fees')
+            ->leftjoin('kelex_fees', 'kelex_fees.FEE_ID', '=', 'kelex_student_fees.FEE_ID')
+            ->leftjoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+            ->leftjoin('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+            ->select('kelex_students.NAME', 'kelex_students.FATHER_NAME', 'kelex_students_sessions.*', 'kelex_students.REG_NO', 'kelex_fees.*')
+            ->where($where)
+            ->get();
+            return $std_record;
+
+    }
 }
