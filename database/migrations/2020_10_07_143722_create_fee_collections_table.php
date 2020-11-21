@@ -23,8 +23,8 @@ class CreateFeeCollectionsTable extends Migration
             $table->float('PAID_AMOUNT',6,2)->nullable();
             $table->float('REMAINING',6,2)->nullable();
             $table->dateTime('PAYMENT_DATE')->nullable();
-            $table->enum('PAYEMNT_STATUS',['0','1'])->nullable()->comment('0=pending,1=confirmend');
-            $table->enum('PAYEMENT_TYPE',['1','2'])->nullable()->comment('1=Cash deposit,1=Bank deposit');
+            $table->enum('PAYMENT_STATUS',['0','1'])->nullable()->comment('0=pending,1=confirmend');
+            $table->enum('PAYMENT_TYPE',['1','2'])->nullable()->comment('1=Cash deposit,1=Bank deposit');
             $table->timestamps();
         });
     }

@@ -256,7 +256,11 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
     Route::get('/fee-collection-view',[FeeController::class, 'student_fee_collection_view'])->name('fee-collection-view');
     Route::match(['get','post'],'/get-fee-collection-data/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_fee_collection_data'])->name('get-fee-collection-data');
-// Route::get('/get-fee-collection-data',function(){
+    Route::match(['get', 'post'], '/fee-collection', [FeeController::class, 'fee_collection'])->name("fee-collection");
+    Route::match(['get', 'post'], '/family-accounts', [FeeController::class, 'family_accounts'])->name("family-accounts");
+    Route::match(['get', 'post'], '/get-family-accounts/{session_id}', [FeeController::class, 'get_family_accounts'])->name("get-family-accounts");
+    Route::match(['get', 'post'], '/fee-register', [FeeController::class, 'fee_register'])->name("fee-register");
+    // Route::get('/get-fee-collection-data',function(){
 
 // });
 

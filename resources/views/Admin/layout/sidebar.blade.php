@@ -89,11 +89,12 @@
                                     <li><a href="{{route('fee-voucher')}}">Print Fee Voucher</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->fee_register->status)=="1")
-                                    <li><a href="charts-morris.html">Fee register</a></li>
+                                    <li><a href="{{route("fee-register")}}">Fee register</a></li>
                             @endif
                             @if(isset($permissions->fee_managament->family_accounts->status)=="1")
-                                    <li><a href="charts-other.html">Family Accounts</a></li>
+                                    <li><a href="{{route("family-accounts")}}">Family Accounts</a></li>
                             @endif
+
                                 </ul>
                             </li>
                             @endif

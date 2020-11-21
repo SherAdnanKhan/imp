@@ -3,24 +3,27 @@
 namespace App\Http\Controllers;
 
 use KelexClass;
+use App\Models\Kelex_fee;
 use App\Models\Kelex_class;
 use App\Models\Kelex_month;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
 use App\Models\Kelex_fee_type;
+use App\Models\Kelex_student_fee;
 use App\Models\Kelex_fee_category;
+use App\Models\Kelex_fee_discount;
 use App\Models\Kelex_sessionbatch;
+use App\Models\Kelex_student_dues;
 use App\Models\KelexFee_structure;
 use Illuminate\Support\Facades\DB;
+use App\Models\Kelex_fee_collection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\FeetypeRequest;
 use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FeeCategoryRequest;
-use App\Models\Kelex_fee;
-use App\Models\Kelex_fee_discount;
-use App\Models\Kelex_student_fee;
+use App\Models\Kelex_student;
 
 class FeeController extends Controller
 {
@@ -286,6 +289,7 @@ class FeeController extends Controller
              'FEE_CATEGORY_ID' => isset($value['cat_id']) ? json_encode($value['cat_id']) : null ,
              'CATEGORY_AMOUNT' => json_encode($ammount_array)
          ];
+
          if($value['fee_structure_id'] == null OR $value['fee_structure_id'] == ""):
              KelexFee_structure::create($data);
          else:
@@ -406,13 +410,13 @@ class FeeController extends Controller
     public function get_section_fee($session_id,$class_id,$section_id)
     {
 
-        $record = Kelex_fee::
-        where('SESSION_ID',$session_id)
-        ->where('CLASS_ID' , $class_id)
-        ->where('SECTION_ID', $section_id)
-        ->where('CAMPUS_ID' , Auth::user()->CAMPUS_ID)
-        ->get();
-        //dd($record);
+        $record = Kelex_fee::where('SESSION_ID',$session_id)
+            ->where('CLASS_ID' , $class_id)
+            ->where('STATUS', '0')
+             ->where('SECTION_ID', $section_id)
+            ->where('CAMPUS_ID' , Auth::user()->CAMPUS_ID)
+             ->get();
+        // dd($record);
         $record = json_decode(json_encode($record,true)); //dd($record);
         if(empty($record)):
             return redirect()->route('fee-voucher')->with('msg', 'No Fee Record Found for required Selections');
@@ -426,6 +430,7 @@ class FeeController extends Controller
             $fee_data_months_arr[] =  json_decode($value->MONTHS);
         endforeach;
         $months = DB::table('kelex_months')
+                                ->where('type','1')
                                 ->whereIn('NUMBER',$fee_data_months_arr[0])
                                 ->orderBy('NUMBER','ASC')
                                 ->pluck('MONTH');
@@ -463,28 +468,33 @@ class FeeController extends Controller
             // print_r($std_record[$i]);
             for ($j =0; $j <count($complete_fee_details);$j++) {
 
-               $checkdiscount =  DB::table('kelex_fee_discounts')
+                $checkdiscount =  DB::table('kelex_fee_discounts')
                                     ->where(['STUDENT_ID'=> $std_record[$i]['STUDENT_ID'],'FEE_CAT_ID' =>  $complete_fee_details[$j]['fee_category_id']  ])
                                      ->select('DISCOUNT')
                                     ->first();
+
                  if($checkdiscount!=null){
 
 
                 $getdis=$checkdiscount->DISCOUNT;
 
-                // $discount = json_decode(json_encode($discount),true);
                 $discount = ($checkdiscount == null) ? $discount : $checkdiscount;
-                // $complete_fee_details[$j]['discount'] =$getdis;
                 $complete_fee_details[$j]['fee_amount'] = $complete_fee_details[$j]['fee_amount'] -$getdis  ;
-            // echo $complete_fee_details[$j]['fee_category_id']."<br>";
-        }
+
+                }
+                $checkBalance = DB::table('kelex_student_dues')
+                    ->where('STUDENT_ID', $std_record[$i]['STUDENT_ID'])
+                    // ->where('TYPE', '1')
+                    ->orderBy('id','DESC')
+                    ->first();
+            $complete_fee_details[$j]['prev_type'] = (isset($checkBalance)) ? $checkBalance->TYPE : null;
+                $complete_fee_details[$j]['prev_balance'] = (isset($checkBalance)) ? $checkBalance->AMOUNT : 0;
             }
-            // dd($complete_fee_details) ;
             $std_record[$i]['student_fee_months'] = $months;
             $std_record[$i]['student_fees'] = $complete_fee_details;
 
         endfor;
-        // dd($std_record);
+        // echo "<pre>";print_r($std_record);die;
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $Section= Kelex_Section::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $Session= kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
@@ -537,6 +547,7 @@ class FeeController extends Controller
             'kelex_fees.CLASS_ID' => $class_id,
             'kelex_fees.SECTION_ID' => $section_id,
             'kelex_fees.CAMPUS_ID' => Session::get('CAMPUS_ID'),
+            'kelex_fees.STATUS' => '0',
         ]; //dd($where);
         $std_record = DB::table('kelex_student_fees')
             ->leftjoin('kelex_fees', 'kelex_fees.FEE_ID', '=', 'kelex_student_fees.FEE_ID')
@@ -545,7 +556,122 @@ class FeeController extends Controller
             ->select('kelex_students.NAME', 'kelex_students.FATHER_NAME', 'kelex_students_sessions.*', 'kelex_students.REG_NO', 'kelex_fees.*')
             ->where($where)
             ->get();
+            $std_record = json_decode(json_encode($std_record),true);
+            foreach($std_record as $key => $value):
+                // $std_record[$key]['total_amount'] = $value['']
+                $due = Kelex_student_dues::where('STUDENT_ID',$value['STUDENT_ID'])
+                    // ->where('')
+                    ->orderBy('id','DESC')
+                    ->first();
+            $std_record[$key]['total_amount'] = (isset($due)) ? $value['FEE_AMOUNT'] + $due->AMOUNT :    $value['FEE_AMOUNT'];
+            endforeach;
             return $std_record;
 
+    }
+    public function fee_collection(Request $request)
+    {
+        // dd(Session::all());
+       $student_id = $request->student_id;
+       $paidAmount = $request->paidAmount;
+        $fee_id = $request->fee_id;
+        for($i=0;$i<count($student_id);$i++):
+            $amount = $request->amount;
+            $remaining = (float) $amount[$i] - (float) $paidAmount[$i];
+            $data = [
+                'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+                'USER_ID' => Auth::user()->id,
+                'SESSION_ID' => $request->session_id,
+                'CLASS_ID' => $request->class_id,
+                'SECTION_ID' => $request->section_id,
+                'STUDENT_ID' => $student_id[$i],
+                'PAID_AMOUNT' => $paidAmount[$i],
+                'FEE_ID' => $fee_id,
+                'REMAINING'    => $remaining,
+                'PAYMENT_TYPE' => '1',
+                'PAYMENT_STATUS' => '1',
+            ];
+
+            // print_r($data);
+            // Kelex_fee_collection::create($data);
+           $type = ($remaining < 0) ? '2': '1';
+           $balanceArr = [
+               'STUDENT_ID' => $student_id[$i],
+               'FEE_ID' => $fee_id,
+               'AMOUNT' => $remaining,
+               'TYPE' => $type,
+               'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+               'USER_ID' => Auth::user()->id,
+           ];
+           if($remaining < 0 OR $remaining >0):
+              Kelex_student_dues::create($balanceArr);
+           endif;
+        endfor;
+        Kelex_fee::where(['FEE_ID' => $fee_id])->update(['STATUS' => '1']);
+        return ['type' => 1,'response' => 'Record Saved Successfully..'];
+    }
+
+    ////////////////////////Family Accounts //////
+    public function family_accounts()
+    {
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+
+        $data = ['sessions' => $sessions,  'classes' => $classes];
+        return view('Admin.FeesManagement.family_accounts')->with($data);
+    }
+    /////// Get Family Accounts ///
+    function get_family_accounts($sessionID)
+    {
+        $result =  DB::table('kelex_students')
+            ->leftJoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
+            ->where('kelex_students_sessions.SESSION_ID', '=', $sessionID)
+            ->where('kelex_students.FATHER_CNIC','!=','NULL')
+            ->where('kelex_students_sessions.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+            ->select('kelex_students.FATHER_CNIC', 'kelex_students.FATHER_NAME')
+            ->distinct()
+            ->get()->toArray();
+        $result = json_decode(json_encode($result),true);
+        foreach($result as $key=> $row):
+            $students = DB::table('kelex_students')
+                ->leftJoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_students.STUDENT_ID')
+                ->leftJoin('kelex_classes', 'kelex_students_sessions.CLASS_ID', '=', 'kelex_classes.Class_id')
+                ->leftJoin('kelex_sections', 'kelex_classes.Class_id', '=', 'kelex_sections.Class_id')
+                ->where('kelex_students_sessions.SESSION_ID', '=', $sessionID)
+                ->where('kelex_students_sessions.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+                ->select( 'kelex_students.NAME', 'kelex_classes.Class_name', 'kelex_sections.Section_name')
+                            ->where('FATHER_CNIC',$row['FATHER_CNIC'])
+                            ->get();
+            $result[$key]['data'] = $students;
+        endforeach;
+
+        return response()->json($result);
+    }
+    ///////////////////// FEE register //////
+    public function fee_register()
+    {
+        $sessions = Kelex_sessionbatch::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+        $classes = Kelex_class::all()->where('CAMPUS_ID', Auth::user()->CAMPUS_ID);
+
+        $where  = [
+            // 'kelex_fees.SESSION_ID' => $sessionID,
+            // 'kelex_fees.CLASS_ID' => $class_id,
+            // 'kelex_fees.SECTION_ID' => $section_id,
+            'kelex_fees.CAMPUS_ID' => Session::get('CAMPUS_ID'),
+            // 'kelex_fees.STATUS' => '0',
+        ]; //dd($where);
+        $record = DB::table('kelex_student_fees')
+        ->leftjoin('kelex_fees', 'kelex_fees.FEE_ID', '=', 'kelex_student_fees.FEE_ID')
+        ->leftjoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+        ->leftjoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_students_sessions.CLASS_ID')
+        ->leftjoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_students_sessions.CLASS_ID')
+        ->leftjoin('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+        ->leftjoin('kelex_student_dues', 'kelex_student_dues.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
+        ->select('kelex_students.NAME', 'kelex_students.FATHER_NAME', 'kelex_classes.Class_name', 'kelex_sections.Section_name', 'kelex_students_sessions.*', 'kelex_students.REG_NO', 'kelex_fees.*', 'kelex_student_dues.*')
+        ->where($where)
+        ->groupBy('kelex_student_fees.STUDENT_FEE_ID')
+        ->orderBy('kelex_student_fees.STUDENT_FEE_ID','DESC')
+            ->get();
+        $data = ['sessions' => $sessions,  'classes' => $classes,'record' => $record];
+        return view('Admin.FeesManagement.fee_register')->with($data);
     }
 }

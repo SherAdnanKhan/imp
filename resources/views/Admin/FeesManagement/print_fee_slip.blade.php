@@ -747,7 +747,7 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php $total += ($v['fee_amount'] * $monthsTotal )  @endphp
+                            @php $total += ($v['fee_amount'] * $monthsTotal ); $total += $v['prev_balance'];  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}
@@ -757,6 +757,25 @@
                                     </td>
 
                                 </tr>
+                                @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+                                <tr>
+                                    <td colspan="1"
+                                        style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                    Balance
+                                    </td>
+                                    <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                    {{$v['prev_balance']}} </td>
+                                </tr>
+                                @else
+                                <tr>
+                                    <td colspan="1"
+                                        style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                    Advance
+                                    </td>
+                                    <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                    {{$v['prev_balance']}} </td>
+                                </tr>
+                                @endif
                             @endforeach
 
 
@@ -772,20 +791,21 @@
                         </tr>
                         <tr>
                         </tr>
-                        <tr>
-                            <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                Previous Balance
-                            </td>
-                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                               {{$pre_balance = 0}} </td>
-                        </tr>
+
 
                         <tr>
                             <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding:5px; font-size:12px;">
-                                Total Fee
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Total Fee Amount
                             </td>
+                        <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Payable Amount
+                            </td>
+                            @php $total = ($total <0 ) ? 0.00 : $total @endphp
                         <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
                         </tr>
                         </tbody>
@@ -953,7 +973,7 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php  $total += ($v['fee_amount'] * $monthsTotal )  @endphp
+                            @php  $total += ($v['fee_amount'] * $monthsTotal ); $total += $v['prev_balance'];  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}
@@ -963,6 +983,25 @@
                                     </td>
 
                                 </tr>
+                            @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+                            <tr>
+                                <td colspan="1"
+                                    style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                Balance
+                                </td>
+                                <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                {{$v['prev_balance']}} </td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="1"
+                                    style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                Advance
+                                </td>
+                                <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                {{$v['prev_balance']}} </td>
+                            </tr>
+                            @endif
                             @endforeach
 
 
@@ -976,22 +1015,21 @@
 
                         <tr>
                         </tr>
-                        <tr>
-                        </tr>
-                        <tr>
-                            <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                Previous Balance
-                            </td>
-                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                               {{$pre_balance = 0}} </td>
-                        </tr>
+
 
                         <tr>
                             <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding:5px; font-size:12px;">
-                                Total Fee
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Total Fee Amount
                             </td>
+                        <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Payable Amount
+                            </td>
+                            @php $total = ($total <0 ) ? 0.00 : $total @endphp
                         <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
                         </tr>
                         </tbody>
