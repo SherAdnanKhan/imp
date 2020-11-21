@@ -50,7 +50,7 @@
 
                             </tbody>
                         </table>
-                        <button class="btn btn-primary btn-save">SAVE RECORD</button>
+                        {{-- <button class="btn btn-primary btn-save">SAVE RECORD</button> --}}
                     </div>
                 </div>
             </form>
