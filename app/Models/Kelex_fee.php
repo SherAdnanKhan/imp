@@ -18,5 +18,6 @@ class Kelex_fee extends Model
         'FEE_DATA' ,
         'FEE_AMOUNT',
         'DUE_DATE',
+        'STATUS'
     ];
 }

@@ -1,124 +1,4 @@
-{{--
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ----------> --}}
 
-{{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-@php
-    $campus = Session::get('CAMPUS');  //dd($campus->CAMPUS_ID);
-    $record = array_chunk($record,3); //dd($record);
-@endphp
-<div class="row">
-   <div class="col-sm-12">
-       @foreach($record as $key => $value)
-
-                    @foreach($value as $k=> $v)
-                    <div class="card m-b-30 card-body">
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="card-deck-wrapper ">
-                                    <div class="card-deck">
-                                        <div class="card m-b-30 border border-dark mh-100 " >
-
-                                            <div class="card-body" style="min-height: 800px;">
-                                                <div class="clearfix">
-                                                    <span class="float-left">
-                                                        <h4 class="card-title font-16 mt-0 ">{{$campus->SCHOOL_NAME}}</h4>
-                                                    </span>
-                                                    <span class="float-right">
-                                                        <img class="img img-thumbnail" src="https://via.placeholder.com/70x70/ffffff?text=Logo" alt="">
-                                                    </span>
-                                                </div>
-                                            <p class="card-text">
-                                                {{$campus->SCHOOL_ADDRESS}}.<br>
-                                                <div class="clearfix">
-
-                                                    <span class="float-left small">Contact : {{$campus->PHONE_NO}}</span>
-                                                    <span class="float-right small"> Mobile : {{$campus->PHONE_NO}}</span>
-
-                                                </div>
-                                                <div class="clearfix">
-                                                    <p class="text-center">Student Copy</p>
-                                                </div>
-                                                <div class="clearfix">
-                                                    <span class="float-left">
-                                                        <p class="card-text">
-                                                            Name : <span class="small">{{$v['NAME']}}</span> <br>
-                                                            Class : <span class="small"> {{ $v['Class_name'] }}- {{$v['Section_name']}}</span><br>
-                                                            Reg-No : <span class="small">{{$v['REG_NO']}}</span> <br>
-                                                        Fee Month :<span class="small">@foreach($v['student_fee_months'] as $month) {{$month}} , @endforeach </span>
-                                                        </p>
-                                                    </span>
-                                                    <span class="float-right">
-                                                        Due Date : {{date("d/M/Y",strtotime($v['DUE_DATE']))}}
-                                                    </span>
-
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <div class="border border-dark">
-                                                    <div class="clearfix p-1">
-
-                                                        <span class="float-left small">
-                                                            FEES TYPE: <br>
-                                                        </span>
-                                                        <span class="float-right small">
-                                                            FEE AMOUNT
-                                                        </span>
-
-                                                    </div>
-
-                                                    @for($i=0; $i<count($v['student_fees']); $i++)
-                                                    @php $total = 0; $months_total = count($v['student_fee_months']); @endphp
-                                                    <div class="clearfix p-1">
-                                                        <span class="float-left small">
-                                                            {{$v['student_fees'][$i]['fee_category']}}
-                                                        </span>
-                                                        <span class="float-right small">
-                                                            @php $total += ($v['student_fees'][$i]['fee_amount'] * $months_total) @endphp
-                                                            {{$v['student_fees'][$i]['fee_amount']}}x{{$months_total}}
-                                                        </span>
-                                                    </div>
-                                                    @endfor
-
-                                                    <div class="clearfix p-1">
-
-                                                        <span class="float-left small">
-
-                                                        </span>
-                                                        <span class="float-right small">
-                                                            TOTAL : {{$total}}
-                                                        </span>
-
-                                                    </div>
-                                                </div>
-                                            </p>
-                                            <br>
-                                                <div class="mt-auto" ">
-                                                    <div class="clearfix p-1">
-
-                                                        <span class="float-left small">
-                                                            Stamp ___________________
-                                                        </span>
-                                                        <span class="float-right small">
-                                                            Sign ____________________
-                                                        </span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
-        @endforeach
-   </div>
-</div> --}}
 
 
 <!DOCTYPE html>
@@ -752,7 +632,7 @@
 <!-- Each sheet element should have the class "sheet" -->
 <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
 @php
-    $campus = Session::get('CAMPUS');  //dd($campus->CAMPUS_ID);
+    $campus = Session::get('CAMPUS');  //dd($campus);
 @endphp
 @foreach ($record as $key => $value)
     <section class="sheet padding-10mm">
@@ -763,9 +643,10 @@
                     <tr>
                         <td colspan="2" style="width:46%;padding:5px; border-top:double black;">
                             <span style="font-size:12px;"><b>Fees Slip</b></span><br>
-                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : $campus->LOGO_IMAGE @endphp
+                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : asset('upload/'.$campus->LOGO_IMAGE) @endphp
                             <img src="{{$logo}}"
                                     style="width:20%">
+
                         </td>
                         <td colspan="2" style="width:46%;text-align:right; border-top:double black; padding:5px;">
                             <input type="hidden" class="std_bcode" value="233110010127693119">
@@ -835,14 +716,14 @@
                         @foreach($Section as $sec)
                             {{ $sec['Section_id']==$value['SESSION_ID']?$sec['Section_name']:''}}</td>
                          @endforeach
-                       
+
                           </td>
                         <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
                             &nbsp
                             Session
                         </td>
                         <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
-                                 
+
                         @foreach($Session as $ses)
                             {{ $ses['SB_ID']==$value['SESSION_ID']?$ses['SB_NAME']:''}}</td>
                          @endforeach
@@ -866,7 +747,7 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php $total += ($v['fee_amount'] * $monthsTotal )  @endphp
+                            @php $total += ($v['fee_amount'] * $monthsTotal ); $total += $v['prev_balance'];  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}
@@ -876,6 +757,25 @@
                                     </td>
 
                                 </tr>
+                                @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+                                <tr>
+                                    <td colspan="1"
+                                        style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                    Balance
+                                    </td>
+                                    <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                    {{$v['prev_balance']}} </td>
+                                </tr>
+                                @else
+                                <tr>
+                                    <td colspan="1"
+                                        style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                    Advance
+                                    </td>
+                                    <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                    {{$v['prev_balance']}} </td>
+                                </tr>
+                                @endif
                             @endforeach
 
 
@@ -891,20 +791,21 @@
                         </tr>
                         <tr>
                         </tr>
-                        <tr>
-                            <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                Previous Balance
-                            </td>
-                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                               {{$pre_balance = 0}} </td>
-                        </tr>
+
 
                         <tr>
                             <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding:5px; font-size:12px;">
-                                Total Fee
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Total Fee Amount
                             </td>
+                        <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Payable Amount
+                            </td>
+                            @php $total = ($total <0 ) ? 0.00 : $total @endphp
                         <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
                         </tr>
                         </tbody>
@@ -971,7 +872,7 @@
                     <tr>
                         <td colspan="2" style="width:46%;padding:5px; border-top:double black;">
                             <span style="font-size:12px;"><b>Fees Slip</b></span><br>
-                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : $campus->LOGO_IMAGE @endphp
+                            @php $logo = (trim($campus->LOGO_IMAGE) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : asset('upload/'.$campus->LOGO_IMAGE) @endphp
                             <img src="{{$logo}}"
                                     style="width:20%">
                         </td>
@@ -1072,7 +973,7 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php  $total += ($v['fee_amount'] * $monthsTotal )  @endphp
+                            @php  $total += ($v['fee_amount'] * $monthsTotal ); $total += $v['prev_balance'];  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}
@@ -1082,6 +983,25 @@
                                     </td>
 
                                 </tr>
+                            @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+                            <tr>
+                                <td colspan="1"
+                                    style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                Balance
+                                </td>
+                                <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                {{$v['prev_balance']}} </td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="1"
+                                    style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                Advance
+                                </td>
+                                <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                {{$v['prev_balance']}} </td>
+                            </tr>
+                            @endif
                             @endforeach
 
 
@@ -1095,22 +1015,21 @@
 
                         <tr>
                         </tr>
-                        <tr>
-                        </tr>
-                        <tr>
-                            <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                Previous Balance
-                            </td>
-                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                               {{$pre_balance = 0}} </td>
-                        </tr>
+
 
                         <tr>
                             <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid black; padding:5px; font-size:12px;">
-                                Total Fee
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Total Fee Amount
                             </td>
+                        <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Payable Amount
+                            </td>
+                            @php $total = ($total <0 ) ? 0.00 : $total @endphp
                         <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
                         </tr>
                         </tbody>
