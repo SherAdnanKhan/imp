@@ -130,12 +130,8 @@
 
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Exam Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                             <ul class="submenu">
-<<<<<<< HEAD
                              
                                 <li><a href="{{route('grade')}}">Define Grade </a></li>
-=======
-
->>>>>>> 4df401f7cbdd1b23853331408a7aabe63ca721b1
                                 <li><a href="{{route('exam')}}">Add Exam</a></li>
                                 <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
                                 <!-- <li><a href="{{route('IndexDateSheet')}}">Print Date sheet</a></li> -->
