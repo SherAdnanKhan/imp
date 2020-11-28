@@ -56,9 +56,9 @@
                   <td class="mailbox-date pull-right">
                   <button value="{{$section->Section_id}}" class="btn btn-default btn-xs editbtn" > edit </button>
                   </td>
-                  <td>
+                  <!-- <td>
                   <button value="{{$section->Section_id}}" class="btn btn-default btn-xs deletebtn"> delete </button>
-                  </td>
+                  </td> -->
                </tr>
                @endforeach
             </tbody>
@@ -203,23 +203,23 @@ $('body').on('submit','#addsection',function(e){
               }
       });
     });
-    $('body').on('click', '.deletebtn',function () {
-        var sectionid = $(this).val();
-        $.ajax({
-            url: '{{url("deletesection")}}',
-            type: "GET",
-            data: {
-               sectionid:sectionid
-            }, 
-            dataType:"json",
-            success: function(data){
-               alert("deleted");
-               $('#row' + data).remove();
+   //  $('body').on('click', '.deletebtn',function () {
+   //      var sectionid = $(this).val();
+   //      $.ajax({
+   //          url: '{{url("deletesection")}}',
+   //          type: "GET",
+   //          data: {
+   //             sectionid:sectionid
+   //          }, 
+   //          dataType:"json",
+   //          success: function(data){
+   //             alert("deleted");
+   //             $('#row' + data).remove();
                
               
-            }
-        });
-      });
+   //          }
+   //      });
+   //    });
 
 </script>
    

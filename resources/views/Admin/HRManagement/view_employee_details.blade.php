@@ -6,11 +6,14 @@
 @section("content")
 
 <div class="page-content-wrapper">
+<div class="row" style="margin-bottom: 100px;"></div>
 <div class="row">
 <div class="col-12">
    <div class="card m-b-20">
          <div class="card-body"> 
+            @if(Session::get('is_admin'))
          <a href="{{route('showemployee')}}" class="btn btn-primary">View All Employees</a>
+         @endif
       <br><br>
    <div class="row">
       <div class="col-md-3">

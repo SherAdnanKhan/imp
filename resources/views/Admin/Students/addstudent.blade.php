@@ -26,7 +26,7 @@
 
                         <span class="float-left ">
                              <h4 class="register-heading">Student Admission</h4>
-                                <p class="text-muted m-b-30 ">Please fill all the mandaortey fields .</p>
+                                <p class="text-muted m-b-30 ">Please fill all the mandatory fields .</p>
                         </span>
                         <span class="float-right ">
                              <label for="upload">Upload Student picture</label>

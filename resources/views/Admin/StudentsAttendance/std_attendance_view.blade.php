@@ -215,7 +215,7 @@ $('body').on('click','.search',function(){
                         html += '</div>';
                         html += '<div class="custom-control custom-radio custom-control-inline">';
                         html += '  <input type="radio"  '+abscent+'   id="atten_status_'+data[key]['STUDENT_ID']+'_'+s+'2" name="atten_status_'+data[key]['STUDENT_ID']+'_'+s+'1" class="custom-control-input atten_status" value="A">';
-                        html += ' <label class="custom-control-label" for="atten_status_'+data[key]['STUDENT_ID']+'_'+s+'2">Abscent</label>';
+                        html += ' <label class="custom-control-label" for="atten_status_'+data[key]['STUDENT_ID']+'_'+s+'2">Absent</label>';
                         html += ' </div>';
                         html += '<div class="custom-control custom-radio custom-control-inline">';
                         html += '  <input type="radio"   '+leave+'  id="atten_status_'+data[key]['STUDENT_ID']+'_'+s+'3" name="atten_status_'+data[key]['STUDENT_ID']+'_'+s+'1" class="custom-control-input atten_status" value="L">';

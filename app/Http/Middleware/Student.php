@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class Student
 {
+    
     /**
      * Handle an incoming request.
      *
@@ -18,6 +19,10 @@ class Student
     {
         if(session()->has('STUDENT_ID') || session()->has('user_id')){
             return $next($request);
+        }
+        else if(session()->has('is_teacher'))
+        {
+            return redirect('/teacher/dashboard');
         }
         else{
             return redirect('/');

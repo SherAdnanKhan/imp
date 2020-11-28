@@ -19,6 +19,10 @@ class Teacher
         if(session()->has('EMP_ID') || session()->has('user_id') ){
             return $next($request);
         }
+        else if(session()->has('is_student'))
+        {
+            return redirect('/teacher/dashboard');
+        }
         else{
             return redirect('/');
         }

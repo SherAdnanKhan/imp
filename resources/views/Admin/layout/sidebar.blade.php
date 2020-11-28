@@ -16,7 +16,7 @@
 
                             ?>
                                 <a href="{{route('admin')}}" class="waves-effect">
-                                    <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span>
+                                    <i class="mdi mdi-home"></i><span class="badge badge-primary float-right"></span> <span>
                                     <?php
                                     ?>
                                      Dashboard </span>
@@ -130,24 +130,53 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Exam Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                             <ul class="submenu">
                              
+                                <li><a href="{{route('grade')}}">Define Grade </a></li>
                                 <li><a href="{{route('exam')}}">Add Exam</a></li>
                                 <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
-                                <li><a href="{{route('grade')}}">Define Grade </a></li>
+                                <!-- <li><a href="{{route('IndexDateSheet')}}">Print Date sheet</a></li> -->
+                                <li><a href="{{route('examrollno')}}">Print Roll No</a></li>
                                 <li><a href="{{route('result')}}">Publish Result </a></li>
+                                <li><a href="{{route('PrintResult')}}">Print Result </a></li>
                             </ul>
                              </li>
+                             <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span>TimeTable <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
+                                <ul class="submenu">
+
+                                    <li><a href="{{route('timetable')}}">Add Lessons</a></li>
+                                    <li><a href="{{route('searchingtimetable')}}">Print TimeTable</a></li>
+                     
+                                </ul>
+                            </li>
                             @if(isset($permissions->admissionwithdraw->status)=="1")
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span> Admission Withdraw <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
 
                             @if(isset($permissions->admissionwithdraw->withdraw_register->status)=="1")
-                                    <li><a href="comingsoon">With-Draw Register</a></li>
-                                    <li><a href="comingsoon">Register Managment</a></li>
+                                    <li><a href="{{route('withdrawstudent')}}">Student With-Draw</a></li>
+                                    <li><a href="{{route('show_withdraw_students')}}">Withdrawal Records</a></li>
                             @endif
                                 </ul>
                             </li>
                             <li>
+                            @endif
+                            @if(isset($permissions->certificate->status)=="1")
+                            <li>
+
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
+                                <ul class="submenu">
+                            @if(isset($permissions->certificate->slc->status)=="1")
+                                    <li><a href="{{route('index_slc')}}">School Leaving Certifcate</a></li>
+                            @endif
+                            @if(isset($permissions->certificate->experience->status)=="1")
+                                    <li><a href="comingsoon">Experience</a></li>
+                            @endif
+                            @if(isset($permissions->certificate->curricular->status)=="1")
+                                    <!-- <li><a href="comingsoon">Curricular </a></li> -->
+                            @endif
+                                </ul>
+                            </li>
                             @endif
                             @if(isset($permissions->correspondence->status)=="1")
                             <li>
@@ -180,23 +209,7 @@
                                 </ul>
                             </li>
                             @endif
-                            @if(isset($permissions->certificate->status)=="1")
-                            <li>
-
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
-                                <ul class="submenu">
-                            @if(isset($permissions->certificate->slc->status)=="1")
-                                    <li><a href="comingsoon">SLC</a></li>
-                            @endif
-                            @if(isset($permissions->certificate->experience->status)=="1")
-                                    <li><a href="comingsoon">Experience</a></li>
-                            @endif
-                            @if(isset($permissions->certificate->curricular->status)=="1")
-                                    <li><a href="comingsoon">Curricular </a></li>
-                            @endif
-                                </ul>
-                            </li>
-                            @endif
+                          
                             <li class="menu-title">Settings</li>
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>System Settings <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>

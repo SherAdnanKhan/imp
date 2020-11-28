@@ -38,8 +38,8 @@
                   <td class="mailbox-name"> {{$class->Class_name}}</td>
                   <td class="mailbox-date pull-right">
                      <button value="{{$class->Class_id}}" class="btn btn-default btn-xs editbtn" > edit </button>
-                     <button value="{{$class->Class_id}}" class="btn btn-default btn-xs deletebtn"> delete </button>
-                     
+                     <!-- <button value="{{$class->Class_id}}" class="btn btn-default btn-xs deletebtn"> delete </button>
+                      -->
                   </td>
                </tr>
                @endforeach
@@ -193,23 +193,23 @@ $('body').on('submit','#addclass',function(e){
       });
     });
     ///////////////////////////// Delete classs /////////////////////
-    $('body').on('click', '.deletebtn',function () {
-        var classid = $(this).val();
-        $.ajax({
-            url: '{{url("deleteclass")}}',
-            type: "GET",
-            data: {
-               classid:classid
-            }, 
-            dataType:"json",
-            success: function(data){
-               alert("deleted");
-               $('#row' + data).remove();
+   //  $('body').on('click', '.deletebtn',function () {
+   //      var classid = $(this).val();
+   //      $.ajax({
+   //          url: '{{url("deleteclass")}}',
+   //          type: "GET",
+   //          data: {
+   //             classid:classid
+   //          }, 
+   //          dataType:"json",
+   //          success: function(data){
+   //             alert("deleted");
+   //             $('#row' + data).remove();
              
               
-            }
-        });
-      });
+   //          }
+   //      });
+   //    });
 
 </script>
    

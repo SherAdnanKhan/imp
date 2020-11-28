@@ -471,5 +471,30 @@ public function index_result(Request $request)
     return view('Admin.Examination.publish_result')->with(['gexam'=>$getexam,'subjects'=>$Subject,'sessions'=>$session,'classes'=>$class]);
 
 }
+public function ExamResult()
+{
+    $record =  DB::table('kelex_paper_marks')
+    ->leftJoin('Kelex_exams', 'Kelex_exams.EXAM_ID', '=', 'kelex_paper_marks.EXAM_ID')
+    ->leftJoin('Kelex_exam_papers', 'kelex_paper_marks.PAPER_ID', '=', 'Kelex_exam_papers.PAPER_ID')
+    ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_paper_marks.SUBJECT_ID')
+    ->where('kelex_paper_marks.STUDENT_ID', '=',Session::get('STUDENT_ID'))
+    ->where('kelex_paper_marks.STATUS', '=','2')
+    ->where('Kelex_exam_papers.PUBLISHED', '=','2')
+    ->select('kelex_paper_marks.*', 'Kelex_exams.EXAM_NAME',
+    'kelex_subjects.SUBJECT_NAME','kelex_exam_papers.*')
+    ->groupBy('Kelex_exam_papers.PAPER_ID')
+    ->get()->toArray();
+   // dd($record);
+    $grade= DB::table('Kelex_grades')->where('Kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+     //dd($record);
+return view('Admin.Examination.Exam_marks_student')->with(['record'=>$record,'grades'=>$grade]);
+
+}
+public function index_examrollno(){
+    $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    $getexam = Kelex_exam::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    $session = Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    return view('Admin.Examination.print_rollno')->with(['gexam'=>$getexam,'sessions'=>$session,'classes'=>$class]);
+}
 
 }

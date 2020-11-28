@@ -47,7 +47,7 @@
               <div class="form-group">
                    <label>section*</label>
                   <select class="form-control formselect required" placeholder="Select Section" name="SECTION_ID" id="sectionid">
-                    <option value="0" disabled  selected>Select
+                    <option value="0" disabled selected>Select
                   </select>
                   <small id="SECTION_ID_err" class="form-text text-danger"></small>
               </div>
@@ -190,8 +190,9 @@ $.ajaxSetup({
             // processData: false,
             // contentType: false,
             success: function(data){
-                //console.log(data);
+                console.log(data['DATE']);
               paper_idd=data['PAPER_ID'];
+              paper_date=data['DATE'];
               //console.log(paper_idd);
             },
         });
@@ -207,7 +208,7 @@ $.ajaxSetup({
    var fdata = new FormData(this);
     html="";
    $.ajax({
-        url: '{{url("teacher/Search_Student")}}',
+        url: '{{url("teacher/Search_attendance")}}',
             type:'POST',
             data :fdata,
             processData: false,
@@ -226,7 +227,7 @@ $.ajaxSetup({
                   else
                   {
 
-                    html += '<form action="" id="check_mark" method="post">';
+                    html += '<form action="" id="check_attendance" method="post">';
                     html += ' <div class="table-responsive">';
                     html += '<table class="table table-bordered">';
                     html += '<thead>';
@@ -234,8 +235,7 @@ $.ajaxSetup({
                     html += '   <th scope="col">Student Reg-No</th>';
                     html += '    <th scope="col">Student Name</th>';
                     html += '   <th scope="col">FATHER NAME</th>';
-                    html += '    <th scope="col">Total Obtained Marks</th>';
-                    html += '    <th scope="col">Viva Obtained Marks</th>';
+                    html += '    <th scope="col"> Attendance Status</th>';
                     html += '    <th scope="col">Remarks</th>';
                     html += '   </tr>';
                     html += ' </thead>';
@@ -246,19 +246,30 @@ $.ajaxSetup({
                     html+=' <input type="hidden" name="PAPER_ID" value="'+paper_idd+'">'
                     html+=' <input type="hidden" name="EXAM_ID" value="'+exam_idd+'">'
                     html+=' <input type="hidden" name="SUBJECT_ID" value="'+subject_idd+'">'
+                    html+=' <input type="hidden" name="ATTEN_DATE" value="'+paper_date+'">'
                     for (i = 0; i < data.length; i++) 
                     {
-                      var TOB_MARKS = typeof data[i].TOB_MARKS=='undefined' ? '' : data[i].TOB_MARKS;
-                      var VOB_MARKS = typeof data[i].VOB_MARKS=='undefined' ? '' : data[i].VOB_MARKS;
+                      var ATTEN_STATUS = typeof data[i].ATTEN_STATUS=='undefined' ? '' : data[i].ATTEN_STATUS;
+                     // console.log(ATTEN_STATUS);
+                      var Present = ATTEN_STATUS=='P' ? 'checked' : '';
+                      var Absent = ATTEN_STATUS=='A' ? 'checked' : '';
+                      var Leave = ATTEN_STATUS=='L' ? 'checked' : '';
                       var remarks = typeof data[i].REMARKS=='undefined'||data[i].REMARKS==null ? '' : data[i].REMARKS;
                       html += '<tr id="row'+data[i].STUDENT_ID+'">';
                       html += '  <td>'+ data[i].REG_NO+' </td>';
                       html += '  <td>' + data[i].NAME+ '</td>';
                       html += '  <td>' + data[i].FATHER_NAME+ '</td>';
-                      html += '  <td><input type="hidden" name="STUDENT_ID[]" value="'+data[i].STUDENT_ID+'"> <input type="number" step="0.01" value="'+TOB_MARKS+'" name="TOB_MARKS[]"> </td>';
-                      html += '  <td> <input type="number" step="0.01" name="VOB_MARKS[]" value="'+VOB_MARKS+'"> </td>';
-                      html += '  <td> <input type="textarea" name="REMARKS[]" value="'+remarks+'" > </td>';
-                    }
+                      html +='<td> <input type="hidden" id="STD_ID" name="STD_ID[]" value="'+data[i].STUDENT_ID+'">';
+                      html += ' <input type="radio" '+Present+' id="present" name="ATTEN_STATUS['+i+']" value="P"> ';
+                      html += ' <label for="Present">Present</label> ';
+                      html += ' <input type="radio" '+Absent+' id="absent" name="ATTEN_STATUS['+i+']" value="A"> ';
+                      html += ' <label for="Absent">Absent</label>'; 
+                      html += ' <input type="radio" '+Leave+' id="leave" name="ATTEN_STATUS['+i+']" value="L"> ';
+                      html += ' <label for="leave">Leave</label> ';
+                      html += '</td>';
+                    html += '  <td> <input type="textarea" name="REMARKS['+i+']" value="'+remarks+'" > </td>';
+                    html +="</tr>";  
+                }
                     html += '</tbody>';
                    html += '</table>';
                    html += '<input type="submit" class="btn pull-right btn-primary submitbtn">';
@@ -281,19 +292,20 @@ $.ajaxSetup({
    });
    });
 
- $('body').on('submit','#check_mark',function(e){
+ $('body').on('submit','#check_attendance',function(e){
    e.preventDefault();
    $(".submitbtn").prop('disabled', true); 
 
       var fdata = new FormData(this);
       $.ajax({
-        url: '{{url("teacher/Add_marks")}}',
+        url: '{{url("teacher/Add_attendance")}}',
             type:'POST',
             data :fdata,
             processData: false,
             contentType: false,
             dataType:"json",
             success: function(data){
+              //return false;
               $(".submitbtn").prop('disabled', false); 
               if(data){
                 toastr.success('Action Performed Successfully','Notice')

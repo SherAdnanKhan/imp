@@ -13,12 +13,14 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\NonTeachingController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
 use App\Http\Controllers\TeacherAttendanceController;
+use App\Http\Controllers\WithdrawController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,16 +32,36 @@ use App\Http\Controllers\TeacherAttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test', function () {
+
+    return view('Admin.Examination.Exam_marks_student');
+});
 
 Route::get('/', function () {
-
+    if(session()->has('is_admin'))
+    {
+        return redirect('/admin');
+    }
+    else if(session()->has('is_student'))
+    {
+        return redirect('/student/dashboard');
+    }
+    else if(session()->has('is_teacher'))
+    {
+        return redirect('/teacher/dashboard');
+    }
+    else{
     return view('auth.kelexlogin');
+    }
 })->name('login');
 
-Route::match(['get', 'post'], '/timetable', [TimetableController::class, 'index'])->name('timetable');
+Route::match(['get', 'post'], '/searchingtimetable', [TimetableController::class, 'searchingtimetable'])->name('searchingtimetable'); 
 
-Route::match(['get', 'post'], '/Searchtimetable', [TimetableController::class, 'Searchtimetable'])->name('Searchtimetable');
-Route::match(['get', 'post'], '/Savetimetable', [TimetableController::class, 'Savetimetable'])->name('Savetimetable');
+Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetable'])->name('showtimetable');  
+
+
+
+Route::get('/get-employee-details/{employeeid}', [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
 
 Route::prefix('admin')->group(function () {
 
@@ -59,44 +81,52 @@ Route::prefix('student')->group(function () {
     Route::post('/password_reset_student', [StudentLoginController::class, 'resetpassword_student'])->name('passwordstudent');
 
     Route::group(['middleware' => 'Student'], function () {
-        Route::match(['get', 'post'], '/dashboard', [StudentLoginController::class, 'dashboard'])->name('dashboard');
+        Route::match(['get', 'post'], '/dashboard', [StudentLoginController::class, 'dashboard'])->name('studentdashboard');
         Route::get('viewstudentdetails/{id}', [StudentController::class, 'showdetails'])->name('viewstudentdetails');
 
         //Student application routes
         Route::match(['get', 'post'], '/Application', [StudentAttendanceController::class, 'StudentApplication'])->name('StudentApplication');
         Route::match(['get', 'post'], '/AddApplication', [StudentAttendanceController::class, 'AddApplication'])->name('Student_Add_Application');
         Route::match(['get', 'post'], '/ViewApplication', [StudentAttendanceController::class, 'ViewApplication'])->name('Student_View_Application');
+        // Student result routes
+
+        Route::match(['get', 'post'], '/ExamResult', [ExamController::class, 'ExamResult'])->name('ExamResult');
+        
     });
 });
 
 
 Route::prefix('teacher')->group(function () {
-
+    
+    Route::match(['get', 'post'], '/dashboard', [TeacherLoginController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/login_teacher', [TeacherLoginController::class, 'login_employee'])->name('loginteacher');
 
     Route::match(['get', 'post'], '/logout_teacher', [TeacherLoginController::class, 'logout_employee'])->name('logoutteacher');
 
     Route::post('/passwordreset_teacher', [TeacherLoginController::class, 'resetpassword_employee'])->name('passwordteacher');
-
+Route::group(['middleware' => 'Teacher'], function () {
 Route::match(['get', 'post'],'/Application',[TeacherAttendanceController::class,'TeacherApplication'])->name('TeacherApplication');
 Route::match(['get', 'post'],'/AddApplication',[TeacherAttendanceController::class,'AddApplication'])->name('Teacher_Add_Application');
 Route::match(['get', 'post'],'/ViewApplication',[TeacherAttendanceController::class,'ViewApplication'])->name('Teacher_View_Application');
 // Teahcer Mark Paper Routes
 Route::match(['get', 'post'],'/Paper',[PaperMarksController::class,'Paper'])->name('Paper');
 Route::match(['get', 'post'],'/getsubjects',[PaperMarksController::class,'getsubjects'])->name('getsubjects');
+Route::match(['get', 'post'],'/getpaperid',[PaperMarksController::class,'getpaperid'])->name('getpaperid');
 Route::match(['get', 'post'],'/Search_Student',[PaperMarksController::class,'Search_Student'])->name('Search_Student');
 Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_marks'])->name('Add_marks');
 Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
 Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
 // Teacher Paper Attendance routes start here
 Route::match(['get', 'post'],'/Paperattendance',[PaperMarksController::class,'Paperattendance'])->name('Paperattendance');
+Route::match(['get', 'post'],'/Search_attendance',[PaperMarksController::class,'Search_attendance'])->name('Search_attendance');
+Route::match(['get', 'post'],'/Add_attendance',[PaperMarksController::class,'Add_attendance'])->name('Add_attendance');
+Route::match(['get', 'post'], '/Application', [TeacherAttendanceController::class, 'TeacherApplication'])->name('TeacherApplication');
+Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
+Route::match(['get', 'post'], '/ViewApplication', [TeacherAttendanceController::class, 'ViewApplication'])->name('Teacher_View_Application');
 
-        Route::match(['get', 'post'], '/Application', [TeacherAttendanceController::class, 'TeacherApplication'])->name('TeacherApplication');
-        Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
-        Route::match(['get', 'post'], '/ViewApplication', [TeacherAttendanceController::class, 'ViewApplication'])->name('Teacher_View_Application');
     });
 
-
+});
 
 
 Route::group(['middleware' => 'SuperAdmin'], function () {
@@ -285,6 +315,11 @@ Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_ex
 Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
 Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
 
+//Exam Roll No Routes  Start Here 
+Route::match(['get', 'post'], '/examrollno', [ExamController::class, 'index_examrollno'])->name("examrollno");
+Route::match(['get', 'post'], '/printrollno', [PaperMarksController::class, 'print_roll_no'])->name("printrollno");
+
+
 // Assign Teacher to Paper Exam Start here
 Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
 Route::match(['get', 'post'], '/get_assign_exam_paper', [ExamController::class, 'get_assign_exam_paper'])->name("get_assign_exam_paper");
@@ -300,6 +335,39 @@ Route::match(['get', 'post'], '/deletegrade', [ExamController::class, 'delete_gr
 //Publish Result Routes Start here
 Route::match(['get', 'post'], '/result', [ExamController::class, 'index_result'])->name("result");
 Route::match(['get', 'post'],'/getsubject',[PaperMarksController::class,'getsubjects'])->name('getsubject');
+
+Route::match(['get', 'post'],'/getsubjectadmin',[PaperMarksController::class,'getsubjectadmin'])->name('getsubjectadmin');
 Route::match(['get', 'post'],'/Search_result',[PaperMarksController::class,'Search_result'])->name('Search_result');
 Route::match(['get', 'post'],'/PublishResult',[PaperMarksController::class,'PublishResult'])->name('PublishResult');
+
+// Print result start here
+Route::match(['get', 'post'],'/PrintResult',[PaperMarksController::class,'PrintResult'])->name('PrintResult');
+
+Route::match(['get', 'post'],'/ResultPrint',[PaperMarksController::class,'ResultPrint'])->name('ResultPrint');
+
+// Print DateSheet Route Start here
+Route::match(['get', 'post'],'/IndexDateSheet',[PaperMarksController::class,'IndexDateSheet'])->name('IndexDateSheet');
+
+// Withdraw Student ROutes Start here
+
+Route::get('/withdrawstudent', [WithdrawController::class, 'show'])->name('withdrawstudent');
+Route::match(['get', 'post'],'/deletestudent', [WithdrawController::class, 'delete_student'])->name('deletestudent');
+
+Route::get('/show_withdraw_students', [WithdrawController::class, 'show_withdraw_students'])->name('show_withdraw_students');
+Route::post('getmatchingstudent',  [WithdrawController::class, 'fetch_withdraw_student_data']);
+Route::match(['get', 'post'],'/rollbackstudent', [WithdrawController::class, 'roll_back_student'])->name('rollbackstudent');
+
+// Certificate Management Routes Start here
+Route::match(['get', 'post'],'/index_slc', [CertificateController::class, 'index_slc'])->name('index_slc');
+Route::match(['get', 'post'],'/print_slc/{STUDENT_ID}', [CertificateController::class, 'print_slc'])->name('print_slc');
+
+// Timetable routes start here
+
+
+Route::match(['get', 'post'], '/timetable', [TimetableController::class, 'index'])->name('timetable');
+
+Route::match(['get', 'post'], '/Searchtimetable', [TimetableController::class, 'Searchtimetable'])->name('Searchtimetable');
+Route::match(['get', 'post'], '/Savetimetable', [TimetableController::class, 'Savetimetable'])->name('Savetimetable');
+Route::match(['get', 'post'], '/deletetimetable', [TimetableController::class, 'deletetimetable'])->name('deletetimetable');
+
 });

@@ -9,7 +9,9 @@
 <div class="col-12">
    <div class="card m-b-20">
          <div class="card-body">
+         @if(Session::get('is_admin'))
          <a href="{{route('showstudent')}}" class="btn btn-primary">View All Students</a>
+         @endif
       <br><br>
       <div class="row">
          <div class="col-md-3">
@@ -30,15 +32,17 @@
                   <li class="list-group-item listnoback">
                      <b>Gender</b> <a class="pull-right text-aqua">{{ucfirst($student['GENDER'])}}</a>
                   </li>
+                  @if(Session::get('is_admin'))
                   <li class="list-group-item listnoback">
                      <b>Id Card</b> <a href="/getidcard/{{$student['STUDENT_ID']}}" class="btn btn-primary pull-right text-aqua"> Show</a>
                   </li>
+                  @endif
                </ul>
             </div>
          </div>
       </div>
       <div class="col-md-9">
-      <ul class="nav nav-pills nav-justified" role="tablist">
+      <ul class="nav nav-pills nav-justified" style="width: 250px;" role="tablist">
                                                 <li class="nav-item waves-effect waves-light">
                                                     <a class="nav-link active" data-toggle="tab" href="#activity" role="tab">Profile</a>
                                                 </li>
@@ -110,11 +114,11 @@
                            <tbody>
                               <tr>
                                  <td class="col-md-4">Father Name</td>
-                                 <td class="col-md-5">{{$student['PERMANENT_ADDRESS']}}</td>
+                                 <td class="col-md-5">{{$student['FATHER_NAME']}}</td>
                               </tr>
                               <tr>
                                  <td>Father Phone</td>
-                                 <td>{{$student['PERMANENT_ADDRESS']}}</td>
+                                 <td>{{$student['FATHER_CONTACT']}}</td>
                               </tr>
                               <tr>
                                  <td>Father CNIC</td>

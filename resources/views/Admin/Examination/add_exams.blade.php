@@ -80,9 +80,9 @@
                   <td class="mailbox-date pull-right">
                      <button value="{{$exam->EXAM_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
                   </td>
-                  <td>
+                  <!-- <td>
                      <button value="{{$exam->EXAM_ID}}" class="btn btn-default btn-xs deletebtn"> delete </button>
-                  </td>
+                  </td> -->
                </tr>
                @endforeach
             </tbody>
@@ -277,23 +277,23 @@ $('body').on('submit','#addexam',function(e){
               }
       });
     });
-    $('body').on('click', '.deletebtn',function () {
-        var EXAM_ID = $(this).val();
-        $.ajax({
-            url: '{{url("deleteexam")}}',
-            type: "GET",
-            data: {
-               EXAM_ID:EXAM_ID
-            },
-            dataType:"json",
-            success: function(data){
-               alert("deleted");
-               $('#row' + data).remove();
+   //  $('body').on('click', '.deletebtn',function () {
+   //      var EXAM_ID = $(this).val();
+   //      $.ajax({
+   //          url: '{{url("deleteexam")}}',
+   //          type: "GET",
+   //          data: {
+   //             EXAM_ID:EXAM_ID
+   //          },
+   //          dataType:"json",
+   //          success: function(data){
+   //             alert("deleted");
+   //             $('#row' + data).remove();
 
 
-            }
-        });
-      });
+   //          }
+   //      });
+   //    });
 
 </script>
 @endsection

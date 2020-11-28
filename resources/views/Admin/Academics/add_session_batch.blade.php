@@ -73,9 +73,9 @@
                   <td class="mailbox-date pull-right">
                      <button value="{{$session->SB_ID}}" class="btn btn-default btn-xs editbtn" > edit </button>
                   </td>
-                  <td>
+                  <!-- <td>
                      <button value="{{$session->SB_ID}}" class="btn btn-default btn-xs deletebtn"> delete </button>
-                  </td>
+                  </td> -->
                </tr>
                @endforeach
             </tbody>
@@ -243,23 +243,23 @@ $('body').on('submit','#addsession-batch',function(e){
               }
       });
     });
-    $('body').on('click', '.deletebtn',function () {
-        var sessionid = $(this).val();
-        $.ajax({
-            url: '{{url("deletesession-batch")}}',
-            type: "GET",
-            data: {
-               sessionid:sessionid
-            },
-            dataType:"json",
-            success: function(data){
-               alert("deleted");
-               $('#row' + data).remove();
+   //  $('body').on('click', '.deletebtn',function () {
+   //      var sessionid = $(this).val();
+   //      $.ajax({
+   //          url: '{{url("deletesession-batch")}}',
+   //          type: "GET",
+   //          data: {
+   //             sessionid:sessionid
+   //          },
+   //          dataType:"json",
+   //          success: function(data){
+   //             alert("deleted");
+   //             $('#row' + data).remove();
 
 
-            }
-        });
-      });
+   //          }
+   //      });
+   //    });
 
 </script>
 @endsection

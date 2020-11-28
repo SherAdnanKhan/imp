@@ -9,6 +9,7 @@
 @section("content")
 
                         <div class="page-content-wrapper">
+                        <div class="row" style="margin-bottom: 100px;"></div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">

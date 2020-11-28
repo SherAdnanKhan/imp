@@ -234,6 +234,10 @@ return [
         'first_name',
         'last_name',
         'email'
-    ]
+    ],
+    'calendar' => [
+        'start_time'    => '08:00',
+        'end_time'      => '18:00',
+    ],
 
 ];

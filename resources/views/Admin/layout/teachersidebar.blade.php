@@ -8,7 +8,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
-                                <a href="#" class="waves-effect">
+                                <a href="{{route('dashboard')}}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right"></span> <span> Dashboard </span>
                                 </a>
                             </li>
@@ -32,7 +32,7 @@
                                 <ul class="submenu">
                                
                                     <li><a href=" {{route('Paper')}}"> Add Marks</a></li>
-                                    <li><a href=" {{route('View_marks')}}"> View Marks</a></li>
+                                    <!-- <li><a href=" {{route('View_marks')}}"> View Marks</a></li> -->
                                     <li><a href=" {{route('Paperattendance')}}"> Paper Attendance</a></li>
                                 </ul>
                             </li>

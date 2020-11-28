@@ -117,10 +117,9 @@
                            <td>
                             <button value="{{  $val['id']  }}" class="btn btn-primary btn-xs editbtn"> edit </button>
                             </td>
-                            <td>
+                            <!-- <td>
                              <button value="{{  $val['id']  }}" class="btn btn-danger btn-xs deletebtn"> delete </button>
-
-                            </td>
+                            </td> -->
                     </tr>
 
                     @endforeach
