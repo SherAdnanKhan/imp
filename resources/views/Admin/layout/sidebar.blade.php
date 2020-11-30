@@ -134,7 +134,7 @@
                                 <li><a href="{{route('grade')}}">Define Grade </a></li>
                                 <li><a href="{{route('exam')}}">Add Exam</a></li>
                                 <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
-                                <!-- <li><a href="{{route('IndexDateSheet')}}">Print Date sheet</a></li> -->
+                                <li><a href="{{route('papermark')}}">Assign Teacher</a></li>
                                 <li><a href="{{route('examrollno')}}">Print Roll No</a></li>
                                 <li><a href="{{route('result')}}">Publish Result </a></li>
                                 <li><a href="{{route('PrintResult')}}">Print Result </a></li>
