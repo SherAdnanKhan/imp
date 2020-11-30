@@ -31,9 +31,11 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-email"></i><span> Papers <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
                                
+                                    <li><a href=" {{route('UploadPaperTeacher')}}"> Upload Paper</a></li>
+                                    <li><a href=" {{route('Paperattendance')}}"> Paper Attendance</a></li>
                                     <li><a href=" {{route('Paper')}}"> Add Marks</a></li>
                                     <!-- <li><a href=" {{route('View_marks')}}"> View Marks</a></li> -->
-                                    <li><a href=" {{route('Paperattendance')}}"> Paper Attendance</a></li>
+                              
                                 </ul>
                             </li>
 

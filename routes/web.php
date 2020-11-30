@@ -118,6 +118,13 @@ Route::match(['get', 'post'],'/Search_Student',[PaperMarksController::class,'Sea
 Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_marks'])->name('Add_marks');
 Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
 Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
+
+//upload paper by teacher Route Start here 
+
+Route::match(['get', 'post'],'/UploadPaperTeacher',[ExamController::class,'UploadPaperTeacher'])->name('UploadPaperTeacher');
+Route::match(['get', 'post'],'/need_to_upload',[ExamController::class,'need_to_upload'])->name('need_to_upload');
+Route::match(['get', 'post'],'/upload_paper',[ExamController::class,'upload_paper'])->name('upload_paper');
+
 // Teacher Paper Attendance routes start here
 Route::match(['get', 'post'],'/Paperattendance',[PaperMarksController::class,'Paperattendance'])->name('Paperattendance');
 Route::match(['get', 'post'],'/Search_attendance',[PaperMarksController::class,'Search_attendance'])->name('Search_attendance');
@@ -333,7 +340,7 @@ Route::match(['get', 'post'], '/printrollno', [PaperMarksController::class, 'pri
 Route::match(['get', 'post'], '/papermark', [ExamController::class, 'index_paperassign'])->name("papermark");
 Route::match(['get', 'post'], '/assign_paper_teacher', [ExamController::class, 'assign_paper_teacher'])->name("assign_paper_teacher");
 Route::match(['get', 'post'],'/getpapersubject',[ExamController::class,'getpapersubject'])->name('getpapersubject');
-Route::get('/downloadupload/{$UPLOADFILE}', [ExamController::class, 'getDownload']);
+Route::get('/downloadupload/{UPLOADFILE}', [ExamController::class, 'getDownload']);
 
 // Assign Teacher to Paper Exam Start here
 Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");

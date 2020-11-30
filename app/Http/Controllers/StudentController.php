@@ -358,7 +358,7 @@ class StudentController extends Controller
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $sectionid= $std_session_data['SECTION_ID'];
         $section= kelex_section::where('Section_id',$sectionid)
-                                        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+        ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
         $session=Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $fee_discount = DB::table('kelex_fee_discounts')
                                 ->leftJoin('kelex_fee_categories', 'kelex_fee_categories.FEE_CAT_ID','=', 'kelex_fee_discounts.FEE_CAT_ID')

@@ -147,8 +147,12 @@
                       <td><?= $paper->UPLOADSTATUS==1?'Pending':'Uploaded'?></td>
                       <?php if($paper->UPLOADSTATUS==2)
                       { 
+                        $ext = pathinfo($paper->UPLOADFILE, PATHINFO_EXTENSION);
                        ?>
-                     <td><a href="/downloadupload/{{$paper->UPLOADFILE}}" class="btn btn-info "><i class="icon-download-alt"> </i> Download Paper </a>   </td>
+                     <td><a href="/downloadupload/{{$paper->UPLOADFILE}}"> <?php if($ext=='pdf'){ ?><i class="far fa-file-pdf" title="Download" style="font-size:48px;color:red"></i> <?php } else { ?>
+                      <i class="fas fa-file-word" title="Download" style="font-size:48px;color:red"></i>
+                   <?php  } ?>
+                     </a>   </td>
                       <?php 
                        } 
                        else
