@@ -168,7 +168,7 @@ public function Search_attendance(Exam_MarkSearchRequest $request)
     ->select('kelex_students.*','kelex_paper_marks.*','kelex_exam_papers.*','kelex_paper_attendances.*')
     ->get()->toArray();
     //dd($data['result']);
-    $data['grade']= DB::table('Kelex_grades')->where('Kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+    $data['grade']= DB::table('kelex_grades')->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
     $data['subjectid']=$request->SUBJECT_ID;
     if(count($data['result'])>0)
     {
@@ -261,7 +261,7 @@ public function Search_result(Exam_MarkSearchRequest $request)
     ->select('kelex_students.*','kelex_paper_marks.*','kelex_exam_papers.*')
     ->get()->toArray();
   //  dd($data['result']);
-    $data['grade']= DB::table('Kelex_grades')->where('Kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+    $data['grade']= DB::table('kelex_grades')->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
     $data['subjectid']=$request->SUBJECT_ID;
     return response()->json($data);
 }
@@ -340,8 +340,8 @@ public function ResultPrint(RollNoRequest $request)
 
 
     $record =  DB::table('kelex_paper_marks')
-    ->leftJoin('Kelex_exams', 'Kelex_exams.EXAM_ID', '=', 'kelex_paper_marks.EXAM_ID')
-    ->leftJoin('Kelex_exam_papers', 'kelex_paper_marks.PAPER_ID', '=', 'Kelex_exam_papers.PAPER_ID')
+    ->leftJoin('kelex_exams', 'kelex_exams.EXAM_ID', '=', 'kelex_paper_marks.EXAM_ID')
+    ->leftJoin('kelex_exam_papers', 'kelex_paper_marks.PAPER_ID', '=', 'kelex_exam_papers.PAPER_ID')
     ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_paper_marks.SUBJECT_ID')
     ->leftJoin('kelex_students_sessions', 'kelex_paper_marks.STUDENT_ID', '=', 'kelex_students_sessions.STUDENT_ID')
     ->where('kelex_paper_marks.SECTION_ID','=',$request->SECTION_ID)
@@ -349,12 +349,12 @@ public function ResultPrint(RollNoRequest $request)
     ->where('kelex_paper_marks.SESSION_ID','=',$request->SESSION_ID)
     ->where('kelex_paper_marks.EXAM_ID','=',$request->EXAM_ID)
     ->where('kelex_paper_marks.STATUS', '=','2')
-    ->where('Kelex_exam_papers.PUBLISHED', '=','2')
-    ->select('kelex_paper_marks.*', 'Kelex_exams.EXAM_NAME',
+    ->where('kelex_exam_papers.PUBLISHED', '=','2')
+    ->select('kelex_paper_marks.*', 'kelex_exams.EXAM_NAME',
     'kelex_subjects.SUBJECT_NAME','kelex_exam_papers.*')
     ->get()->toArray();
    // dd($record);
-    $grade= DB::table('Kelex_grades')->where('Kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+    $grade= DB::table('kelex_grades')->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
      //dd($record);
     return view('Admin.Examination.print_result_template')->with(['Exam'=>$Exam,'result'=>$result,'classes'=>$class,'record'=>$record,'grades'=>$grade]);
   
