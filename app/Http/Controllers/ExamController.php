@@ -20,12 +20,15 @@ use App\Models\Kelex_sessionbatch;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Kelex_grades;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\ExamPaperRequest;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Exam_paperRequest;
 use Illuminate\Support\Facades\Response;
 use App\Http\Requests\Exam_SearchRequest;
+use App\Http\Requests\PaperUploadRequest;
 use App\Http\Requests\paper_uploadRequest;
+use App\Http\Requests\SaveTeacherUploadRequest;
 
 class ExamController extends Controller
 {
@@ -189,6 +192,7 @@ class ExamController extends Controller
         ->where('kelex_exam_papers.SECTION_ID', '=',$request->SECTION_ID)
         ->where('kelex_exam_papers.CLASS_ID', '=',$request->CLASS_ID)
         ->where('kelex_exam_papers.SESSION_ID', '=',$request->SESSION_ID)
+        ->where('kelex_exam_papers.CAMPUS_ID',Session::get('CAMPUS_ID'))
         ->select('kelex_exam_papers.*', 'kelex_subjects.SUBJECT_NAME','kelex_exams.EXAM_NAME',
         'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')
         ->groupBy('kelex_exam_papers.DATE')
@@ -206,9 +210,9 @@ class ExamController extends Controller
         ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
 
         $subject= DB::table('kelex_exam_papers')
-        ->where('kelex_exam_papers.SECTION_ID', '=',$request->SECTION_ID)
-        ->where('kelex_exam_papers.CLASS_ID', '=',$request->CLASS_ID)
-        ->where('kelex_exam_papers.SESSION_ID', '=',$request->SESSION_ID)
+        ->where('SECTION_ID', '=',$request->SECTION_ID)
+        ->where('CLASS_ID', '=',$request->CLASS_ID)
+        ->where('SESSION_ID', '=',$request->SESSION_ID)
         ->where('SUBJECT_ID','=',$request->SUBJECT_ID)
         ->where('EXAM_ID','=',$request->EXAM_ID)
         ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
@@ -225,7 +229,7 @@ class ExamController extends Controller
 
         $results= DB::table('kelex_exams')
         ->where('EXAM_ID','=', $request->input('EXAM_ID'))
-        ->where('kelex_exams.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+        ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
         //dd($results);
         if(count($results))
     {
@@ -274,9 +278,9 @@ class ExamController extends Controller
         }
         $subject= DB::table('kelex_exam_papers')
         ->where('PAPER_ID','!=',$request->PAPER_ID)
-        ->where('kelex_exam_papers.SECTION_ID', '=',$request->SECTION_ID)
-        ->where('kelex_exam_papers.CLASS_ID', '=',$request->CLASS_ID)
-        ->where('kelex_exam_papers.SESSION_ID', '=',$request->SESSION_ID)
+        ->where('SECTION_ID', '=',$request->SECTION_ID)
+        ->where('CLASS_ID', '=',$request->CLASS_ID)
+        ->where('SESSION_ID', '=',$request->SESSION_ID)
         ->where('SUBJECT_ID','=',$request->SUBJECT_ID)
         ->where('EXAM_ID','=',$request->EXAM_ID)
         ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
@@ -287,7 +291,7 @@ class ExamController extends Controller
         }
         $results= DB::table('kelex_exams')
         ->where('EXAM_ID','=', $request->input('EXAM_ID'))
-        ->where('kelex_exams.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+        ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
         //dd($results);
         if(count($results))
     {
@@ -370,7 +374,7 @@ public function add_grade(Kelex_grades $request)
     $matchmarks=0;
     $results= DB::table('kelex_grades')
     ->where('GRADE_ID','!=', $request->input('GRADE_ID'))
-    ->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+    ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
     if(count($results))
 {
     foreach($results as $result){
@@ -416,7 +420,7 @@ public function edit_grade(Request $request)
 {
 
     $currentSB= DB::table('kelex_grades')->where(['GRADE_ID' => $request->GRADE_ID])
-    ->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get();
+    ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get();
    echo json_encode($currentSB);
 
 }
@@ -427,7 +431,7 @@ public function update_grade(Kelex_grades $request)
     $matchgrade=0;
     $results= DB::table('kelex_grades')
     ->where('GRADE_ID','!=', $request->input('GRADE_ID'))
-    ->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
+    ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))->get()->toArray();
     if(count($results))
 {
     foreach($results as $result){
@@ -453,7 +457,7 @@ public function update_grade(Kelex_grades $request)
     {
     DB::table('kelex_grades')
     ->where('GRADE_ID', $request->input('GRADE_ID'))
-    ->where('kelex_grades.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+    ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
     ->update(['GRADE_NAME' => $request->input('GRADE_NAME'),
     'FROM_MARKS' => $request->input('FROM_MARKS'),
     'TO_MARKS' => $request->input('TO_MARKS')]);
@@ -483,6 +487,7 @@ public function ExamResult()
     ->where('kelex_paper_marks.STUDENT_ID', '=',Session::get('STUDENT_ID'))
     ->where('kelex_paper_marks.STATUS', '=','2')
     ->where('kelex_exam_papers.PUBLISHED', '=','2')
+    ->where('kelex_exam_papers.CAMPUS_ID',Session::get('CAMPUS_ID'))
     ->select('kelex_paper_marks.*', 'kelex_exams.EXAM_NAME',
     'kelex_subjects.SUBJECT_NAME','kelex_exam_papers.*')
     ->groupBy('kelex_exam_papers.PAPER_ID')
@@ -511,6 +516,7 @@ public function index_paperassign(Request $request)
     ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_paper_uploads.CLASS_ID')
     ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_paper_uploads.SESSION_ID')
     ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_paper_uploads.SUBJECT_ID')
+    ->where('kelex_paper_uploads.CAMPUS_ID',Session::get('CAMPUS_ID'))
     ->select('kelex_employees.EMP_NAME', 'kelex_subjects.SUBJECT_NAME','kelex_paper_uploads.*',
     'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')->get();
     $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
@@ -530,6 +536,7 @@ public function getpapersubject(Request $request)
     ->where('kelex_exam_papers.CLASS_ID', '=',$request->CLASS_ID)
     ->where('kelex_exam_papers.SESSION_ID', '=',$request->SESSION_ID)
     ->where('kelex_exam_papers.EXAM_ID', '=',$request->EXAM_ID)
+    ->where('kelex_exam_papers.CAMPUS_ID',Session::get('CAMPUS_ID'))
     ->select('kelex_subjects.*','kelex_exam_papers.PAPER_ID')
     ->get()->toArray();
     return response()->json($record);
@@ -576,13 +583,58 @@ public function assign_paper_teacher(paper_uploadRequest $request)
     public function getDownload($UPLOADFILE)
 {
     //PDF file is stored under project/public/download/info.pdf
-    $file= public_path().$UPLOADFILE;
+    $image_path =public_path()."/upload/".Session::get('CAMPUS_ID').'/Paper'.'/'.$UPLOADFILE;
+    return Response::download($image_path);
+}
+public function UploadPaperTeacher()
+{
+    $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    $getexam = Kelex_exam::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    $session = Kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    $Subject = Kelex_subject::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+    return view('Admin.Examination.paperupload_byteacher')->with(['gexam'=>$getexam,'subjects'=>$Subject,'sessions'=>$session,'classes'=>$class]);
 
-    $headers = array(
-              'Content-Type: application/pdf',
-            );
+}
+public function need_to_upload(SaveTeacherUploadRequest $request)
+{
+    $paper= DB::table('kelex_paper_uploads')
+    ->leftJoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_paper_uploads.SECTION_ID')
+    ->leftJoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_paper_uploads.CLASS_ID')
+    ->leftJoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_paper_uploads.SESSION_ID')
+    ->leftJoin('kelex_subjects', 'kelex_subjects.SUBJECT_ID', '=', 'kelex_paper_uploads.SUBJECT_ID')
+    ->where('kelex_paper_uploads.SECTION_ID', '=',$request->SECTION_ID)
+    ->where('kelex_paper_uploads.CLASS_ID', '=',$request->CLASS_ID)
+    ->where('kelex_paper_uploads.SESSION_ID', '=',$request->SESSION_ID)
+    ->where('kelex_paper_uploads.SUBJECT_ID', '=',$request->SUBJECT_ID)
+    ->where('kelex_paper_uploads.CAMPUS_ID',Session::get('CAMPUS_ID'))
+    ->where('kelex_paper_uploads.EMP_ID','=',Session::get('EMP_ID'))
+    ->select('kelex_subjects.SUBJECT_NAME','kelex_paper_uploads.*',
+    'kelex_sections.Section_name','kelex_classes.Class_name','kelex_sessionbatches.SB_NAME')->get();
+    return response()->json($paper);
+}
+public function upload_paper(PaperUploadRequest $request)
+{
+    $uploadfile = $request->file('UPLOADFILE');
+    $img=Kelex_paper_upload::where('PAPER_MARKING_ID',$request->PAPER_MARKING_ID)
+                            ->where('CAMPUS_ID', Session::get('CAMPUS_ID'))->first();
+    $my_image =$img['UPLOADFILE'];
+    if(!empty($uploadfile)):
+    $image_path =public_path()."/upload/".Session::get('CAMPUS_ID').'/Paper'.'/'.$my_image;   
+    if(File::exists($image_path)) {  
+    File::delete($image_path);
+    }
 
-    return Response::download($file, $UPLOADFILE, $headers);
+    $my_uploadfile = rand() . '.' . $uploadfile->getClientOriginalExtension();
+    $uploadfile->move(public_path('upload/'.Session::get('CAMPUS_ID').'/Paper'), $my_uploadfile);
+    endif;
+
+    DB::table('kelex_paper_uploads')
+    ->where('PAPER_MARKING_ID', $request->input('PAPER_MARKING_ID'))
+    ->where('CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
+    ->update(['UPLOADSTATUS' => '2',
+    'UPLOADFILE' => $my_uploadfile]);
+
+    return response()->json(true);
 }
 
 
