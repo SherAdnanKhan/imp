@@ -130,7 +130,7 @@
 
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Exam Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                             <ul class="submenu">
-                             
+
                                 <li><a href="{{route('grade')}}">Define Grade </a></li>
                                 <li><a href="{{route('exam')}}">Add Exam</a></li>
                                 <li><a href="{{route('exampaper')}}">Apply Exam</a></li>
@@ -146,7 +146,7 @@
 
                                     <li><a href="{{route('timetable')}}">Add Lessons</a></li>
                                     <li><a href="{{route('searchingtimetable')}}">Print TimeTable</a></li>
-                     
+
                                 </ul>
                             </li>
                             @if(isset($permissions->admissionwithdraw->status)=="1")
@@ -201,6 +201,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-maps"></i><span> Accounts  <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span></span></a>
                                 <ul class="submenu">
+                                    <li><a href="bank-managment">Bank Managment</a></li>
                                 @if(isset($permissions->accounts->asset_category->status)=="1")
                                     <li><a href="comingsoon"> Assets Category</a></li>
                                 @endif
@@ -210,7 +211,7 @@
                                 </ul>
                             </li>
                             @endif
-                          
+
                             <li class="menu-title">Settings</li>
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>System Settings <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
