@@ -14,6 +14,7 @@ use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\KelexBanksController;
 use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\NonTeachingController;
 use App\Http\Controllers\StudentLoginController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
 use App\Http\Controllers\TeacherAttendanceController;
 use App\Http\Controllers\WithdrawController;
+use App\Models\Kelex_banks;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +57,9 @@ Route::get('/', function () {
     }
 })->name('login');
 
-Route::match(['get', 'post'], '/searchingtimetable', [TimetableController::class, 'searchingtimetable'])->name('searchingtimetable'); 
+Route::match(['get', 'post'], '/searchingtimetable', [TimetableController::class, 'searchingtimetable'])->name('searchingtimetable');
 
-Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetable'])->name('showtimetable');  
+Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetable'])->name('showtimetable');
 
 
 
@@ -91,13 +93,13 @@ Route::prefix('student')->group(function () {
         // Student result routes
 
         Route::match(['get', 'post'], '/ExamResult', [ExamController::class, 'ExamResult'])->name('ExamResult');
-        
+
     });
 });
 
 
 Route::prefix('teacher')->group(function () {
-    
+
     Route::match(['get', 'post'], '/dashboard', [TeacherLoginController::class, 'dashboard'])->name('dashboard');
     Route::match(['get', 'post'], '/login_teacher', [TeacherLoginController::class, 'login_employee'])->name('loginteacher');
 
@@ -287,7 +289,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::match(['get', 'post'], '/apply-fee-structure', [FeeController::class, 'apply_fee_structure'])->name("apply-fee-structure");
     Route::match(['get', 'post'], '/apply-fee', [FeeController::class, 'apply_fee'])->name("Apply-Fee");
     Route::match(['get', 'post'], '/get-section-fee-category/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_section_fee_category'])->name("get-section-fee-category");
-    Route::match(['get', 'post'], '/get-section-fee/{session_id}/{class_id}/{section_id}', [FeeController::class, 'get_section_fee'])->name("get-section-fee");
+    Route::match(['get', 'post'], '/get-section-fee/{session_id}/{class_id}/{section_id}/{type}', [FeeController::class, 'get_section_fee'])->name("get-section-fee");
     Route::match(['get', 'post'], '/print-fee-voucher', [FeeController::class, 'fee_voucher'])->name("fee-voucher");
     Route::match(['get', 'post'], '/apply-fee-on-sections', [FeeController::class, 'apply_fee_on_sections'])->name("apply-fee-on-sections");
     Route::get('/get-fee-type/{session_id}/{class_id}/{section_id}/{fee_cat_id}', [FeeController::class, 'get_fee_type'])->name("get-fee-type");
@@ -330,7 +332,7 @@ Route::match(['get', 'post'], '/add_exam_paper', [ExamController::class, 'add_ex
 Route::match(['get', 'post'], '/edit_exam_paper', [ExamController::class, 'edit_exam_paper'])->name("edit_exam_paper");
 Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'update_exam_paper'])->name("update_exam_paper");
 
-//Exam Roll No Routes  Start Here 
+//Exam Roll No Routes  Start Here
 Route::match(['get', 'post'], '/examrollno', [ExamController::class, 'index_examrollno'])->name("examrollno");
 Route::match(['get', 'post'], '/printrollno', [PaperMarksController::class, 'print_roll_no'])->name("printrollno");
 
@@ -389,5 +391,12 @@ Route::match(['get', 'post'], '/timetable', [TimetableController::class, 'index'
 Route::match(['get', 'post'], '/Searchtimetable', [TimetableController::class, 'Searchtimetable'])->name('Searchtimetable');
 Route::match(['get', 'post'], '/Savetimetable', [TimetableController::class, 'Savetimetable'])->name('Savetimetable');
 Route::match(['get', 'post'], '/deletetimetable', [TimetableController::class, 'deletetimetable'])->name('deletetimetable');
+
+///Banak Managament rouets.
+Route::match(['get','post'],'/bank-managment',[KelexBanksController::class,'index'])->name('bank-managment');
+Route::match(['get', 'post'], '/add-bank', [KelexBanksController::class, 'add_bank'])->name('add-bank');
+Route::match(['get', 'post'], '/edit-bank/{id}', [KelexBanksController::class, 'edit_bank'])->name('edit-bank');
+Route::match(['get', 'post'], '/update-bank', [KelexBanksController::class, 'update_bank'])->name('update-bank');
+/// End Bank Managment routes..
 
 });

@@ -64,13 +64,13 @@
 
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-success active">
-                                    <input type="radio" name="options" id="print-type" checked> Single Student Copy
+                                    <input type="radio" name="options" id="print-type" value="1" checked> Single Student Copy
                                 </label>
                                 <label class="btn btn-info">
-                                    <input type="radio" name="options" id="print-type"> Double Student + School Copy
+                                    <input type="radio" name="options" id="print-type" value="2"> Double Student + School Copy
                                 </label>
                                 <label class="btn btn-warning">
-                                    <input type="radio" name="options" id="print-type"> Triple Student + School + Bank Copy
+                                    <input type="radio" name="options" id="print-type" value="3"> Triple Student + School + Bank Copy
                                 </label>
                                 </div>
 
@@ -158,6 +158,7 @@ $('body').on('click','.print-btn',function(){
     var session_id = $('#session_id').val();
     var class_id = $('#class_id').val();
     var section_id = $('#sectionid').val();
+    var type = $('#print-type:checked').val();
     if((session_id == "") || (session_id == null))
     {
         toastr.error('Select Session..','Error');
@@ -173,7 +174,7 @@ $('body').on('click','.print-btn',function(){
         toastr.error('Select Section..','Error');
         return false;
     }
-    window.open('{{url("get-section-fee")}}/'+session_id+'/'+class_id+'/'+section_id, '_blank');
+    window.open('{{url("get-section-fee")}}/'+session_id+'/'+class_id+'/'+section_id+'/'+type, '_blank');
 });
 // $('body').on('change','#sectionid',function(){
 //     var session_id = $('#session_id').val();
