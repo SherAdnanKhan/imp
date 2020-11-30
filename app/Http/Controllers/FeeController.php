@@ -23,6 +23,7 @@ use App\Http\Requests\FeetypeRequest;
 use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FeeCategoryRequest;
+use App\Models\Kelex_bank;
 use App\Models\Kelex_student;
 
 class FeeController extends Controller
@@ -407,7 +408,7 @@ class FeeController extends Controller
         $data = ['sessions' => $sessions,  'classes' => $classes];
         return view('Admin.FeesManagement.print_fee_voucher')->with($data);
     }
-    public function get_section_fee($session_id,$class_id,$section_id)
+    public function get_section_fee($session_id,$class_id,$section_id,$type)
     {
 
         $record = Kelex_fee::where('SESSION_ID',$session_id)
@@ -495,11 +496,23 @@ class FeeController extends Controller
 
         endfor;
         // echo "<pre>";print_r($std_record);die;
+        $bank = Kelex_bank::where(['CAMPUS_ID' => Session::get('CAMPUS_ID'),'IS_ACTIVE' => '1'])->first(); //dd($bank);
         $class= Kelex_class::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $Section= Kelex_Section::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
         $Session= kelex_sessionbatch::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
+        switch ($type) {
+            case '1':
+                $view = 'Admin.FeesManagement.print_fee_slip_1';
+                break;
+            case '2':
+                $view = 'Admin.FeesManagement.print_fee_slip_2';
+                break;
 
-        return view('Admin.FeesManagement.print_fee_slip')->with(['record' => $std_record,'class'=>$class,'Section'=>$Section,'Session'=>$Session]);
+            case '3':
+                $view = 'Admin.FeesManagement.print_fee_slip_3';
+                break;
+        }
+        return view($view)->with(['record' => $std_record,'class'=>$class,'Section'=>$Section,'Session'=>$Session,'bank' => $bank]);
 
     }
 
