@@ -13,7 +13,7 @@ class CreateExamPapers extends Migration
      */
     public function up()
     {
-        Schema::create('Kelex_exam_papers', function (Blueprint $table) {
+        Schema::create('kelex_exam_papers', function (Blueprint $table) {
             $table->id('PAPER_ID');
             $table->unsignedBigInteger('EXAM_ID')->nullable();
             $table->unsignedBigInteger('SUBJECT_ID')->nullable();
@@ -42,6 +42,6 @@ class CreateExamPapers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Kelex_exam_papers');
+        Schema::dropIfExists('kelex_exam_papers');
     }
 }
