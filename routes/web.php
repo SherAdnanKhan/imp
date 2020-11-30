@@ -329,6 +329,11 @@ Route::match(['get', 'post'], '/update_exam_paper', [ExamController::class, 'upd
 Route::match(['get', 'post'], '/examrollno', [ExamController::class, 'index_examrollno'])->name("examrollno");
 Route::match(['get', 'post'], '/printrollno', [PaperMarksController::class, 'print_roll_no'])->name("printrollno");
 
+// Assign Paper to teacher start here
+Route::match(['get', 'post'], '/papermark', [ExamController::class, 'index_paperassign'])->name("papermark");
+Route::match(['get', 'post'], '/assign_paper_teacher', [ExamController::class, 'assign_paper_teacher'])->name("assign_paper_teacher");
+Route::match(['get', 'post'],'/getpapersubject',[ExamController::class,'getpapersubject'])->name('getpapersubject');
+Route::get('/downloadupload/{$UPLOADFILE}', [ExamController::class, 'getDownload']);
 
 // Assign Teacher to Paper Exam Start here
 Route::match(['get', 'post'], '/assign_exam_paper', [ExamController::class, 'assign_exam_paper'])->name("assign_exam_paper");
