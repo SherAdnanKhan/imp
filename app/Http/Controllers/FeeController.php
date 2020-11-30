@@ -431,7 +431,7 @@ class FeeController extends Controller
         endforeach;
         $inst_type = (trim(session('CAMPUS')->TYPE) == "school" ) ? 1 : 2;
         $months = DB::table('kelex_months')
-                                ->where('type',$inst_type)
+                                ->where('TYPE',$inst_type)
                                 ->whereIn('NUMBER',$fee_data_months_arr[0])
                                 ->orderBy('NUMBER','ASC')
                                 ->pluck('MONTH');
