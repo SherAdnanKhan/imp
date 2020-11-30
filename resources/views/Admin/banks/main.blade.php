@@ -71,7 +71,10 @@
                   <td> {{$row->NAME}}</td>
                   <td> {{$row->ACC_TITLE}}</td>
                   <td> {{$row->ACC_NUMBER}}</td>
-                  <td> {{$row->logo}}</td>
+                  <td>
+                        @php $logo = (trim($row->LOGO) == "") ? 'https://via.placeholder.com/60x60?text=LOGO' : asset('upload/banks/'.Session::get('CAMPUS_ID').'/'.$row->LOGO) @endphp
+                                    <img src="{{$logo}}" class="img img-thumbnail" width="50%">
+                  </td>
                   @php
                    $status = ($row->IS_ACTIVE == '1') ? '<span class="badge badge-primary">Active</span>' : '<span class="badge badge-warning">InActive</span>';
                   @endphp
