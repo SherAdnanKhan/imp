@@ -14,6 +14,7 @@ use App\Http\Controllers\AcademicsController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\GeneralSettingController;
 use App\Http\Controllers\KelexBanksController;
 use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\NonTeachingController;
@@ -119,7 +120,7 @@ Route::match(['get', 'post'],'/Add_marks',[PaperMarksController::class,'Add_mark
 Route::match(['get', 'post'],'/View_marks',[PaperMarksController::class,'View_marks'])->name('View_marks');
 Route::get('/getsections/{id}',  [StudentController::class, 'fetch']);
 
-//upload paper by teacher Route Start here 
+//upload paper by teacher Route Start here
 
 Route::match(['get', 'post'],'/UploadPaperTeacher',[ExamController::class,'UploadPaperTeacher'])->name('UploadPaperTeacher');
 Route::match(['get', 'post'],'/need_to_upload',[ExamController::class,'need_to_upload'])->name('need_to_upload');
@@ -397,6 +398,9 @@ Route::match(['get','post'],'/bank-managment',[KelexBanksController::class,'inde
 Route::match(['get', 'post'], '/add-bank', [KelexBanksController::class, 'add_bank'])->name('add-bank');
 Route::match(['get', 'post'], '/edit-bank/{id}', [KelexBanksController::class, 'edit_bank'])->name('edit-bank');
 Route::match(['get', 'post'], '/update-bank', [KelexBanksController::class, 'update_bank'])->name('update-bank');
-/// End Bank Managment routes..
+    /// End Bank Managment routes..
 
+// General Setting routes
+Route::match(['get', 'post'], '/fee-terms', [GeneralSettingController::class, 'fee_terms'])->name('fee-terms');
+// End General Setting routes
 });
