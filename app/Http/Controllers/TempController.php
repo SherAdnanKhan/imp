@@ -19,7 +19,7 @@ class TempController extends Controller
        foreach($students as $student){
         $studentreg=$student->REG_NO;
         $username= $campusname.''.$campusid.'_'.$studentreg;
-       DB::table('kelex_students')->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->where('STUDENT_ID',$student->STUDENT_ID)
+        DB::table('kelex_students')->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->where('STUDENT_ID',$student->STUDENT_ID)
         ->update(['USERNAME' => $username]);
        }
       

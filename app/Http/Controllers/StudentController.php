@@ -61,15 +61,12 @@ class StudentController extends Controller
             for ($i = 0; $i < count($row); $i ++)
             {
                 $regno= DB::table('kelex_students')
-                ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-                ->select('REG_NO')
-                ->latest('created_at')
-                ->first();
+                ->where('CAMPUS_ID', Auth::user()->CAMPUS_ID)
+                ->orderBy('REG_NO', 'desc')->first();
+
                 $rollno= DB::table('kelex_students_sessions')
-                ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
-                ->select('ROLL_NO')
-                ->latest('created_at')
-                ->first();
+                ->where('CAMPUS_ID', Auth::user()->CAMPUS_ID)
+                ->orderBy('ROLL_NO', 'desc')->first();
 
                 $myDate =  date("Y/n/j",strtotime(str_replace('/','-',$row[$i]["DOB"])));
 
