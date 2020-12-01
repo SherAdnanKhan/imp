@@ -24,10 +24,10 @@
                      <b>Admission No</b> <a class="pull-right text-aqua"> {{ucfirst($student['REG_NO'])}}</a>
                   </li>
                   <li class="list-group-item listnoback">
-                     <b>Class</b> <a class="pull-right text-aqua">{{ucfirst($class['Class_name'])}} ({{ucfirst($session['SB_NAME'])}})</a>
+                     <b>{{Session::get('class')}}</b> <a class="pull-right text-aqua">{{ucfirst($class['Class_name'])}} ({{ucfirst($session['SB_NAME'])}})</a>
                   </li>
                   <li class="list-group-item listnoback">
-                     <b>Section</b> <a class="pull-right text-aqua">{{ucfirst($section['Section_name'])}}</a>
+                     <b>{{Session::get('section')}}</b> <a class="pull-right text-aqua">{{ucfirst($section['Section_name'])}}</a>
                   </li>
                   <li class="list-group-item listnoback">
                      <b>Gender</b> <a class="pull-right text-aqua">{{ucfirst($student['GENDER'])}}</a>

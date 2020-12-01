@@ -10,12 +10,12 @@
             <form id="addsubjectgroup" action="{{ route('addsubjectgroup')}}" name="addsubjectgroup" method="post" accept-charset="utf-8">
             @csrf
                 <div class="form-group">
-                     <label for="">Session</label>
+                     <label for="">{{Session::get('session')}}</label>
                         <small class="req"> *</small>
                         <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
                            id="SESSION_ID">
                            <option value="0" disabled selected>Select
-                              Session*</option>
+                           {{Session::get('session')}}*</option>
                            @foreach($sessions as $session)
                            <option  value="{{ $session->SB_ID }}">
                               {{ ucfirst($session->SB_NAME) }}</option>
@@ -41,12 +41,12 @@
                </div>
 
                <div class="form-group">
-                  <label for="">Class</label>
+                  <label for="">{{Session::get('class')}}</label>
                      <small class="req"> *</small>
                      <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                         id="class_id">
                         <option value="0" disabled selected>Select
-                           Class*</option>
+                        {{Session::get('class')}}*</option>
                         @foreach($classes as $class)
                         <option  value="{{ $class->Class_id }}">
                            {{ ucfirst($class->Class_name) }}</option>
@@ -55,7 +55,7 @@
                   <small id="CLASS_ID_error" class="form-text text-danger"></small>
                </div>
                <div class="form-group">
-                     <label for="">Section</label>
+                     <label for="">{{Session::get('section')}}</label>
                         <small class="req"> *</small>
                         <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                      </select>
@@ -98,7 +98,7 @@
                      <thead>
                         <tr>
                            <th>Name</th>
-                           <th>Class Section Session</th>
+                           <th>{{Session::get('class')}} {{Session::get('section')}} {{Session::get('session')}}</th>
                            <th>Subject</th>
                            <th colspan="2"class= "text-right no_print" style="display: block;">Action</th>
                         </tr>
@@ -168,7 +168,7 @@
                     </div> --}}
 
                     {{-- <div class="form-group">
-                        <label for="">Class</label>
+                        <label for="">{{Session::get('class')}}</label>
                             <small class="req"> *</small>
                             <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                 id="class_ids">
@@ -182,7 +182,7 @@
                         <small id="CLASS_ID_error" class="form-text text-danger"></small>
                     </div> --}}
                     {{-- <div class="form-group">
-                        <label for="">Section</label>
+                        <label for="">{{Session::get('section')}}</label>
                             <small class="req"> *</small>
                             <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionids" >
                         </select>
@@ -201,12 +201,12 @@
                         <small id="subject_err" class="form-text text-danger"></small>
                     </div> --}}
                     {{-- <div class="form-group">
-                        <label for="">Session</label>
+                        <label for="">{{Session::get('session')}}</label>
                             <small class="req"> *</small>
                             <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
                                 id="SESSION_IDs">
                                 <option value="0" disabled selected>Select
-                                    Session*</option>
+                                {{Session::get('session')}}*</option>
                                 @foreach($sessions as $session)
                                 <option  value="{{ $session->SB_ID }}">
                                     {{ ucfirst($session->SB_NAME) }}</option>

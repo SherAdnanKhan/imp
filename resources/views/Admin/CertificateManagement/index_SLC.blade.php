@@ -23,10 +23,10 @@ color:aliceblue;}
           <div class="col-md-4">
           <div class="form-group">
           <small id="SESSION_ID_error" class="form-text text-danger"></small>
-                 <label for="">Sessions *<span class="gcolor"></span> </label>
+                 <label for="">{{Session::get('session')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Session"
                     id="session_id">
-                    <option value="">Select Session</option>
+                    <option value="">Select {{Session::get('session')}}</option>
                      @foreach($sessions as $row)
                         <option  value="{{ $row->SB_ID }}">{{ ucfirst($row->SB_NAME) }}</option>
                      @endforeach
@@ -35,11 +35,11 @@ color:aliceblue;}
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="">Class *<span class="gcolor"></span> </label>
+                <label for="">{{Session::get('class')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class"
                     id="class_id">
                     <option value="0"  selected>Select
-                        Class*</option>
+                    {{Session::get('class')}}*</option>
                     @foreach($classes as $class)
                     <option  value="{{ $class->Class_id }}">
                         {{ ucfirst($class->Class_name) }}</option>
@@ -50,9 +50,9 @@ color:aliceblue;}
             <div class="col-md-4">
               <div class="form-group">
               <small id="SECTION_ID_error" class="form-text text-danger"></small>
-                   <label>section*</label>
+                   <label>{{Session::get('section')}}*</label>
                   <select class="form-control formselect required" placeholder="Select Section" id="sectionid">
-                    <option value="0"  selected>Select
+                    <option value="0"  selected>Select {{Session::get('section')}}
                   </select>
               </div>
             </div>
@@ -147,7 +147,7 @@ color:aliceblue;}
                     html += '    <th scope="col">FATHER Contact</th>';
                     html += '    <th scope="col">PRESENT ADDRESS</th>';
                     html += '    <th scope="col">Student Picture</th>';
-                    html += '     <th scope="col">School Leaving Certificate</th>';
+                    html += '     <th scope="col">{{Session::get("campusname")}} Leaving Certificate</th>';
                     html += '   </tr>';
                     html += ' </thead>';
                     html += ' <tbody>';

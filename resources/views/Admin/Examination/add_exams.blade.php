@@ -13,13 +13,13 @@
             <div class="box-body">
               @csrf
               <div class="form-group">
-                     <label for="">Session</label>
+                     <label for="">{{Session::get('session')}}</label>
                         <small class="req"> *</small>
                         <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
                           >
 
                            <option value="0" disabled selected>Select
-                              Session*</option>
+                           {{Session::get('session')}}*</option>
                            @foreach($sessions as $session)
                            <option  value="{{ $session->SB_ID }}">
                               {{ ucfirst($session->SB_NAME) }}</option>
@@ -64,7 +64,7 @@
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject: activate to sort column ascending" style="width: 208px;">Exam </th>
                   <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Code: activate to sort column ascending" style="width: 236px;" aria-sort="descending">START DATE</th>
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">END DATE</th>
-                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">SESSION</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">{{Session::get('session')}}</th>
                   <th class="text-right no-print sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending" style="width: 230px;">Action</th>
                </tr>
             </thead>
@@ -106,12 +106,12 @@
          @csrf
          <div class="box-body">
          <div class="form-group">
-                     <label for="">Session</label>
+                     <label for="">{{Session::get('session')}}</label>
                         <small class="req"> *</small>
                         <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
                            id="SESSION_ID">
                            <option value="0" disabled selected>Select
-                              Session*</option>
+                           {{Session::get('session')}}*</option>
                            @foreach($sessions as $session)
                            <option  value="{{ $session->SB_ID }}">
                               {{ ucfirst($session->SB_NAME) }}</option>

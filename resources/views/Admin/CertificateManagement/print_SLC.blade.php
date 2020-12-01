@@ -26,7 +26,7 @@
 </div>
 
 <div class="small-heading">{{$CAMPUS['SCHOOL_ADDRESS']}}</div>
-<div class="large-heading">School Leaving Certificate
+<div class="large-heading">{{Session::get('campusname')}} Leaving Certificate
 
 </div>
 
@@ -77,7 +77,7 @@
 
 <div class="row-3">
 
-<div class="info-text">Attended this school from:</div>
+<div class="info-text">Attended this {{Session::get('campusname')}} from:</div>
 <div class="block-bg3"><input name="attendedFrom" type="text" class="big-field" id="mail" value="{{ \Carbon\Carbon::parse($SLCDATA->created_at)->format('d, m, Y') }}"></div>
   <div class="info-text">to:</div>
   <div class="l-ser1"><input name="attendedTo" type="text" class="big-field" id="mail" value="{{ \Carbon\Carbon::parse($SLCDATA->WITHDRAW_DATE)->format('d, m, Y') }}">
@@ -88,12 +88,12 @@
 <div class="row-3">
 
 
-  <div class="info-text">  and now leave the school having paid all dues to date.</div>
+  <div class="info-text">  and now leave the {{Session::get('campusname')}} having paid all dues to date.</div>
 </div>
   <div class="row-3"></div>
 <div class="row-3">
 
-<div class="info-text">His/Her date of birth, as per school record,is (in words)</div>
+<div class="info-text">His/Her date of birth, as per {{Session::get('campusname')}} record,is (in words)</div>
 <div class="block-bg1"><input name="inWord" type="text" class="big-field" id="mail" value="{{ \Carbon\Carbon::parse($SLCDATA->WITHDRAW_DATE)->format('j F, Y') }}"></div>
 <div class="info-text">(in figures)</div>
 <div class="l-date"><input name="inFigures" type="text" class="big-field" id="mail" value="{{ \Carbon\Carbon::parse($SLCDATA->WITHDRAW_DATE)->format('d, m, Y') }}"></div>
@@ -107,14 +107,14 @@
   <?php $prevclassname=$class->Class_name; ?>
   @endif
   @endforeach
-    <div class="info-text">Last Examination passed by him/her was that of class</div>
+    <div class="info-text">Last Examination passed by him/her was that of {{Session::get('class')}}</div>
     <div class="block-bg3mobi"><input name="attendedFrom" type="text" class="big-field" id="mail" value="{{$prevclassname}}"></div>
 
 
   </div>
 
   <div class="row-3">
-    <div class="info-text">Now he is in class</div>
+    <div class="info-text">Now he is in {{Session::get('class')}}</div>
     <?php $currentclassname=""; ?>
   @foreach($classes as $class)      
   @if($SLCDATA->CLASS_ID==$class->Class_id)

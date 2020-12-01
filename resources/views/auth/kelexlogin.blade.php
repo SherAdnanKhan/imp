@@ -207,6 +207,7 @@ $('body').on('submit','#Adminloginform',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+              //return false;
                console.log(data)
                if ($.trim(data) == '' ) {
                 $("#teacherlogin_error").text('These credentials do not match our records.');

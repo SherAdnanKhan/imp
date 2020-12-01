@@ -15,12 +15,12 @@
                 <div class="form-group">
                     <form action="" id="ap_tr" method="post">
                         @csrf
-                     <label for="">Session</label>
+                     <label for="">{{Session::get('session')}}</label>
                         <small class="req"> *</small>
                         <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
                            id="SESSION_ID">
                            <option value="0" disabled selected>Select
-                              Session*</option>
+                           {{Session::get('session')}}*</option>
                            @foreach($sessions as $session)
                            <option  value="{{ $session->SB_ID }}">
                               {{ ucfirst($session->SB_NAME) }}</option>
@@ -31,11 +31,11 @@
                 </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label for="">Class *<span class="gcolor"></span> </label>
+                <label for="">{{Session::get('class')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class" name="CLASS_ID"
                     id="class_id">
                     <option value="0" disabled selected>Select
-                        Class*</option>
+                    {{Session::get('class')}}*</option>
                     @foreach($classes as $class)
                     <option  value="{{ $class->Class_id }}">
                         {{ ucfirst($class->Class_name) }}</option>
@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                   <label>section*</label>
+                   <label>{{Session::get('section')}}*</label>
                   <select class="form-control formselect required" placeholder="Select Section" name="SECTION_ID" id="sectionid">
                     <option value="0" disabled selected>Select
                   </select>
@@ -125,9 +125,9 @@
             <table id="DataTables_Table_0" class="table table-striped table-bordered table-hover " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                       <tr>
-                        <th scope="col">Session</th>
-                        <th scope="col">Class</th>
-                        <th scope="col">Section</th>
+                        <th scope="col">{{Session::get('session')}}</th>
+                        <th scope="col">{{Session::get('class')}}</th>
+                        <th scope="col">{{Session::get('section')}}</th>
                         <th scope="col">Subject</th>
                         <th scope="col">Teacher</th>
                         <th scope="col">Upload Status</th>

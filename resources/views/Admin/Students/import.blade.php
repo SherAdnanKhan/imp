@@ -35,7 +35,7 @@
 
                                     <div class="form-group">
                                         
-                                       <label for="">Session</label>
+                                       <label for="">{{Session::get('session')}}</label>
                                           <small class="req"> *</small>
                                           <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Section" id="SESSION_ID" >
                                             <option value="">Select</option>
@@ -48,12 +48,12 @@
                                  </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Class</label>
+                                        <label for="">{{Session::get('class')}}</label>
                                         <small class="req"> *</small>
                                         <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                             id="class_id">
                                             <option value="0" disabled selected>Select
-                                                Class*</option>
+                                            {{Session::get('class')}}*</option>
                                             @foreach($classes as $class)
                                             <option  value="{{ $class->Class_id }}">
                                                 {{ ucfirst($class->Class_name) }}</option>
@@ -64,7 +64,7 @@
                                 </div>
                                  <div class="col-md-4">
                                      <div class="form-group">
-                                       <label for="">Section</label>
+                                       <label for="">{{Session::get('section')}}</label>
                                           <small class="req"> *</small>
                                           <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                                        </select>

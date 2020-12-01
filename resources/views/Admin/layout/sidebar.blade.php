@@ -29,13 +29,13 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span> Academics <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
                                 @if(isset($permissions->acadamics->session->status)=="1")
-                                    <li><a href="{{route('session-batch')}}">Session/Batches</a></li>
+                                    <li><a href="{{route('session-batch')}}">{{Session::get('session')}}</a></li>
                                 @endif
                                 @if(isset($permissions->acadamics->classess->status)=="1")
-                                    <li><a href="{{route('class')}}">Classes</a></li>
+                                    <li><a href="{{route('class')}}">{{Session::get('class')}}</a></li>
                                 @endif
                                 @if(isset($permissions->acadamics->sections->status)=="1")
-                                    <li><a href="{{route('section')}}">Section</a></li>
+                                    <li><a href="{{route('section')}}">{{Session::get('section')}}</a></li>
                                 @endif
                                 @if(isset($permissions->acadamics->subjects->status)=="1")
                                     <li><a href="{{route('subject')}}">Subject</a></li>
@@ -168,7 +168,7 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
                             @if(isset($permissions->certificate->slc->status)=="1")
-                                    <li><a href="{{route('index_slc')}}">School Leaving Certifcate</a></li>
+                                    <li><a href="{{route('index_slc')}}">{{Session::get('campusname')}} Leaving Certifcate</a></li>
                             @endif
                             @if(isset($permissions->certificate->experience->status)=="1")
                                     <li><a href="comingsoon">Experience</a></li>

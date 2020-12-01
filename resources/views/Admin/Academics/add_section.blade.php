@@ -8,16 +8,16 @@
 <div class="row">
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
-            <h3 class="card-title font-16 mt-0">Add Section</h3>
+            <h3 class="card-title font-16 mt-0">Add {{Session::get('section')}}</h3>
                <form action="{{route('addsection')}}" id="addsection" name="sectionform" method="post" accept-charset="utf-8">
                    <div class="form-group">
-                           <label for="exampleInputsection1">Section Name </label><small class="req"> *</small>
+                           <label for="exampleInputsection1">{{Session::get('section')}} Name </label><small class="req"> *</small>
                            <small id="Section_name_error" class="form-text text-danger"></small>
                            <input autofocus="" id="section" name="Section_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                            <span class="text-danger"></span>
                   </div>
                   <div class="form-group">
-                     <label for="exampleInputsection1">Select Class :  </label>
+                     <label for="exampleInputsection1">Select {{Session::get('class')}} :  </label>
                      <small id="Classes_id_error" class="form-text text-danger"></small>
                      <select name="Classes_id" id="classes_id" class="form-control formselect required">
                         @foreach($classes as $class)
@@ -34,13 +34,13 @@
    </div>
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Section List</h3>
+         <h3 class="card-title font-16 mt-0">{{Session::get('section')}} List</h3>
          <div class="table-responsive">
          <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
-                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Class: activate to sort column ascending" style="width: 255px;">Sections</th>
-                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Sections: activate to sort column ascending" style="width: 341px;">Classes</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Class: activate to sort column ascending" style="width: 255px;">{{Session::get('section')}}s</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Sections: activate to sort column ascending" style="width: 341px;">{{Session::get('class')}}</th>
                   <th class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending" style="width: 222px;">Action</th>
                </tr>
             </thead>
@@ -72,7 +72,7 @@
             <div class="modal-dialog">
                <div class="modal-content">
                      <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Section</h5>
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit {{Session::get('section')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                      </div>
                      <div class="modal-body">
@@ -84,11 +84,11 @@
                      <div class="form-group" style="margin:10px">
                      <small id="Section_name_err" class="form-text text-danger"></small>
                         <input  id="sectionid"type="hidden" name="sectionid" value="">
-                        <label for="exampleInputsection1">Section Name </label><small class="req"> *</small>
+                        <label for="exampleInputsection1">{{Session::get('section')}} Name </label><small class="req"> *</small>
                         <input autofocus="" id="sectionname" name="Section_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                         <span class="text-danger"></span>
                      </div>
-                     <label for="exampleInputsection1">Select Class :  </label>
+                     <label for="exampleInputsection1">Select {{Session::get('class')}} :  </label>
                      <small id="Classes_id_err" class="form-text text-danger"></small>
                                  <select name="Classes_id" class="form-control formselect required" id="editClass_id">
                                  @foreach($classes as $class)

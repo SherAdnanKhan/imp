@@ -44,7 +44,7 @@
                                                       <a href="editemployee/{{$employee->EMP_ID}}" style="margin-right:10px;" class="btn btn-success editbtn"> Edit </a>
                                                   </td>
                                                   <td>
-                                                      <a href="teacher/getemployeedetails/{{$employee->EMP_ID}}" class="btn btn-danger editbtn"> Details </a>
+                                                      <a href="get-employee-details/{{$employee->EMP_ID}}" class="btn btn-danger editbtn"> Details </a>
                                                   </td>
                                                 </tr>
                                                 @endforeach

@@ -15,7 +15,7 @@
                     <tr>
                         <th>STUDENT</th>
                         <th>FATHER</th>
-                        <th>CLASS</th>
+                        <th>{{Session::get('class')}}</th>
                         <th>AMOUNT</th>
                         <th>BALANCE/ADAVNCE</th>
                     </tr>
@@ -53,12 +53,12 @@
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-sm 12">
                         <div class="form-group">
-                            <label for="">Session</label>
+                            <label for="">{{Session::get('session')}}</label>
                                 <small class="req"> *</small>
                                 <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class"
                                     id="session_id">
                                     <option value=""  selected>Select
-                                        Session *</option>
+                                    {{Session::get('session')}} *</option>
                                     @foreach($sessions as $row)
                                     <option  value="{{ $row->SB_ID }}">
                                         {{ ucfirst($row->SB_NAME) }}</option>

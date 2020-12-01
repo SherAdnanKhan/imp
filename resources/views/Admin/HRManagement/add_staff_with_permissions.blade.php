@@ -168,7 +168,7 @@
                                                     <div class="form-group">
                                                     <div class="input-group mb-6">
                                                             <div class="input-group-prepend">
-                                                            <input type="text" class="form-control " aria-label="Text input with checkbox" readonly value ="SESSION / BATCH">
+                                                            <input type="text" class="form-control " aria-label="Text input with checkbox" readonly value ="{{Session::get('session')}}">
                                                                 <div class="input-group-text">
                                                                 <input  class="acadamaics" type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][session][status]" value="1">
                                                                 </div>
@@ -205,7 +205,7 @@
                                                     <div class="form-group">
                                                     <div class="input-group mb-6">
                                                             <div class="input-group-prepend">
-                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="CLASSES / PROGRAM">
+                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="{{Session::get('class')}}">
                                                                 <div class="input-group-text">
                                                                 <input class="acadamaics" type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][classess][status]" value="1">
                                                                 </div>
@@ -242,7 +242,7 @@
                                                     <div class="form-group">
                                                     <div class="input-group mb-6">
                                                             <div class="input-group-prepend">
-                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SECTION /SEMESTER">
+                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="{{Session::get('section')}}">
                                                                 <div class="input-group-text">
                                                                 <input  class="acadamaics" type="checkbox" aria-label="Checkbox for following text input" checked name="role_per[acadamics][sections][status]" value="1">
                                                                 </div>
@@ -1198,7 +1198,7 @@
                                                     <div class="form-group">
                                                     <div class="input-group mb-6">
                                                             <div class="input-group-prepend">
-                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="SLC">
+                                                            <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value ="{{Session::get('campusname')}} Leaving Ceritficate">
                                                                 <div class="input-group-text">
                                                                 <input type="checkbox" class="certificate"  aria-label="Checkbox for following text input" checked name="role_per[certificate][slc][status]" value="1">
                                                                 </div>

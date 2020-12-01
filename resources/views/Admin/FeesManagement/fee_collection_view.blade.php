@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Session</label>
+                            <label for="">{{Session::get('session')}}</label>
                                 <small class="req"> *</small>
                                 <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class"
                                     id="session_id">
                                     <option value=""  selected>Select
-                                        Session *</option>
+                                    {{Session::get('session')}} *</option>
                                     @foreach($sessions as $row)
                                     <option  value="{{ $row->SB_ID }}">
                                         {{ ucfirst($row->SB_NAME) }}</option>
@@ -28,12 +28,12 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Class</label>
+                            <label for="">{{Session::get('class')}}</label>
                                 <small class="req"> *</small>
                                 <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                     id="class_id">
                                     <option value=""  selected>Select
-                                        Class*</option>
+                                    {{Session::get('class')}}*</option>
                                     @foreach($classes as $class)
                                     <option  value="{{ $class->Class_id }}">
                                         {{ ucfirst($class->Class_name) }}</option>
@@ -44,10 +44,10 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                                <label for="">Section</label>
+                                <label for="">{{Session::get('section')}}</label>
                                     <small class="req"> *</small>
                                     <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
-                                        <option value="">select</option>
+                                        <option value="">select {{Session::get('section')}}</option>
                                 </select>
                                 <small id="SECTION_ID_error" class="form-text text-danger"></small>
                         </div>

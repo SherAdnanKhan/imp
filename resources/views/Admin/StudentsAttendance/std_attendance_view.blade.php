@@ -12,10 +12,10 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                 <label for="">Sessions *<span class="gcolor"></span> </label>
+                 <label for="">{{Session::get('session')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Session"
                     id="session_id">
-                    <option value="">Select Session</option>
+                    <option value="">Select {{Session::get('session')}}</option>
                      @foreach($sessions as $row)
                         <option  value="{{ $row->SB_ID }}">{{ ucfirst($row->SB_NAME) }}</option>
                      @endforeach
@@ -24,11 +24,11 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="">Class *<span class="gcolor"></span> </label>
+                <label for="">{{Session::get('class')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class"
                     id="class_id">
                     <option value="">Select
-                        Class*</option>
+                    {{Session::get('class')}}*</option>
                     @foreach($classes as $class)
                     <option  value="{{ $class->Class_id }}">
                         {{ ucfirst($class->Class_name) }}</option>
@@ -38,7 +38,7 @@
             </div>
             <div class="col">
               <div class="form-group">
-                   <label>section*</label>
+                   <label>{{Session::get('section')}}*</label>
                   <select class="form-control formselect required" placeholder="Select Section" id="sectionid">
                     <option value="">Select
                   </select>
