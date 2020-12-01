@@ -100,6 +100,14 @@
                                              <small id="ALLOWANCESS_error" class="form-text text-danger"></small>
                                           </div>
                                     </div>
+                                    <div class="col-md-3">
+                                    <div class="form-group">
+                                       <label for="exampleInputPAl1">Employee NO</label>
+                                       <small class="req"> *</small>
+                                       <input type="number" id="EMP_NO" name="EMP_NO" value="{{$employee['EMP_NO']}}"  class="form-control" >
+                                       <small id="EMP_NO_error" class="form-text text-danger"></small>
+                                    </div>
+                                 </div>
                                 
                                     <div class="col-md-3">
                                        <div class="form-group">

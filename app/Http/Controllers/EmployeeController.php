@@ -96,6 +96,7 @@ class EmployeeController extends Controller
         $res->DESIGNATION_ID = $request->input('DESIGNATION_ID');
         $res->QUALIFICATION = $request->input('QUALIFICATION');
         $res->EMP_TYPE = $request->input('EMP_TYPE');
+        $res->EMP_NO  =  $request->input('EMP_NO');
         $res->ADDRESS = $request->input('ADDRESS');
         $res->CREATED_BY = $request->input('CREATED_BY');
         $res->JOINING_DATE = $request->input('JOINING_DATE');
