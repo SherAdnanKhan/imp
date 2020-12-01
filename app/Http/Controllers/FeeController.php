@@ -410,7 +410,6 @@ class FeeController extends Controller
     }
     public function get_section_fee($session_id,$class_id,$section_id,$type)
     {
-
         $record = Kelex_fee::where('SESSION_ID',$session_id)
             ->where('CLASS_ID' , $class_id)
             ->where('STATUS', '0')
@@ -430,8 +429,9 @@ class FeeController extends Controller
             $fee_data[] = $value->FEE_DATA;
             $fee_data_months_arr[] =  json_decode($value->MONTHS);
         endforeach;
+        $inst_type = (trim(session('CAMPUS')->TYPE) == "school" ) ? 1 : 2;
         $months = DB::table('kelex_months')
-                                ->where('type','1')
+                                ->where('TYPE',$inst_type)
                                 ->whereIn('NUMBER',$fee_data_months_arr[0])
                                 ->orderBy('NUMBER','ASC')
                                 ->pluck('MONTH');
