@@ -22,9 +22,9 @@
                             </div>
                     		<h2 class="font-weight-bold mt-5">{{$student['NAME']}}</h2>
                             <p class="font-weight-bold">Reg No : {{$student['REG_NO']}}</p>
-                            <p class="font-weight-bold">Class Name : {{ucwords($classes['Class_name'])}}</p>
+                            <p class="font-weight-bold">{{Session::get('class')}} Name : {{ucwords($classes['Class_name'])}}</p>
 
-                           <p class="font-weight-bold">Section Name : {{ucwords($sections['Section_name'])}}</p>
+                           <p class="font-weight-bold">{{Session::get('section')}} Name : {{ucwords($sections['Section_name'])}}</p>
 
                             <p class="font-weight-bold">Issue date : {{ date('Y-m-d') }}</p>
 

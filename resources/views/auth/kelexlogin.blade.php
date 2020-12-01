@@ -109,8 +109,8 @@
 
                     <div class="form-group">
                     <small id="studentlogin_error" class="form-text text-danger"></small>
-                    <label for="username">Student REGiSTRATION NO</label>
-                    <input type="number" class="form-control " name="REG_NO" value="{{ old('REG_NO') }}" placeholder="Enter REGISTRATION NO">
+                    <label for="username">Student USER ID</label>
+                    <input type="text" class="form-control " name="REG_NO" value="{{ old('REG_NO') }}" placeholder="Enter User ID">
                     <small id="REG_NO_error" class="form-text text-danger"></small>
                     </div>
                     @csrf
@@ -211,6 +211,7 @@ $('body').on('submit','#Adminloginform',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+              //return false;
                console.log(data)
                if ($.trim(data) == '' ) {
                 $("#teacherlogin_error").text('These credentials do not match our records.');

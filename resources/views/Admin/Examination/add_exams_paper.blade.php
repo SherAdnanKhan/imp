@@ -14,11 +14,11 @@
               <div class="form-group">
                <form action="" id="searching" method="post">
                   @csrf
-                <label for="">Session *<span class="gcolor"></span> </label>
+                <label for="">{{Session::get('session')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class"
                    name="SESSION_ID">
                     <option disabled  selected>Select
-                        Session*</option>
+                    {{Session::get('session')}}*</option>
                     @foreach($sessions as $session)
                     <option  value="{{ $session->SB_ID }}">
                         {{ ucfirst($session->SB_NAME) }}</option>
@@ -30,11 +30,11 @@
             <div class="col-md-3">
               <div class="form-group">
             
-                <label for="">Class *<span class="gcolor"></span> </label>
+                <label for="">{{Session::get('class')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class"
                   name="CLASS_ID" id="class_id">
                     <option disabled  selected>Select
-                        Class*</option>
+                    {{Session::get('class')}}*</option>
                     @foreach($classes as $class)
                     <option  value="{{ $class->Class_id }}">
                         {{ ucfirst($class->Class_name) }}</option>
@@ -46,7 +46,7 @@
             <div class="col-md-3">
               <div class="form-group">
              
-                   <label>section*</label>
+                   <label>{{Session::get('section')}}*</label>
                   <select class="form-control formselect required" placeholder="Select Section" name="SECTION_ID" id="sectionid">
                     <option disabled  selected>Select
                   </select>
@@ -396,9 +396,9 @@
                     html += '<thead>';
                     html += ' <tr>';
                     html += '   <th scope="col">Paper ID</th>';
-                    html += '    <th scope="col">Session Name</th>';
-                    html += '    <th scope="col">Class Name</th>';
-                    html += '    <th scope="col">Section Name</th>';
+                    html += '    <th scope="col">{{Session::get("session")}} Name</th>';
+                    html += '    <th scope="col">{{Session::get("class")}} Name</th>';
+                    html += '    <th scope="col">{{Session::get("Section")}} Name</th>';
                     html += '    <th scope="col">Exam Name</th>';
                     html += '   <th scope="col">Subject NAME</th>';
                     html += '    <th scope="col">Total Marks</th>';

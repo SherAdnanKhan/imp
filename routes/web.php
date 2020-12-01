@@ -22,6 +22,7 @@ use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
 use App\Http\Controllers\TeacherAttendanceController;
+use App\Http\Controllers\TempController;
 use App\Http\Controllers\WithdrawController;
 use App\Models\Kelex_banks;
 
@@ -35,10 +36,9 @@ use App\Models\Kelex_banks;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', function () {
 
-    return view('Admin.Examination.Exam_marks_student');
-});
+Route::get('/test', [TempController::class, 'updatestudents']);
+
 
 Route::get('/', function () {
     if(session()->has('is_admin'))

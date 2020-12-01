@@ -21,12 +21,31 @@ class AdminLoginController extends Controller
             $request->session()->regenerate();
             $user = User::where('username',$request->username)->first();
             $campus = Kelex_campus::where('CAMPUS_ID',$user['CAMPUS_ID'])->first();
+            if($campus['TYPE']=='school')
+            {
+                $class='Class';
+                $Session='Session';
+                $Section='Section';
+                $campusname='School';
+            }
+            else
+            {
+                $class='Program';
+                $Session='Batch';
+                $Section='Semester';
+                $campusname='University';
+            }
             Session::put([
                     'CAMPUS'=>$campus,
                     'is_admin'=>true,
                     'user_id'=>$user['id'],
                     'CAMPUS_ID'=>$user['CAMPUS_ID'],
-                    'permissions'=>$user['permissions']
+                    'permissions'=>$user['permissions'],
+                    'class'=>$class,
+                    'session'=>$Session,
+                    'section'=>$Section,
+                    'campusname'=>$campusname
+
                 ]);
                 return response()->json(['url'=>url('/admin')]);
             }

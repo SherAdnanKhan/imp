@@ -27,10 +27,10 @@
                      <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="">Select Session</label>
+                                <label for="">Select {{Session::get('session')}}</label>
                                 <small class="req"> *</small>
                                 <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Class" id="SESSION_ID" required>
-                                    <option value="">Session *</option>
+                                    <option value="">{{Session::get('session')}} *</option>
                                     @foreach($sessions as $session)
                                      @php
                                             $selected = ($session->SB_ID == $sessionID) ? "selected" : "";
@@ -50,7 +50,7 @@
                             <table class="table ">
                                  <thead>
                                      <tr>
-                                         <th>Class</th>
+                                         <th>{{Session::get('class')}}</th>
                                          <th>Fee Category</th>
                                      </tr>
                                  </thead>

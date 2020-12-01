@@ -22,7 +22,7 @@
   <div class="row-3">
 
     <div class="s-no">
-      <div class="info-text">SCHOOL NAME:</div>
+      <div class="info-text">{{Session::get('campusname')}} NAME:</div>
       <?php  $CAMPUS=Session::get('CAMPUS') ?>
       <div class="2-ser"> <b><input name="mail" type="text" class="big-field" id="mail" value="{{ $CAMPUS['SCHOOL_NAME']}}">
       </div>

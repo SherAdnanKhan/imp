@@ -8,10 +8,10 @@
 <div class="row">
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
-            <h3 class="card-title font-16 mt-0">Add Class</h3>
+            <h3 class="card-title font-16 mt-0">Add {{Session::get('class')}}</h3>
             <form action="{{route('addclass')}}" id="addclass" name="classform" method="post" accept-charset="utf-8">
                 <div class="form-group">
-                  <label for="exampleInputclass1">Class Name </label><small class="req"> *</small>
+                  <label for="exampleInputclass1">{{Session::get('class')}} Name </label><small class="req"> *</small>
                      <small id="class_name_error" class="form-text text-danger"></small>
                      <input autofocus="" id="class" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                      <span class="text-danger"></span>
@@ -23,7 +23,7 @@
    </div>
    <div class="col-md-6">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Class List</h3>
+         <h3 class="card-title font-16 mt-0">{{Session::get('class')}} List</h3>
          <div class="table-responsive">
            <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
@@ -56,7 +56,7 @@
             <div class="modal-dialog">
                <div class="modal-content">
                      <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Class</h5>
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit {{Session::get('class')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                      </div>
                      <div class="modal-body">
@@ -67,7 +67,7 @@
                               <div class="form-group" style="margin:10px">
                               <small id="class_name_err" class="form-text text-danger"></small>
                                  <input  id="classid"type="hidden" name="classid" value="">
-                                 <label for="exampleInputclass1">class Name </label><small class="req"> *</small>
+                                 <label for="exampleInputclass1">{{Session::get('class')}} Name </label><small class="req"> *</small>
                                  <input autofocus="" id="classname" name="class_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                                  <span class="text-danger"></span>
                               </div>

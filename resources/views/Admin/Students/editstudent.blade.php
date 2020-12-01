@@ -44,7 +44,7 @@
                                  </div> --}}
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Session</label>
+                                        <label for="">{{Session::get('session')}}</label>
                                             <small class="req"> *</small>
                                             <select name="SESSION_ID" class="form-control formselect required" id="SESSION_ID" >
                                             <option value="">Select</option>
@@ -62,7 +62,7 @@
                                        <select name="CLASS_ID" class="form-control formselect required" placeholder="Select Class"
                                           id="class_id">
                                           <option value="0" disabled selected>Select
-                                             Class*</option>
+                                          {{Session::get('class')}}*</option>
                                           @foreach($classes as $class)
                                           <option  value="{{ $class->Class_id }}"  <?php if($std_session_data->CLASS_ID==$class->Class_id) echo 'selected="selected"'; ?>>
                                              {{ ucfirst($class->Class_name) }}</option>
@@ -73,7 +73,7 @@
                               </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                        <label for="">Section</label>
+                                        <label for="">{{Session::get('section')}}</label>
                                             <small class="req"> *</small>
                                             <select name="SECTION_ID" class="form-control formselect required" placeholder="Select Section" id="sectionid" >
                                             <option  value="{{ $sections->Section_id }}" selected>
@@ -232,7 +232,7 @@
                                  </div>
                                  <div class="col-md-3">
                                        <div class="form-group">
-                                          <label for="exampleInputFNO1">School Leaving Certificate</label>
+                                          <label for="exampleInputFNO1">{{Session::get('campusname')}} Leaving Certificate</label>
                                           <small class="req"> *</small>
                                           <input id="SLC_NO" name="SLC_NO" placeholder="" type="number"  value="{{$student['SLC_NO']}}" class="form-control" >
                                           <small id="SLC_NO_error" class="form-text text-danger"></small>
@@ -240,7 +240,7 @@
                                  </div>
                                  <div class="col-md-3">
                                        <div class="form-group">
-                                          <label for="exampleInputFNO1">Previous University/School Name</label>
+                                          <label for="exampleInputFNO1">Previous {{Session::get('campusname')}}</label>
                                           <small class="req"> *</small>
                                           <input id="PREV_BOARD_UNI" name="PREV_BOARD_UNI" placeholder="" value="{{$student['PREV_BOARD_UNI']}}" type="text" class="form-control" >
                                           <small id="PREV_BOARD_UNI_error" class="form-text text-danger"></small>
@@ -259,7 +259,7 @@
 
                                   <div class="col-md-4">
                                     <div class="form-group">
-                                       <label for="exampleInputsection1">Previous Class :  </label>
+                                       <label for="exampleInputsection1">Previous {{Session::get('class')}} :  </label>
                                           <small class="req"> *</small>
                                           <select class="form-control formselect required" name="PREV_CLASS" id="PREV_CLASS" >
                                           @foreach($classes as $class)
@@ -271,7 +271,7 @@
                                  </div>
                                  <div class="col-md-4">
                                     <div class="form-group">
-                                       <label for="exampleInputdob1">Previous Class Marks</label>
+                                       <label for="exampleInputdob1">Previous {{Session::get('class')}} Marks</label>
                                        <small class="req"> *</small>
                                        <input id="PREV_CLASS_MARKS" name="PREV_CLASS_MARKS" placeholder="" value="{{$student['PREV_CLASS_MARKS']}}" type="text" class="form-control date">
                                        <small id="PREV_CLASS_MARKS_error" class="form-text text-danger"></small>

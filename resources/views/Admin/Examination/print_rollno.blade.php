@@ -14,12 +14,12 @@
                 <div class="form-group">
                     <form action="{{route('printrollno')}}"  method="post">
                         @csrf
-                     <label for="">Session</label>
+                     <label for="">{{Session::get('session')}}</label>
                         <small class="req"> *</small>
                         <select name="SESSION_ID" class="form-control formselect required" placeholder="Select Session"
                            id="SESSION_ID">
                            <option value="0" disabled selected>Select
-                              Session*</option>
+                           {{Session::get('session')}}*</option>
                            @foreach($sessions as $session)
                            <option  value="{{ $session->SB_ID }}">
                               {{ ucfirst($session->SB_NAME) }}</option>
@@ -32,11 +32,11 @@
                 </div>
             <div class="col-md-2">
               <div class="form-group">
-                <label for="">Class *<span class="gcolor"></span> </label>
+                <label for="">{{Session::get('class')}} *<span class="gcolor"></span> </label>
                   <select class="form-control formselect required" placeholder="Select Class" name="CLASS_ID"
                     id="class_id">
                     <option value="0" disabled selected>Select
-                        Class*</option>
+                    {{Session::get('class')}}*</option>
                     @foreach($classes as $class)
                     <option  value="{{ $class->Class_id }}">
                         {{ ucfirst($class->Class_name) }}</option>
@@ -50,9 +50,9 @@
             </div>
             <div class="col-md-2">
               <div class="form-group">
-                   <label>section*</label>
+                   <label>{{Session::get('section')}}*</label>
                   <select class="form-control formselect required" placeholder="Select Section" name="SECTION_ID" id="sectionid">
-                    <option value="0" disabled selected>Select
+                    <option value="0" disabled selected>Select {{Session::get('section')}}
                   </select>
                   @error('SECTION_ID')
                   <p style="color:red;"> <strong>{{ $message }}</strong> </p> 

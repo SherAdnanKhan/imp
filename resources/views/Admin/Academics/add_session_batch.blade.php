@@ -8,12 +8,12 @@
 <div class="row">
    <div class="col-md-4">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Add Session/Batch</h3>
+         <h3 class="card-title font-16 mt-0">Add {{Session::get('session')}}</h3>
          <form  action="{{ route('addsession-batch')}}" id="addsession-batch" method="post" accept-charset="utf-8">
             <div class="box-body">
               @csrf
                <div class="form-group">
-                  <label for="exampleInputSB1">Session/Batch Name</label><small class="req"> *</small>
+                  <label for="exampleInputSB1">{{Session::get('session')}} Name</label><small class="req"> *</small>
                   <small id="sb_name_error" class="form-text text-danger"></small>
                   <input autofocus="" name="sb_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
@@ -51,12 +51,12 @@
    </div>
    <div class="col-md-8">
       <div class="card m-b-30 card-body">
-         <h3 class="card-title font-16 mt-0">Session / Batch List</h3>
+         <h3 class="card-title font-16 mt-0">{{Session::get('session')}} List</h3>
          <div class="table-responsive">
           <table class="table table-striped table-bordered table-hover example dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                <tr role="row">
-                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject: activate to sort column ascending" style="width: 208px;">SESSION/BATCH </th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject: activate to sort column ascending" style="width: 208px;">{{Session::get('session')}} </th>
                   <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Code: activate to sort column ascending" style="width: 236px;" aria-sort="descending">START DATE</th>
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">END DATE</th>
                   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Subject Type: activate to sort column ascending" style="width: 239px;">TYPE</th>
@@ -91,7 +91,7 @@
             <div class="modal-dialog">
                <div class="modal-content">
                      <div class="modal-header">
-                        <h5 class="modal-title mt-0" id="myModalLabel">Edit Session/Batches</h5>
+                        <h5 class="modal-title mt-0" id="myModalLabel">Edit {{Session::get('session')}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                      </div>
                      <div class="modal-body">
@@ -100,7 +100,7 @@
          <div class="box-body">
             <div class="form-group">
             <input  id="sb_id"type="hidden" name="sb_id" value="">
-                  <label for="exampleInputSB1">Session/Batch Name</label><small class="req"> *</small>
+                  <label for="exampleInputSB1">{{Session::get('session')}} Name</label><small class="req"> *</small>
                   <small id="sb_name_err" class="form-text text-danger"></small>
                   <input autofocus="" id="sb_name" name="sb_name" placeholder="" type="text" class="form-control" value="" autocomplete="off">
                   <span class="text-danger"></span>
@@ -118,11 +118,15 @@
                   <span class="text-danger"></span>
                </div>
                <div class="form-group">
-                <label for="Sins">Please Session/Batch:</label><br>
+                <label for="Sins">Please {{Session::get('session')}}:</label><br>
                 <label class="radio-inline">
                 <small id="type_err" class="form-text text-danger"></small>
+                <?php $campus=Session::get('CAMPUS');?>
+                @if($campus->TYPE=='school')
                 <input type="radio" id="session" name="type" value="1" style=" margin: 10px;" > Session
+                @else
                 <input type="radio" id="batch" name="type" value="0" style=" margin: 10px;"> Batch
+                @endif
                 </label>
             </div>
             </div>
