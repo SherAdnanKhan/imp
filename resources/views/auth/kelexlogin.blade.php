@@ -107,8 +107,8 @@
 
                     <div class="form-group">
                     <small id="studentlogin_error" class="form-text text-danger"></small>
-                    <label for="username">Student REGiSTRATION NO</label>
-                    <input type="number" class="form-control " name="REG_NO" value="{{ old('REG_NO') }}" placeholder="Enter REGISTRATION NO">
+                    <label for="username">Student USER ID</label>
+                    <input type="text" class="form-control " name="REG_NO" value="{{ old('REG_NO') }}" placeholder="Enter User ID">
                     <small id="REG_NO_error" class="form-text text-danger"></small>
                     </div>
                     @csrf

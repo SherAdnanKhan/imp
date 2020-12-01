@@ -16,7 +16,7 @@ class StudentLoginController extends Controller
      $REG_NO = $request->input('REG_NO');
      $password = $request->input('STD_PASSWORD');
 
-     $student = Kelex_student::where('REG_NO', '=',$REG_NO)->first();
+     $student = Kelex_student::where('USERNAME', '=',$REG_NO)->first();
     
      if (!$student)
     {
