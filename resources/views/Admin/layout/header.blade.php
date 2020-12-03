@@ -14,17 +14,7 @@
         </div>
 
         <nav class="navbar-custom">
-
             <ul class="navbar-right d-flex list-inline float-right mb-0">
-            <li class="dropdown notification-list d-none d-sm-block">
-                  
-                  <div class="form-group mb-0 ">
-                  <h2 style="color:white;"> {{Session::get('schoolname')}}  </h2>
-                    
-                  </div>
-              </form>
-              
-          </li>
 
                 <li class="dropdown notification-list d-none d-sm-block">
                     <form role="search" class="app-search">
@@ -94,12 +84,17 @@
                 </li>
 
             </ul>
-
             <ul class="list-inline menu-left mb-0">
                 <li class="float-left">
                     <button class="button-menu-mobile open-left waves-effect waves-light">
                         <i class="mdi mdi-menu"></i>
                     </button>
+                </li>
+
+            </ul>
+            <ul class="list-inline menu-center mb-0">
+                <li class="text-center text text-white">
+                <h2 style="padding-top:15px;text-transform: uppercase;"> <b> {{Session::get('schoolname')}} </b> </h2>
                 </li>
 
             </ul>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Lesson;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -32,15 +33,17 @@ class CalendarServiceForStudent
 
             foreach ($weekDays as $index => $day)
             {
-                $lesson = $lessons->where('DAY', $index)->where('TIMEFROM', $time['start'])->first();
+                $lesson = $lessons->where('DAY', $index)->where('TIMEFROM', Carbon::parse($time['start'])->format('H:i:s'))->first();
             // dd($lesson);
+            
                 if ($lesson)
                 { 
-                    
+                 $difference = Carbon::parse($lesson->TIMEFROM)->diffInMinutes($lesson->TIMETO);   
                     array_push($calendarData[$timeText], [
                         'class_name'   => $lesson->Class_name,
                         'teacher_name' => $lesson->EMP_NAME,
                         'subject_name' => $lesson->SUBJECT_NAME,
+                        'rowspan'      => $difference/30 ?? ''
                       
                     ]);
                    

@@ -33,7 +33,8 @@
                  @foreach($days as $value)
                   @if (is_array($value))
    
-                  <td>  Subject: {{$value['subject_name']}}<br>
+                  <td rowspan="{{$value['rowspan']}}" class="align-middle text-center" style="background-color:#f0f0f0;width:100px;height:20px">
+                  Subject: {{$value['subject_name']}}<br>
                   Room : {{$value['class_name']}}<br>          
                  @elseif($value === 1)
                   <td></td>

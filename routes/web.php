@@ -39,7 +39,9 @@ use App\Models\Kelex_banks;
 
 Route::get('/test', [TempController::class, 'updatestudents']);
 
-
+Route::get('/schoolwebsite', function () {
+    return view('Schoolwebsite.index');
+});
 Route::get('/', function () {
     if(session()->has('is_admin'))
     {
