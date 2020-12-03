@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use KelexClass;
 use App\Models\Kelex_fee;
+use App\Models\Kelex_bank;
 use App\Models\Kelex_class;
 use App\Models\Kelex_month;
+use App\Traits\SmsAPItrait;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
+use App\Models\Kelex_student;
 use App\Models\Kelex_fee_type;
+use App\Models\General_setting;
 use App\Models\Kelex_student_fee;
 use App\Models\Kelex_fee_category;
 use App\Models\Kelex_fee_discount;
@@ -23,13 +27,15 @@ use App\Http\Requests\FeetypeRequest;
 use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FeeCategoryRequest;
-use App\Models\General_setting;
-use App\Models\Kelex_bank;
-use App\Models\Kelex_student;
+use App\Traits\NumberFormater;
 
 class FeeController extends Controller
 {
-
+    use SmsAPItrait,NumberFormater;
+    public function __construct()
+    {
+       //echo  $this->numberFormat('3339229095'); die;
+    }
 // FEE CATEROGORY CONTROLLER START HERE
     public function index_feecategory()
     {
@@ -411,6 +417,7 @@ class FeeController extends Controller
     }
     public function get_section_fee($session_id,$class_id,$section_id,$type)
     {
+        // dd($this->sms(['1',2]));
         $record = Kelex_fee::where('SESSION_ID',$session_id)
             ->where('CLASS_ID' , $class_id)
             ->where('STATUS', '0')
