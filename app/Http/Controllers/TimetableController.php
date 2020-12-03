@@ -83,10 +83,10 @@ class TimetableController extends Controller
        ->where('GROUP_ID', $request->GROUP_ID)
        ->where('SECTION_ID', $request->SECTION_ID)
        ->whereTime(
-        'TIMEFROM', '<=',Carbon::parse($request->TIMEFROM[$j])->format('H:i:s')
+        'TIMEFROM', '<=',Carbon::parse($request->TIMETO[$j])->format('H:i:s')
         
       ) ->whereTime(
-       'TIMETO', '>=',Carbon::parse($request->TIMETO[$j])->format('H:i:s')
+       'TIMETO', '>=',Carbon::parse($request->TIMEFROM[$j])->format('H:i:s')
        
      )->count();
     }

@@ -6,9 +6,9 @@
 <div class="card">
     <div class="card-body">
 
-        <h3 class="text-center m-0">
+        {{-- <h3 class="text-center m-0">
             <a href="{{ route('login') }}" class="logo logo-admin"><img src="assets/images/collabs_logo.png" height="30" alt="logo"></a>
-        </h3>
+        </h3> --}}
 
         <div class="p-3">
             <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>

@@ -216,8 +216,10 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>System Settings <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
+
                                     <li><a href="comingsoon">General Settings</a></li>
                                     @if(isset($permissions->usermanagment->status)=="1")
+                                    <li><a href="{{route('fee-terms')}}">Fee Terms</a></li>
                                     <li><a href="{{route('staff')}}">Roles/Permission</a></li>
                                     @endif
 

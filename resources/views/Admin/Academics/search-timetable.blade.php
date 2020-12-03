@@ -133,7 +133,7 @@ $('body').on('submit','#searching',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-               return false;
+              // return false;
                WEEK_DAYS= data.WEEK_DAYS;
                console.log(WEEK_DAYS.length);
                calendarData=data.calendarData;

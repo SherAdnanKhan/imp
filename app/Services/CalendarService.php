@@ -35,7 +35,7 @@ class CalendarService
             foreach ($weekDays as $index => $day)
             {
             $lesson = $lessons->where('DAY', $index)->where('TIMEFROM', Carbon::parse($time['start'])->format('H:i:s'))->first();
-            dd(Carbon::parse($time['start'])->format('H:i:s'));
+          //  dd(Carbon::parse($time['start'])->format('H:i:s'));
                 if ($lesson)
                 { 
                    $difference = Carbon::parse($lesson->TIMEFROM)->diffInMinutes($lesson->TIMETO);

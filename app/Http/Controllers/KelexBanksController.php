@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 class KelexBanksController extends Controller
 {
     public function index()
     {
-        $data['record'] = Kelex_bank::orderBy('IS_ACTIVE','DESC')->get(); //dd($data);
+        $data['record'] = Kelex_bank::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->orderBy('IS_ACTIVE','DESC')->get(); //dd($data);
         return view('Admin.banks.main')->with($data);
     }
     public function add_bank(Request $request)

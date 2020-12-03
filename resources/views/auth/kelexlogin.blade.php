@@ -6,9 +6,9 @@
 <div class="card">
     <div class="card-body">
 
-        <h3 class="text-center m-0">
+        {{-- <h3 class="text-center m-0">
             <a href="{{ route('login') }}" class="logo logo-admin"><img src="assets/images/collabs_logo.png" height="30" alt="logo" style=" width: 24%; height: 24%;"></a>
-        </h3>
+        </h3> --}}
 
         <div class="p-3">
             <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
@@ -51,7 +51,9 @@
                         </div>
                         </div>
                         <div class="col-6 text-right">
-                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
+                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit">
+                            Login
+                        </button>
 
                         </div>
                         </div>
@@ -166,6 +168,7 @@ $('body').on('submit','#Adminloginform',function(e){
       $('#password_error').text('');
       $('#Adminlogin_error').text('');
       var fdata = new FormData(this);
+      $(this).find('submit').attr('disabled',true).html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Loading...</span></div>');
       $.ajax({
         url: '{{route("adminLogin")}}',
             type:'POST',
@@ -192,8 +195,9 @@ $('body').on('submit','#Adminloginform',function(e){
                     $.each(response.errors, function (key, val) {
                         $("#" + key + "_error").text(val[0]);
                     });
-    }
+        }
       });
+       $(this).find('submit').html('Login').attr('disabled',false);;
     });
     $('body').on('submit','#Teacherloginform',function(e){
       e.preventDefault();
