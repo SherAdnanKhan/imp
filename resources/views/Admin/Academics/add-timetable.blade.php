@@ -228,7 +228,7 @@ $('body').on('submit','#searching',function(e){
                htmlrow+='                     <td>';
                htmlrow+='                        <div class="input-group">';
                htmlrow+='       <small id="TIMEFROM_err" class="form-text text-danger"></small>';
-               htmlrow+='                           <input type="text" name="TIMEFROM[]" class="form-control timetimetable time_from time" id="time_from_1"  onclick="myfun();" value="">';
+               htmlrow+='                           <input type="text" name="TIMEFROM[]" autocomplete="off" class="form-control timetimetable time_from time" id="time_from_1"  onclick="myfun();" value="">';
                htmlrow+='                           <div class="input-group-addon">';
                htmlrow+='                           </div>';
                htmlrow+='                        </div>';
@@ -236,7 +236,7 @@ $('body').on('submit','#searching',function(e){
                htmlrow+='                     <td>';
                htmlrow+='                        <div class="input-group">';
                htmlrow+='       <small id="TIMEFROM_err" class="form-text text-danger"></small>';
-               htmlrow+='                           <input type="text" name="TIMETO[]" class="form-control timetimetable time_to time" id="time_to_1"  onclick="myfun();" value="">';
+               htmlrow+='                           <input type="text" name="TIMETO[]" autocomplete="off" class="form-control timetimetable time_to time" id="time_to_1"  onclick="myfun();" value="">';
                htmlrow+='                           <div class="input-group-addon">';
                htmlrow+='                           </div>';
                htmlrow+='                        </div>';
@@ -346,9 +346,9 @@ $('body').on('submit','#form_monday',function(e){
             processData: false,
             contentType: false,
             success: function(data){
-            //  return false;
+            // return false;
              console.log(data);
-               if(data){
+               if(data==true){
                  // return false;
                 
                 toastr.success('Timetable for Monday added', 'Notice');
@@ -360,7 +360,7 @@ $('body').on('submit','#form_monday',function(e){
             },
             error: function(error){
                 console.log(error);
-                $("#all_err").text("Please Fill All Required Fields Correctly!");
+                $("#all_err").text("Please Fill All Required Fields Correctly! Or Time From and End Must be Unique");
             }
    });
 });

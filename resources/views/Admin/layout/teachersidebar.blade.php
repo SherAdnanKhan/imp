@@ -38,6 +38,13 @@
                               
                                 </ul>
                             </li>
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-black-mesa"></i> <span>TimeTable <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
+                                <ul class="submenu">
+                                    <li><a href="{{route('showtimetableteacher')}}">View TimeTable</a></li>
+
+                                </ul>
+                            </li>
 
 
                         </ul>

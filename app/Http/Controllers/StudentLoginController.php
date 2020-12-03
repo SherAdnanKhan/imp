@@ -17,7 +17,6 @@ class StudentLoginController extends Controller
      $password = $request->input('STD_PASSWORD');
 
      $student = Kelex_student::where('USERNAME', '=',$REG_NO)->first();
-    
      if (!$student)
     {
         return response()->json();
@@ -26,13 +25,16 @@ class StudentLoginController extends Controller
       {
         return response()->json();
      }
+    
      $campus=DB::table('kelex_campuses')->where('CAMPUS_ID','=',$student['CAMPUS_ID'])->first();
+     $schoolname=$campus->SCHOOL_NAME;
      if($campus->TYPE=='school')
      {
          $class='Class';
          $Session='Session';
          $Section='Section';
          $campusname='School';
+       
      }
      else
      {
@@ -41,6 +43,10 @@ class StudentLoginController extends Controller
          $Section='Semester';
          $campusname='University';
      }
+     $studentdata=DB::table('kelex_students_sessions')->where('STUDENT_ID','=',$student['STUDENT_ID'])
+     ->where('CAMPUS_ID','=',$student['CAMPUS_ID'])->first();
+    $classid=$studentdata->CLASS_ID;
+    $sectionid=$studentdata->SECTION_ID;
         Session::put([
             'CAMPUS_ID'=>$student['CAMPUS_ID'],
             'is_student'=>true,
@@ -48,7 +54,10 @@ class StudentLoginController extends Controller
             'class'=>$class,
             'session'=>$Session,
             'section'=>$Section,
-            'campusname'=>$campusname
+            'campusname'=>$campusname,
+            'CLASS_ID'=>$classid,
+            'SECTION_ID'=>$sectionid,
+            'schoolname'=> $schoolname
             ]);
         return response()->json(['url'=>url('student/dashboard')]);
 

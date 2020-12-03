@@ -55,9 +55,11 @@ class StudentController extends Controller
         $my_image = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload/'.Auth::user()->CAMPUS_ID), $my_image);
     endif;
-
+    DB::beginTransaction();
+    try {
             $regno=0;
-                $date=0;
+            $date=0;
+       
             for ($i = 0; $i < count($row); $i ++)
             {
                 $regno= DB::table('kelex_students')
@@ -96,7 +98,15 @@ class StudentController extends Controller
                  ]);
                  $count++;
 
+             
             }
+        DB::commit();
+            // all good
+        } 
+    catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+        }
         // }
         // catch (\Exception $e) {
         //     $success=false;

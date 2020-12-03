@@ -133,28 +133,30 @@ $('body').on('submit','#searching',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+               return false;
                WEEK_DAYS= data.WEEK_DAYS;
+               console.log(WEEK_DAYS.length);
                calendarData=data.calendarData;
-               console.log(data);
+               //console.log(data);
                if ($.trim(data) == '' ) {
                html +='<p id="p1" style="text-align:center;color:red;"> NO Result Match, Add New </p>';
                }  
                 else
                {
                thead+=' <th width="125">Time</th>';
-               for (i = 0; i < WEEK_DAYS.length; i++) {
-                  thead+=' <th> '+WEEK_DAYS[i]+' </th>';
-                } 
+               $.each(WEEK_DAYS, function (index, days) {
+                  thead+=' <th> '+days+' </th>';
+                 }); 
       
               
                $.each(calendarData, function (time, days) {
                   html+='    <tr>';
                   html+=' <td> '+time+' </td>';
                $.each(days, function (value1, value) {
-                  console.log(typeof value=='object');
+                
                 if (typeof value=='object' )
                 {
-                  html+='<td>  Subject: '+value['subject_name']+'<br>';
+                  html+='  <td rowspan="'+value["rowspan"]+'" class="align-middle text-center" style="background-color:#f0f0f0;width:100px;height:20px">  Subject: '+value['subject_name']+'<br>';
                   html+='  Room : '+value['class_name']+'<br>';
                   html+='  Teacher: '+value['teacher_name']+' </td>';
                
@@ -167,6 +169,7 @@ $('body').on('submit','#searching',function(e){
                   html+=' </tr> ';
                });
                }
+               console.log(thead);
             $('#theads').html(thead); 
             $('#tabledata').html(html);  
             

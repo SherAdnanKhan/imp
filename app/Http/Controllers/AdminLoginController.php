@@ -20,8 +20,11 @@ class AdminLoginController extends Controller
         if($authSuccess) {
             $request->session()->regenerate();
             $user = User::where('username',$request->username)->first();
+            if($user->CAMPUS_ID!==0){
             $campus = Kelex_campus::where('CAMPUS_ID',$user['CAMPUS_ID'])->first();
+            $schoolname=$campus->SCHOOL_NAME;
             if($campus['TYPE']=='school')
+
             {
                 $class='Class';
                 $Session='Session';
@@ -44,11 +47,19 @@ class AdminLoginController extends Controller
                     'class'=>$class,
                     'session'=>$Session,
                     'section'=>$Section,
-                    'campusname'=>$campusname
+                    'campusname'=>$campusname,
+                    'schoolname'=> $schoolname
 
                 ]);
-                return response()->json(['url'=>url('/admin')]);
             }
+            Session::put([
+                'is_admin'=>true,
+                'user_id'=>$user['id'],
+                'CAMPUS_ID'=>$user['CAMPUS_ID'],
+                'permissions'=>$user['permissions']
+            ]);
+                return response()->json(['url'=>url('/admin')]);
+            }   
 
         return response()->json();
     }
