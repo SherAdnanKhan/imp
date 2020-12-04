@@ -2,7 +2,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
-                            <img alt="Image" class="logo" src="img/logo-dark.png" />
+                            <img alt="Image" class="logo" src="{{asset('school_website_asset/img/logo-dark.png')}}" />
                             <ul class="list-inline list--hover">
                                 <li class="list-inline-item">
                                     <a href="#">
