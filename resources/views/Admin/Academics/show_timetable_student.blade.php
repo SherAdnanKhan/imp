@@ -18,7 +18,7 @@
                               </thead>
                                     <tbody id="tabledata">
                                     <th width="125">Time</th>
-               @for($i = 0; $i < count($WEEK_DAYS); $i++)
+               @for($i = 1; $i < count($WEEK_DAYS); $i++)
                   <th> {{$WEEK_DAYS[$i]}} </th>
                @endfor 
                 @foreach($calendarData as $time => $days)
@@ -27,7 +27,8 @@
                  @foreach($days as $value)
                   @if (is_array($value))
    
-                  <td>  Subject: {{$value['subject_name']}}<br>
+                 <td rowspan="{{$value['rowspan']}}" class="align-middle text-center" style="background-color:#f0f0f0;width:100px;height:20px">
+                  Subject: {{$value['subject_name']}}<br>
                   Room : {{$value['class_name']}}<br>
                   Teacher: {{$value['teacher_name']}} </td>
                
