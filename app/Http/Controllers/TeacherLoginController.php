@@ -26,6 +26,7 @@ class TeacherLoginController extends Controller
          return response()->json();
       }
       $campus=DB::table('kelex_campuses')->where('CAMPUS_ID','=',$employee['CAMPUS_ID'])->first();
+      $schoolname=$campus->SCHOOL_NAME;
       if($campus->TYPE=='school')
       {
           $class='Class';
@@ -47,7 +48,8 @@ class TeacherLoginController extends Controller
             'class'=>$class,
             'session'=>$Session,
             'section'=>$Section,
-            'campusname'=>$campusname
+            'campusname'=>$campusname,
+            'schoolname'=> $schoolname
             ]);
         return response()->json(['url'=>url('teacher/dashboard')]);
      

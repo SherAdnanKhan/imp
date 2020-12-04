@@ -10,11 +10,22 @@
                     <img src="{{asset('assets/images/logo-sm1.png')}}" alt="" height="22">
                 </i>
             </a>
+        
         </div>
 
         <nav class="navbar-custom">
 
             <ul class="navbar-right d-flex list-inline float-right mb-0">
+            <li class="dropdown notification-list d-none d-sm-block">
+                  
+                  <div class="form-group mb-0 ">
+                  <h2 style="color:white;"> {{Session::get('schoolname')}}  </h2>
+                    
+                  </div>
+              </form>
+              
+          </li>
+
                 <li class="dropdown notification-list d-none d-sm-block">
                     <form role="search" class="app-search">
                         <div class="form-group mb-0">
@@ -23,6 +34,7 @@
                         </div>
                     </form>
                 </li>
+                
 
                 <li class="dropdown notification-list">
                     <!-- <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

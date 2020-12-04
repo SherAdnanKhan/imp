@@ -32,8 +32,8 @@ class Exam_paperRequest extends FormRequest
                  'DATE'=>'required',
                  'TOTAL_MARKS' =>'required',
                  'PASSING_MARKS'=>'required',
-                 'VIVA'=>'required|max:255',
-                //  'VIVA_MARKS'=>'required',
+                  'VIVA'=>'required|max:255',
+                // 'VIVA_MARKS'=>'required',
                  'SESSION_ID'=>'required',
         ];
     }

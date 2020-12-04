@@ -21,8 +21,8 @@ class CreateKelexTimeTable extends Migration
             $table->bigInteger('SECTION_ID')->nullable();
             $table->string('SUBJECT_ID')->nullable();
             $table->enum('DAY',['1','2','3','4','5','6','7'])->nullable()->comments('1= Monday 2= Tuesday 3= Wednesday 4= Thursday 5= Friday 6= Saturday 7= Sunday');
-            $table->string('TIMEFROM',50)->nullable();
-		    $table->string('TIMETO',50)->nullable();
+            $table->time('TIMEFROM')->nullable();
+		    $table->time('TIMETO')->nullable();
             $table->bigInteger('USER_ID')->nullable();
             $table->bigInteger('CAMPUS_ID')->nullable();
             $table->timestamps();

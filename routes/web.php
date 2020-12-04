@@ -94,6 +94,7 @@ Route::prefix('student')->group(function () {
         // Student result routes
 
         Route::match(['get', 'post'], '/ExamResult', [ExamController::class, 'ExamResult'])->name('ExamResult');
+        Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetableStudent'])->name('showtimetableStudent');
 
     });
 });
@@ -133,7 +134,7 @@ Route::match(['get', 'post'],'/Add_attendance',[PaperMarksController::class,'Add
 Route::match(['get', 'post'], '/Application', [TeacherAttendanceController::class, 'TeacherApplication'])->name('TeacherApplication');
 Route::match(['get', 'post'], '/AddApplication', [TeacherAttendanceController::class, 'AddApplication'])->name('Teacher_Add_Application');
 Route::match(['get', 'post'], '/ViewApplication', [TeacherAttendanceController::class, 'ViewApplication'])->name('Teacher_View_Application');
-
+Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetableTeacher'])->name('showtimetableteacher');
     });
 
 });

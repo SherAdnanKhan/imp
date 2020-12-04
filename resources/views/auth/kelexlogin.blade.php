@@ -176,6 +176,7 @@ $('body').on('submit','#Adminloginform',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+              
                console.log(data)
                if ($.trim(data) == '' ) {
 
@@ -247,6 +248,7 @@ $('body').on('submit','#Adminloginform',function(e){
             processData: false,
             contentType: false,
             success: function(data){
+              
                console.log(data)
                if ($.trim(data) == '' ) {
                 $("#studentlogin_error").text('These credentials do not match our records.');

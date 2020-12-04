@@ -3,11 +3,10 @@
 namespace App\Services;
 
 use App\Lesson;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class CalendarService
+class CalendarServiceForStudent
 {
     public function generateCalendarData($weekDays,$request)
     {
@@ -20,13 +19,12 @@ class CalendarService
     ->leftJoin('kelex_classes', 'kelex_timetables.CLASS_ID', '=', 'kelex_classes.Class_id')
     ->leftJoin('kelex_sections', 'kelex_timetables.SECTION_ID', '=', 'kelex_sections.Section_id')
     ->leftJoin('kelex_subjects', 'kelex_timetables.SUBJECT_ID', '=', 'kelex_subjects.SUBJECT_ID')
-    ->where('kelex_timetables.SECTION_ID', '=',$request->SECTION_ID)
-    ->where('kelex_timetables.CLASS_ID', '=',$request->CLASS_ID)
-    ->where('kelex_timetables.GROUP_ID', '=',$request->GROUP_ID)
+    ->where('kelex_timetables.SECTION_ID', '=',Session::get('SECTION_ID'))
+    ->where('kelex_timetables.CLASS_ID', '=',Session::get('CLASS_ID'))
     ->where('kelex_sections.CAMPUS_ID', '=', Session::get('CAMPUS_ID'))
     ->select('kelex_classes.*','kelex_employees.*','kelex_timetables.*','kelex_subjects.SUBJECT_NAME')
     ->get();
-         // dd($lessons);
+        // dd($lessons);
         foreach ($timeRange as $time)
         {
             $timeText = $time['start'] . ' - ' . $time['end'];
@@ -34,17 +32,15 @@ class CalendarService
 
             foreach ($weekDays as $index => $day)
             {
-            $lesson = $lessons->where('DAY', $index)->where('TIMEFROM', Carbon::parse($time['start'])->format('H:i:s'))->first();
-          //  dd(Carbon::parse($time['start'])->format('H:i:s'));
+                $lesson = $lessons->where('DAY', $index)->where('TIMEFROM', $time['start'])->first();
+            // dd($lesson);
                 if ($lesson)
                 { 
-                   $difference = Carbon::parse($lesson->TIMEFROM)->diffInMinutes($lesson->TIMETO);
-                  
+                    
                     array_push($calendarData[$timeText], [
                         'class_name'   => $lesson->Class_name,
                         'teacher_name' => $lesson->EMP_NAME,
                         'subject_name' => $lesson->SUBJECT_NAME,
-                        'rowspan'      => $difference/30 ?? ''
                       
                     ]);
                    

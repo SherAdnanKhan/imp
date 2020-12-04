@@ -11,4 +11,8 @@ class Kelex_timetable extends Model
     protected $fillable = ['EMP_ID','GROUP_ID','CLASS_ID','SECTION_ID','SUBJECT_ID','DAY','TIMEFROM','TIMETO','CAMPUS_ID','USER_ID'];
     protected $primaryKey = 'TIMETABLE_ID';
     protected $softDelete = true;
+    protected $casts = [
+        'TIMEFROM' => 'datetime:H:i',
+        'TIMETO' => 'datetime:H:i',
+    ];
 }
