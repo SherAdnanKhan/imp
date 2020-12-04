@@ -53,6 +53,7 @@ class FeeController extends Controller
     }
     public function add_feecategory(FeeCategoryRequest $request)
     {
+    
         // dd($request);
            $feecategory = new Kelex_fee_category();
            $feecategory->CLASS_ID=$request->input('CLASS_ID');
