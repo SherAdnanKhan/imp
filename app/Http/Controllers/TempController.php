@@ -17,16 +17,10 @@ class TempController extends Controller
        $campusname=$campus->SCHOOL_NAME[0];
        $campusid=$campus->CAMPUS_ID;
        foreach($students as $student){
-        $studentreg=$student->REG_NO;
         $username= $campusname.''.$campusid.'_'.substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9);
        $success= DB::table('kelex_students')->where('CAMPUS_ID',Session::get('CAMPUS_ID'))->where('STUDENT_ID',$student->STUDENT_ID)
-        ->update(['USERNAME' => $username]);
-        
+        ->update(['USERNAME' => $username]); 
        }
-
-       print_r($success);
-      
-
     }
 
 
