@@ -10,7 +10,7 @@
                     <img src="{{asset('assets/images/logo-sm1.png')}}" alt="" height="22">
                 </i>
             </a>
-        
+
         </div>
 
         <nav class="navbar-custom">
@@ -24,7 +24,7 @@
                         </div>
                     </form>
                 </li>
-                
+
 
                 <li class="dropdown notification-list">
                     <!-- <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -94,8 +94,9 @@
             </ul>
             <ul class="list-inline menu-center mb-0">
                 <li class="text-center text text-white">
-                <h2 style="text-transform: uppercase;"> <b> {{Session::get('schoolname')}} </b> </h2>
-                </li>
+            
+                <p style="padding-top:15px;font-size:20px;text-transform: uppercase;"> <b> {{Session::get('schoolname')}} </b> </p>
+                 </li>
 
             </ul>
 

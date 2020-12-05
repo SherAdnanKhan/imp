@@ -41,6 +41,7 @@ class FeeController extends Controller
 // FEE CATEROGORY CONTROLLER START HERE
     public function index_feecategory()
     {
+    
         $getfeecat = DB::table('kelex_fee_categories')
                                 // ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
                                 // ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
