@@ -6,71 +6,117 @@
 @endsection
 @section('content')
 <div class="main-container">
-            <section class="text-center">
-                <div class="container">
+            <section class="cover imagebg height-100 text-center" data-overlay="3">
+                <div class="background-image-holder"><img alt="background" src="{{asset('school_website_asset/img/landing-10.jpg')}}"></div>
+                <div class="container pos-vertical-center">
                     <div class="row">
-                        <div class="col">
-                            <div class="slider" data-paging="true" data-children="8">
-                                <ul class="slides flickity-enabled" tabindex="0">
-                                    <div class="flickity-viewport">
-                                        <div class="main-carousel">
-                                            <li class="col-md-6 col-12 slide">
-                                                <div class="project-thumb">
-                                                    <a href="#"> <img alt="Image" class="border--round" src="{{asset('school_website_asset/img/work-6.jpg')}}"> </a>
-                                                    <h4>Nike Active</h4> <span>Print Marketing</span> </div>
-                                            </li>
-                                            <li class="col-md-6 col-12 slide">
-                                                <div class="project-thumb">
-                                                    <a href="#"> <img alt="Image" class="border--round" src="{{asset('school_website_asset/img/work-2.jpg')}}"> </a>
-                                                    <h4>Get Lost in Thailand</h4> <span>Print Marketing</span> </div>
-                                            </li>
-                                            <li class="col-md-6 col-12 slide">
-                                                <div class="project-thumb">
-                                                    <a href="#"> <img alt="Image" class="border--round" src="{{asset('school_website_asset/img/work-3.jpg')}}"> </a>
-                                                    <h4>M&amp;D Stairs Company</h4> <span>Branding &amp; Identity</span> </div>
-                                            </li>
-                                            <li class="col-md-6 col-12 slide is-selected">
-                                                <div class="project-thumb">
-                                                    <a href="#"> <img alt="Image" class="border--round" src="{{asset('school_website_asset/img/work-4.jpg')}}"> </a>
-                                                    <h4>Blossom Naturals</h4> <span>Branding &amp; Identity</span> </div>
-                                            </li>
-                                        </div>
-                                    </div>
-                                </ul>
+                        <div class="col-md-9 col-lg-8">
+                            <h1>Streamline your workflow with Stack</h1>
+                            <p class="lead">Stack offers a clean and contemporary look to suit a range of purposes from corporate, tech startup, marketing site to digital storefront.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pos-absolute pos-bottom col-12">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 text-left">
+                                <div class="text-block">
+                                    <h5>Teahupo'o Beach</h5> <span>French Polynesia</span> </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="switchable imagebg switchable--switch" data-overlay="4">
-                <div class="background-image-holder"> <img alt="background" src="{{asset('school_website_asset/img/hero-1.jpg')}}"> </div>
+            <section class="switchable feature-large">
                 <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-md-6 switchable__text">
-                            <ul class="accordion accordion-2 accordion--oneopen">
-                                <li class="active">
-                                    <div class="accordion__title"> <span class="h5">Code Quality</span> </div>
-                                    <div class="accordion__content">
-                                        <p class="lead"> Stack follows the BEM naming convention that focusses on logical code readability that is reflected in both the HTML and CSS. Interactive elements such as accordions and tabs follow the same markup patterns making rapid development easier for developers and beginners alike. </p>
-                                        <p class="lead"> Add to this the thoughtfully presented documentation, featuring code highlighting, snippets, class customizer explanation and you've got yourself one powerful value package. </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="accordion__title"> <span class="h5">Visual Design</span> </div>
-                                    <div class="accordion__content">
-                                        <p class="lead"> Stack offers a clean and contemporary to suit a range of purposes from corporate, tech startup, marketing site to digital storefront. Elements have been designed to showcase content in a diverse yet consistent manner. </p>
-                                        <p class="lead"> Multiple font and colour scheme options mean that dramatically altering the look of your site is just clicks away — Customizing your site in the included Variant Page Builder makes experimenting with styles and content arrangements dead simple. </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="accordion__title"> <span class="h5">Stack Experience</span> </div>
-                                    <div class="accordion__content">
-                                        <p class="lead"> Medium Rare is an elite author known for offering high-quality, high-value products backed by timely and personable support. Recognised and awarded by Envato on multiple occasions for producing consistently outstanding products, it's no wonder over 20,000 customers enjoy using Medium Rare templates. </p>
-                                    </div>
-                                </li>
-                            </ul>
+                    <div class="row justify-content-around">
+                        <div class="col-lg-5 col-md-6 switchable__text">
+                            <h2>Perfect for bootstrapped startups</h2>
+                            <p class="lead"> Launching an attractive and scalable website quickly and affordably is important for modern startups — Stack offers massive value without looking 'bargain-bin'. </p>
+                            <a class="btn btn--primary type--uppercase" href="#"> <span class="btn__text">
+                        Explore Detail
+                    </span> </a>
                         </div>
-                        <div class="col-lg-5 col-md-6"> <img alt="Image" class="border--round box-shadow-wide" src="{{asset('school_website_asset/img/inner-2.jpg')}}"> </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="boxed boxed--lg boxed--border box-shadow-wide">
+                                <div class="slider" data-paging="true">
+                                    <ul class="slides">
+                                        <li class="col-12">
+                                            <div class="feature feature-3 text-center"> <i class="icon icon--lg icon-Mail-3 color--primary"></i>
+                                                <h4>Mailer Integrations</h4>
+                                                <p> Stack comes with integration for Mail Chimp and Campaign Monitor forms - ideal for modern marketing campaigns </p> <a href="#">
+                                        Learn More
+                                    </a> </div>
+                                        </li>
+                                        <li class="col-12">
+                                            <div class="feature feature-3 text-center"> <i class="icon icon--lg icon-Air-Balloon color--primary"></i>
+                                                <h4>Diverse Icons</h4>
+                                                <p> Including the premium Icons Mind icon kit, Stack features a highly diverse set of icons suitable for all purposes. </p> <a href="#">
+                                        Learn More
+                                    </a> </div>
+                                        </li>
+                                        <li class="col-12">
+                                            <div class="feature feature-3 text-center"> <i class="icon icon--lg icon-Bacteria color--primary"></i>
+                                                <h4>Modular Design</h4>
+                                                <p> Combine blocks from a range of categories to build pages that are rich in visual style and interactivity </p> <a href="#">
+                                        Learn More
+                                    </a> </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row justify-content-center no-gutters">
+                        <div class="col-md-10 col-lg-8">
+                            <div class="boxed boxed--border">
+                                <form class="text-left form-email row mx-0" method="post" id="submit_admiss_form" data-success="Thanks for your enquiry, we'll be in touch shortly." data-error="Please fill in all fields correctly.">
+                                    <div class="col-md-6"> <span>Name:</span> <input type="text" name="name" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Father Name:</span> <input type="text" name="company" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Father Contact:</span> <input type="email" name="email" class="validate-required validate-email"> </div>
+                                    <div class="col-md-6"> <span>Present Address:</span> <input type="tel" name="phone" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Permanent Address:</span> <input type="tel" name="phone" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Date of Birth:</span> <input type="tel" name="phone" class="validate-required"> </div>
+                                    <div class="col-md-6 boxed">
+                                        <h5>Gender</h5>
+                                       
+                                    </div>
+                                    <div class="col-md-6 boxed">
+                                        <h5>Shift</h5>
+                                       
+                                    </div>
+                                    <div class="col-md-3 col-3 text-center" > <span class="block">MALE</span>
+                                    <input type="radio" id="male" name="gender" value="male">
+                                    </div>
+                                    <div class="col-md-3 col-3 text-center"> <span class="block">FEMALE</span>
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    </div>
+                                    <div class="col-md-3 col-3 text-center"> <span class="block">MORNING</span>
+                                    <input type="radio" id="morning" name="shift" value="male">
+                                    </div>
+                                    <div class="col-md-3 col-3 text-center"> <span class="block">EVENING</span>
+                                    <input type="radio" id="evening" name="shift" value="female">
+                                    </div>
+                                    <div class="col-md-3 col-3 text-center">
+                                    </div>
+                                    <div class="col-md-6 col-6 text-center"> <span class="block"> <b>CLASS </b></span>                
+                                    <small id="Classes_id_error" class="form-text text-danger"></small>
+                                    <select name="Classes_id" id="classes_id" class="form-control formselect required">
+                                    @foreach($classes as $class)
+                                        <option value="{{$class->Class_id}}">{{$class->Class_name}}</option>
+                                    @endforeach
+                                     </select>
+                                    </div>
+                                   
+                                    <div class="col-md-12 boxed"> <button type="submit" class="btn btn--primary type--uppercase">Submit&nbsp;</button> </div>
+                               
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -125,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-            </section>   
+            </section>
 @endsection
 
 @section('custom-script')

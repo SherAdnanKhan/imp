@@ -27,6 +27,8 @@ use App\Http\Requests\FeetypeRequest;
 use App\Models\Kelex_students_session;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FeeCategoryRequest;
+use App\Http\Requests\reg_feeRequest;
+use App\Models\Kelex_oreg_fee;
 use App\Traits\NumberFormater;
 
 class FeeController extends Controller
@@ -688,7 +690,7 @@ class FeeController extends Controller
         ->leftjoin('kelex_fees', 'kelex_fees.FEE_ID', '=', 'kelex_student_fees.FEE_ID')
         ->leftjoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
         ->leftjoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_students_sessions.CLASS_ID')
-        ->leftjoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_students_sessions.CLASS_ID')
+        ->leftjoin('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_students_sessions.SECTION_ID')
         ->leftjoin('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
         ->leftjoin('kelex_student_dues', 'kelex_student_dues.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
         ->select('kelex_students.NAME', 'kelex_students.FATHER_NAME', 'kelex_classes.Class_name', 'kelex_sections.Section_name', 'kelex_students_sessions.*', 'kelex_students.REG_NO', 'kelex_fees.*', 'kelex_student_dues.*')
@@ -699,4 +701,42 @@ class FeeController extends Controller
         $data = ['sessions' => $sessions,  'classes' => $classes,'record' => $record];
         return view('Admin.FeesManagement.fee_register')->with($data);
     }
+
+// Online Registration Fee controller method start here
+public function index_fee_reg()
+{
+
+    $campus_id = Auth::user()->CAMPUS_ID;
+    $class= Kelex_class::where('CAMPUS_ID',$campus_id)->get();
+    $session= Kelex_sessionbatch::where('CAMPUS_ID',$campus_id)->get();
+    $data = DB::table('kelex_oreg_fees')
+    ->leftjoin('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_oreg_fees.CLASS_ID')
+    ->leftjoin('kelex_sessionbatches', 'kelex_sessionbatches.SB_ID', '=', 'kelex_oreg_fees.SESSION_ID')
+    ->select('kelex_sessionbatches.SB_NAME','kelex_classes.Class_name', 'kelex_oreg_fees.*')->get();
+    // dd($class);
+    return view("Admin.FeesManagement.Online_reg_fee")->with(['classes'=>$class,'sessions'=>$session,'datas'=>$data]);
+}
+public function search_reg_fee(Request $request)
+{
+    $result= Kelex_oreg_fee::where('SESSION_ID',$request->SESSION_ID)->where('CLASS_ID',$request->CLASS_ID)
+        ->where('CAMPUS_ID', Auth::user()->CAMPUS_ID)->first();
+   
+    // dd($class);
+    return response()->json($result);
+}
+public function apply_reg_fee(reg_feeRequest $request)
+{
+    $Result= Kelex_oreg_fee::updateOrCreate(
+        ['SESSION_ID' => $request->SESSION_ID,'CLASS_ID' => $request->CLASS_ID],
+        ['SESSION_ID' => $request->SESSION_ID,
+        'CLASS_ID' => $request->CLASS_ID,
+        'REGFEE'=>$request->REGFEE,
+        'CAMPUS_ID' => Session::get('CAMPUS_ID'),
+        'USER_ID' =>Session::get('user_id'),
+    ]);  
+    // dd($class);
+    return response()->json(true);
+}
+
+
 }

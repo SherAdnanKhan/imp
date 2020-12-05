@@ -94,7 +94,7 @@
             </ul>
             <ul class="list-inline menu-center mb-0">
                 <li class="text-center text text-white">
-                <h2 style="padding-top:15px;text-transform: uppercase;"> <b> {{Session::get('schoolname')}} </b> </h2>
+                <h2 style="text-transform: uppercase;"> <b> {{Session::get('schoolname')}} </b> </h2>
                 </li>
 
             </ul>

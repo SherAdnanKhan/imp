@@ -72,6 +72,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-finance"></i><span> Fee Management <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
+                                <li><a href="{{route('index_fee_reg')}}">Onine Reg-Fee </a></li>
                             @if(isset($permissions->fee_managament->fee_category->status)=="1")
                                     <li><a href="{{route('feecategory')}}">Define Fee Category</a></li>
                             @endif
@@ -217,7 +218,7 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>System Settings <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                                 <ul class="submenu">
 
-                                    <li><a href="comingsoon">General Settings</a></li>
+                                    <li><a href="{{route('index_campus_settings')}}">General Settings</a></li>
                                     @if(isset($permissions->usermanagment->status)=="1")
                                     <li><a href="{{route('fee-terms')}}">Fee Terms</a></li>
                                     <li><a href="{{route('staff')}}">Roles/Permission</a></li>

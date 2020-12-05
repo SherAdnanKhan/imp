@@ -18,6 +18,7 @@ use App\Http\Controllers\GeneralSettingController;
 use App\Http\Controllers\KelexBanksController;
 use App\Http\Controllers\PaperMarksController;
 use App\Http\Controllers\NonTeachingController;
+use App\Http\Controllers\SchoolWebsiteController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\TeacherLoginController;
 use App\Http\Controllers\StudentAttendanceController;
@@ -39,9 +40,9 @@ use App\Models\Kelex_banks;
 
 Route::get('/test', [TempController::class, 'updatestudents']);
 
-Route::get('/schoolwebsite', function () {
-    return view('Schoolwebsite.index');
-});
+Route::get('/schoolwebsite', [SchoolWebsiteController::class, 'index']);
+
+
 Route::get('/', function () {
     if(session()->has('is_admin'))
     {
@@ -304,8 +305,14 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::match(['get', 'post'], '/get-family-accounts/{session_id}', [FeeController::class, 'get_family_accounts'])->name("get-family-accounts");
     Route::match(['get', 'post'], '/fee-register', [FeeController::class, 'fee_register'])->name("fee-register");
     // Route::get('/get-fee-collection-data',function(){
-
+     
 // });
+
+  //Online Registation fee routes start here
+  Route::match(['get', 'post'], '/index_fee_reg', [FeeController::class, 'index_fee_reg'])->name("index_fee_reg");
+  Route::match(['get', 'post'], '/search_reg_fee', [FeeController::class, 'search_reg_fee'])->name("search_reg_fee");
+  Route::match(['get', 'post'], '/apply_reg_fee', [FeeController::class, 'apply_reg_fee'])->name("apply_reg_fee");
+
 
 //Employee Routes Start
 Route::match(['get', 'post'], '/employee', [EmployeeController::class, 'index_employee'])->name("employee");
@@ -405,5 +412,7 @@ Route::match(['get', 'post'], '/update-bank', [KelexBanksController::class, 'upd
 
 // General Setting routes
 Route::match(['get', 'post'], '/fee-terms', [GeneralSettingController::class, 'fee_terms'])->name('fee-terms');
+Route::match(['get', 'post'], '/index_campus_settings', [GeneralSettingController::class, 'index_campus_settings'])->name('index_campus_settings');
+Route::match(['get', 'post'], '/update_campus_settings', [GeneralSettingController::class, 'update_campus_settings'])->name('update_campus_settings');
 // End General Setting routes
 });
