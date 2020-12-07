@@ -6,15 +6,15 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-        <title>Title</title>
+        <title>{{Session::get('CAMPUS_NAME')}}</title>
         <meta content="Admin Dashboard" name="description" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta content="Themesbrand" name="author" />
         <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
         <link rel="shortcut icon" href="{{asset('admin_assets/dist/img/ico/favicon.png')}}" type="image/x-icon">
-        
-     
-   
+
+
+
         <script src="{{asset('assets/js/jquery.min.js')}}"></script>
       <!-- Start Global Mandatory Style
          =====================================================================-->
@@ -36,17 +36,17 @@
       <link href="{{asset('admin_assets/themify-icons/themify-icons.css')}}" rel="stylesheet" type="text/css"/>
       <!-- End Global Mandatory Style
          =====================================================================-->
-      <!-- Start page Label Plugins 
+      <!-- Start page Label Plugins
          =====================================================================-->
       @yield('page-css')
-      <!-- End page Label Plugins 
+      <!-- End page Label Plugins
          =====================================================================-->
       <!-- Start Theme Layout Style
          =====================================================================-->
       <!-- Theme style -->
-      
-     
-      
+
+
+
       <link href="{{asset('admin_assets/dist/css/stylecrm.css')}}" rel="stylesheet" type="text/css"/>
       <!-- Theme style rtl -->
       <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
@@ -56,12 +56,12 @@
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/style.css?v=1.0.2')}}" rel="stylesheet" type="text/css">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
     </head>
 <body >
- 
+
 
 <div id="wrapper">
 <!-- header below -->

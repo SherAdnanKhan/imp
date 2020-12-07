@@ -466,10 +466,10 @@ dt {
 ===================*/
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;
@@ -616,7 +616,7 @@ dt {
 }
 
 .submenu li a {
-  padding: 8px 20px 8px 10px;
+  padding: 0px 20px 8px 10px;
   color: #70767b;
   display: block;
   -webkit-transition: all 0.5s;
@@ -748,8 +748,8 @@ dt {
 #sidebar-menu > ul > li > a {
   color: #70767b;
   display: block;
-  padding: 13px 25px;
-  font-size: 15px;
+  padding: 7px 25px;
+  font-size: 14px;
   position: relative;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
