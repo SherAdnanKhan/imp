@@ -45,7 +45,8 @@
          =====================================================================-->
       <!-- Theme style -->
 
-
+        {{-- spniner css cdn --}}
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
       <link href="{{asset('admin_assets/dist/css/stylecrm.css')}}" rel="stylesheet" type="text/css"/>
       <!-- Theme style rtl -->

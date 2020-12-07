@@ -92,7 +92,9 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <button type="submit" class="btn save-btn btn-primary btn-rounded btn-block waves-effect waves-light">Apply Fee</button>
+                        <button type="submit" class="btn save-btn btn-primary btn-rounded btn-block waves-effect waves-light apply-fee-btn">Apply Fee
+                        </button>
+
                     </div>
 
                     </div>
@@ -235,8 +237,9 @@ $('body').on('submit','#applyfeeform',function(e){
           toastr.error('Please Select Due Date','ERROR');
           return false;
       }
-      $('.save-btn').prop('disabled',true);
+      $('.save-btn').prop('disabled',true).html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="sr-only">Applying Fee...</span></div>');
     try {
+        // $('.apply-fee-btn').prop();
         var data = {
             session_id:session_id,
             section_id:section_id,
@@ -264,7 +267,7 @@ $('body').on('submit','#applyfeeform',function(e){
                     }
                 }
         });
-         $('.save-btn').prop('disabled',false);
+         $('.save-btn').prop('disabled',false).html('Apply Fee');
     } catch (error) {
         alert(error);
     }
