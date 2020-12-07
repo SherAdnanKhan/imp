@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Excel;
 use Carbon\Carbon;
 use App\Models\Kelex_class;
+use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
 use App\Models\kelex_section;
 use App\Models\Kelex_student;
@@ -17,8 +18,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\studentrequest;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Kelex_students_session;
-use App\Http\Requests\CsvImportRequest;
 
+use App\Http\Requests\CsvImportRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -147,7 +148,9 @@ class StudentController extends Controller
         $rollno= DB::table('kelex_students_sessions')
         ->where('CAMPUS_ID',Auth::user()->CAMPUS_ID)
         ->orderBy('ROLL_NO', 'desc')->first();
-
+        $campus= Kelex_campus::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->first();
+        $campusname=$campus->SCHOOL_NAME[0];
+        $campusid=$campus->CAMPUS_ID;
         $regno = ( $regno == NULL) ? 1 : $regno->REG_NO+1;
         $rollno = ( $rollno == NULL) ? 1 : $rollno->ROLL_NO+1;
         // dd($regno);
@@ -175,6 +178,7 @@ class StudentController extends Controller
              'PASSING_YEAR' => $request->PASSING_YEAR,
              'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
              'REG_NO'=> $regno,
+             'USERNAME'=>$campusname.''.$campusid.'_'.substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9),
               'USER_ID' => Auth::user()->id,
         ]);
         $studentid= $recent_entry_student->STUDENT_ID;

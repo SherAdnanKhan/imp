@@ -13,10 +13,10 @@ class TeacherLoginController extends Controller
 {
     public function login_employee(teacherloginRequest $request)
     {
-      $EMP_NO = $request->input('EMP_NO');
+      $USERNAME = $request->input('EMP_NO');
       $PASSWORD = $request->input('PASSWORD');
  
-      $employee = Kelex_employee::where('EMP_NO', '=',$EMP_NO)->first();
+      $employee = Kelex_employee::where('USERNAME', '=',$USERNAME)->first();
       if (!$employee)
      {
          return response()->json();

@@ -39,6 +39,7 @@ use App\Models\Kelex_banks;
 */
 
 Route::get('/test', [TempController::class, 'updatestudents']);
+Route::get('/test1', [TempController::class, 'updateteachers']);
 
 Route::get('/schoolwebsite', [SchoolWebsiteController::class, 'index']);
 
@@ -65,7 +66,7 @@ Route::match(['get', 'post'], '/searchingtimetable', [TimetableController::class
 
 Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetable'])->name('showtimetable');
 
-
+Route::match(['get', 'post'], '/submit_admiss_form', [AdminloginController::class, 'submit_admiss_form'])->name('submit_admiss_form');
 
 Route::get('/get-employee-details/{employeeid}', [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
 

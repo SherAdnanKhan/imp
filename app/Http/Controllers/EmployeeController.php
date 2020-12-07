@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kelex_employee;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Kelex_campus;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
@@ -30,7 +31,10 @@ class EmployeeController extends Controller
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload/employee'.Auth::user()->CAMPUS_ID), $my_image);
         endif;
-
+        $campus= Kelex_campus::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->first();
+        $campusname=$campus->SCHOOL_NAME[0];
+        $campusid=$campus->CAMPUS_ID;
+        //dd($teachers);
         $recent_entry_student= Kelex_employee::create([
             'EMP_NAME' => $request->EMP_NAME,
             'FATHER_NAME' => $request->FATHER_NAME,
@@ -49,6 +53,7 @@ class EmployeeController extends Controller
              'EMP_IMAGE' => $my_image,
               'ADDED_BY' => Auth::user()->id,
              'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+             'USERNAME' => $campusname.'T'.$campusid.'_'.substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9),
              'PASSWORD'=> Hash::make("123456"),
         ]);
         $msg='Employee Record inserted successfully';

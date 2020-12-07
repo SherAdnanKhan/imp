@@ -72,7 +72,7 @@
                         <div class="form-group">
                         <small id="teacherlogin_error" class="form-text text-danger"></small>
                         <label for="username">Teacher Employee No</label>
-                        <input type="number" class="form-control " name="EMP_NO" value="{{ old('EMP_NO') }}" placeholder="Enter EMPLOYEE NO">
+                        <input type="text" class="form-control " name="EMP_NO" value="{{ old('EMP_NO') }}" placeholder="Enter EMPLOYEE User Name">
                         <small id="EMP_NO_error" class="form-text text-danger"></small>
                         </div>
                         @csrf

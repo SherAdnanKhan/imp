@@ -34,6 +34,9 @@
                   <li class="list-group-item listnoback">
                      <b>Designation ID</b> <a class="pull-right text-aqua">{{ucfirst($empdata->DESIGNATION_ID)}}</a>
                   </li>
+                  <li class="list-group-item listnoback">
+                     <b>User Name</b> <a class="pull-right text-aqua">{{$empdata->USERNAME}}</a>
+                  </li>
                </ul>
             </div>
          </div>
@@ -87,6 +90,8 @@
                                  <td>Joining Date</td>
                                  <td><p class="text-right">{{date('d-m-Y', strtotime($empdata->JOINING_DATE))}}</p></td>
                               </tr>
+                             
+
                            </tbody>
                         </table>
                      </div>

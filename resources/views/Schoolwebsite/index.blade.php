@@ -184,6 +184,33 @@ jQuery(document).ready(function(){
     contain: true
     });
 });
+$('body').on('submit','#submit_admiss_form',function(e){
+      e.preventDefault();
+      $('#class_name_error').text('');
+      var fdata = new FormData(this);
+      $.ajax({
+        url: '{{url("submit_admiss_form")}}',
+            type:'POST',
+            data: fdata,
+            processData: false,
+            contentType: false,
+            success: function(data){
+               console.log(data)
+               toastr.success('success added', 'Notice');
+                setTimeout(function(){location.reload();},1000);
+              },
+              error: function(error){
+               console.log(error);
+               var response = $.parseJSON(error.responseText);
+                    $.each(response.errors, function (key, val) {
+                        $("#" + key + "_error").text(val[0]);
+                    });
+    }
+      
+
+              
+      });
+    });
 </script>
 
 @endsection
