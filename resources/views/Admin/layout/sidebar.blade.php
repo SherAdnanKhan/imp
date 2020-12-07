@@ -168,15 +168,15 @@
 
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-page-layout-sidebar-left"></i><span> Certificate Managment <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
-                            @if(isset($permissions->certificate->slc->status)=="1")
-                                    <li><a href="{{route('index_slc')}}">{{Session::get('campusname')}} Leaving Certifcate</a></li>
-                            @endif
-                            @if(isset($permissions->certificate->experience->status)=="1")
-                                    <li><a href="comingsoon">Experience</a></li>
-                            @endif
-                            @if(isset($permissions->certificate->curricular->status)=="1")
-                                    <!-- <li><a href="comingsoon">Curricular </a></li> -->
-                            @endif
+                                @if(isset($permissions->certificate->slc->status)=="1")
+                                        <li><a href="{{route('index_slc')}}">{{Session::get('campusname')}} Leaving Certifcate</a></li>
+                                @endif
+                                @if(isset($permissions->certificate->experience->status)=="1")
+                                        <li><a href="comingsoon">Experience</a></li>
+                                @endif
+                                @if(isset($permissions->certificate->curricular->status)=="1")
+                                        <!-- <li><a href="comingsoon">Curricular </a></li> -->
+                                @endif
                                 </ul>
                             </li>
                             @endif
