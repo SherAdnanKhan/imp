@@ -751,29 +751,11 @@
                                         {{$v['fee_category']}}
                                     </td>
                                     <td style=" text-align:right;padding:5px; width:30%; text-align: right; border-bottom: 1px solid #f4f4f4; padding: 2px; font-size: 13px; background-color:#EEE;">
-                                          {{$v['fee_amount']}} x {{$monthsTotal}}
+                                          {{$v['fee_amount']}}
                                     </td>
 
                                 </tr>
-                                @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
-                                <tr>
-                                    <td colspan="1"
-                                        style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                    Balance
-                                    </td>
-                                    <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                                    {{$v['prev_balance']}} </td>
-                                </tr>
-                                @else
-                                <tr>
-                                    <td colspan="1"
-                                        style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                    Advance
-                                    </td>
-                                    <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                                    {{$v['prev_balance']}} </td>
-                                </tr>
-                                @endif
+
                             @endforeach
 
 
@@ -798,6 +780,25 @@
                             </td>
                         <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
                         </tr>
+                        @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+                            <tr>
+                                <td colspan="1"
+                                    style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                Balance
+                                </td>
+                                <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                {{$v['prev_balance']}} </td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="1"
+                                    style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                Advance
+                                </td>
+                                <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                {{$v['prev_balance']}} </td>
+                            </tr>
+                        @endif
                         <tr>
                             <td colspan="1"
                                 style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
@@ -817,46 +818,43 @@
                 </div>
             </div>
             <div class="container1" style="margin-top: 8px;border-top:0px;">
-                <header style="font-size: 11px; margin: -8px 0px 0px 0px;">
-                    <b><u>PAYMENT TERMS</u></b>
-                </header>
-                <div class="container2" width="35%" style="margin-top: -7px; height: 165px">
-                    <p style="font-size: 11px; margin-top: 2px">&nbsp Respected Parents</p>
-                    <div style="margin-top:-15px;padding: 5px 0 0 4px;">
-                        <a style="font-size:10px;">1-</a> <a style="font-size:10px;">Please Deposit Your Child Dues
-                            Upto
-                            10 of every Month. After Due Date Rs.10 /- per day will be Charged.</a><br> <a
-                                style="font-size:10px;">2-</a> <a style="font-size:10px;">Iff you did not Receive
-                            Fee
-                            Voucher Kindly contact School Administration </a><br> <a style="font-size:10px;">3-</a>
-                        <a
-                                style="font-size:10px;">Any error in Fee Voucher Please Contact Account
-                            Office.</a><br>
-                        <a style="font-size:10px;">4-</a> <a style="font-size:10px;">Please Keep This Receipt
-                            Securely
-                            with you for future Correspondence .You must take the Fee Receipt after Depositing the
-                            School Fee & No Claim will be entertained without deposit Slip</a><br> <a
-                                style="font-size:10px;">5-</a> <a style="font-size:10px;">Without slip, Don't Submit
-                            Your Child Fee</a><br></div>
-                </div>
+                        <header style="font-size: 11px; margin: -8px 0px 0px 0px;">
+                            <b><u>PAYMENT TERMS</u></b>
+                        </header>
+                        <div class="" width="35%" style="margin-top: -7px; height: 165px">
+                             @if ($terms)
+                            <div style="margin-top:-15px;padding: 5px 0 0 4px;font-size:10px;">
+                              <p>  {!!$terms->FEE_TERMS_CONDETIONS!!}</p>
+                            </div>
+                            @endif
+                            {{-- <p style="font-size: 11px; margin-top: 2px">&nbsp Respected Parents</p>
+                            <div style="margin-top:-15px;padding: 5px 0 0 4px;">
+                                <a style="font-size:10px;">1-</a> <a style="font-size:10px;">Please Deposit Your Child Dues
+                                    Upto
+                                    10 of every Month. After Due Date Rs.10 /- per day will be Charged.</a><br> <a
+                                        style="font-size:10px;">2-</a> <a style="font-size:10px;">Iff you did not Receive
+                                    Fee
+                                    Voucher Kindly contact School Administration </a><br> <a style="font-size:10px;">3-</a>
+                                <a
+                                        style="font-size:10px;">Any error in Fee Voucher Please Contact Account
+                                    Office.</a><br>
+                                <a style="font-size:10px;">4-</a> <a style="font-size:10px;">Please Keep This Receipt
+                                    Securely
+                                    with you for future Correspondence .You must take the Fee Receipt after Depositing the
+                                    School Fee & No Claim will be entertained without deposit Slip</a><br> <a
+                                        style="font-size:10px;">5-</a> <a style="font-size:10px;">Without slip, Don't Submit
+                                    Your Child Fee</a><br></div> --}}
+                        </div>
 
 
-                <footer style="font-size: 12px; margin-top: 84px"><h4>Stamp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; Authorized Signature</h4></footer>
-                <div style="margin-left: 94px; margin-top:0px">
+                        <footer style="font-size: 12px; margin-top: 84px"><h4>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Stamp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 Authorized Signature</h4></footer>
+                        <div style="margin-left: 94px; margin-top:0px">
 
-                </div>
-            </div>
+                        </div>
+                    </div>
             </body>
         </div>
         <hr class="vertical">
@@ -925,7 +923,7 @@
                         <td style="width: 20%;border-bottom: 0px;font-size:13px; text-align: center; border-right: 0px">
                            {{$value['REG_NO']}}</td>
                         <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp
-                            Class
+                            {{Session::get('class')}}
                         </td>
                         <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
                         @foreach($class as $clas)
@@ -936,7 +934,7 @@
                 <table style="width:563px; height: 20px; border-bottom: 0px solid black;border-left: 0px solid black; border-right: 0px solid black;">
                     <tr>
                         <td style="font-size: 13px; width: 19%; border-bottom: 0px solid black;border-left: 0px solid black;">
-                            &nbsp Section
+                            &nbsp {{Session::get('section')}}
                         </td>
                         <td colspan="2" style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
                         @foreach($Section as $sec)
@@ -945,7 +943,7 @@
                           </td>
                         <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
                             &nbsp
-                            Session
+                           {{Session::get('session')}}
                         </td>
                         <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
                         @foreach($Session as $ses)
@@ -954,7 +952,7 @@
                          </td>
                     </tr>
                 </table>
-                <div style="width:563px; height: 200px; border-bottom: 0px solid black; ">
+                        <div style="width:563px; height: 200px; border-bottom: 0px solid black; ">
 
                     <table class="table table-bordered" style="margin-bottom: 0px; width: 563px;">
                         <thead>
@@ -971,17 +969,42 @@
                         <tbody>
                             @php $total = 0; $monthsTotal = count($value['student_fee_months']) @endphp
                             @foreach ($value['student_fees'] as $k => $v)
-                            @php  $total += ($v['fee_amount'] * $monthsTotal ); $total += $v['prev_balance'];  @endphp
+                            @php $total += ($v['fee_amount'] * $monthsTotal ); $total += $v['prev_balance'];  @endphp
                               <tr>
                                     <td style=" text-align:right;padding:5px; width: 70%; font-size: 13px;border-left: 0px;border-bottom: 1px solid #f4f4f4; background-color:#EEE;" >
                                         {{$v['fee_category']}}
                                     </td>
                                     <td style=" text-align:right;padding:5px; width:30%; text-align: right; border-bottom: 1px solid #f4f4f4; padding: 2px; font-size: 13px; background-color:#EEE;">
-                                          {{$v['fee_amount']}} x {{$monthsTotal}}
+                                          {{$v['fee_amount']}}
                                     </td>
 
                                 </tr>
-                            @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+
+                            @endforeach
+
+
+
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+
+
+                        <tr>
+                            <td colspan="1"
+                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
+                                Total Fee Amount
+                            </td>
+                        <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
+                        </tr>
+                        @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
                             <tr>
                                 <td colspan="1"
                                     style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
@@ -999,29 +1022,7 @@
                                 <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
                                 {{$v['prev_balance']}} </td>
                             </tr>
-                            @endif
-                            @endforeach
-
-
-
-                        <tr>
-                        </tr>
-                        <tr>
-                        </tr>
-                        <tr>
-                        </tr>
-
-                        <tr>
-                        </tr>
-
-
-                        <tr>
-                            <td colspan="1"
-                                style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
-                                Total Fee Amount
-                            </td>
-                        <td style="text-align:right;border:1px solid black; padding-left:5px; background-color:#EEE; font-size:12px;">{{$total}}</td>
-                        </tr>
+                        @endif
                         <tr>
                             <td colspan="1"
                                 style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
@@ -1041,46 +1042,43 @@
                 </div>
             </div>
             <div class="container1" style="margin-top: 8px;border-top:0px;">
-                <header style="font-size: 11px; margin: -8px 0px 0px 0px;">
-                    <b><u>PAYMENT TERMS</u></b>
-                </header>
-                <div class="container2" width="35%" style="margin-top: -7px; height: 165px">
-                    <p style="font-size: 11px; margin-top: 2px">&nbsp Respected Parents</p>
-                    <div style="margin-top:-15px;padding: 5px 0 0 4px;">
-                        <a style="font-size:10px;">1-</a> <a style="font-size:10px;">Please Deposit Your Child Dues
-                            Upto
-                            10 of every Month. After Due Date Rs.10 /- per day will be Charged.</a><br> <a
-                                style="font-size:10px;">2-</a> <a style="font-size:10px;">Iff you did not Receive
-                            Fee
-                            Voucher Kindly contact School Administration </a><br> <a style="font-size:10px;">3-</a>
-                        <a
-                                style="font-size:10px;">Any error in Fee Voucher Please Contact Account
-                            Office.</a><br>
-                        <a style="font-size:10px;">4-</a> <a style="font-size:10px;">Please Keep This Receipt
-                            Securely
-                            with you for future Correspondence .You must take the Fee Receipt after Depositing the
-                            School Fee & No Claim will be entertained without deposit Slip</a><br> <a
-                                style="font-size:10px;">5-</a> <a style="font-size:10px;">Without slip, Don't Submit
-                            Your Child Fee</a><br></div>
-                </div>
+                        <header style="font-size: 11px; margin: -8px 0px 0px 0px;">
+                            <b><u>PAYMENT TERMS</u></b>
+                        </header>
+                        <div class="" width="35%" style="margin-top: -7px; height: 165px">
+                             @if ($terms)
+                            <div style="margin-top:-15px;padding: 5px 0 0 4px;font-size:10px;">
+                              <p>  {!!$terms->FEE_TERMS_CONDETIONS!!}</p>
+                            </div>
+                            @endif
+                            {{-- <p style="font-size: 11px; margin-top: 2px">&nbsp Respected Parents</p>
+                            <div style="margin-top:-15px;padding: 5px 0 0 4px;">
+                                <a style="font-size:10px;">1-</a> <a style="font-size:10px;">Please Deposit Your Child Dues
+                                    Upto
+                                    10 of every Month. After Due Date Rs.10 /- per day will be Charged.</a><br> <a
+                                        style="font-size:10px;">2-</a> <a style="font-size:10px;">Iff you did not Receive
+                                    Fee
+                                    Voucher Kindly contact School Administration </a><br> <a style="font-size:10px;">3-</a>
+                                <a
+                                        style="font-size:10px;">Any error in Fee Voucher Please Contact Account
+                                    Office.</a><br>
+                                <a style="font-size:10px;">4-</a> <a style="font-size:10px;">Please Keep This Receipt
+                                    Securely
+                                    with you for future Correspondence .You must take the Fee Receipt after Depositing the
+                                    School Fee & No Claim will be entertained without deposit Slip</a><br> <a
+                                        style="font-size:10px;">5-</a> <a style="font-size:10px;">Without slip, Don't Submit
+                                    Your Child Fee</a><br></div> --}}
+                        </div>
 
 
-                <footer style="font-size: 12px; margin-top: 84px"><h4>Stamp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; &nbsp;
-                        &nbsp; &nbsp; &nbsp;&nbsp;
-                        &nbsp; &nbsp; &nbsp; Authorized Signature</h4></footer>
-                <div style="margin-left: 94px; margin-top:0px">
+                        <footer style="font-size: 12px; margin-top: 84px"><h4>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Stamp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 Authorized Signature</h4></footer>
+                        <div style="margin-left: 94px; margin-top:0px">
 
-                </div>
-            </div>
+                        </div>
+                    </div>
             </body>
         </div>
         <hr class="vertical">

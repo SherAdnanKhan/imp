@@ -703,7 +703,7 @@
                                 <td style="width: 20%;border-bottom: 0px;font-size:13px; text-align: center; border-right: 0px">
                                 {{$value['REG_NO']}}</td>
                                 <td style="width: 15%; font-size: 13px; border-bottom: 0px; border-right: 0px;">
-                                    &nbsp {{Session::get('class')}}
+                                    &nbsp{{Session::get('class')}}
                                 </td>
                                 <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
                                 @foreach($class as $clas)
@@ -757,31 +757,11 @@
                                                 {{$v['fee_category']}}
                                             </td>
                                             <td style=" text-align:right;padding:5px; width:30%; text-align: right; border-bottom: 1px solid #f4f4f4; padding: 2px; font-size: 13px; background-color:#EEE;">
-                                                {{$v['fee_amount']}} x {{$monthsTotal}}
+                                                {{$v['fee_amount']}}
                                             </td>
 
                                         </tr>
-                                        @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
-                                        <tr>
-                                            <td colspan="1"
-                                                style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                            Balance
-                                            </td>
-                                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                                                <span style="padding-left:5px"> {{$v['prev_balance']}}</span>
-                                            </td>
-                                        </tr>
-                                        @else
-                                        <tr>
-                                            <td colspan="1"
-                                                style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
-                                            Advance
-                                            </td>
-                                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
-                                           <span style="padding-left:5px"> {{$v['prev_balance']}}</span>
-                                         </td>
-                                        </tr>
-                                        @endif
+
                                     @endforeach
 
 
@@ -808,6 +788,27 @@
                                      <span style="padding-left:5px">{{$total}}</span>
                                     </td>
                                 </tr>
+                                    @if(!$v['prev_balance'] == 0 AND $v['prev_type'] == 1 )
+                                        <tr>
+                                            <td colspan="1"
+                                                style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                            Balance
+                                            </td>
+                                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                                <span style="padding-left:5px"> {{$v['prev_balance']}}</span>
+                                            </td>
+                                        </tr>
+                                        @else
+                                        <tr>
+                                            <td colspan="1"
+                                                style="text-align:right; background-color:#EEE; border-top:1px solid black; padding-left:5px; font-size:12px;">
+                                            Advance
+                                            </td>
+                                            <td style="text-align:right;padding:5px; background-color:#EEE; font-size:12px;">
+                                           <span style="padding-left:5px"> {{$v['prev_balance']}}</span>
+                                         </td>
+                                        </tr>
+                                        @endif
                                 <tr>
                                     <td colspan="1"
                                         style="background-color:#EEE; border-top:1px solid  border-top:1px solid black; padding:5px; font-size:12px;">
@@ -832,7 +833,13 @@
                             <b><u>PAYMENT TERMS</u></b>
                         </header>
                         <div class="container2" width="35%" style="margin-top: -7px; height: 165px">
-                            <p style="font-size: 11px; margin-top: 2px">&nbsp Respected Parents</p>
+                             <div class="" width="35%" style="margin-top: -7px; height: 165px">
+                             @if ($terms)
+                            <div style="margin-top:-15px;padding: 5px 0 0 4px;font-size:10px;">
+                              <p>  {!!$terms->FEE_TERMS_CONDETIONS!!}</p>
+                            </div>
+                            @endif
+                            {{-- <p style="font-size: 11px; margin-top: 2px">&nbsp Respected Parents</p>
                             <div style="margin-top:-15px;padding: 5px 0 0 4px;">
                                 <a style="font-size:10px;">1-</a> <a style="font-size:10px;">Please Deposit Your Child Dues
                                     Upto
@@ -848,22 +855,15 @@
                                     with you for future Correspondence .You must take the Fee Receipt after Depositing the
                                     School Fee & No Claim will be entertained without deposit Slip</a><br> <a
                                         style="font-size:10px;">5-</a> <a style="font-size:10px;">Without slip, Don't Submit
-                                    Your Child Fee</a><br></div>
+                                    Your Child Fee</a><br></div> --}}
+                        </div>
                         </div>
 
 
-                        <footer style="font-size: 12px; margin-top: 84px"><h4>Stamp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <footer style="font-size: 12px; margin-top: 84px"><h4> &nbsp; Stamp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp;
                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp;
-                                &nbsp; &nbsp; &nbsp;&nbsp;
-                                &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp; &nbsp; &nbsp;&nbsp;
-                                &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp; &nbsp; &nbsp;&nbsp;
-                                &nbsp; &nbsp; &nbsp; &nbsp;
-                                &nbsp; &nbsp; &nbsp;&nbsp;
-                                &nbsp; &nbsp; &nbsp; Authorized Signature</h4></footer>
+                                &nbsp; Authorized Signature</h4></footer>
                         <div style="margin-left: 94px; margin-top:0px">
 
                         </div>

@@ -361,10 +361,14 @@ class FeeController extends Controller
         $fee_category = $request->category;
         $months = $request->months;
         $due_date = $request->due_date;
-        $where = ['SESSION_ID' => $session_id, 'CLASS_ID' => $class_id, 'SECTION_ID' => $section_id];
+        $where = [
+            'SESSION_ID' => $session_id,
+            // 'CLASS_ID' => $class_id,
+            'SECTION_ID' => $section_id
+        ];
         $student_ids = Kelex_students_session::where($where)
                             ->select('STUDENT_ID')
-                            ->get();
+                            ->get(); //dd($student_ids);
         $student_ids = json_decode(json_encode($student_ids,true));
         if(empty($student_ids)):
             return ['type' => 0,'response' => 'No Students found. Fee Applying Failed.'];
@@ -409,7 +413,6 @@ class FeeController extends Controller
             ];
             Kelex_student_fee::create($student_fee);
         endfor;
-        die;
         return ['type' =>1,'response' => 'Fee Applied Successfully..'];
     }
 
