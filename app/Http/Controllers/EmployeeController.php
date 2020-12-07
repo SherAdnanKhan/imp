@@ -65,7 +65,13 @@ class EmployeeController extends Controller
     $employee= Kelex_employee::where('CAMPUS_ID',Session::get('CAMPUS_ID'))->get();
     return view('Admin.HRManagement.viewemployeecategory')->with('employees',$employee);
     }
+    public function showcredentials()
+    {
+      $teachers= Kelex_employee::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->select('EMP_NAME','FATHER_NAME','USERNAME','PASSWORD')->get();
 
+      return view('Admin.HRManagement.credentials')->with('Teachers',$teachers);
+
+    }
     public function getemployeedata($id){
 
         $data= Kelex_employee::where('EMP_ID',$id)

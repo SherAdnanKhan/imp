@@ -75,12 +75,12 @@
                         <div class="col-md-10 col-lg-8">
                             <div class="boxed boxed--border">
                                 <form class="text-left form-email row mx-0" method="post" id="submit_admiss_form" data-success="Thanks for your enquiry, we'll be in touch shortly." data-error="Please fill in all fields correctly.">
-                                    <div class="col-md-6"> <span>Name:</span> <input type="text" name="name" class="validate-required"> </div>
-                                    <div class="col-md-6"> <span>Father Name:</span> <input type="text" name="company" class="validate-required"> </div>
-                                    <div class="col-md-6"> <span>Father Contact:</span> <input type="email" name="email" class="validate-required validate-email"> </div>
-                                    <div class="col-md-6"> <span>Present Address:</span> <input type="tel" name="phone" class="validate-required"> </div>
-                                    <div class="col-md-6"> <span>Permanent Address:</span> <input type="tel" name="phone" class="validate-required"> </div>
-                                    <div class="col-md-6"> <span>Date of Birth:</span> <input type="tel" name="phone" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Name:</span> <input type="text" name="NAME" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Father Name:</span> <input type="text" name="FATHER_NAME" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Father Contact:</span> <input type="tel" name="FATHER_CONTACT" class="validate-required validate-email"> </div>
+                                    <div class="col-md-6"> <span>Present Address:</span> <input type="text" name="phone" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Permanent Address:</span> <input type="text" name="phone" class="validate-required"> </div>
+                                    <div class="col-md-6"> <span>Date of Birth:</span> <input type="date" name="phone" class="validate-required"> </div>
                                     <div class="col-md-6 boxed">
                                         <h5>Gender</h5>
                                        
@@ -90,16 +90,16 @@
                                        
                                     </div>
                                     <div class="col-md-3 col-3 text-center" > <span class="block">MALE</span>
-                                    <input type="radio" id="male" name="gender" value="male">
+                                    <input type="radio" id="male" name="GENDER" value="Male">
                                     </div>
                                     <div class="col-md-3 col-3 text-center"> <span class="block">FEMALE</span>
-                                    <input type="radio" id="female" name="gender" value="female">
+                                    <input type="radio" id="female" name="GENDER" value="Female">
                                     </div>
                                     <div class="col-md-3 col-3 text-center"> <span class="block">MORNING</span>
-                                    <input type="radio" id="morning" name="shift" value="male">
+                                    <input type="radio" id="morning" name="SHIFT" value="1">
                                     </div>
                                     <div class="col-md-3 col-3 text-center"> <span class="block">EVENING</span>
-                                    <input type="radio" id="evening" name="shift" value="female">
+                                    <input type="radio" id="evening" name="SHIFT" value="2">
                                     </div>
                                     <div class="col-md-3 col-3 text-center">
                                     </div>
@@ -196,7 +196,7 @@ $('body').on('submit','#submit_admiss_form',function(e){
             contentType: false,
             success: function(data){
                console.log(data)
-               toastr.success('success added', 'Notice');
+               toastr.success('success Submitted', 'Notice');
                 setTimeout(function(){location.reload();},1000);
               },
               error: function(error){
