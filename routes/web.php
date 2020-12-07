@@ -41,6 +41,9 @@ use App\Models\Kelex_banks;
 Route::get('/test', [TempController::class, 'updatestudents']);
 Route::get('/test1', [TempController::class, 'updateteachers']);
 
+Route::match(['get', 'post'], '/submit_admiss_form', [StudentController::class, 'submit_admiss_form'])->name('submit_admiss_form');
+
+
 Route::get('/schoolwebsite', [SchoolWebsiteController::class, 'index']);
 
 
@@ -65,9 +68,6 @@ Route::get('/', function () {
 Route::match(['get', 'post'], '/searchingtimetable', [TimetableController::class, 'searchingtimetable'])->name('searchingtimetable');
 
 Route::match(['get', 'post'], '/showtimetable', [TimetableController::class, 'showtimetable'])->name('showtimetable');
-
-Route::match(['get', 'post'], '/submit_admiss_form', [AdminloginController::class, 'submit_admiss_form'])->name('submit_admiss_form');
-
 Route::get('/get-employee-details/{employeeid}', [EmployeeController::class, 'getemployeedetails'])->name('get-employee-details');
 
 Route::prefix('admin')->group(function () {
@@ -240,6 +240,9 @@ Route::group(['middleware' => 'Admin'], function () {
 
     Route::get('/getidcard/{id}', [StudentController::class, 'get_student_data_for_id_card'])->name('getidcard');
 
+    Route::match(['get', 'post'], '/showcredentialsstudent', [StudentController::class, 'showcredentials'])->name('showcredentialsstudent');
+    Route::match(['get', 'post'], '/showcredentialsteacher', [EmployeeController::class, 'showcredentials'])->name('showcredentialsteacher');
+    
     // Student Add Through Csv Start here
 
     Route::get('/import', [StudentController::class, 'getImport'])->name('import');

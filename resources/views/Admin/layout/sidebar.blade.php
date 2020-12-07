@@ -52,6 +52,7 @@
                                 <ul class="submenu">
                                     <li><a href="{{route('student')}}">Student Admission</a></li>
                                     <li><a href="{{route('showstudent')}}">Student Details</a></li>
+                                    <li><a href="{{route('showcredentialsstudent')}}">Show Credentials</a></li>
                                 </ul>
                                 @endif
                             </li>
@@ -63,6 +64,7 @@
                                 @if(isset($permissions->hr_managment->emp_manage->status)=="1")
                                     <li><a href="{{route('employee')}}">Add New Employee</a></li>
                                     <li><a href="{{route('showemployee')}}">Employee Managment</a></li>
+                                    <li><a href="{{route('showcredentialsteacher')}}">Show Credentials</a></li>
                                 @endif
                                 </ul>
 

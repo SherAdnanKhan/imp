@@ -352,9 +352,28 @@ class StudentController extends Controller
 
     }
 
-    public function searchstudent(Request $request)
+    public function submit_admiss_form(Request $request)
     {
+        
+        $recent_entry_student= Kelex_student::create([
+            'NAME' => $request->NAME,
+            'FATHER_NAME' => $request->FATHER_NAME,
+            'FATHER_CONTACT' => $request->FATHER_CONTACT,
+            'GENDER' => $request->GENDER,
+            'DOB' => $request->DOB,
+            'SHIFT' => $request->SHIFT,
+            'PRESENT_ADDRESS' => $request->PRESENT_ADDRESS,
+            'PERMANENT_ADDRESS' => $request->PERMANENT_ADDRESS,
+             'CAMPUS_ID' => Auth::user()->CAMPUS_ID,
+             'USER_ID' => Auth::user()->id,
+        ]);
+        return response()->json(true);
+    }
+    public function showcredentials()
+    {
+      $students= Kelex_student::where('CAMPUS_ID', Session::get('CAMPUS_ID'))->select('NAME','FATHER_NAME','USERNAME','STD_PASSWORD')->get();
 
+      return view('Admin.Students.credentials')->with('students',$students);
 
     }
 
@@ -401,6 +420,7 @@ class StudentController extends Controller
 
     return $data;
 }
+
 
 
 
