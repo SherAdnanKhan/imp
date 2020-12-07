@@ -41,7 +41,7 @@ class FeeController extends Controller
 // FEE CATEROGORY CONTROLLER START HERE
     public function index_feecategory()
     {
-    
+
         $getfeecat = DB::table('kelex_fee_categories')
                                 // ->join('kelex_sections', 'kelex_sections.Section_id', '=', 'kelex_fee_categories.SECTION_ID')
                                 // ->join('kelex_classes', 'kelex_classes.Class_id', '=', 'kelex_fee_categories.CLASS_ID')
@@ -366,6 +366,10 @@ class FeeController extends Controller
                             ->select('STUDENT_ID')
                             ->get();
         $student_ids = json_decode(json_encode($student_ids,true));
+        if(empty($student_ids)):
+            return ['type' => 0,'response' => 'No Students found. Fee Applying Failed.'];
+            die;
+        endif;
         $student_ids = array_column($student_ids,'STUDENT_ID');
         $fee_structure = KelexFee_structure::where($where)->select('FEE_CATEGORY_ID','CATEGORY_AMOUNT')->get();
         $fee_structure = json_decode(json_encode($fee_structure,true));
@@ -403,11 +407,10 @@ class FeeController extends Controller
                 'STUDENT_ID' => $student_ids[$i],
 
             ];
-           // echo "<pre>";print_r($student_fee);
             Kelex_student_fee::create($student_fee);
         endfor;
+        die;
         return ['type' =>1,'response' => 'Fee Applied Successfully..'];
-        // dd($data);
     }
 
     public function fee_voucher()
@@ -452,16 +455,16 @@ class FeeController extends Controller
 
         endforeach;
 
-        //dd($fee_data);
         $std_record = DB::table('kelex_student_fees')
                             ->leftjoin('kelex_fees','kelex_fees.FEE_ID','=', 'kelex_student_fees.FEE_ID')
                             ->leftjoin('kelex_students_sessions', 'kelex_students_sessions.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
                             ->leftjoin('kelex_students', 'kelex_students.STUDENT_ID', '=', 'kelex_student_fees.STUDENT_ID')
-                             ->select('kelex_students.NAME','kelex_students.FATHER_NAME','kelex_students_sessions.*','kelex_students.REG_NO','kelex_fees.*')
+                            ->select('kelex_students.NAME','kelex_students.FATHER_NAME','kelex_students_sessions.*','kelex_students.REG_NO','kelex_fees.*')
+                            ->where('kelex_fees.FEE_ID',$record[0]->FEE_ID)
                             ->get();
-                             //dd($std_record);
+                            //  dd($std_record);
         $std_record = json_decode(json_encode($std_record),true);
-       // dd($std_record);
+    //    dd($std_record);
         $i = 0;
         foreach ($fee_details as $k => $v) :
             foreach ($v as  $n => $m) :
@@ -525,8 +528,15 @@ class FeeController extends Controller
                 $view = 'Admin.FeesManagement.print_fee_slip_3';
                 break;
         }
-        $data = ['record' => $std_record, 'class' => $class, 'Section' => $Section, 'Session' => $Session, 'bank' => $bank,'terms'=>$terms];
-        // dd($data);
+        $data = [
+            'record' => $std_record,
+            'class' => $class,
+            'Section' => $Section,
+            'Session' => $Session,
+            'bank' => $bank,
+            'terms'=>$terms
+        ];
+        // dd($record);
         return view($view)->with($data);
 
     }
@@ -721,7 +731,7 @@ public function search_reg_fee(Request $request)
 {
     $result= Kelex_oreg_fee::where('SESSION_ID',$request->SESSION_ID)->where('CLASS_ID',$request->CLASS_ID)
         ->where('CAMPUS_ID', Auth::user()->CAMPUS_ID)->first();
-   
+
     // dd($class);
     return response()->json($result);
 }
@@ -734,7 +744,7 @@ public function apply_reg_fee(reg_feeRequest $request)
         'REGFEE'=>$request->REGFEE,
         'CAMPUS_ID' => Session::get('CAMPUS_ID'),
         'USER_ID' =>Session::get('user_id'),
-    ]);  
+    ]);
     // dd($class);
     return response()->json(true);
 }

@@ -721,8 +721,7 @@
                                 </td>
                                 <td style="width: 20%;border-bottom: 0px;font-size:13px; text-align: center; border-right: 0px">
                                 {{$value['REG_NO']}}</td>
-                                <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp
-                                    Class
+                                <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp{{Session::get('class')}}
                                 </td>
                                 <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
                                 @foreach($class as $clas)
@@ -733,7 +732,7 @@
                         <table style="width:100%; height: 20px; border-bottom: 0px solid black;border-left: 0px solid black; border-right: 0px solid black;">
                             <tr>
                                 <td style="font-size: 13px; width: 19%; border-bottom: 0px solid black;border-left: 0px solid black;">
-                                    &nbsp Section
+                                    &nbsp {{Session::get('section')}}
                                 </td>
                                 <td colspan="2" style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
                                 @foreach($Section as $sec)
@@ -742,8 +741,7 @@
 
                                 </td>
                                 <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
-                                    &nbsp
-                                    Session
+                                    &nbsp{{Session::get('session')}}
                                 </td>
                                 <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
 
@@ -971,8 +969,7 @@
                                 </td>
                                 <td style="width: 20%;border-bottom: 0px;font-size:13px; text-align: center; border-right: 0px">
                                 {{$value['REG_NO']}}</td>
-                                <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp
-                                    Class
+                                <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp{{Session::get('class')}}
                                 </td>
                                 <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
                                 @foreach($class as $clas)
@@ -983,7 +980,7 @@
                         <table style="width:100%; height: 20px; border-bottom: 0px solid black;border-left: 0px solid black; border-right: 0px solid black;">
                             <tr>
                                 <td style="font-size: 13px; width: 19%; border-bottom: 0px solid black;border-left: 0px solid black;">
-                                    &nbsp Section
+                                    &nbsp {{Session::get('section')}}
                                 </td>
                                 <td colspan="2" style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
                                 @foreach($Section as $sec)
@@ -992,8 +989,7 @@
 
                                 </td>
                                 <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
-                                    &nbsp
-                                    Session
+                                    &nbsp{{Session::get('session')}}
                                 </td>
                                 <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
 
@@ -1221,8 +1217,7 @@
                                 </td>
                                 <td style="width: 20%;border-bottom: 0px;font-size:13px; text-align: center; border-right: 0px">
                                 {{$value['REG_NO']}}</td>
-                                <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp
-                                    Class
+                                <td style="width: 15%; font-size: 14px; border-bottom: 0px; border-right: 0px;">&nbsp{{Session::get('class')}}
                                 </td>
                                 <td style="width: 28%; padding-left: 2px; font-size:12px; border-bottom: 0px; border-right: 0px">
                                 @foreach($class as $clas)
@@ -1233,7 +1228,7 @@
                         <table style="width:100%; height: 20px; border-bottom: 0px solid black;border-left: 0px solid black; border-right: 0px solid black;">
                             <tr>
                                 <td style="font-size: 13px; width: 19%; border-bottom: 0px solid black;border-left: 0px solid black;">
-                                    &nbsp Section
+                                    &nbsp{{Session::get('section')}}
                                 </td>
                                 <td colspan="2" style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
                                 @foreach($Section as $sec)
@@ -1242,8 +1237,7 @@
 
                                 </td>
                                 <td style="font-size: 13px; border-bottom: 0px; text-align: center; border-right: 0px;">
-                                    &nbsp
-                                    Session
+                                    &nbsp{{Session::get('session')}}
                                 </td>
                                 <td colspan="2"  style="width: 27%; border-bottom: 0px; font-size:13px; text-align: center; border-right: 0px;">
 

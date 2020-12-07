@@ -253,10 +253,15 @@ $('body').on('submit','#applyfeeform',function(e){
                 // processData: false,
                 // contentType: false,
                 success: function(data){
-                    toastr.success('Fee Applied Successfully..','Success');
-                    setTimeout(function() {
-                        $('#applyfeeform')[0].reset();
-                    }, 100);
+                    if(data.type == 0){
+                        toastr.error(data.response,'Error');
+                    }
+                    if(data.type == 1){
+                        toastr.success(data.response,'Success');
+                        setTimeout(function() {
+                            $('#applyfeeform')[0].reset();
+                        }, 100);
+                    }
                 }
         });
          $('.save-btn').prop('disabled',false);
