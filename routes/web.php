@@ -44,10 +44,10 @@ Route::get('/test1', [TempController::class, 'updateteachers']);
 Route::match(['get', 'post'], '/submit_admiss_form', [StudentController::class, 'submit_admiss_form'])->name('submit_admiss_form');
 
 
-Route::get('/schoolwebsite', [SchoolWebsiteController::class, 'index']);
+Route::get('/', [SchoolWebsiteController::class, 'index']);
 
 
-Route::get('/', function () {
+Route::get('/login', function () {
     if(session()->has('is_admin'))
     {
         return redirect('/admin');
@@ -242,7 +242,7 @@ Route::group(['middleware' => 'Admin'], function () {
 
     Route::match(['get', 'post'], '/showcredentialsstudent', [StudentController::class, 'showcredentials'])->name('showcredentialsstudent');
     Route::match(['get', 'post'], '/showcredentialsteacher', [EmployeeController::class, 'showcredentials'])->name('showcredentialsteacher');
-    
+
     // Student Add Through Csv Start here
 
     Route::get('/import', [StudentController::class, 'getImport'])->name('import');
@@ -309,7 +309,7 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::match(['get', 'post'], '/get-family-accounts/{session_id}', [FeeController::class, 'get_family_accounts'])->name("get-family-accounts");
     Route::match(['get', 'post'], '/fee-register', [FeeController::class, 'fee_register'])->name("fee-register");
     // Route::get('/get-fee-collection-data',function(){
-     
+
 // });
 
   //Online Registation fee routes start here

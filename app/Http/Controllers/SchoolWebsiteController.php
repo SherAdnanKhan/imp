@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelex_campus;
-use App\Models\Kelex_employee;
 use App\Traits\SchoolTrait;
+use App\Models\Kelex_campus;
 use Illuminate\Http\Request;
+use App\Models\Kelex_employee;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Session;
 
 class SchoolWebsiteController extends Controller
 {
@@ -16,14 +17,31 @@ class SchoolWebsiteController extends Controller
      * @return \Illuminate\Http\Response
      */
     use SchoolTrait;
+    public function __construct()
+    {
+        $url = URL::current();
+        $url = parse_url($url);
+        $url = $url['host'];
+        $result = $this->getcampusdetails($url);
+
+        if ($result == null) {
+            return redirect('/login');
+            die;
+        }
+
+        $employee = $this->getemployeedetails($result);
+        $classes = $this->getClasses($result);
+        $result = json_decode(json_encode($result),true);
+        $classes = json_decode(json_encode($classes), true);
+        $data = ['campusdetails' => $result, 'employees' => $employee, 'classes' => $classes];
+        Session::put('campus_info', $data);
+        //  dd($data);
+    }
     public function index()
     {
-      
-        $url=URL::current();
-        $result= $this->getcampusdetails($url);
-        $employee= $this->getemployeedetails($result);
-        $classes=$this->getClasses($result);
-        return view('Schoolwebsite.index')->with(['campusdetails'=>$result,'employees'=>$employee,'classes'=>$classes]);
+        $data = ['campusdetails' => Session::get('campus_info')['campusdetails'], 'employees' => Session::get('campus_info')['employees'], 'classes' =>  Session::get('campus_info')['classes']];
+
+        return view('Schoolwebsite.index')->with($data);
     }
 
     /**

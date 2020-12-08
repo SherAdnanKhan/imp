@@ -24,7 +24,7 @@ class CampusController extends Controller
      */
     public function index()
     {
-        
+
          $cities = getCities() ? getCities() : array();
         return view("Admin.Campuses.add_campus")->with('cities',$cities);
     }
@@ -48,10 +48,10 @@ class CampusController extends Controller
             $my_image = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('upload'), $my_image);
         endif;
-       
+        $website = parse_url($request->input("schoolwebsite"))['host'];
         $billingdate= Carbon::parse( $request->input("billingdate"));
         $agreementdate= Carbon::parse($request->input("agreementdate"));
-        
+
         $kelexcampus= new Kelex_campus();
         $kelexcampus->SCHOOL_NAME=      $request->input("schoolname");
         $kelexcampus->SCHOOL_ADDRESS=   $request->input("schooladdress");
@@ -59,7 +59,7 @@ class CampusController extends Controller
         $kelexcampus->MOBILE_NO=    $request->input("mobileno");
         $kelexcampus->LOGO_IMAGE=  $my_image;
         $kelexcampus->SCHOOL_REG=   $request->input("schoolregistration");
-        $kelexcampus->SCHOOL_WEBSITE=   $request->input("schoolwebsite");
+        $kelexcampus->SCHOOL_WEBSITE=   $website;
         $kelexcampus->SCHOOL_EMAIL= $request->input("schoolemail");
         $kelexcampus->CONTROLLLER=  "abc";
         $kelexcampus->USER_ID= Auth::user()->id;
@@ -67,8 +67,8 @@ class CampusController extends Controller
         $kelexcampus->TYPE= $request->input("instuition");
         $kelexcampus->BILLING_CHARGE= $request->input("billingcharges") ;
         $kelexcampus->BILLING_DISCOUNT=	   $request->input("discount");
-        $kelexcampus->DUE_DATE=   $billingdate;	
-        $kelexcampus->STATUS=   $request->input("status");	
+        $kelexcampus->DUE_DATE=   $billingdate;
+        $kelexcampus->STATUS=   $request->input("status");
         $kelexcampus->SMS_ALLOWED=	$request->input("smsstatus");
         $kelexcampus->AGREEMENT=   $request->input("Aggreement");
         $kelexcampus->AGREEMENT_DATE= $agreementdate;
@@ -94,7 +94,7 @@ class CampusController extends Controller
     public function getcampusdata(Request $request){
         $currentcampus = DB::table('kelex_campuses')->where(['CAMPUS_ID' => $request->campusid])
         ->get();
-      
+
 
 
        echo json_encode($currentcampus);
@@ -103,7 +103,7 @@ class CampusController extends Controller
     {
         $result= Kelex_campus::where('SCHOOL_EMAIL',$request->input("schoolemail"))
         ->where('CAMPUS_ID','!=',$request->input('campusid'))->get()->Toarray();
-        if(count($result)==0){ 
+        if(count($result)==0){
 
         if($request->hasFile('schoollogo'))
         {
@@ -114,10 +114,10 @@ class CampusController extends Controller
         ->where('CAMPUS_ID', $request->input('campusid'))
         ->update(["LOGO_IMAGE"=>$my_image]);
         }
-    $billingdate= Carbon::parse( $request->input("billingdate"));
-    $agreementdate= Carbon::parse($request->input("agreementdate"));
+        $billingdate= Carbon::parse( $request->input("billingdate"));
+        $agreementdate= Carbon::parse($request->input("agreementdate"));
+        $website = parse_url($request->input("schoolwebsite"))['host'];
 
-        
     $affected = DB::table('kelex_campuses')
               ->where('CAMPUS_ID', $request->input('campusid'))
               ->update(["SCHOOL_NAME"=>$request->input("schoolname"),
@@ -125,7 +125,7 @@ class CampusController extends Controller
               "PHONE_NO"=>$request->input("phoneno"),
               "MOBILE_NO"=>$request->input("mobileno"),
               "SCHOOL_REG"=>$request->input("schoolregistration"),
-              "SCHOOL_WEBSITE"=>   $request->input("schoolwebsite"),
+              "SCHOOL_WEBSITE"=>   $website,
               "SCHOOL_EMAIL"=>   $request->input("schoolemail"),
               "CONTROLLLER"=>  "abc",
               "USER_ID"=> Auth::user()->id,
@@ -153,7 +153,7 @@ class CampusController extends Controller
     {
         $id=$request->input('dcampusid');
         DB::table('kelex_campuses')->where('CAMPUS_ID',$id)->delete();
-        
+
         return response()->json($id);
 
     }

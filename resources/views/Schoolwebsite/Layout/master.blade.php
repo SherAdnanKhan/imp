@@ -10,13 +10,19 @@
         <link href="{{asset('school_website_asset/css/socicon.css')}}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{asset('school_website_asset/css/iconsmind.css')}}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{asset('school_website_asset/css/theme.css')}}" rel="stylesheet" type="text/css" media="all" />
+
+        <link href="{{asset('css/lightbox.min.css" rel="stylesheet" type="text/css')}}" media="all" />
+        <link href="{{asset('css/flickity.css" rel="stylesheet" type="text/css')}}" media="all" />
+        <link href="{{asset('css/jquery.steps.css" rel="stylesheet" type="text/css')}}" media="all" />
+        <link href="{{asset('css/font-rubiklato.css" rel="stylesheet" type="text/css')}}" media="all" />
+
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700%7CMerriweather:300,300i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         @yield('page-css')
     </head>
     <body class=" " data-smooth-scroll-offset='64'>
-        <a id="start"></a> 
-   
+        <a id="start"></a>
+
 <!-- header below -->
 @include('Schoolwebsite.Layout.header')
 @yield('content')
