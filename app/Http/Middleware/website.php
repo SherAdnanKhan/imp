@@ -13,6 +13,9 @@ class website
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
+     *
+     *
+     * aneeskhan gamranigit a
      */
     public function handle(Request $request, Closure $next)
     {
